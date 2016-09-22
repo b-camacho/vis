@@ -1,0 +1,16 @@
+{
+  "name": "nauka",
+  "version": "0.0.1",
+  "description": "simple project visualising metadata about publications",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-busboy": "0.0.2",
+    "json": "^9.0.4"
+  }
+}

@@ -1,0 +1,3 @@
+function WorksDemo() {return [{"year":2000,"amount":1},{"year":2001,"amount":1},{"year":2002,"amount":0},{"year":2003,"amount":0},{"year":2004,"amount":1},{"year":2005,"amount":1},{"year":2006,"amount":4},{"year":2007,"amount":1},{"year":2008,"amount":3},{"year":2009,"amount":1},{"year":2010,"amount":4},{"year":2011,"amount":0},{"year":2012,"amount":4},{"year":2013,"amount":3},{"year":2014,"amount":4},{"year":2015,"amount":7},{"year":2016,"amount":4}]
+    
+}

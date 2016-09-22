@@ -1,0 +1,52 @@
+.file-input-container {
+    margin-top: 20px;
+
+}
+
+.brand-logo {
+    margin-left: 2em;
+}
+
+.vis-select {
+    background-color: #e4e4e4;
+    position: absolute;
+    left: 0;
+    width: 30%;
+    height: calc(100% - 60px);
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-top: 20px
+}
+
+.card {
+    background-color: #8BC34A;
+}
+.demo {
+    float: right;
+}
+.file-input-card {
+    background-color: #FFFFFF;
+}
+.nav-wrapper {
+    margin-bottom: 0;
+    background-color: #8BC34A;
+}
+
+.svg-port {
+    position: absolute;
+    left: 35%;
+    width: 60%;
+    margin-top:50px;
+    height: 80%;
+}
+
+svg {
+    height: auto;
+    width: auto;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, div {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
