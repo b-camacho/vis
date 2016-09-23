@@ -81,8 +81,8 @@
                 <p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z wyszczególnieniem artykułów oraz książek.</p>
             </div>
             <div class="card-action">
-                <a class="btn waves-effect waves-light disabled vis-select-btn" onclick="drawWorksOverTimeWithAnimations(parsedData.worksOverTime)" href="#">Wyświetl</a>
-                <a class="btn waves-effect waves-light demo" onclick="drawWorksOverTimeWithAnimations(WorksDemo())" href="#">Demo</a>
+                <a class="btn waves-effect waves-light disabled vis-select-btn" onclick="drawWorksOverTimeGraph(parsedData.worksOverTime)" href="#">Wyświetl</a>
+                <a class="btn waves-effect waves-light demo" onclick="drawWorksOverTimeGraph(WorksDemo())" href="#">Demo</a>
             </div>
         </div>
     </div>
@@ -203,16 +203,16 @@
         d3.select('svg').selectAll('*').remove();
     }
 
-    function drawWorksOverTimeWithAnimations(data) {
-        drawWorksOverTimeGraph(data.map(function (el) {
-            return {
-                year: el.year,
-                amount: 0
-            }
-        }))
-
-        drawWorksOverTimeGraph(data);
-    }
+//    function drawWorksOverTimeWithAnimations(data) {
+//        drawWorksOverTimeGraph(data.map(function (el) {
+//            return {
+//                year: el.year,
+//                amount: 0
+//            }
+//        }))
+//
+//        drawWorksOverTimeGraph(data);
+//    }
     //fileReader.readAsText(file);)
 </script>
 
@@ -223,7 +223,7 @@
         var svg = d3.select("svg"),
                 width = $(".svg-port").width(),
                 height = $(".svg-port").height();
-        console.log(width);
+        svg.selectAll('*').remove();
         var barYearTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return 'Rok ' + d.year + ': ' + d.amount + ' prac'});
         svg.call(barYearTip);
 
@@ -255,21 +255,27 @@
                 .data(data);
         bars.enter().append('rect')
                 .attr('width', xScale.bandwidth())
-                .attr('y', function (d) {
-                    return maxBarHeight - yScale(d.amount);
-                })
                 .attr('x', function (d) {
                     return xScale(d.year);
+                })
+                .attr('y', maxBarHeight)
+                .attr('height', 0)
+                .style('fill', '#000000')
+                .attr('transform', 'translate( ' + [yScaleWidth, height/2 - 20] + ')')
+                .on('mouseover', barYearTip.show)
+                .on('mouseout', barYearTip.hide)
+                .transition()
+                .duration(1000)
+                .attr('y', function (d) {
+                    return maxBarHeight - yScale(d.amount);
                 })
                 .attr('height', function (d) {
                     return yScale(d.amount);
                 })
                 .style('fill', function (d) {
                     return colorScale(d.year);
-                })
-                .attr('transform', 'translate( ' + [yScaleWidth, height/2 - 20] + ')')
-                .on('mouseover', barYearTip.show)
-                .on('mouseout', barYearTip.hide);
+                });
+
 
         bars.transition()
                 .duration(1000)
