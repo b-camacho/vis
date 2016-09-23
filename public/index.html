@@ -203,6 +203,12 @@
         d3.select('svg').selectAll('*').remove();
     }
 
+    function PolskaFleksjaSlowaPraca(word, number) {
+        if(number == 1) return number + ' praca'
+        if(number >=2 && number <=4) return number + ' prace'
+        return number + ' prac'
+    }
+
 //    function drawWorksOverTimeWithAnimations(data) {
 //        drawWorksOverTimeGraph(data.map(function (el) {
 //            return {
@@ -224,7 +230,7 @@
                 width = $(".svg-port").width(),
                 height = $(".svg-port").height();
         svg.selectAll('*').remove();
-        var barYearTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return 'Rok ' + d.year + ': ' + d.amount + ' prac'});
+        var barYearTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.amount)});
         svg.call(barYearTip);
 
         var maxBarHeight = height /2;
@@ -462,7 +468,7 @@
                 .force("center",
                         d3.forceCenter(width / 2, height / 2));
 
-        var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; Prac: ' + d.strengthValue});
+        var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + PolskaFleksjaSlowaPraca('praca', d.strengthValue)});
         svg.call(nodeTip);
 
         var link = svg.append("g")
