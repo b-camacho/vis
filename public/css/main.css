@@ -12,7 +12,7 @@
     position: absolute;
     left: 0;
     width: 30%;
-    height: calc(100% - 60px);
+    height: inherit;
     padding-right: 2em;
     padding-left: 2em;
     padding-top: 20px
@@ -25,6 +25,14 @@
     float: right;
 }
 .file-input-card {
+    background-color: #FFFFFF;
+}
+.name-input-card {
+    background-color: #FFFFFF;
+
+}
+.name-select-card {
+    padding: 20px;
     background-color: #FFFFFF;
 }
 .nav-wrapper {
@@ -40,6 +48,9 @@
     height: 80%;
 }
 
+.collection {
+    border: 0;
+}
 svg {
     height: auto;
     width: auto;

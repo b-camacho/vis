@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +32,7 @@
 <script src="js/collab-demo-1.js"></script>
 <script src="js/bar-graph.js"></script>
 <script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
 <nav>
     <div class="nav-wrapper">
         <a href="#" class="brand-logo">Vis</a>
@@ -43,7 +44,7 @@
 </nav>
 
 <div class="z-depth-1 vis-select">
-    <div class="row">
+    <div class="row" hidden="hidden">
         <div class="card file-input-card">
             <div class="card-content black-text file-input-container">
                 <span class="card-title"> Dane wejściowe</span>
@@ -61,6 +62,45 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="card name-input-card col s12">
+            <div class="card-content black-text">
+                <span class="card-title">Imię i nazwisko</span>
+                <p>Możesz też podać swoje imię i nazwisko, a aplikacja przeszuka bazę Ekspertus za Ciebie</p>
+                <form action="#" id="name-input-form">
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="Imię" type="text" name="name" title="name">
+                            </div>
+                            <div class="input-field col s6">
+                                <input placeholder="Nazwisko" type="text" name="surname" title="surname">
+                            </div>
+                        </div>
+
+                        <input class="btn" type="submit">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="card name-select-card" id="name-select-card" hidden="hidden">
+            <form action="#" id="name-select-form">
+                <ul class="collection with-header" id="name-select-list">
+                    <li class="collapsible-header" id="name-select-list-header" style="font-size: xx-large">
+                        Zaznacz na liscie swoje imie
+                    </li>
+
+                </ul>
+                <button class="btn waves-effect" type="submit" id="name-select-submit">
+                    Wybierz
+                </button>
+            </form>
+        </div>
+
     </div>
     <div class ="row">
         <div class="card ">
@@ -115,7 +155,56 @@
                 fileReader.readAsText(file);
             })
     );
-//    $(document).ready(
+    $(document).ready(
+            $('#name-input-form').submit(function (event) {
+                event.preventDefault();
+               /* var name = null, surname = null;
+                $('#name-input-form').find('input[type=text]').each(function () {
+                    if($(this).name == 'name') name = $(this).name;
+                    else surname = $(this).name;
+                });*/
+                var formData = {};
+                $('#name-input-form').serializeArray().forEach(function (el) {
+                    if(el.name == 'name') formData.name = el.value;
+                    if(el.name == 'surname') formData.surname = el.value;
+                });
+                formData.mode = 'names';
+                console.log('Fetching with formData: ');
+                console.log(formData);
+                $.post("search", formData, function( data ) {
+                    console.log(data);
+                   // var selectForm = $('#name-select-form');
+                    var listHeader = $('#name-select-list-header');
+                    data.forEach(function (name, index) {
+                        var listElement =
+                                $(  '<li class="collection-item">' +
+                                    '<input name="true_name" type="radio" id="' + index + '">' +
+                                    '<label for="' + index + '">' + name + '</label></li>' );
+                        listHeader.after(listElement);
+                    });
+                    $('#name-select-card').attr("hidden", false)
+
+                });
+            })
+    );
+    $(document).ready(
+            $('#name-select-form').submit(function (event) {
+                event.preventDefault();
+
+                var selectForm = $('#name-select-form');
+                var trueName = $('label[for="' + $('input[type="radio"]:checked').attr("id") + '"]').text();
+                console.log('AND THE SELECTED NAME WAS ' + trueName);
+
+                $.post("retrieve", {name:trueName, mode:'works'} , function( data ) {
+                    console.log(data);
+                    parsedData.collaboration = getNodes(ParseExpertusCollaborationList(data));
+                    parsedData.worksOverTime = getBars(ParseExpertusWorksOverTime(data));
+                    $('.vis-select-btn').removeClass('disabled');
+                });
+            })
+    )
+
+    //    $(document).ready(
 //            $("#file-input-form").submit(function (event) {
 //                console.log('XDDDDD');
 //                event.preventDefault();
@@ -132,6 +221,11 @@
 //                };
 //            })
 //    );
+
+    function DisplayNameSelect(names) {
+
+    }
+
     function drawBarGraph(data) {
         var svg = d3.select("#bar");
         svg.attr("height", height + 30).attr("width", width + 20);
@@ -567,5 +661,20 @@
     //$('input[type="submit"], input[type="button"], button').disable(false);
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+
 </body>
 </html>
+<!--<li class="collection-item">-->
+    <!--<input name="true-name" type="radio" id="input1">-->
+    <!--<label for="input1">Imie Nazwisko</label>-->
+<!--</li>-->
+<!--<li class="collection-item">-->
+    <!--<input name="true-name" type="radio" id="input2">-->
+    <!--<label for="input2">Generyczne Imie</label>-->
+<!--</li>-->
+<!--<li class="collection-item">-->
+    <!--<input name="true-name" type="radio" id="input3">-->
+    <!--<label for="input3">Kolejne Imie</label>-->
+<!--</li>-->
