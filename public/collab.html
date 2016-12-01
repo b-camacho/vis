@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Graf wspolpracy</title>
+</head>
+
+<body>
+
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="js/remove-diacritics.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="js/d3-tip.js"></script>
+<script src="js/parse-raw-expertus.js"></script>
+<script src="js/collab-demo-1.js"></script>
+<script src="js/bar-graph.js"></script>
+<script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
+<script src="js/collab.js"></script>
+
+
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Wizualizator naukowca</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Wizualizacje</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col s4" style="padding-left: 0">
+        <div class="z-depth-1 vis-info">
+            <div class ="row">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <span class="card-title">Graf współautorstwa</span>
+                        <p>Symulacja, w której każda osoba oznaczona we wczytanej pracy jako współautor jest przedstawiona jako węzeł, który przyciągany jest do innych tym silniej, im więcej dzieli z nimi prac naukowych</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <ul class="collection with-header z-depth-1">
+                    <li class="collection-header"><h5>Szczegóły</h5></li>
+                    <li class="collection-item"><div><span>Liczba współautorów: </span> <span id="coworkers-amount-display" style="float: right">-</span></div></li>
+                    <li class="collection-item"><div><span>Najwięcej wspólnych prac z: </span> <span id="max-shared-works-amount-display" style="float: right">-</span></div></li>
+                    <li class="collection-item"><div><span>Średnia liczba współautorów: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>
+                    <li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col s8">
+        <svg class="z-depth-1 svg-port" id="svg-port"></svg>
+    </div>
+</div>
+
+
+
+
+<script>
+
+$(document).ready(function () {
+            $.post("collabData", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+                console.log(data);
+                drawSimulationCollaborationGraph(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)));
+                displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
+        }
+
+)});
+
+function drawSimulationCollaborationGraph(data) {
+    console.log(data);
+    clearSvg();
+//    var colorScale = d3.scaleSequential(d3.interpolateYlOrRd) //TODO: SWITCH TO AN ORDINAL COLOR SCALE
+//            .domain([-2, data.rings[data.rings.length - 1] * 2 / 3]);
+
+    var sizeScale = d3.scaleLinear()
+            .domain(
+                    [
+                        d3.min(data.simNodes, function (d) {return d.strengthValue;}),
+                        d3.max(data.simNodes, function (d) {return d.strengthValue;})
+                    ])
+            .range([10, 30]);
+
+
+    var svg = d3.select("#svg-port"),
+            width = $(".svg-port").width(),
+            height = $(".svg-port").height();
+
+    console.log(width + ' ' + height);
+
+    var simulation = d3.forceSimulation()
+            .force("link", d3.forceLink()
+                    .id(function (d) {return d.id; })
+                    .distance(function (d) {
+                        return Math.min(width, height)/2 / d.value
+                    }))
+            .force("charge",
+                    d3.forceManyBody()
+                            .strength(function() {
+                                return -200;
+                            }))
+            .force("center",
+                    d3.forceCenter(width / 2, height / 2));
+
+    var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + PolskaFleksjaSlowaPraca('praca', d.strengthValue)});
+    svg.call(nodeTip);
+
+    var link = svg.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(data.simLinks)
+            .enter().append("line")
+            .attr("stroke-width", function (d) {
+                return Math.sqrt(d.value);
+            })
+            .style("stroke", d3.rgb(69,67,67))
+            .style("stroke-opacity", 0.5);
+
+    var node = svg.append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(data.simNodes)
+            .enter().append("circle")
+            .attr("r", function (d) {
+                return sizeScale(d.strengthValue)
+            })
+            .attr("fill", function (d) {
+                return NextColor();
+            })
+            .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended))
+            .on('mouseover', nodeTip.show)
+            .on('mouseout', nodeTip.hide);
+
+    simulation
+            .nodes(data.simNodes)
+            .on("tick", ticked);
+
+    simulation.force("link")
+            .links(data.simLinks);
+
+    function ticked() {
+        link
+                .attr("x1", function (d) {
+                    return d.source.x;
+                })
+                .attr("y1", function (d) {
+                    return d.source.y;
+                })
+                .attr("x2", function (d) {
+                    return d.target.x;
+                })
+                .attr("y2", function (d) {
+                    return d.target.y;
+                });
+
+        node
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                });
+    }
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+
+    console.log('Simulation finished')
+}
+
+var colorCounter = 0;
+function NextColor() {
+    if (colorCounter >= 9) colorCounter = 0;
+    return d3.schemeSet2[colorCounter++];
+}
+
+function displayWorkStatsCollab (data) {
+
+    var displayValues = {
+        coworkersAmount: data.simNodes.length - 1,
+        mostSharedWorks: 1,
+        sumOfWorks: 0
+    };
+
+    data.simNodes.forEach(function (coauthor, index) {
+        if(coauthor.strengthValue > displayValues.mostSharedWorks && index != 0) {
+            displayValues.mostSharedWorks = coauthor.strengthValue;
+            displayValues.mostSharedWorksWith = coauthor.id;
+        }
+        displayValues.sumOfWorks += coauthor.strengthValue
+    });
+    displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
+
+    console.log(displayValues);
+
+    $('#coworkers-amount-display').text(displayValues.coworkersAmount);
+    $('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
+    $('#mean-coworkers-amount-display').text(displayValues.meanAmountOfWorks.toFixed(2));
+    $('#works-amount-display').text(displayValues.sumOfWorks)
+}
+
+function ConvertDbOutputIntoLegacyExpertusFormat(data, mainName) { //[ {authors: [author1, author2]} ]
+    var LegacyCollaboratorList = [];
+
+    data.forEach(function (work) {
+        var singleWorkAuthors = [];
+        work.authors.forEach(function (author) {
+            if(author != mainName) singleWorkAuthors.push(author);
+        });
+        LegacyCollaboratorList.push(singleWorkAuthors)
+    });
+
+    return LegacyCollaboratorList
+}
+
+
+
+if (!Array.prototype.includes) {
+    Array.prototype.includes = function(searchElement /*, fromIndex*/) {
+        'use strict';
+        if (this == null) {
+            throw new TypeError('Array.prototype.includes called on null or undefined');
+        }
+
+        var O = Object(this);
+        var len = parseInt(O.length, 10) || 0;
+        if (len === 0) {
+            return false;
+        }
+        var n = parseInt(arguments[1], 10) || 0;
+        var k;
+        if (n >= 0) {
+            k = n;
+        } else {
+            k = len + n;
+            if (k < 0) {k = 0;}
+        }
+        var currentElement;
+        while (k < len) {
+            currentElement = O[k];
+            if (searchElement === currentElement ||
+                    (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
+                return true;
+            }
+            k++;
+        }
+        return false;
+    };
+}
+
+
+function getNodes (allWorks) { //allWorks: [ ["Collaborator1", "Collaborator2"], ["Collaborator3"] ];
+
+    var CollaboratorList = getCompleteCollaboratorList(allWorks);
+
+    var ringValues = getRingValues(CollaboratorList[0].collaborations);
+
+    // console.log(ringValues);
+
+    var circlePositions = [];
+    var separationDistance = 360/ringValues[0].people.length;
+    for(var angle = 0; angle < 360; angle += separationDistance) circlePositions.push(angle);
+
+    ringValues.forEach(function (el, index) {
+        if(index == 0) {
+            el.arcs = circlePositions;
+            return
+        }
+        circlePositions = getPositions(circlePositions, el.people.length);
+        el.arcs = circlePositions
+    });
+
+    var nodes = [];
+    var rings = [];
+
+    ringValues.forEach(function (ring, index) {
+        if(index == ringValues.length - 1) return;
+        rings.push(ring.worksAmount);
+        ring.people.forEach(function (person, index) {
+            nodes.push({
+                name: person,
+                angle: ring.arcs[index],
+                amount: ring.worksAmount
+            })
+        })
+    });
+    var simNodes = [];
+    simNodes.push({id: ringValues[ringValues.length - 1].people[0], strengthValue: ringValues[ringValues.length - 1].worksAmount});
+    nodes.forEach(function (el, index) {
+        simNodes.push({id: el.name, strengthValue: el.amount});
+    });
+
+    var simLinks = [];
+    nodes.forEach(function (el) {
+        simLinks.push({source: simNodes[0].id, target: el.name, value: el.amount})
+    });
+
+
+    return {
+        nodes: nodes,
+        rings: rings,
+        simNodes: simNodes,
+        simLinks: simLinks
+    };
+}
+function PolarToCartesian(angle, length) {
+    angle = toRad(angle);
+    return {
+        x: Math.cos(angle) * length,
+        y: Math.sin(angle) * length
+    }
+}
+function toRad(deg) {
+    return deg*Math.PI/180;
+}
+function getPositions (previousPositions, currentAmount) {
+    var range = 360 / currentAmount;
+    // if(range == 360) range = 180;
+    var currentPositions = [];
+    for(var angle = 0; angle < 360; angle += range) {
+        currentPositions.push(angle);
+    }
+
+    var positionDifferences = [];
+    var minimalPositionDifference = 0, currentBestOffset = 0;
+    for(var offset=0; offset<range; offset += (range/20) ) {
+
+        positionDifferences = currentPositions.map(function (position) {
+            var distancesFromSinglePoint = [];
+            previousPositions.forEach(function (previousPosition) {
+                distancesFromSinglePoint.push(Math.abs(previousPosition - position - offset) % 180);
+            });
+            //console.log(Math.min.apply(null, distancesFromSinglePoint));
+            return Math.min.apply(null, distancesFromSinglePoint);
+        });
+
+        if(Math.min.apply(null, positionDifferences) > minimalPositionDifference) {
+            minimalPositionDifference = Math.min.apply(null, positionDifferences);
+            currentBestOffset = offset
+        }
+
+    }
+
+    return currentPositions.map(function (position) {
+        return position + currentBestOffset;
+    })
+}
+
+function getRingValues(singleCollaborationList) {
+
+    singleCollaborationList = singleCollaborationList.sort(compareCollaboratorsByAmount);
+
+    var ringValues = [{
+        worksAmount: 1,
+        people: []
+    }];
+    for(var i = 1; i<singleCollaborationList.length; i++) {
+        if(singleCollaborationList[i-1].amount != singleCollaborationList[i].amount) {
+            ringValues.push( {
+                worksAmount: singleCollaborationList[i].amount,
+                people: [singleCollaborationList[i].name]
+            } )
+        }
+        else {
+            ringValues[ ringValues.length - 1 ].people.push(singleCollaborationList[i].name);
+        }
+    }
+    return ringValues;
+}
+
+function incrementCollaboration (arr, name) {
+    for(var i=0; i<arr.length; i++) {
+        if(arr[i].name == name) {
+            arr[i].amount++;
+            return
+        }
+    }
+}
+
+function getCompleteCollaboratorList ( allWorks ) {
+
+    var allCollaborators = [];
+    var allCollaboratorsWithAmounts = [];
+    var collaborationAmountArray = [];
+    allWorks.forEach(function (work) {
+        work.forEach(function (person) {
+            if(!allCollaborators.includes(person)) {
+                allCollaborators.push(person);
+                collaborationAmountArray.push(
+                        {
+                            name: person,
+                            amount: 0
+                        })
+            }
+
+        })
+    });
+
+    allCollaborators.forEach(function (person) {
+        allCollaboratorsWithAmounts.push(
+                {
+                    name: person,
+                    collaborations: JSON.parse(JSON.stringify(collaborationAmountArray))
+                })
+    });
+
+
+    allCollaboratorsWithAmounts.forEach(function (collaborator, index, arr) {
+        for(var i=0; i<allWorks.length; i++) {
+            if(allWorks[i].includes(collaborator.name)) {
+                allWorks[i].forEach(function (person) {
+                    incrementCollaboration(collaborator.collaborations, person);
+                });
+            }
+        }
+    });
+
+    return allCollaboratorsWithAmounts;
+}
+
+function compareCollaboratorsByAmount (a, b) {
+    if (a.amount < b.amount) {
+        return -1;
+    }
+    if (a.amount > b.amount) {
+        return 1;
+    }
+    return 0;
+}
+
+function clearSvg() {
+    d3.select('svg').selectAll('*').remove();
+}
+
+function ParseExpertusCollaborationList(rawText) { //an array of arrays containing author names
+    rawText = rawText.trim();
+    var lines = rawText.split('\n');
+    var works = [];
+    for(var i=0; i<lines.length; i++) {
+        var people = [];
+        while(isPerson(lines[i]) != false && i < lines.length) {
+            people.push(isPerson(lines[i]));
+            i++
+        }
+        if(people.length > 0) works.push(people);
+    }
+
+    return(works);
+}
+
+function PolskaFleksjaSlowaPraca(word, number) {
+    if(number == 1) return number + ' praca'
+    if(number >=2 && number <=4) return number + ' prace'
+    return number + ' prac'
+}
+
+</script>
+
+
+</body>
+</html>

@@ -10,15 +10,7 @@ function getBars (allWorks) {
         })
     }
 
-    // for(var i=0; i<allWorks.length; i++) {
-    //     while(allWorks[i] == currentYear) {
-    //         currentWorks++;
-    //         i++;
-    //     }
-    //     bars.push({year: allWorks[i-1], amount: currentWorks});
-    //     currentYear = allWorks[i];
-    //     currentWorks = 1;
-    // }
+
     console.log(bars);
     return bars;
 }

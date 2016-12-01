@@ -10,10 +10,6 @@ var latin2 = require('iso-8859-2');
 
 var retriever = {};
 
-
-
-
-
 retriever.run = function (name, config, done) { //{mode: 'names'|'works'}
     var modeKey;
     if(!config) config = {mode:'names'};
@@ -71,16 +67,17 @@ retriever.run = function (name, config, done) { //{mode: 'names'|'works'}
 
     var req = http.request(options, function (res) {
         var chunks = [];
-
+        console.log('Submiting request to expertus');
         res.on("data", function (chunk) {
             chunks.push(chunk);
         });
 
         res.on("end", function () {
             var body = Buffer.concat(chunks).toString();
+            console.log('Received response from expertus');
             if(config.mode == 'works') {
                 var rawExpertusText = parseHTMLIntoRecords(body);
-                fs.writeFileSync('./raw-expertus-store/' + name + (Math.floor(Math.random() * 1000)) + '.txt', rawExpertusText)
+                //fs.writeFileSync('./raw-expertus-store/' + name + (Math.floor(Math.random() * 1000)) + '.txt', rawExpertusText)
                 done(null, rawExpertusText);
             }
             if(config.mode == 'names') {
@@ -110,7 +107,6 @@ var parseHTMLIntoListOfNames = function (body) {
         names.push($(this).val())
     });
     return names;
-   // console.log(names);
 };
 //latin2.encode('Osińska Veslava', {mode: 'fatal'});
 //retriever.run('osinska veslava', {mode: 'works'});

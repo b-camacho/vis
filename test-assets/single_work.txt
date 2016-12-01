@@ -1,0 +1,12 @@
+700 del Junco, Andres
+700 Lemańczyk, Mariusz
+700 Mentzen, Mieczysław
+245 Semisimplicity, joinings and group extensions.
+773 Stud. Math., T. 112 fasc. 2
+260 1995
+300 S. 141-164
+504 Bibliogr.
+994 cc95215241
+025 ENG
+210 Studia Mathematica
+idt 0000016811

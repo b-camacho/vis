@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+
+
+
+    <title>Wersja testowa</title>
+
+</head>
+
+<body>
+
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="js/remove-diacritics.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="js/collaboration-graph.js"></script>
+<script src="js/d3-tip.js"></script>
+<script src="js/parse-raw-expertus.js"></script>
+<script src="js/collab-demo-1.js"></script>
+<script src="js/bar-graph.js"></script>
+<script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
+
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Vis</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Wizualizacje</a></li>
+            <li><a href="#">O projekcie</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col s4">
+        <div class="z-depth-1 vis-select">
+    <div class="row" hidden="hidden">
+        <div class="card file-input-card">
+            <div class="card-content black-text file-input-container">
+                <span class="card-title"> Dane wejściowe</span>
+                <p>prześlij plik z bazy ekspertus, na podstawie ktorego strona wygeneruje wizualizacje</p>
+                <form action="#" id="file-input-form">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Plik</span>
+                            <input type="file" id="file-input">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card name-input-card col s12">
+            <div class="card-content black-text">
+                <span class="card-title">Imię i nazwisko</span>
+                <p>Możesz też podać swoje imię i nazwisko, a aplikacja przeszuka bazę Ekspertus za Ciebie</p>
+                <form action="#" id="name-input-form">
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="Imię" type="text" name="name" title="name">
+                            </div>
+                            <div class="input-field col s6">
+                                <input placeholder="Nazwisko" type="text" name="surname" title="surname">
+                            </div>
+                        </div>
+
+                        <input class="btn" type="submit">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="card name-select-card" id="name-select-card" hidden="hidden">
+            <form action="#" id="name-select-form">
+                <ul class="collection with-header" id="name-select-list">
+                    <li class="collapsible-header" id="name-select-list-header" style="font-size: xx-large">
+                        Zaznacz na liscie swoje imie
+                    </li>
+
+                </ul>
+                <button class="btn waves-effect" type="submit" id="name-select-submit">
+                    Wybierz
+                </button>
+            </form>
+        </div>
+
+    </div>
+    <div class ="row">
+        <div class="card ">
+            <div class="card-content white-text ">
+                <span class="card-title">Graf współautorstwa</span>
+                <p>Symulacja, w której każda osoba oznaczona we wczytanej pracy jako współautor jest przedstawiona jako węzeł, który przyciągany jest do innych tym silniej, im więcej dzieli z nimi prac naukowych</p>
+            </div>
+            <div class="card-action">
+                <a class="btn waves-effect waves-light disabled vis-select-btn" onclick="drawSimulationCollaborationGraph(parsedData.collaboration)" href="#">Wyświetl</a>
+                <a class="btn waves-effect waves-light demo" onclick="toggleCollabDemo()" href="#">Demo</a>
+            </div>
+        </div>
+    </div>
+    <div class ="row">
+        <div class="card ">
+            <div class="card-content white-text">
+                <span class="card-title">Prace w czasie</span>
+                <p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z wyszczególnieniem artykułów oraz książek.</p>
+            </div>
+            <div class="card-action">
+                <a class="btn waves-effect waves-light disabled vis-select-btn" onclick="drawWorksOverTimeGraph(parsedData.worksOverTime)" href="#">Wyświetl</a>
+                <a class="btn waves-effect waves-light demo" onclick="drawWorksOverTimeGraph(WorksDemo())" href="#">Demo</a>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="col s8">
+        <svg class="svg-port z-depth-1"></svg>
+    </div>
+<script>
+
+</script>
+
+<script>
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+
+    var rawData;
+    var parsedData = {};
+    $(document).ready(
+            $('#file-input').change(function (event) {
+                var file = $("#file-input")[0].files[0];
+                var fileReader = new FileReader();
+                fileReader.onloadend = function (event) {
+                    rawData = event.target.result.toString();
+                    parsedData.collaboration = getNodes(ParseExpertusCollaborationList(rawData));
+                    parsedData.worksOverTime = getBars(ParseExpertusWorksOverTime(rawData));
+                    $('.vis-select-btn').removeClass('disabled');
+                };
+                fileReader.readAsText(file);
+            })
+    );
+    $(document).ready(
+            $('#name-input-form').submit(function (event) {
+                event.preventDefault();
+               /* var name = null, surname = null;
+                $('#name-input-form').find('input[type=text]').each(function () {
+                    if($(this).name == 'name') name = $(this).name;
+                    else surname = $(this).name;
+                });*/
+                var formData = {};
+                $('#name-input-form').serializeArray().forEach(function (el) {
+                    if(el.name == 'name') formData.name = el.value;
+                    if(el.name == 'surname') formData.surname = el.value;
+                });
+                formData.mode = 'names';
+                console.log('Fetching with formData: ');
+                console.log(formData);
+                $.post("search", formData, function( data ) {
+                    console.log(data);
+                   // var selectForm = $('#name-select-form');
+                    var listHeader = $('#name-select-list-header');
+                    data.forEach(function (name, index) {
+                        var listElement =
+                                $(  '<li class="collection-item">' +
+                                    '<input name="true_name" type="radio" id="' + index + '">' +
+                                    '<label for="' + index + '">' + name + '</label></li>' );
+                        listHeader.after(listElement);
+                    });
+                    $('#name-select-card').attr("hidden", false)
+
+                });
+            })
+    );
+    $(document).ready(
+            $('#name-select-form').submit(function (event) {
+                event.preventDefault();
+
+                var selectForm = $('#name-select-form');
+                var trueName = $('label[for="' + $('input[type="radio"]:checked').attr("id") + '"]').text();
+                console.log('AND THE SELECTED NAME WAS ' + trueName);
+
+                $.post("retrieve", {name:trueName, mode:'works'} , function( data ) {
+                    console.log(data);
+                    parsedData.collaboration = getNodes(ParseExpertusCollaborationList(data));
+                    parsedData.worksOverTime = getBars(ParseExpertusWorksOverTime(data));
+                    $('.vis-select-btn').removeClass('disabled');
+                });
+            })
+    )
+
+    //    $(document).ready(
+//            $("#file-input-form").submit(function (event) {
+//                console.log('XDDDDD');
+//                event.preventDefault();
+//                console.log('Submit event triggered \n read file: ');
+//                var file = $("#file-input-form")[0].files[0];
+//                var filename = file.name;
+//                var fileReader = new FileReader();
+//                fileReader.onloadend = function (event) {
+//                    rawData = event.target.result.toString();
+//                    console.log(rawData);
+//                    $('.vis-select-btn').removeClass('disabled');
+//                    // drawSimulationCollaborationGraph(getNodes(ParseExpertusCollaborationList(event.target.result.toString())));
+//                    // drawCollaborationGraph(ParseExpertusCollaborationList(event.target.result.toString()));
+//                };
+//            })
+//    );
+
+    function DisplayNameSelect(names) {
+
+    }
+
+    function drawBarGraph(data) {
+        var svg = d3.select("#bar");
+        svg.attr("height", height + 30).attr("width", width + 20);
+
+        var maxAmount = d3.max(data.valuesWithEmptyYears, function (d, i) {
+            return d.amount;
+        });
+        console.log('Max Amount: ' + maxAmount);
+        var xScale = d3.scaleBand()
+                .domain(data.valuesWithEmptyYears.map(function (el) {
+                    return el.year;
+                }))
+                .range([0, width])
+                .paddingInner(0.1)
+                .paddingOuter(0.1);
+        console.log('Band width:' + xScale.bandwidth());
+        var yScale = d3.scaleLinear()
+                .domain([0, maxAmount])
+                .range([0, height]);
+
+        var bars = svg.selectAll('rect')
+                .data(data.valuesWithEmptyYears);
+
+        bars.enter().append('rect')
+                .attr('x', function (d, i) {
+                    return (xScale(d.year));
+                })
+                .attr('y', function (d, i) {
+                    return (yScale(maxAmount) - yScale(d.amount))
+                })
+                .attr('width', xScale.bandwidth())
+                .attr('height', function (d, i) {
+                    return (yScale(d.amount));
+                })
+                .attr('transform', 'translate(' + 20 + ',' + 0 + ')');
+
+        drawBarGraphAxes(xScale, yScale);
+
+    }
+
+    function drawBarGraphAxes(x, y) { //args are scale x and scale y
+        var xAxis = d3.axisBottom()
+                .scale(x)
+                .ticks(x.domain.length);
+        var yAxis = d3.axisLeft()
+                .scale(y)
+                .ticks(5);
+
+        d3.select('svg')
+                .append('g')
+                .attr('transform', 'translate(' + 20 + ',' + 650 + ')')
+                .attr('class', 'x axis')
+
+                .call(xAxis);
+        d3.select('svg')
+                .append('g')
+                .attr('class', 'y axis')
+                .attr('transform', 'translate(' + 20 + ',' + 0 + ')')
+                .call(yAxis);
+
+    }
+
+    function toggleCollabDemo() {
+        clearSvg();
+        drawSimulationCollaborationGraph(CollabDemo());
+    }
+
+    function clearSvg() {
+        d3.select('svg').selectAll('*').remove();
+    }
+
+    function PolskaFleksjaSlowaPraca(word, number) {
+        if(number == 1) return number + ' praca'
+        if(number >=2 && number <=4) return number + ' prace'
+        return number + ' prac'
+    }
+
+//    function drawWorksOverTimeWithAnimations(data) {
+//        drawWorksOverTimeGraph(data.map(function (el) {
+//            return {
+//                year: el.year,
+//                amount: 0
+//            }
+//        }))
+//
+//        drawWorksOverTimeGraph(data);
+//    }
+    //fileReader.readAsText(file);)
+</script>
+
+<script>
+
+    function drawWorksOverTimeGraph(data) {
+
+        var svg = d3.select("svg"),
+                width = $(".svg-port").width(),
+                height = $(".svg-port").height();
+        svg.selectAll('*').remove();
+        var barYearTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.amount)});
+        svg.call(barYearTip);
+
+        var maxBarHeight = height /2;
+        var maxBarWidth = width;
+        var yScaleWidth = 30
+        var xScale = d3.scaleBand()
+                .domain(data.map(function (el) {
+                    return el.year;
+                }))
+                .range([0, maxBarWidth - yScaleWidth])
+                .paddingInner(0.1)
+                .paddingOuter(0.2)
+        var yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, function (d) {
+                    return d.amount
+                })])
+                .range([0, maxBarHeight]);
+        var colorScale = d3.scaleSequential(d3.interpolateCool)
+                .domain([d3.min(data, function (el) {
+                    return el.year
+                }), d3.max(data, function (el) {
+                    return el.year
+                })]);
+
+        if(svg.select('g').empty()) svg.append('g').attr('id', 'bars');
+        var bars = svg.select('g')
+                .selectAll('rect')
+                .data(data);
+        bars.enter().append('rect')
+                .attr('width', xScale.bandwidth())
+                .attr('x', function (d) {
+                    return xScale(d.year);
+                })
+                .attr('y', maxBarHeight)
+                .attr('height', 0)
+                .style('fill', '#000000')
+                .attr('transform', 'translate( ' + [yScaleWidth, height/2 - 20] + ')')
+                .on('mouseover', barYearTip.show)
+                .on('mouseout', barYearTip.hide)
+                .transition()
+                .duration(1000)
+                .attr('y', function (d) {
+                    return maxBarHeight - yScale(d.amount);
+                })
+                .attr('height', function (d) {
+                    return yScale(d.amount);
+                })
+                .style('fill', function (d) {
+                    return colorScale(d.year);
+                });
+
+
+        bars.transition()
+                .duration(1000)
+                .attr('y', function (d) {
+                    return maxBarHeight - yScale(d.amount)
+                })
+                .attr('height', function (d) {
+                    return yScale(d.amount);
+                })
+                .style('fill', function (d) {
+                    return colorScale(d.year);
+                });
+
+        bars.exit()
+                .transition()
+                .duration(300)
+                .attr('width', 0)
+                .remove();
+        var xAxis = d3.axisBottom(xScale);
+        svg.append('g').attr('id', 'x-axis').call(xAxis).attr('transform', 'translate( ' + [-width, height/2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [yScaleWidth, height - 20] + ')');
+        var yAxis = d3.axisLeft(yScale.domain(yScale.domain().reverse()));
+        svg.append('g').attr('id', 'y-axis').call(yAxis).attr('transform', 'translate( ' + [0, height*2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [30, height - maxBarHeight - 20] + ')');
+        //svg.select('g').call(xAxis).attr('width', 0).transition().duration(1000).attr('width', width);
+
+    }
+
+    function drawCollaborationGraph(data) {
+
+        data.userNameAndSurname = data.simNodes[0].id;
+        var svg = d3.select("svg"),
+                width = $(".svg-port").width(),
+                height = $(".svg-port").height();
+
+        var userNodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return data.userNameAndSurname});
+        svg.call(userNodeTip);
+
+        var workaroundD3 = [1];
+        var userNode = svg.append('g')
+                .attr('id', 'user-icon')
+                .selectAll('circle')
+                .data(workaroundD3);
+        userNode.enter()
+                .append('circle')
+                .attr('cx', width/2)
+                .attr('cy', height/2)
+                .attr('r', 45)
+                .style('fill', '#45ADE6');
+        var userIcon = svg.select('#user-icon')
+                .selectAll('text')
+                .data(workaroundD3);
+        userIcon.enter()
+                .append('text')
+                .attr('x', width/2 - 45/1.5)
+                .attr('y', height/2 + 45/1.7)
+                .attr('font-family', 'FontAwesome')
+                .attr('font-size', 45 * 1.7)
+                .style('fill', function (d) {
+                    return d3.rgb(69,67,67);
+                })
+                .text('\uf007')
+                .on('mouseover', userNodeTip.show)
+                .on('mouseout', userNodeTip.hide);
+        var nodeRadius = 25;
+        var graphMargin = nodeRadius;
+        var rayRange = [];
+        for(var ray = Math.min(width, height) / 2 / data.rings.length + 15; ray <= Math.min(width, height)/2; ray += Math.min(width, height) / 2 / data.rings.length){
+            rayRange.push(ray)
+        }
+        console.log('RayRange: ' + rayRange);
+        var rayScale = d3.scaleOrdinal()
+                .domain(data.rings)
+                .range(rayRange.reverse());
+
+//        var colorScale = d3.scaleSequential(d3.interpolateYlOrRd)
+//                .domain([nodeAndArcData.rings[0], nodeAndArcData.rings[nodeAndArcData.rings.length - 1]].reverse());
+
+        var colorScale = d3.scaleOrdinal(d3.schemeSet3)
+                .domain(data.rings);
+
+        console.log('Sequential color scale domain: ' + data.rings[0] + ' ' + data.rings[data.rings.length - 1]);
+        console.log(data);
+
+
+        var rings = svg.append('g')
+                .attr('id', 'rings')
+                .selectAll('circle')
+                .data(data.rings.reverse());
+
+        rings.enter().append('circle')
+                .attr('cx', width/2)
+                .attr('cy', height/2)
+                .attr('r', function (d) {
+                    return rayScale(d)
+                })
+                // .style('fill', 'none')
+                .style('stroke-width', '2px')
+                //                .style('stroke', function (d) {
+                //                    console.log(colorScale(d));
+                //                    return d3.color(colorScale(d));
+                //                })
+                .style('stroke', d3.lab(60, 0, 0))
+                .style('fill', 'none');
+
+        var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.name});
+        svg.call(nodeTip);
+        console.log(data.userNameAndSurname);
+        var nodes = svg
+                .append('g')
+                .attr('id', 'nodes')
+                .selectAll('circle')
+                .data(data.nodes);
+        nodes.enter().append('circle')
+                .attr('cx', function (d) {
+                    return PolarToCartesian(d.angle, rayScale(d.amount) ).x + width/2;
+                })
+                .attr('cy', function (d) {
+                    return -PolarToCartesian(d.angle, rayScale(d.amount) ).y + height/2;
+                })
+                .attr('r', nodeRadius)
+                .style('fill', function (d) {
+                    return colorScale(d.amount);
+                })
+                .style('stroke-width', '1px')
+                .style('stroke', d3.rgb(69, 67, 67))
+                .append('title')
+                .text(function (d) {
+                    return d.name
+                })
+                .on('mouseover', nodeTip.show)
+                .on('mouseout', nodeTip.hide);
+
+        var icons = svg.append('g')
+                .attr('id', 'icons')
+                .selectAll('text')
+                .data(data.nodes);
+        icons.enter().append('text')
+                .attr('x', function (d) {
+                    return PolarToCartesian(d.angle, rayScale(d.amount) ).x + width/2 - nodeRadius/1.5;
+                })
+                .attr('y', function (d) {
+                    return -PolarToCartesian(d.angle, rayScale(d.amount) ).y + height/2 + nodeRadius/1.7;
+                })
+                .attr('font-family', 'FontAwesome')
+                .attr('font-size', function(d) { return nodeRadius*1.7 + 'px'} )
+                .style('fill', function (d) {
+                    return d3.rgb(69,67,67);
+                })
+                .text(function(d) { return '\uf007' })
+                .on('mouseover', nodeTip.show)
+                .on('mouseout', nodeTip.hide);
+
+
+//        svg.append('circle')
+//                .attr("cx", width/2)
+//                .attr("cy", height/2)
+//                .attr("r", 25)
+//                .style("fill", "red");
+
+
+
+    }
+
+    function drawSimulationCollaborationGraph(data) {
+
+        clearSvg();
+        var colorScale = d3.scaleSequential(d3.interpolateYlOrRd) //TODO: SWITCH TO AN ORDINAL COLOR SCALE
+                .domain([-2, data.rings[data.rings.length - 1] * 2 / 3]);
+
+        var svg = d3.select("svg"),
+                width = $(".svg-port").width(),
+                height = $(".svg-port").height();
+
+        var simulation = d3.forceSimulation()
+                .force("link", d3.forceLink()
+                        .id(function (d) {return d.id; })
+                        .distance(function (d) {
+                            return Math.min(width, height)/2 / d.value
+                        }))
+                .force("charge",
+                        d3.forceManyBody()
+                                .strength(function() {
+                                    return -200;
+                                }))
+                .force("center",
+                        d3.forceCenter(width / 2, height / 2));
+
+        var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + PolskaFleksjaSlowaPraca('praca', d.strengthValue)});
+        svg.call(nodeTip);
+
+        var link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(data.simLinks)
+                .enter().append("line")
+                .attr("stroke-width", function (d) {
+                    return Math.sqrt(d.value);
+                })
+                .style("stroke", d3.rgb(69,67,67))
+                .style("stroke-opacity", 0.5);
+
+        var node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle")
+                .data(data.simNodes)
+                .enter().append("circle")
+                .attr("r", 10)
+                .attr("fill", function (d) {
+                    return colorScale(Math.sqrt(d.strengthValue));
+                })
+                .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended))
+                .on('mouseover', nodeTip.show)
+                .on('mouseout', nodeTip.hide);
+
+        simulation
+                .nodes(data.simNodes)
+                .on("tick", ticked);
+
+        simulation.force("link")
+                .links(data.simLinks);
+
+        function ticked() {
+            link
+                    .attr("x1", function (d) {
+                        return d.source.x;
+                    })
+                    .attr("y1", function (d) {
+                        return d.source.y;
+                    })
+                    .attr("x2", function (d) {
+                        return d.target.x;
+                    })
+                    .attr("y2", function (d) {
+                        return d.target.y;
+                    });
+
+            node
+                    .attr("cx", function (d) {
+                        return d.x;
+                    })
+                    .attr("cy", function (d) {
+                        return d.y;
+                    });
+        }
+
+        function dragstarted(d) {
+            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
+
+        function dragended(d) {
+            if (!d3.event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+    }
+</script>
+
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script>
+    ///Helper scripts
+    // Disable function
+    jQuery.fn.extend({
+        disable: function(state) {
+            return this.each(function() {
+                this.disabled = state;
+            });
+        }
+    });
+
+    // Disabled with:
+   // $('input[type="submit"], input[type="button"], button').disable(true);
+
+    // Enabled with:
+    //$('input[type="submit"], input[type="button"], button').disable(false);
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+</div>
+</body>
+</html>
+<!--<li class="collection-item">-->
+    <!--<input name="true-name" type="radio" id="input1">-->
+    <!--<label for="input1">Imie Nazwisko</label>-->
+<!--</li>-->
+<!--<li class="collection-item">-->
+    <!--<input name="true-name" type="radio" id="input2">-->
+    <!--<label for="input2">Generyczne Imie</label>-->
+<!--</li>-->
+<!--<li class="collection-item">-->
+    <!--<input name="true-name" type="radio" id="input3">-->
+    <!--<label for="input3">Kolejne Imie</label>-->
+<!--</li>-->
