@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Graf wspolpracy</title>
+</head>
+
+<body>
+
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="js/remove-diacritics.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="js/d3-tip.js"></script>
+<script src="js/parse-raw-expertus.js"></script>
+<script src="js/collab-demo-1.js"></script>
+<script src="js/bar-graph.js"></script>
+<script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
+<script src="js/collab.js"></script>
+
+
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Wizualizator naukowca</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Wizualizacje</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col s4" style="padding-left: 0">
+        <div class="z-depth-1 vis-info">
+            <div class ="row">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <span class="card-title">Graf bąbelkowy</span>
+                        <p>Szczegółowy opis grafu bąbelkowego</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">-->
+                <!--<ul class="collection with-header z-depth-1">-->
+                    <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
+                    <!--<li class="collection-item"><div><span>Liczba współautorów: </span> <span id="coworkers-amount-display" style="float: right">-</span></div></li>-->
+                    <!--<li class="collection-item"><div><span>Najwięcej wspólnych prac z: </span> <span id="max-shared-works-amount-display" style="float: right">-</span></div></li>-->
+                    <!--<li class="collection-item"><div><span>Średnia liczba prac: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>-->
+                    <!--<li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+    <div class="col s8">
+        <svg class="z-depth-1 svg-port" id="svg-port"></svg>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $.post("bubblesData", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+            //console.log("Post to /bubblesData results: " + data);
+            data.forEach(function (invalidEl, invalidIndex, arr) {
+                if(!invalidEl.year) console.log('Invalid record: ' + invalidIndex);
+                data.splice(invalidIndex, 1)
+            });
+
+            data = data.sort(function (a, b) {
+                if(a.year && b.year) return (a.year > b.year) - (a.year < b.year);
+            });
+            //console.log(data);
+
+            var PageCountsGroupedByYear = [];
+            PageCountsGroupedByYear[0] = {
+                year: data[0].year,
+                pages: 0
+            };
+
+            data.forEach(function (el) {
+                var last = PageCountsGroupedByYear.length - 1;
+                if(PageCountsGroupedByYear[last].year == el.year) PageCountsGroupedByYear[last].pages += el.pageAmount;
+                else PageCountsGroupedByYear.push({
+                    year: el.year,
+                    pages: el.pageAmount
+                })
+            });
+            console.log(PageCountsGroupedByYear);
+
+            drawBubbleGraph(PageCountsGroupedByYear)
+        }
+
+        )});
+
+    function drawBubbleGraph(data) {
+
+        var svg = d3.select('#svg-port');
+
+        var width = parseInt(svg.style('width').replace('px', '')) - 20;
+        var height = parseInt(svg.style('height').replace('px', '')) - 20;
+
+        var sumOfPages = 0;
+        var years = data.map(function (el) {
+            sumOfPages += el.pages;
+            return el.year;
+        });
+
+        var rays = [];
+        data.forEach(function (el) {
+            rays.push((el.pages / sumOfPages) * width/2)
+        });
+
+        var centres = [];
+        rays.forEach(function (el, index) {
+            centres.push(0);
+
+            var i = 0;
+            while (i<index) {
+                centres[centres.length - 1] += rays[i]*2;
+                i++
+            }
+            centres[centres.length - 1] += el;
+        });
+
+        console.log(years)
+        console.log(rays)
+        console.log(centres)
+
+        var xScale = d3.scaleOrdinal()
+                .domain(years)
+                .range(centres);
+
+        var bubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
+            if(!data[i]) {
+                console.log(data);
+                console.log(d)
+                console.log(i);
+            }
+            return 'Rok: ' + years[i] + '<br>' + 'Stron: ' + data[i].pages });
+        svg.call(bubbleTip);
+
+
+        ///Drawing the axis
+        var bottomYears=[], bottomCentres=[];
+        var topYears=[], topCentres=[];
+        years.forEach(function (el, index) {
+            if(index%2 == 0) {
+                bottomYears.push(el);
+                bottomCentres.push(centres[index]);
+            }
+            else {
+                topYears.push(el);
+                topCentres.push(centres[index]);
+            }
+        });
+
+        var xAxisTop = d3.axisTop(d3.scaleOrdinal().range(topCentres).domain(topYears)).tickFormat(function (d, i) {
+            if(topCentres[i] - topCentres[i-1] < 12) return "";
+            return d;
+        });
+        var xAxisBottom = d3.axisBottom(d3.scaleOrdinal().range(bottomCentres).domain(bottomYears)).tickFormat(function (d, i) {
+            if(bottomCentres[i] - bottomCentres[i-1] < 10) return "";
+            return d;
+        });
+        var axisGroupTop = svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [0, 20] + ')');
+        var axisGroupBottom = svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [0, height] + ')');
+
+
+        ///Drawing the guidelines
+        var lines = svg.append('g')
+                .selectAll('line')
+                .data(centres)
+                .enter()
+                .append('line')
+                .attr('id', function (d, i) {
+                    return 'a' + data[i].year;
+                })
+                .attr('x1', function (d, i) {
+                    return centres[i] })
+                .attr('y1', function () {
+                    return height/2; })
+                .attr('x2', function (d, i) {
+                    return centres[i]})
+                .attr('y2', function (d, i) {
+                    if(i%2==0) return height;
+                    else return 20 })
+                .attr('stroke', 'black')
+                .attr('stroke-dasharray', '5, 5')
+                .attr('opacity', '0.5');
+
+
+
+
+
+        ///Drawing bubbles
+        var bubbles = svg
+                .selectAll('rect')
+                .data(data);
+        bubbles.enter()
+                .append('circle')
+                .attr('cx', function (d) {
+                    return xScale(d.year);
+                })
+                .attr('cy', function () {
+                    return height / 2;
+                })
+                .attr('fill', function () {
+                    return NextColor()
+                })
+                .attr('r', '0')
+                .on('mouseover', function (d, i) {
+                    bubbleTip.show(d, i);
+                    d3.select("#a" + d.year).transition().duration(200).attr('stroke-width', 3).attr('opacity', 0.7)
+                })
+                .on('mouseout', function (d, i) {
+                    bubbleTip.hide(d, i);
+                    d3.select("#a" + d.year).transition().duration(200).attr('stroke-width', 1).attr('opacity', 0.5)
+                })
+                .transition()
+                .duration(500)
+                .attr('r', function (d, i) {
+                    return rays[i];
+                })
+
+
+
+    }
+
+    var colorCounter = 0;
+    function NextColor() {
+        if (colorCounter >= 9) colorCounter = 0;
+        return d3.schemeSet2[colorCounter++];
+    }
+
+</script>
+
+
+</body>
+</html>

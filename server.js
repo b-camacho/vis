@@ -57,6 +57,17 @@ app.post('/worksData', function (req, res) {
         res.send(works);
     })
 });
+app.post('/bubbles', function (req, res) {
+    res.redirect('bubbles.html');
+});
+
+app.post('/bubblesData', function (req, res) {
+    console.log('Initiating page amounts for bubbles query for: ' + req.body.name);
+    m.Work.find({authors: req.body.name}, function (err, works) {
+        res.json(works);
+    })
+});
+
 app.listen(config.port || 3000, function () {
     console.log('Example app listening on port ' + (config.port || 3000));
 });
