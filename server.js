@@ -60,6 +60,9 @@ app.post('/worksData', function (req, res) {
 app.post('/bubbles', function (req, res) {
     res.redirect('bubbles.html');
 });
+app.post('/bubbles', function (req, res) {
+    res.redirect('research-map.html');
+});
 
 app.post('/bubblesData', function (req, res) {
     console.log('Initiating page amounts for bubbles query for: ' + req.body.name);
