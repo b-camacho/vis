@@ -60,7 +60,7 @@ app.post('/worksData', function (req, res) {
 app.post('/bubbles', function (req, res) {
     res.redirect('bubbles.html');
 });
-app.post('/bubbles', function (req, res) {
+app.post('/research-map', function (req, res) {
     res.redirect('research-map.html');
 });
 
