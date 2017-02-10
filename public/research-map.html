@@ -148,7 +148,9 @@
             angleCounter += ( ( weightedDomain.weight / sumOfWeights ) * 2 * Math.PI );
             return {
                 angleBounds: current,
-                topic: weightedDomain.topic
+                topic: weightedDomain.topic,
+                hue: weightedDomain.hue
+
             };
         })
     }
@@ -159,8 +161,6 @@
      */
     function GetCartesianDomainCentres(anglePositions, radius) {
         var centres = anglePositions.map(function (pos) {
-            console.log('Midpoint of ' + pos.topic + ' is at ' + (pos.angleBounds.begin + (pos.angleBounds.end - pos.angleBounds.begin) / 2) + ' rad')
-
             return {
                 centre: pos.angleBounds.begin + ((pos.angleBounds.end - pos.angleBounds.begin) / 2) - toRad(90),
                 topic: pos.topic
@@ -169,8 +169,6 @@
         var DomainToCentreCoordinatesMap = {};
         centres.forEach(function (centre) {
             DomainToCentreCoordinatesMap[centre.topic] = PolarToCartesian(centre.centre, radius * 3 / 4);
-            DomainToCentreCoordinatesMap[centre.topic].x = (DomainToCentreCoordinatesMap[centre.topic].x)
-            DomainToCentreCoordinatesMap[centre.topic].y = (DomainToCentreCoordinatesMap[centre.topic].y)
         });
         return DomainToCentreCoordinatesMap;
     }
@@ -181,7 +179,7 @@
                 width = jQPort.width(),
                 height = jQPort.height();
         var radius = height / 3;
-        var ringWidth = 20;
+        var ringWidth = 40;
         var centre =
         {
             x: width / 2,
@@ -192,20 +190,34 @@
 
         var exampleDomains = [
             {
-                topic: "Physics",
-                weight: 1
+                topic: "Nauki fizyczne",
+                weight: 1,
+                hue: "#8A38C0"
             },
             {
-                topic: "Maths",
-                weight: 1
+                topic: "Nauki o życiu",
+                weight: 1,
+                hue: "#E45035"
             },
             {
-                topic: "Humanities",
-                weight: 1
+                topic: "Badania kliniczne",
+                weight: 1,
+                hue: "#D7747E"
             },
             {
-                topic: "Languages",
-                weight: 1
+                topic: "Nauki społeczne",
+                weight: 1,
+                hue: "#D4AF92"
+            },
+            {
+                topic: "Nauki humanistyczne",
+                weight: 1,
+                hue: "#7E7E7E"
+            },
+            {
+                topic: "Nauki inżynieryjne",
+                weight: 1,
+                hue: "#21D4F1"
             }
         ];
 
@@ -213,7 +225,7 @@
             {
                 topics:
                 [{
-                    topic:"Humanities",
+                    topic:"Nauki humanistyczne",
                     weight: 1
                 }],
                 title: "Publication 1",
@@ -223,11 +235,11 @@
                 topics:
                 [
                     {
-                        topic:"Physics",
+                        topic:"Nauki o życiu",
                         weight: 0.5
                     },
                     {
-                        topic: "Maths",
+                        topic: "Badania kliniczne",
                         weight: 0.5
                     }
                 ],
@@ -238,11 +250,11 @@
                 topics:
                         [
                             {
-                                topic:"Physics",
+                                topic:"Nauki fizyczne",
                                 weight: 0.8
                             },
                             {
-                                topic: "Maths",
+                                topic: "Nauki społeczne",
                                 weight: 0.2
                             }
                         ],
@@ -253,11 +265,11 @@
                 topics:
                         [
                             {
-                                topic:"Languages",
+                                topic:"Badania kliniczne",
                                 weight: 0.8
                             },
                             {
-                                topic: "Maths",
+                                topic: "Nauki fizyczne",
                                 weight: 0.2
                             }
                         ],
@@ -268,11 +280,11 @@
                 topics:
                         [
                             {
-                                topic:"Languages",
+                                topic:"Badania kliniczne",
                                 weight: 0.5
                             },
                             {
-                                topic: "Humanities",
+                                topic: "Nauki humanistyczne",
                                 weight: 0.5
                             }
                         ],
@@ -280,11 +292,6 @@
                 anchor: false
             }
         ];
-
-        var domainColors = d3.scaleOrdinal(d3.schemeCategory10)
-                .domain(exampleDomains.map(function (domainDescription) {
-                    return domainDescription.topic;
-                }))
 
         var angleBounds = DivideDomains(exampleDomains);
         console.log('angle bounds');
@@ -337,11 +344,8 @@
                     .attr('id', angles.topic)
                     .attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
                     .attr('fill', function () {
-                        if(angles.topic == "Physics") return "blue"
-                        if(angles.topic == "Humanities") return "orange"
-                        if(angles.topic == "Maths") return "green"
-                        if(angles.topic == "Languages") return "red"
-                    })
+                        return angles.hue
+                    });
 
             svg.append("text")
                     .append("textPath")

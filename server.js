@@ -71,6 +71,14 @@ app.post('/bubblesData', function (req, res) {
     })
 });
 
+app.get('/name-lookup', function (req, res) {
+    console.log(req.query.name);
+    retriever.run(req.query.name, {mode: 'names'}, function (err, result) {
+        console.log(err);
+        res.send(result);
+    });
+})
+
 app.listen(config.port || 3000, function () {
     console.log('Example app listening on port ' + (config.port || 3000));
 });

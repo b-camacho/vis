@@ -7,9 +7,14 @@ var http = require('http');
 var cheerio = require('cheerio');
 var fs = require('fs');
 var latin2 = require('iso-8859-2');
-
+var iconv = require('iconv-lite');
 var retriever = {};
-
+/**
+ *
+ * @param name {string} Name to query against, in 'surname name' format
+ * @param config {Object} {mode: 'names'|'works}
+ * @param done  {Function} Callback(err, result)
+ */
 retriever.run = function (name, config, done) { //{mode: 'names'|'works'}
     var modeKey;
     if(!config) config = {mode:'names'};
@@ -73,8 +78,8 @@ retriever.run = function (name, config, done) { //{mode: 'names'|'works'}
         });
 
         res.on("end", function () {
-            var body = Buffer.concat(chunks).toString();
-            console.log('Received response from expertus');
+            var body = Buffer.concat(chunks);
+            body = iconv.decode(body, "ISO-8859-2");
             if(config.mode == 'works') {
                 var rawExpertusText = parseHTMLIntoRecords(body);
                 //fs.writeFileSync('./raw-expertus-store/' + name + (Math.floor(Math.random() * 1000)) + '.txt', rawExpertusText)
