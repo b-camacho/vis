@@ -4,7 +4,28 @@
     display: block;
     line-height: 22px
 }
+nav {
+    background-color: #FF9800;
+}
+.top-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #FF9800;
+    height: 5em;
+    color: white;
+}
 
+.input-field-container {
+
+    width: 20em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+
+}
 
 .file-input-container {
     margin-top: 20px;
@@ -16,26 +37,24 @@
 }
 
 .vis-select {
-    position: absolute;
-    right: 68%;
-    background-color: #e4e4e4;
     height: 100%;
+    background-color: #e4e4e4;
     padding-right: 2em;
     padding-left: 2em;
     padding-top: 20px
 }
-.status-bar {
-    width: 70%;
-    position: absolute;
-    right: 0;
-    height: 7em;
-    padding-right: 2em;
-    padding-left: 2em;
-    padding-top: 20px
-}
+/*.status-bar {*/
+    /*width: 70%;*/
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*height: 7em;*/
+    /*padding-right: 2em;*/
+    /*padding-left: 2em;*/
+    /*padding-top: 20px*/
+/*}*/
 
 .card {
-    background-color: #8BC34A;
+    background-color: #FF9800;
 }
 .demo {
     float: right;
@@ -52,10 +71,7 @@
     padding: 20px;
     background-color: #FFFFFF;
 }
-.nav-wrapper {
-    margin-bottom: 0;
-    background-color: #8BC34A;
-}
+
 
 .svg-port {
     position: absolute;

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="../../favicon.ico">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
@@ -42,11 +42,12 @@
 <div class="row">
     <div class="col s4" style="padding-left: 0">
         <div class="z-depth-1 vis-info">
-            <div class ="row">
+            <div class="row">
                 <div class="card">
                     <div class="card-content white-text">
                         <span class="card-title">Prace w czasie</span>
-                        <p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z wyszczególnieniem artykułów..</p>
+                        <p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z
+                            wyszczególnieniem artykułów..</p>
                     </div>
                 </div>
             </div>
@@ -54,9 +55,18 @@
             <div class="row">
                 <ul class="collection with-header z-depth-1">
                     <li class="collection-header"><h5>Szczegóły</h5></li>
-                    <li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>
-                    <li class="collection-item"><div><span>Publikacji w czasopismach: </span> <span id="publications-amount-display" style="float: right">-</span></div></li>
-                    <li class="collection-item"><div><span>Średnia prac w czasie: </span> <span id="mean-works-amount-display" style="float: right">-</span></div></li>
+                    <li class="collection-item">
+                        <div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <div><span>Publikacji w czasopismach: </span> <span id="publications-amount-display"
+                                                                            style="float: right">-</span></div>
+                    </li>
+                    <li class="collection-item">
+                        <div><span>Średnia prac w czasie: </span> <span id="mean-works-amount-display"
+                                                                        style="float: right">-</span></div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -75,23 +85,24 @@
                     drawWorksOverTimeGraph(barData);
                     displayWorkStatsWorksInTime(barData);
                 }
-
-        )});
+        )
+    });
     function drawWorksOverTimeGraph(data) {
 
         var red = "#f44336";
         var blue = "#26a69a";
+        var stackMargin = 10;
         var svg = d3.select("#svg-port"),
                 width = $(".svg-port").width(),
                 height = $(".svg-port").height();
         svg.selectAll('*').remove();
-        var barYearTip = d3.tip().attr('class', 'd3-tip').html(function(d) {
+        var barYearTip = d3.tip().attr('class', 'd3-tip').html(function (d) {
             return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '</br> W tym: ' + d.articles + ' artykulow';
         });
         svg.call(barYearTip);
 
-        var maxBarHeight = height /2;
-        var maxBarWidth = width ;
+        var maxBarHeight = height / 2;
+        var maxBarWidth = width;
         var yScaleWidth = 30;
         var xScale = d3.scaleBand()
                 .domain(data.map(function (el) {
@@ -112,7 +123,7 @@
                     return el.year
                 })]);
 
-        if(svg.select('g').empty()) svg.append('g').attr('id', 'bars');
+        if (svg.select('g').empty()) svg.append('g').attr('id', 'bars');
         var bars = svg.select('g')
                 .selectAll('rect')
                 .data(data);
@@ -124,19 +135,42 @@
                 .attr('y', maxBarHeight)
                 .attr('height', 0)
                 .style('fill', '#FFFFFF')
-                .attr('transform', 'translate( ' + [yScaleWidth, height/2 - 20] + ')')
+                .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
                 .on('mouseover', barYearTip.show)
                 .on('mouseout', barYearTip.hide)
                 .transition()
                 .duration(1000)
                 .attr('y', function (d) {
-                    return maxBarHeight - yScale(d.works);
+                    return maxBarHeight - yScale(d.articles);
                 })
                 .attr('height', function (d) {
-                    return yScale(d.works);
+                    return yScale(d.articles);
                 })
                 .style('fill', '#8BC34A');
-
+        bars.enter().append('rect')
+                .attr('width', xScale.bandwidth())
+                .attr('x', function (d) {
+                    return xScale(d.year);
+                })
+                .attr('y', function (d) {
+                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+                    else return maxBarHeight - yScale(d.works)
+                })
+                .attr('height', 0)
+                .style('fill', red)
+                .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+                .on('mouseover', barYearTip.show)
+                .on('mouseout', barYearTip.hide)
+                .transition()
+                .duration(1000)
+                .attr('y', function (d) {
+                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+                    else return maxBarHeight - yScale(d.works)
+                })
+                .attr('height', function (d) {
+                    return yScale(d.books);
+                })
+//                .style('fill', '#8BC34A');
 
         bars.exit()
                 .transition()
@@ -144,9 +178,9 @@
                 .attr('width', 0)
                 .remove();
         var xAxis = d3.axisBottom(xScale);
-        svg.append('g').attr('id', 'x-axis').call(xAxis).attr('transform', 'translate( ' + [-width, height/2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [yScaleWidth, height - 20] + ')');
+        svg.append('g').attr('id', 'x-axis').call(xAxis).attr('transform', 'translate( ' + [-width, height / 2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [yScaleWidth, height - 20] + ')');
         var yAxis = d3.axisLeft(yScale.domain(yScale.domain().reverse()));
-        svg.append('g').attr('id', 'y-axis').call(yAxis).attr('transform', 'translate( ' + [0, height*2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [30, height - maxBarHeight - 20] + ')');
+        svg.append('g').attr('id', 'y-axis').call(yAxis).attr('transform', 'translate( ' + [0, height * 2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [30, height - maxBarHeight - 20] + ')');
         //svg.select('g').call(xAxis).attr('width', 0).transition().duration(1000).attr('width', width);
 
     }
@@ -157,7 +191,7 @@
         data.forEach(function (work) {
             var singleWorkAuthors = [];
             work.authors.forEach(function (author) {
-                if(author != mainName) singleWorkAuthors.push(author);
+                if (author != mainName) singleWorkAuthors.push(author);
             });
             LegacyCollaboratorList.push(singleWorkAuthors)
         });
@@ -165,23 +199,23 @@
         return LegacyCollaboratorList
     }
 
-    function getBars (allWorks) {
+    function getBars(allWorks) {
         allWorks.forEach(function (el) {
-            if(Number.parseInt(el.year) < 1900) el.year = Number.parseInt(el.year) -(-1000);
+            if (Number.parseInt(el.year) < 1900) el.year = Number.parseInt(el.year) - (-1000);
         });
         allWorks.sort(dynamicSort('year'));
         console.log('Sorted works');
         console.log(allWorks);
 
         var bars = [];
-        for(var i=0; i<(allWorks[allWorks.length - 1].year - allWorks[0].year - (-1)); i++) {
+        for (var i = 0; i < (allWorks[allWorks.length - 1].year - allWorks[0].year - (-1)); i++) {
             bars.push(countYearOccurences(allWorks[0].year - (-i), allWorks))
         }
         console.log(bars);
         return bars;
     }
 
-    function countYearOccurences (year, arr) {
+    function countYearOccurences(year, arr) {
         var resObj = {
             works: 0,
             articles: 0,
@@ -189,7 +223,7 @@
             year: year
         };
         arr.forEach(function (el) {
-            if(el.year == year) {
+            if (el.year == year) {
                 resObj.works++;
                 (el.publicationType == 'article') ? resObj.articles++ : resObj.books++
             }
@@ -197,23 +231,23 @@
         return resObj;
     }
 
-    function incrementCollaboration (arr, name) {
-        for(var i=0; i<arr.length; i++) {
-            if(arr[i].name == name) {
+    function incrementCollaboration(arr, name) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].name == name) {
                 arr[i].works++;
                 return
             }
         }
     }
 
-    function getCompleteCollaboratorList ( allWorks ) {
+    function getCompleteCollaboratorList(allWorks) {
 
         var allCollaborators = [];
         var allCollaboratorsWithAmounts = [];
         var collaborationAmountArray = [];
         allWorks.forEach(function (work) {
             work.forEach(function (person) {
-                if(!allCollaborators.includes(person)) {
+                if (!allCollaborators.includes(person)) {
                     allCollaborators.push(person);
                     collaborationAmountArray.push(
                             {
@@ -235,8 +269,8 @@
 
 
         allCollaboratorsWithAmounts.forEach(function (collaborator, index, arr) {
-            for(var i=0; i<allWorks.length; i++) {
-                if(allWorks[i].includes(collaborator.name)) {
+            for (var i = 0; i < allWorks.length; i++) {
+                if (allWorks[i].includes(collaborator.name)) {
                     allWorks[i].forEach(function (person) {
                         incrementCollaboration(collaborator.collaborations, person);
                     });
@@ -247,7 +281,7 @@
         return allCollaboratorsWithAmounts;
     }
 
-    function compareCollaboratorsByAmount (a, b) {
+    function compareCollaboratorsByAmount(a, b) {
         if (a.amount < b.amount) {
             return -1;
         }
@@ -261,23 +295,23 @@
         d3.select('svg').selectAll('*').remove();
     }
     function PolskaFleksjaSlowaPraca(word, number) {
-        if(number == 1) return number + ' praca'
-        if(number >=2 && number <=4) return number + ' prace'
+        if (number == 1) return number + ' praca'
+        if (number >= 2 && number <= 4) return number + ' prace'
         return number + ' prac'
     }
 
     function dynamicSort(property) {
         var sortOrder = 1;
-        if(property[0] === "-") {
+        if (property[0] === "-") {
             sortOrder = -1;
             property = property.substr(1);
         }
-        return function (a,b) {
+        return function (a, b) {
             var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
             return result * sortOrder;
         }
     }
-    function displayWorkStatsWorksInTime (data) {
+    function displayWorkStatsWorksInTime(data) {
 
         var displayValues = {
             meanPerYear: 0,

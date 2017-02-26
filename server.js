@@ -8,7 +8,10 @@ var fs = require('fs');
 var config = JSON.parse(fs.readFileSync('config.json').toString());
 
 var mg = require('mongoose');
-mg.connect('mongodb://localhost/vis');
+mg.connect('mongodb://127.0.0.1/vis', function (err) {
+    if (err) console.log(err);
+    else console.log('Connected to mongoDB!')
+});
 var m = require('./models');
 
 var retriever = require('./expertus-retriever');
@@ -20,11 +23,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.post('/retrieve', function (req, res) {
-        retriever.run(req.body.name, {mode: req.body.mode}, function (err, result) {
-            console.log('Done retrieving, result: ' + result);
-            res.json(JSON.stringify(result));
-        });
+    retriever.run(req.body.name, {mode: req.body.mode}, function (err, result) {
+        console.log('Done retrieving, result: ' + result);
+        res.json(JSON.stringify(result));
     });
+});
 
 
 // app.post('/retrieve', function (req, res) {
@@ -36,9 +39,9 @@ app.post('/retrieve', function (req, res) {
 app.post('/collab', function (req, res) {
     console.log(req.body.name);
     res.redirect('collab.html');
-   /* m.Work.find({authors: req.body.name}, function (err, works) {
-        res.send(works);
-    })*/
+    /* m.Work.find({authors: req.body.name}, function (err, works) {
+     res.send(works);
+     })*/
 });
 app.post('/collabData', function (req, res) {
     console.log('Db lookup for ' + req.body.name);
