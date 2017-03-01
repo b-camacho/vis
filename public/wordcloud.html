@@ -37,7 +37,6 @@
 <script src="js/works-over-time-demo-1.js"></script>
 <script src="js/expertus-retriever.js"></script>
 <script src="js/collab.js"></script>
-<script src="js/d3.layout.cloud.js"></script>
 
 <nav>
     <div class="nav-wrapper">
@@ -53,29 +52,28 @@
             <div class="row">
                 <div class="card">
                     <div class="card-content white-text">
-                        <span class="card-title">Prace w czasie</span>
-                        <p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z
-                            wyszczególnieniem artykułów..</p>
+                        <span class="card-title">Chmura słów</span>
+                        <p>Zbiór słów najczęściej występujących w tytułach prac naukowych.</p>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <ul class="collection with-header z-depth-1">
-                    <li class="collection-header"><h5>Szczegóły</h5></li>
-                    <li class="collection-item">
-                        <div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span>
-                        </div>
-                    </li>
-                    <li class="collection-item">
-                        <div><span>Publikacji w czasopismach: </span> <span id="publications-amount-display"
-                                                                            style="float: right">-</span></div>
-                    </li>
-                    <li class="collection-item">
-                        <div><span>Średnia prac w czasie: </span> <span id="mean-works-amount-display"
-                                                                        style="float: right">-</span></div>
-                    </li>
-                </ul>
+                <!--<ul class="collection with-header z-depth-1">-->
+                    <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
+                    <!--<li class="collection-item">-->
+                        <!--<div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="collection-item">-->
+                        <!--<div><span>Publikacji w czasopismach: </span> <span id="publications-amount-display"-->
+                                                                            <!--style="float: right">-</span></div>-->
+                    <!--</li>-->
+                    <!--<li class="collection-item">-->
+                        <!--<div><span>Średnia prac w czasie: </span> <span id="mean-works-amount-display"-->
+                                                                        <!--style="float: right">-</span></div>-->
+                    <!--</li>-->
+                <!--</ul>-->
             </div>
         </div>
 
@@ -88,16 +86,70 @@
 <script>
     $(document).ready(function () {
         console.log('Querying against name: ' + document.cookie.split('name=')[1].split(';')[0]);
-        $.post("wordcloudData", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
-                    var titleWordsArray = getWordsArray(data);
-                    drawWorksOverTimeGraph(barData);
-                    displayWorkStatsWorksInTime(barData);
+        var svg = d3.select('#svg-port');
+
+        var width = parseInt(svg.style('width').replace('px', '')) - 100;
+        var height = parseInt(svg.style('height').replace('px', '')) - 100;
+        $.post("wordcloudData", {name: document.cookie.split('name=')[1].split(';')[0], width: width, height: height}, function (data) {
+
+//                    console.log(titleWordsArray);
+                    displayWordcloud(data);
+//                    displayWorkStatsWorksInTime(barData);
                 }
         )
     });
 
+
+
+
+    function displayWordcloud(textObjects) {
+        var svg = d3.select('#svg-port');
+
+        var width = parseInt(svg.style('width').replace('px', '')) - 20;
+        var height = parseInt(svg.style('height').replace('px', '')) - 20;
+
+        var colorScale = d3.scaleOrdinal(d3.schemeSet3)
+            .domain([0, 10]);
+
+        svg
+            .append('g')
+            .attr('transform', (d) => {return 'translate( ' + [width/2, height/2] + ')'})
+            .selectAll('text')
+            .data(textObjects)
+            .enter()
+            .append('text')
+            .text((d) => {return d.text})
+            .attr('fill', (d, i) => {return colorScale(i%10)})
+            .attr('width', (d)=>{return d.width})
+            .attr('height', (d)=>{return d.height})
+            .attr('font-size', (d) => {return d.size + 'px'})
+            .attr('font-family', 'serif')
+            .attr('x', (d) => {return d.x})
+            .attr('y', (d) => {return d.y});
+//            .attr('transform', (d) => {
+//                return 'translate( ' + [d.x, d.y] + ')';
+//        })
+
+    }
+
+    /**
+     *
+     * @param rawData {Array} - DB records cotaining field title with the full title of the work
+     * @returns {Array} - An array of all words in the titles of all works
+     */
     function getWordsArray(rawData) {
 
+        let wordArray = [];
+
+        rawData.map( (record) => {
+            return record.title;
+        }).forEach( (title, index) => {
+
+            if(title) wordArray = wordArray.concat(title.split(' '))
+            else console.log('Undefined title at ' + index)
+        });
+
+        return wordArray;
     }
 </script>
 

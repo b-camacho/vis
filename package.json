@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "canvas": "^1.6.4",
     "case": "^1.4.2",
     "cheerio": "^0.22.0",
     "connect-busboy": "0.0.2",

@@ -74,6 +74,49 @@ app.post('/bubblesData', function (req, res) {
     })
 });
 
+var Canvas = require("canvas");
+
+var cloud = require("d3-cloud");
+
+app.post('/wordcloudData', function (req, res) {
+    if(!req.body.width) req.body.width = 500;
+    if(!req.body.height) req.body.height = 500;
+    m.Work.find({authors: req.body.name}, function (err, works) {
+        const wordsArray = getWordsArray(works);
+        var words = wordsArray
+            .map(function(d) {
+                return {text: d, size: 10 + Math.random() * 90};
+            });
+
+        cloud().size([req.body.width, req.body.height])
+            .canvas(function() { return new Canvas(1, 1); })
+            .words(words)
+            .padding(1)
+            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .fontSize(function(d) { return d.size; })
+            .on("end", end)
+            .start();
+
+        function end(words) { res.json(words); }
+
+    })
+});
+
+function getWordsArray(rawData) {
+
+    let wordArray = [];
+
+    rawData.map( (record) => {
+        return record.title;
+    }).forEach( (title, index) => {
+
+        if(title) wordArray = wordArray.concat(title.split(' '));
+        else console.log('Undefined title at ' + index)
+    });
+
+    return wordArray;
+}
+
 app.get('/name-lookup', function (req, res) {
     console.log(req.query.name);
     retriever.run(req.query.name, {mode: 'names'}, function (err, result) {
