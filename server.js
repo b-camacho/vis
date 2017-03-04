@@ -16,6 +16,8 @@ var m = require('./models');
 
 var retriever = require('./expertus-retriever');
 
+const rawDbWordsParser = require('./getWordObjectsArray');
+
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -79,22 +81,52 @@ var Canvas = require("canvas");
 var cloud = require("d3-cloud");
 
 app.post('/wordcloudData', function (req, res) {
-    if(!req.body.width) req.body.width = 500;
-    if(!req.body.height) req.body.height = 500;
+
+    if(!req.body.width) {
+        console.log('Queried for wordcloud data without a width, using a default of 500')
+        req.body.width = 500;
+    }
+    if(!req.body.height) {
+        console.log('Queried for wordcloud data without a height, using a default of 500')
+
+        req.body.height = 500;
+    }
     m.Work.find({authors: req.body.name}, function (err, works) {
-        const wordsArray = getWordsArray(works);
-        var words = wordsArray
-            .map(function(d) {
-                return {text: d, size: 10 + Math.random() * 90};
+
+        let worksPolishOnly = [];
+        works.forEach((work) => {
+            work.languages.includes("POL") ? worksPolishOnly.push(work) : null;
+        });
+
+
+
+        const wordsArray = rawDbWordsParser(worksPolishOnly)
+            .sort(function (a, b) {
+            if(a.amount < b.amount) return -1;
+            if(a.amount > b.amount) return 1;
+            return 0;
+            })
+            .reverse();
+
+        console.log(wordsArray.slice(0, 10));
+
+        const maxSize = Math.min(req.body.height, req.body.width) * 1.5 / wordsArray[0].amount, minSize = 10,
+            maxAmount = wordsArray[0].amount, minAmount = 1;
+
+        let words = wordsArray
+            .map(function(el) {
+                return {text: el.text, size: Math.max(Math.pow(el.amount/maxAmount, 0.5) * maxSize, minSize)};
             });
 
         cloud().size([req.body.width, req.body.height])
-            .canvas(function() { return new Canvas(1, 1); })
+            .canvas(function() { return new Canvas(req.body.width, req.body.height); })
             .words(words)
             .padding(1)
-            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .rotate(function() { return Math.random() > 0.5 ? 90 : 0})
+            .font(()=>{return 'sans-serif'})
             .fontSize(function(d) { return d.size; })
             .on("end", end)
+            // .spiral('rectangular')
             .start();
 
         function end(words) { res.json(words); }
@@ -102,20 +134,6 @@ app.post('/wordcloudData', function (req, res) {
     })
 });
 
-function getWordsArray(rawData) {
-
-    let wordArray = [];
-
-    rawData.map( (record) => {
-        return record.title;
-    }).forEach( (title, index) => {
-
-        if(title) wordArray = wordArray.concat(title.split(' '));
-        else console.log('Undefined title at ' + index)
-    });
-
-    return wordArray;
-}
 
 app.get('/name-lookup', function (req, res) {
     console.log(req.query.name);

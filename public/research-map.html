@@ -68,71 +68,8 @@
         DrawDomains();
     });
 
-//    function drawMap(data) {
-//        var svg = d3.select('#svg-port');
-//
-//
-//
 
-//                .call(d3.drag()
-//                        .on("start", dragstarted)
-//                        .on("drag", dragged)
-//                        .on("end", dragended))
-//                .on('mouseover', nodeTip.show)
-//                .on('mouseout', nodeTip.hide);
-//
-//        simulation
-//                .nodes(data.simNodes)
-//                .on("tick", ticked);
-//
-//        simulation.force("link")
-//                .links(data.simLinks);
-//
-//        function ticked() {
-//            link
-//                    .attr("x1", function (d) {
-//                        return d.source.x;
-//                    })
-//                    .attr("y1", function (d) {
-//                        return d.source.y;
-//                    })
-//                    .attr("x2", function (d) {
-//                        return d.target.x;
-//                    })
-//                    .attr("y2", function (d) {
-//                        return d.target.y;
-//                    });
-//
-//            node
-//                    .attr("cx", function (d) {
-//                        return d.x;
-//                    })
-//                    .attr("cy", function (d) {
-//                        return d.y;
-//                    });
-//        }
-//
-//        function dragstarted(d) {
-//            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-//            d.fx = d.x;
-//            d.fy = d.y;
-//        }
-//
-//        function dragged(d) {
-//            d.fx = d3.event.x;
-//            d.fy = d3.event.y;
-//        }
-//
-//        function dragended(d) {
-//            if (!d3.event.active) simulation.alphaTarget(0);
-//            d.fx = null;
-//            d.fy = null;
-//        }
-//    }
 
-    /**
-     * @param domainsList {Array}  Weighted list of domains ex: [{topic: phys, weight: 1}, {topic: bio, weight:4}]
-     */
     function DivideDomains(domainsList) {
         var sumOfWeights = 0;
         domainsList.forEach(function (el) {
@@ -188,36 +125,69 @@
         var padAngle = toRad(5);
 
 
+        var moreExampleDomains = [
+            {
+                topic: "n. przyrodnicze",
+                weight: 7836,
+                hue: "#ff9100"
+            },
+            {
+                topic: "nauki o życiu",
+                weight: 13082,
+                hue: "#ffb400"
+            },
+            {
+                topic: "lekarski, farmaceutyczny",
+                weight: 13967,
+                hue: "#a9a9a9"
+            },
+            {
+                topic: "informatyka (z matematyką)",
+                weight: 1752,
+                hue: "#828282"
+            },
+            {
+                topic: "n. humanistyczne",
+                weight: 18907,
+                hue: "#2d81a7"
+            },
+            {
+                topic: "n. społeczne",
+                weight: 8674,
+                hue: "#005a84"
+            }
+        ];
+
         var exampleDomains = [
             {
-                topic: "Nauki fizyczne",
-                weight: 1,
-                hue: "#8A38C0"
+                topic: "n. przyrodnicze",
+                weight: 7836,
+                hue: "#9335cb"
             },
             {
-                topic: "Nauki o życiu",
-                weight: 1,
-                hue: "#E45035"
+                topic: "nauki o życiu",
+                weight: 13082,
+                hue: "#e31a12"
             },
             {
-                topic: "Badania kliniczne",
-                weight: 1,
-                hue: "#D7747E"
+                topic: "lekarski, farmaceutyczny",
+                weight: 13967,
+                hue: "#ff739e"
             },
             {
-                topic: "Nauki społeczne",
-                weight: 1,
-                hue: "#D4AF92"
+                topic: "informatyka (z matematyką)",
+                weight: 1752,
+                hue: "#f66cfd"
             },
             {
-                topic: "Nauki humanistyczne",
-                weight: 1,
-                hue: "#7E7E7E"
+                topic: "n. humanistyczne",
+                weight: 18907,
+                hue: "#fcea75"
             },
             {
-                topic: "Nauki inżynieryjne",
-                weight: 1,
-                hue: "#21D4F1"
+                topic: "n. społeczne",
+                weight: 8674,
+                hue: "#fcb47a"
             }
         ];
 
@@ -225,7 +195,7 @@
             {
                 topics:
                 [{
-                    topic:"Nauki humanistyczne",
+                    topic:"n. humanistyczne",
                     weight: 1
                 }],
                 title: "Publication 1",
@@ -235,11 +205,11 @@
                 topics:
                 [
                     {
-                        topic:"Nauki o życiu",
+                        topic:"nauki o życiu",
                         weight: 0.5
                     },
                     {
-                        topic: "Badania kliniczne",
+                        topic: "lekarski, farmaceutyczny",
                         weight: 0.5
                     }
                 ],
@@ -250,11 +220,11 @@
                 topics:
                         [
                             {
-                                topic:"Nauki fizyczne",
+                                topic:"n. przyrodnicze",
                                 weight: 0.8
                             },
                             {
-                                topic: "Nauki społeczne",
+                                topic: "n. społeczne",
                                 weight: 0.2
                             }
                         ],
@@ -265,11 +235,11 @@
                 topics:
                         [
                             {
-                                topic:"Badania kliniczne",
+                                topic:"lekarski, farmaceutyczny",
                                 weight: 0.8
                             },
                             {
-                                topic: "Nauki fizyczne",
+                                topic: "n. przyrodnicze",
                                 weight: 0.2
                             }
                         ],
@@ -280,11 +250,11 @@
                 topics:
                         [
                             {
-                                topic:"Badania kliniczne",
+                                topic:"lekarski, farmaceutyczny",
                                 weight: 0.5
                             },
                             {
-                                topic: "Nauki humanistyczne",
+                                topic: "n. humanistyczne",
                                 weight: 0.5
                             }
                         ],
@@ -297,7 +267,7 @@
         console.log('angle bounds');
         console.log(angleBounds);
         var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
-
+        var domainLabelCoordinates = GetCartesianDomainCentres(angleBounds, radius * 1.5)
         console.log('Domain coordinates');
         console.log(domainCoordinates);
         angleBounds.forEach(function(domain){
@@ -318,7 +288,7 @@
                     weight: topic.weight
                         })
             })
-        })
+        });
         console.log('Domain links:');
         console.log(linksToDomains);
 
@@ -347,12 +317,11 @@
                         return angles.hue
                     });
 
-            svg.append("text")
-                    .append("textPath")
-                    .attr("xlink:href", '#' + angles.topic)
-                    .style("text-anchor","middle")
-                    .attr("startOffset", "23%")
-                    .text(angles.topic);
+            svg.append('g').attr('transform','translate(' + [width/2, height/2] + ')')
+                .append("text")
+                .attr('text-anchor', 'middle')
+                .attr('transform', 'translate(' + [domainLabelCoordinates[angles.topic].x, domainLabelCoordinates[angles.topic].y] + ')')
+                .text(angles.topic);
         });
 
 

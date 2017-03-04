@@ -86,10 +86,10 @@
 <script>
     $(document).ready(function () {
         console.log('Querying against name: ' + document.cookie.split('name=')[1].split(';')[0]);
-        var svg = d3.select('#svg-port');
+        const svg = d3.select('#svg-port');
 
-        var width = parseInt(svg.style('width').replace('px', '')) - 100;
-        var height = parseInt(svg.style('height').replace('px', '')) - 100;
+        const width = parseInt(svg.style('width').replace('px', ''));
+        const height = parseInt(svg.style('height').replace('px', ''));
         $.post("wordcloudData", {name: document.cookie.split('name=')[1].split(';')[0], width: width, height: height}, function (data) {
 
 //                    console.log(titleWordsArray);
@@ -103,29 +103,35 @@
 
 
     function displayWordcloud(textObjects) {
-        var svg = d3.select('#svg-port');
+        const svg = d3.select('#svg-port');
 
-        var width = parseInt(svg.style('width').replace('px', '')) - 20;
-        var height = parseInt(svg.style('height').replace('px', '')) - 20;
+        const width = parseInt(svg.style('width').replace('px', ''));
+        const height = parseInt(svg.style('height').replace('px', ''));
 
-        var colorScale = d3.scaleOrdinal(d3.schemeSet3)
+        const colorScale = d3.scaleOrdinal(d3.schemeSet3)
             .domain([0, 10]);
 
         svg
             .append('g')
-            .attr('transform', (d) => {return 'translate( ' + [width/2, height/2] + ')'})
+            .attr('transform','translate( ' + [width / 2, height/2] + ')')
             .selectAll('text')
             .data(textObjects)
             .enter()
             .append('text')
             .text((d) => {return d.text})
+            .attr('text-anchor', 'middle')
+            .attr('transform', (d) => {return 'translate(' + [d.x, d.y] + ')' +
+                'rotate(' + d.rotate + ')'})
             .attr('fill', (d, i) => {return colorScale(i%10)})
-            .attr('width', (d)=>{return d.width})
-            .attr('height', (d)=>{return d.height})
-            .attr('font-size', (d) => {return d.size + 'px'})
-            .attr('font-family', 'serif')
-            .attr('x', (d) => {return d.x})
-            .attr('y', (d) => {return d.y});
+//            .attr('width', (d)=>{return d.width})
+//            .attr('height', (d)=>{return d.height})
+            .attr('font-family', 'sans-serif')
+            .attr('text-anchor', 'middle')
+            .attr('font-size', (d) => {return d.size });
+
+//            .attr('x', (d) => {return d.x})
+//            .attr('y', (d) => {return d.y})
+            //.attr('padding', (d) => {return d.padding});
 //            .attr('transform', (d) => {
 //                return 'translate( ' + [d.x, d.y] + ')';
 //        })
