@@ -30,6 +30,8 @@ Methods.ParseWork = function (Text) {
 
             case "260":
                 workObject.year = Number.parseInt(line.substr(line.length - 5).trim());
+                let citySeparatorIndex = line.indexOf(':');
+                workObject.potentialCity = (citySeparatorIndex != -1) ? line.substr(4, citySeparatorIndex - 4).trim() : null;
                 break;
 
             case "300":
@@ -46,6 +48,7 @@ Methods.ParseWork = function (Text) {
                 }
                 else  {
                     workObject.invalid["300"] = 'Could not infer page range from description';
+                    workObject.unparsedPageAmount = line.substr(4);
                     console.log(new Error('Failed RegExp parse at pageRange of line: ' + line).message)
                     
                 }
@@ -75,7 +78,8 @@ Methods.ParseWork = function (Text) {
                 break;
         }
     });
-    
+
+
     return workObject;
 };
 

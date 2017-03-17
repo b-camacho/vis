@@ -6,28 +6,33 @@ var Models = {};
 
 Models.Work = mg.model('Work', new mg.Schema( {
     year: {type: String},
-    authors: {type: Array},
-    authorsExpertusFormat: {type: Array},
+    potentialCity: String,
+    city: String,
+    authors: [String],
+    authorsExpertusFormat: [String],
     publicationType: {type: String, default: 'Book'}, // 'book', 'article'
     publishedIn: {type: String},
     pageRange: {type: String},
     pageAmount: {type: Number},
+    unparsedPageAmount: String,
     title: {type: String},
     titleVariant: {type: String},
     invalid: {type: Object},
     sourceText: {type: String},
     department: {type: String},
-    languages: {type: Array}
+    languages: [String] //['POL', 'ENG'...]
 }));
 
 Models.Person = mg.model('Person', new mg.Schema( {
     name: {type: String},
-    works: {type: Array, default: []},
+    aliases: [String],
+    works: [String], //Obj ID
     department: {type: String},
     domain: {type: String},
     journals: {type: Object, default: {}},
     journalsNoVolumes: {type: Object, default: {}},
-    journalsAmount: {type: Number, default: 0}
+    journalsAmount: {type: Number, default: 0},
+    cloneOf: String
 }));
 
 module.exports = Models;

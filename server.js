@@ -75,6 +75,52 @@ app.post('/bubblesData', function (req, res) {
         res.json(works);
     })
 });
+const mapDataExamples = {
+    worksWithLocations: [
+        {
+            lat: 53.0210671,
+            lon: 18.618612,
+            title: 'Tytuł pierszej pracy',
+            city: 'Toruń'
+        },
+        {
+            lat: 53.0210671,
+            lon: 18.618612,
+            title: 'Tytuł drugiej pracy',
+            city: 'Toruń'
+        },
+        {
+            lat: 53.0210671,
+            lon: 18.618612,
+            title: 'Tytuł trzeciej pracy',
+            city: 'Toruń'
+        },
+        {
+            lat: 54.3482259,
+            lon: 18.6542888,
+            title: 'Tytuł czwartej pracy',
+            city: 'Gdańsk'
+        },
+        {
+            lat: 54.3482259,
+            lon: 18.6542888,
+            title: 'Tytuł piątej pracy',
+            city: 'Gdańsk'
+        },
+        {
+            lat: 52.2319237,
+            lon: 21.0067265,
+            title: 'Tytuł szóstej pracy',
+            city: 'Warszawa'
+        }
+    ]
+};
+
+app.post('/google-mapDataExamples', function (req, res) {
+    console.log('Responding to map data request with examples')
+    res.send(mapDataExamples)
+})
+
 
 var Canvas = require("canvas");
 
@@ -83,11 +129,11 @@ var cloud = require("d3-cloud");
 app.post('/wordcloudData', function (req, res) {
 
     if(!req.body.width) {
-        console.log('Queried for wordcloud data without a width, using a default of 500')
+        console.log('Queried for wordcloud data without a width, using a default of 500');
         req.body.width = 500;
     }
     if(!req.body.height) {
-        console.log('Queried for wordcloud data without a height, using a default of 500')
+        console.log('Queried for wordcloud data without a height, using a default of 500');
 
         req.body.height = 500;
     }

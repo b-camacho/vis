@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Graf wspolpracy</title>
+</head>
+
+<body>
+
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="js/remove-diacritics.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="js/d3-tip.js"></script>
+<script src="js/parse-raw-expertus.js"></script>
+<script src="js/collab-demo-1.js"></script>
+<script src="js/bar-graph.js"></script>
+<script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
+<script src="js/collab.js"></script>
+
+<div class="row top-nav z-depth-1">
+    <div style="float: left; height: 50px">
+        <ul>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px">Wizualizator dorobku naukowego</li>
+            <li style="font-size: medium">Scientific output visualizer</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row main-row">
+    <div class="col s3 vis-details z-depth-1" style="padding-left: 0">
+            <div class="row">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <span class="card-title">Graf bąbelkowy</span>
+                        <p>Szczegółowy opis grafu bąbelkowego</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">-->
+            <!--<ul class="collection with-header z-depth-1">-->
+            <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
+            <!--<li class="collection-item"><div><span>Liczba współautorów: </span> <span id="coworkers-amount-display" style="float: right">-</span></div></li>-->
+            <!--<li class="collection-item"><div><span>Najwięcej wspólnych prac z: </span> <span id="max-shared-works-amount-display" style="float: right">-</span></div></li>-->
+            <!--<li class="collection-item"><div><span>Średnia liczba prac: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>-->
+            <!--<li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>-->
+            <!--</ul>-->
+            <!--</div>-->
+
+    </div>
+    <div class="col s9  svg-container">
+        <div id="map" style="height: 100%; padding: 20px"></div>
+
+
+        <!--
+                <svg class="z-depth-1 svg-port" id="svg-port"></svg>
+        -->
+    </div>
+</div>
+
+
+
+
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 52.23, lng: 20.92},
+            zoom: 7
+        });
+    }
+
+    $(document).ready(function () {
+        $.post("google-mapDataExamples", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+            let markers = [];
+            data.worksWithLocations.forEach((workObject) => {
+                markers.push(
+                    new google.maps.Marker({
+                        position: new google.maps.LatLng(workObject.lat, workObject.lon),
+                        map: map,
+                        //label: workObject.title + ' : ' + workObject.city,
+                        clickable: false
+                    }));
+                markers[markers.length - 1].setClickable(false);
+
+            });
+
+            const markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', clickable: false});
+            markerCluster.removeEventListener('click');
+
+        })
+    })
+</script>
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlLa8WDlJVmN_zmQ3zw4UrvPujezvkRAo&callback=initMap" async defer></script>
+
+</body>
+</html>

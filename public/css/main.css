@@ -15,6 +15,13 @@ nav {
     color: white;
 }
 
+.main-row {
+    position: fixed;
+    top: 75px;
+    height: calc(100% - 75px);
+    width: 100%;
+    background-color: #e4e4e4;
+}
 .input-field-container {
 
     width: 20em;
@@ -38,7 +45,7 @@ nav {
 
 .vis-select {
     height: 100%;
-    background-color: #e4e4e4;
+    background-color: #f5f5f5;
     padding-right: 2em;
     padding-left: 2em;
     padding-top: 20px
@@ -72,26 +79,33 @@ nav {
     background-color: #FFFFFF;
 }
 
+.svg-container {
+    height: calc(100% - 20px);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .svg-port {
-    position: absolute;
-    left: 35%;
-    width: 60%;
-    margin-top:50px;
-    height: 80%;
+    height: 100%;
+    width: 100%;
+    background-color: white;
 }
 .collection {
     border: 0;
 }
-.vis-info {
-    position: absolute;
-    right: 68%;
+
+
+
+.vis-details {
     background-color: #e4e4e4;
-    height: 100%;
-    width: 32%;
     padding-right: 2em;
     padding-left: 2em;
-    padding-top: 20px
+    padding-top: 20px;
+    height: 100%;
+}
+
+.vis-details-card {
+    margin-left: 0.5rem;
 }
 html, body, h1, h2, h3, h4, h5, h6, div {
     padding: 0;

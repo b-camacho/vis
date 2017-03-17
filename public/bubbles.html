@@ -31,25 +31,25 @@
 <script src="js/collab.js"></script>
 
 
-<nav>
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Wizualizator naukowca</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="index.html">Wizualizacje</a></li>
+<div class="row top-nav z-depth-1">
+    <div style="float: left; height: 50px">
+        <ul>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px">Wizualizator dorobku naukowego</li>
+            <li style="font-size: medium">Scientific output visualizer</li>
         </ul>
     </div>
-</nav>
-<div class="row">
-    <div class="col s4" style="padding-left: 0">
-        <div class="z-depth-1 vis-info">
-            <div class ="row">
-                <div class="card">
-                    <div class="card-content white-text">
-                        <span class="card-title">Graf bąbelkowy</span>
-                        <p>Szczegółowy opis grafu bąbelkowego</p>
-                    </div>
+</div>
+
+<div class="row main-row">
+    <div class="col s3 vis-details z-depth-1" style="padding-left: 0">
+        <div class="row">
+            <div class="card">
+                <div class="card-content white-text">
+                    <span class="card-title">Graf bąbelkowy</span>
+                    <p>Szczegółowy opis grafu bąbelkowego</p>
                 </div>
             </div>
+        </div>
 
             <!--<div class="row">-->
                 <!--<ul class="collection with-header z-depth-1">-->
@@ -60,10 +60,9 @@
                     <!--<li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>-->
                 <!--</ul>-->
             <!--</div>-->
-        </div>
 
     </div>
-    <div class="col s8">
+    <div class="col s9 svg-container">
         <svg class="z-depth-1 svg-port" id="svg-port"></svg>
     </div>
 </div>
@@ -110,8 +109,9 @@
 
         var svg = d3.select('#svg-port');
 
-        var width = parseInt(svg.style('width').replace('px', '')) - 20;
-        var height = parseInt(svg.style('height').replace('px', '')) - 20;
+        var width = parseInt(svg.style('width').replace('px', '')) - 40;
+        var height = parseInt(svg.style('height').replace('px', ''));
+
 
         var sumOfPages = 0;
         var years = data.map(function (el) {
@@ -150,7 +150,7 @@
                 console.log(d)
                 console.log(i);
             }
-            return 'Rok: ' + years[i] + '<br>' + 'Stron: ' + data[i].pages });
+            return 'Rok: ' + years[i] + '<br>' + 'Woluminów: ' + Math.round(data[i].pages / 40)});
         svg.call(bubbleTip);
 
 
@@ -176,8 +176,8 @@
             if(bottomCentres[i] - bottomCentres[i-1] < 10) return "";
             return d;
         });
-        var axisGroupTop = svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [0, 20] + ')');
-        var axisGroupBottom = svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [0, height] + ')');
+        var axisGroupTop = svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [20, 20 ] + ')');
+        var axisGroupBottom = svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [20, height -20 ] + ')');
 
 
         ///Drawing the guidelines
@@ -186,6 +186,7 @@
                 .data(centres)
                 .enter()
                 .append('line')
+                .attr('transform', 'translate(' + [20, -10] + ')')
                 .attr('id', function (d, i) {
                     return 'a' + data[i].year;
                 })
@@ -202,16 +203,13 @@
                 .attr('stroke-dasharray', '5, 5')
                 .attr('opacity', '0.5');
 
-
-
-
-
         ///Drawing bubbles
         var bubbles = svg
                 .selectAll('rect')
                 .data(data);
         bubbles.enter()
                 .append('circle')
+                .attr('transform', 'translate(' + [20, -10] + ')')
                 .attr('cx', function (d) {
                     return xScale(d.year);
                 })
