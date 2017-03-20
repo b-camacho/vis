@@ -10,11 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "busboy": "^0.2.14",
     "canvas": "^1.6.4",
     "case": "^1.4.2",
     "cheerio": "^0.22.0",
     "connect-busboy": "0.0.2",
     "d3-cloud": "^1.2.4",
+    "express-busboy": "^5.0.0",
     "iconv-lite": "^0.4.15",
     "iso-8859-2": "^1.0.0",
     "json": "^9.0.4",

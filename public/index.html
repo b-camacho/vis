@@ -33,21 +33,46 @@
 
 
 <div class="row top-nav z-depth-1">
-        <div style="float: left; height: 50px">
-            <ul>
-                <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px">Wizualizator dorobku naukowego</li>
-                <li style="font-size: medium">Scientific output visualizer</li>
-            </ul>
-        </div>
-        <div style="float: right" class="input-field-container">
-                <input placeholder="Nazwisko i imię" type="text" id="name-and-surname-autocomplete"
-                       class=" autocomplete name-input-bar" name="name" title="name" style="color: #454545;margin-bottom: 10px"
-                       oninput="InputChanged()" onfocus="SetInputFocused()"
-                       onblur="SetInputBlurred()">
-                <ul id="results" class="dropdown-content" style="opacity:100; display: block"></ul>
-        </div>
-</div>
+    <div style="float: left; height: 50px">
+        <ul>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px">Wizualizator dorobku naukowego</li>
+            <li style="font-size: medium">Scientific output visualizer</li>
+        </ul>
+    </div>
 
+
+
+    <div style="float: right" class="input-field-container">
+            <input placeholder="Nazwisko i imię" type="text" id="name-and-surname-autocomplete"
+                   class=" autocomplete name-input-bar" name="name" title="name" style="color: #454545;margin-bottom: 10px"
+                   oninput="InputChanged()" onfocus="SetInputFocused()"
+                   onblur="SetInputBlurred()">
+            <ul id="results" class="dropdown-content" style="opacity:100; display: block"></ul>
+    </div>
+
+    <div style="float: right; margin-right: 20px" >
+        <form method="post" action="upload" enctype="multipart/form-data">
+            <div class="file-field input-field">
+                <div class="btn">
+                    Wybierz plik
+                    <input type="file" id="file-input" name="expertus" onchange="StartUpload()">
+                </div>
+                <!--<div class="file-path-wrapper">-->
+                    <!--<input class="file-path validate" type="text">-->
+                <!--</div>-->
+            </div>
+
+            <input type="submit" hidden="hidden" id="file-input-submit">
+
+        </form>
+    </div>
+
+</div>
+<script>
+function StartUpload() {
+    $('#file-input-submit').click()
+}
+</script>
 <script>
 
     var DetailedDescriptions = {
@@ -278,25 +303,25 @@
     <div class="col s4" style="height: 100%; padding-right: 0">
         <div class="z-depth-1 vis-select ">
 
-            <div class="row" hidden="hidden">
-                <div class="card file-input-card">
-                    <div class="card-content black-text file-input-container">
-                        <span class="card-title"> Dane wejściowe</span>
-                        <p>prześlij plik z bazy ekspertus, na podstawie ktorego strona wygeneruje wizualizacje</p>
-                        <form action="#" id="file-input-form">
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>Plik</span>
-                                    <input type="file" id="file-input">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="row" hidden="hidden">-->
+                <!--<div class="card file-input-card">-->
+                    <!--<div class="card-content black-text file-input-container">-->
+                        <!--<span class="card-title"> Dane wejściowe</span>-->
+                        <!--<p>prześlij plik z bazy ekspertus, na podstawie ktorego strona wygeneruje wizualizacje</p>-->
+                        <!--<form action="#" id="file-input-form">-->
+                            <!--<div class="file-field input-field">-->
+                                <!--<div class="btn">-->
+                                    <!--<span>Plik</span>-->
+                                    <!--<input type="file" id="file-input">-->
+                                <!--</div>-->
+                                <!--<div class="file-path-wrapper">-->
+                                    <!--<input class="file-path validate" type="text">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="row">
                 <div class="card name-input-card col s12">

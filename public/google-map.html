@@ -84,7 +84,7 @@
     }
 
     $(document).ready(function () {
-        $.post("google-mapDataExamples", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+        $.post("google-mapDataExamples", {}, function (data) {
             let markers = [];
             data.worksWithLocations.forEach((workObject) => {
                 markers.push(

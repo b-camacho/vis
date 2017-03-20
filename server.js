@@ -16,6 +16,9 @@ var m = require('./models');
 
 var retriever = require('./expertus-retriever');
 
+var Busboy = require('busboy');
+var iconv = require('iconv-lite');
+var parser = require('./parseUploadedExpertusFile');
 const rawDbWordsParser = require('./getWordObjectsArray');
 
 app.use(express.static('public'));
@@ -23,6 +26,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+const session = require('express-session');
+
+app.use(session({
+    secret: '_______________APPSECRETHERE__________________________',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.get('*', function (req, res, next) {
+    console.log(req.session);
+    next();
+})
 
 app.post('/retrieve', function (req, res) {
     retriever.run(req.body.name, {mode: req.body.mode}, function (err, result) {
@@ -46,10 +62,8 @@ app.post('/collab', function (req, res) {
      })*/
 });
 app.post('/collabData', function (req, res) {
-    console.log('Db lookup for ' + req.body.name);
-    m.Work.find({authors: req.body.name}, function (err, works) {
-        res.send(works);
-    })
+    //console.log('Db lookup for ' + req.body.name);
+    res.json(req.session.works);
 });
 
 app.post('/works', function (req, res) {
@@ -57,10 +71,7 @@ app.post('/works', function (req, res) {
     res.redirect('works.html');
 });
 app.post('/worksData', function (req, res) {
-    console.log('Db lookup for ' + req.body.name);
-    m.Work.find({authors: req.body.name}, function (err, works) {
-        res.send(works);
-    })
+    res.json(req.session.works);
 });
 app.post('/bubbles', function (req, res) {
     res.redirect('bubbles.html');
@@ -70,11 +81,9 @@ app.post('/research-map', function (req, res) {
 });
 
 app.post('/bubblesData', function (req, res) {
-    console.log('Initiating page amounts for bubbles query for: ' + req.body.name);
-    m.Work.find({authors: req.body.name}, function (err, works) {
-        res.json(works);
-    })
+    res.json(req.session.works)
 });
+
 const mapDataExamples = {
     worksWithLocations: [
         {
@@ -137,47 +146,48 @@ app.post('/wordcloudData', function (req, res) {
 
         req.body.height = 500;
     }
-    m.Work.find({authors: req.body.name}, function (err, works) {
 
-        let worksPolishOnly = [];
-        works.forEach((work) => {
-            work.languages.includes("POL") ? worksPolishOnly.push(work) : null;
+    const works = req.session.works;
+
+    let worksPolishOnly = [];
+    works.forEach((work) => {
+        work.languages.includes("POL") ? worksPolishOnly.push(work) : null;
+    });
+
+
+
+    const wordsArray = rawDbWordsParser(worksPolishOnly)
+        .sort(function (a, b) {
+        if(a.amount < b.amount) return -1;
+        if(a.amount > b.amount) return 1;
+        return 0;
+        })
+        .reverse();
+
+    console.log(wordsArray.slice(0, 10));
+
+    const maxSize = Math.min(req.body.height, req.body.width) * 1.5 / wordsArray[0].amount, minSize = 10,
+        maxAmount = wordsArray[0].amount, minAmount = 1;
+
+    let words = wordsArray
+        .map(function(el) {
+            return {text: el.text, size: Math.max(Math.pow(el.amount/maxAmount, 0.8) * maxSize, minSize)};
         });
 
+    cloud().size([req.body.width, req.body.height])
+        .canvas(function() { return new Canvas(req.body.width, req.body.height); })
+        .words(words)
+        .padding(1)
+        .rotate(function() { return Math.random() > 0.5 ? 90 : 0})
+        .font(()=>{return 'sans-serif'})
+        .fontSize(function(d) { return d.size; })
+        .on("end", end)
+        // .spiral('rectangular')
+        .start();
+
+    function end(words) { res.json(words); }
 
 
-        const wordsArray = rawDbWordsParser(worksPolishOnly)
-            .sort(function (a, b) {
-            if(a.amount < b.amount) return -1;
-            if(a.amount > b.amount) return 1;
-            return 0;
-            })
-            .reverse();
-
-        console.log(wordsArray.slice(0, 10));
-
-        const maxSize = Math.min(req.body.height, req.body.width) * 1.5 / wordsArray[0].amount, minSize = 10,
-            maxAmount = wordsArray[0].amount, minAmount = 1;
-
-        let words = wordsArray
-            .map(function(el) {
-                return {text: el.text, size: Math.max(Math.pow(el.amount/maxAmount, 0.5) * maxSize, minSize)};
-            });
-
-        cloud().size([req.body.width, req.body.height])
-            .canvas(function() { return new Canvas(req.body.width, req.body.height); })
-            .words(words)
-            .padding(1)
-            .rotate(function() { return Math.random() > 0.5 ? 90 : 0})
-            .font(()=>{return 'sans-serif'})
-            .fontSize(function(d) { return d.size; })
-            .on("end", end)
-            // .spiral('rectangular')
-            .start();
-
-        function end(words) { res.json(words); }
-
-    })
 });
 
 
@@ -187,6 +197,35 @@ app.get('/name-lookup', function (req, res) {
         console.log(err);
         res.send(result);
     });
+})
+
+app.post('/upload', function (req, res) {
+    var busboy = new Busboy({ headers: req.headers });
+
+    var chunks = [];
+    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+        file.on('data', function(chunk) {
+            chunks.push(chunk);
+            console.log('File [' + fieldname + '] got ' + chunk.length + ' bytes');
+        });
+        file.on('end', function() {
+            console.log('File [' + fieldname + '] Finished');
+            var fileBuffer = Buffer.concat(chunks);
+            fileBuffer = iconv.decode(fileBuffer, "ISO-8859-2");
+            parser.parse(fileBuffer.toString(), (err, parsedObjects) => {
+                req.session.works = parsedObjects;
+            });
+
+
+        });
+    });
+    busboy.on('finish', function() {
+        console.log('Done parsing form!');
+        res.writeHead(303, { Connection: 'close', Location: '/' });
+        res.end();
+    });
+    req.pipe(busboy);
 })
 
 app.listen(config.port || 3000, function () {

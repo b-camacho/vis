@@ -5,7 +5,7 @@
 const illegalChars = [',', '.', ';', ':', '!', '?', '<', '>', '[', ']', '(', ')', '/',"'", '"'];
 
 function getFilteredWordAmountsArray(wordsToFilterFrom) {
-    console.log(wordsToFilterFrom.length)
+    console.log(wordsToFilterFrom.length);
     const fs = require('fs');
     const rawArray = fs.readFileSync('stop-words-polish.txt').toString().split('\n');
 
@@ -79,17 +79,16 @@ function getFilteredWordAmountsArray(wordsToFilterFrom) {
 function get(rawData) {
 
     let wordArray = [];
-
+    let str = '';
     rawData.map( (record) => {
-        return record.title;
+        return record.keywords;
     }).forEach( (title, index) => {
-
-        if(title) wordArray = wordArray.concat(title.split(' '));
+        if(title) wordArray = wordArray.concat(...title);
         else console.log('Undefined title at ' + index)
     });
 
     return getFilteredWordAmountsArray(wordArray);
-};
+}
 
 module.exports = get;
 

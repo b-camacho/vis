@@ -123,8 +123,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        console.log('Querying against name: ' + document.cookie.split('name=')[1].split(';')[0]);
-        $.post("worksData", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+        $.post("worksData", function (data) {
                     var barData = getBars(data);
                     drawWorksOverTimeGraph(barData);
                     displayWorkStatsWorksInTime(barData);

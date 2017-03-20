@@ -110,7 +110,7 @@
 <script>
 
 $(document).ready(function () {
-            $.post("collabData", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+            $.post("collabData", {}, function (data) {
                 console.log(data);
                 drawSimulationCollaborationGraph(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)));
                 displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))

@@ -72,11 +72,12 @@
 
 <script>
     $(document).ready(function () {
-        $.post("bubblesData", {name: document.cookie.split('name=')[1].split(';')[0]}, function (data) {
+        $.post("bubblesData", {}, function (data) {
             //console.log("Post to /bubblesData results: " + data);
+            var removedCounter = 0;
             data.forEach(function (invalidEl, invalidIndex, arr) {
                 if(!invalidEl.year) console.log('Invalid record: ' + invalidIndex);
-                data.splice(invalidIndex, 1)
+                data.splice(invalidIndex + removedCounter, 1)
             });
 
             data = data.sort(function (a, b) {
@@ -92,8 +93,8 @@
 
             data.forEach(function (el) {
                 var last = PageCountsGroupedByYear.length - 1;
-                if(PageCountsGroupedByYear[last].year == el.year) PageCountsGroupedByYear[last].pages += el.pageAmount;
-                else PageCountsGroupedByYear.push({
+                if(PageCountsGroupedByYear[last].year == el.year && (typeof el.pageAmount) == 'number') PageCountsGroupedByYear[last].pages += el.pageAmount;
+                else if((typeof el.pageAmount) == "number") PageCountsGroupedByYear.push({
                     year: el.year,
                     pages: el.pageAmount
                 })
@@ -150,7 +151,7 @@
                 console.log(d)
                 console.log(i);
             }
-            return 'Rok: ' + years[i] + '<br>' + 'Woluminów: ' + Math.round(data[i].pages / 40)});
+            return 'Rok: ' + years[i] + '<br>' + 'Woluminów: ' + Math.ceil(data[i].pages / 40)});
         svg.call(bubbleTip);
 
 

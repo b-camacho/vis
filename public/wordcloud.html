@@ -75,12 +75,11 @@
 </div>
 <script>
     $(document).ready(function () {
-        console.log('Querying against name: ' + document.cookie.split('name=')[1].split(';')[0]);
         const svg = d3.select('#svg-port');
 
         const width = parseInt(svg.style('width').replace('px', ''));
         const height = parseInt(svg.style('height').replace('px', ''));
-        $.post("wordcloudData", {name: document.cookie.split('name=')[1].split(';')[0], width: width, height: height}, function (data) {
+        $.post("wordcloudData", {width: width, height: height}, function (data) {
 
 //                    console.log(titleWordsArray);
                     displayWordcloud(data);
