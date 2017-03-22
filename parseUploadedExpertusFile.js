@@ -16,8 +16,6 @@ parser.parse = function (rawText, done) {
 
     let recordObjectsArray = [];
 
-    console.log('Parser init');
-
     const rawTextArray = rawText.split(exp1);
 
     console.log(rawTextArray.length + ' records in total');
@@ -34,7 +32,6 @@ parser.parse = function (rawText, done) {
 
         const recordArray = record.split(exp2);
 
-        console.log(recordArray.length + ' lines in this record');
         const redundantSufix = '</UL></span>';
 
         recordArray.forEach( (line) => {
@@ -43,6 +40,7 @@ parser.parse = function (rawText, done) {
             switch (splitLine[0]) {
                 case 'Aut.':
                     splitLine[1].split(',').forEach((name) => {
+                        name = name.trim();
                         recordObject.authorsExpertusFormat.push(name);
                         recordObject.authors.push(name);
                     });
@@ -81,7 +79,7 @@ parser.parse = function (rawText, done) {
                     splitLine[1].split('<LI>').forEach((elem, index) => {
                         if(index == 0) return;
                        elem = elem.split(redundantSufix).join('');
-                        recordObject.keywords.push(elem);
+                        recordObject.keywords.push(elem.trim());
                     });
                     break;
 
@@ -112,9 +110,7 @@ parser.parse = function (rawText, done) {
 
     });
     done(null, recordObjectsArray);
-    console.log(recordObjectsArray);
 
-    require('fs').writeFileSync('log.log', JSON.stringify(recordObjectsArray));
 }
 
 

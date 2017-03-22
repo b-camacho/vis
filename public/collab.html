@@ -67,43 +67,6 @@
         <svg class="z-depth-1 svg-port" id="svg-port"></svg>
     </div>
 </div>
-<!--<nav>-->
-    <!--<div class="nav-wrapper">-->
-        <!--<a href="#" class="brand-logo">Wizualizator naukowca</a>-->
-        <!--<ul id="nav-mobile" class="right hide-on-med-and-down">-->
-            <!--<li><a href="index.html">Wizualizacje</a></li>-->
-        <!--</ul>-->
-    <!--</div>-->
-<!--</nav>-->
-<!--<div class="row">-->
-    <!--<div class="col s4" style="padding-left: 0">-->
-        <!--<div class="z-depth-1 vis-info">-->
-            <!--<div class ="row">-->
-                <!--<div class="card">-->
-                    <!--<div class="card-content white-text">-->
-                        <!--<span class="card-title">Graf współautorstwa</span>-->
-                        <!--<p>Symulacja, w której każda osoba oznaczona we wczytanej pracy jako współautor jest przedstawiona jako węzeł, który przyciągany jest do innych tym silniej, im więcej dzieli z nimi prac naukowych</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<ul class="collection with-header z-depth-1">-->
-                    <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
-                    <!--<li class="collection-item"><div><span>Liczba współautorów: </span> <span id="coworkers-amount-display" style="float: right">-</span></div></li>-->
-                    <!--<li class="collection-item"><div><span>Najwięcej wspólnych prac z: </span> <span id="max-shared-works-amount-display" style="float: right">-</span></div></li>-->
-                    <!--<li class="collection-item"><div><span>Średnia liczba prac: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>-->
-                    <!--<li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-
-    <!--</div>-->
-    <!--<div class="col s8">-->
-        <!--<svg class="z-depth-1 svg-port" id="svg-port"></svg>-->
-    <!--</div>-->
-<!--</div>-->
-
 
 
 
@@ -112,8 +75,8 @@
 $(document).ready(function () {
             $.post("collabData", {}, function (data) {
                 console.log(data);
-                drawSimulationCollaborationGraph(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)));
-                displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
+                drawSimulationCollaborationGraph(getNodes((data)));
+                //displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
         }
 
 )});
@@ -121,23 +84,26 @@ $(document).ready(function () {
 function drawSimulationCollaborationGraph(data) {
     console.log(data);
     clearSvg();
-//    var colorScale = d3.scaleSequential(d3.interpolateYlOrRd) //TODO: SWITCH TO AN ORDINAL COLOR SCALE
-//            .domain([-2, data.rings[data.rings.length - 1] * 2 / 3]);
 
-    var sizeScale = d3.scaleLinear()
+
+    var sizeScale = d3.scalePow().exponent(1/2)
             .domain(
                     [
                         d3.min(data.simNodes, function (d) {return d.strengthValue;}),
                         d3.max(data.simNodes, function (d) {return d.strengthValue;})
                     ])
-            .range([10, 30]);
+            .range([10, 40]);
 
 
     var svg = d3.select("#svg-port"),
             width = $(".svg-port").width() * 3 / 4,
             height = $(".svg-port").height() * 3 / 4;
 
-    console.log(width + ' ' + height);
+    data.simNodes[0].fx = width / 2;
+    data.simNodes[0].fy = height / 2;
+
+
+        console.log(width + ' ' + height);
 
     var simulation = d3.forceSimulation()
             .force("link", d3.forceLink()
@@ -148,7 +114,7 @@ function drawSimulationCollaborationGraph(data) {
             .force("charge",
                     d3.forceManyBody()
                             .strength(function() {
-                                return -200;
+                                return -500;
                             }))
             .force("center",
                     d3.forceCenter(width / 2, height / 2));
@@ -163,7 +129,7 @@ function drawSimulationCollaborationGraph(data) {
             .data(data.simLinks)
             .enter().append("line")
             .attr("stroke-width", function (d) {
-                return Math.sqrt(d.value);
+                return Math.sqrt(d.value) * 1.5;
             })
             .style("stroke", d3.rgb(69,67,67))
             .style("stroke-opacity", 0.5);
@@ -270,253 +236,131 @@ function displayWorkStatsCollab (data) {
     $('#works-amount-display').text(displayValues.sumOfWorks)
 }
 
-function ConvertDbOutputIntoLegacyExpertusFormat(data, mainName) { //[ {authors: [author1, author2]} ]
+function ConvertDbOutputIntoLegacyExpertusFormat(data) { //[ {authors: [author1, author2]} ]
     var LegacyCollaboratorList = [];
 
     data.forEach(function (work) {
         var singleWorkAuthors = [];
         work.authors.forEach(function (author) {
-            if(author != mainName) singleWorkAuthors.push(author);
+            singleWorkAuthors.push(author);
         });
         LegacyCollaboratorList.push(singleWorkAuthors)
     });
+
+    console.log(LegacyCollaboratorList);
 
     return LegacyCollaboratorList
 }
 
 
+//
+//if (!Array.prototype.includes) {
+//    Array.prototype.includes = function(searchElement /*, fromIndex*/) {
+//        'use strict';
+//        if (this == null) {
+//            throw new TypeError('Array.prototype.includes called on null or undefined');
+//        }
+//
+//        var O = Object(this);
+//        var len = parseInt(O.length, 10) || 0;
+//        if (len === 0) {
+//            return false;
+//        }
+//        var n = parseInt(arguments[1], 10) || 0;
+//        var k;
+//        if (n >= 0) {
+//            k = n;
+//        } else {
+//            k = len + n;
+//            if (k < 0) {k = 0;}
+//        }
+//        var currentElement;
+//        while (k < len) {
+//            currentElement = O[k];
+//            if (searchElement === currentElement ||
+//                    (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
+//                return true;
+//            }
+//            k++;
+//        }
+//        return false;
+//    };
+//}
 
-if (!Array.prototype.includes) {
-    Array.prototype.includes = function(searchElement /*, fromIndex*/) {
-        'use strict';
-        if (this == null) {
-            throw new TypeError('Array.prototype.includes called on null or undefined');
-        }
 
-        var O = Object(this);
-        var len = parseInt(O.length, 10) || 0;
-        if (len === 0) {
-            return false;
-        }
-        var n = parseInt(arguments[1], 10) || 0;
-        var k;
-        if (n >= 0) {
-            k = n;
-        } else {
-            k = len + n;
-            if (k < 0) {k = 0;}
-        }
-        var currentElement;
-        while (k < len) {
-            currentElement = O[k];
-            if (searchElement === currentElement ||
-                    (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
-                return true;
-            }
-            k++;
-        }
-        return false;
-    };
-}
+function getNodes (allWorks) {
 
-
-function getNodes (allWorks) { //allWorks: [ ["Collaborator1", "Collaborator2"], ["Collaborator3"] ];
-
-    var CollaboratorList = getCompleteCollaboratorList(allWorks);
-
-    var ringValues = getRingValues(CollaboratorList[0].collaborations);
-
-    // console.log(ringValues);
-
-    var circlePositions = [];
-    var separationDistance = 360/ringValues[0].people.length;
-    for(var angle = 0; angle < 360; angle += separationDistance) circlePositions.push(angle);
-
-    ringValues.forEach(function (el, index) {
-        if(index == 0) {
-            el.arcs = circlePositions;
-            return
-        }
-        circlePositions = getPositions(circlePositions, el.people.length);
-        el.arcs = circlePositions
+    var authorsSet = new Set();
+    var authorLists = allWorks.map(function (el) {
+        if(!el.authors) return;
+        el.authors.forEach(function (person) {
+            authorsSet.add(person);
+        });
+        return el.authors;
     });
-
-    var nodes = [];
-    var rings = [];
-
-    ringValues.forEach(function (ring, index) {
-        if(index == ringValues.length - 1) return;
-        rings.push(ring.worksAmount);
-        ring.people.forEach(function (person, index) {
-            nodes.push({
-                name: person,
-                angle: ring.arcs[index],
-                amount: ring.worksAmount
-            })
+    var centralAuthor, centralAuthorWorks = 0;
+    authorsSet.forEach(function (author) {
+        var potentialCentralAuthorWorks = 0;
+        authorLists.forEach(function (list) {
+            if(list.indexOf(author) != -1) potentialCentralAuthorWorks++;
         })
-    });
-    var simNodes = [];
-    simNodes.push({id: ringValues[ringValues.length - 1].people[0], strengthValue: ringValues[ringValues.length - 1].worksAmount});
-    nodes.forEach(function (el, index) {
-        simNodes.push({id: el.name, strengthValue: el.amount});
-    });
+        if(potentialCentralAuthorWorks > centralAuthorWorks) {
+            centralAuthorWorks = potentialCentralAuthorWorks;
+            centralAuthor = author;
+        }
+    })
 
+    console.log('Query made by: ' + centralAuthor);
+    console.log('This person has ' + centralAuthorWorks + ' works out of ' + authorLists.length + ' in this set of records.');
+
+    var collaboratorsObject = {};
+    var collaborators = [];
+
+    authorLists.forEach(function (list) {
+        list.forEach(function (person) {
+            if(person != centralAuthor) {
+                if(collaboratorsObject[person] != undefined) collaboratorsObject[person]++;
+                else collaboratorsObject[person] = 1;
+            }
+        })
+    })
+
+
+    console.log(collaboratorsObject);
+
+    var simCentralAuthorObject = {
+        id: centralAuthor,
+        strengthValue: centralAuthorWorks,
+    }
+
+    var simNodes = [simCentralAuthorObject];
     var simLinks = [];
-    nodes.forEach(function (el) {
-        simLinks.push({source: simNodes[0].id, target: el.name, value: el.amount})
-    });
 
+    for(var name in collaboratorsObject) {
+        if(collaboratorsObject.hasOwnProperty(name))
+        {
+            simNodes.push({id: name, strengthValue: collaboratorsObject[name]});
+        }
+    }
+    for (var name in collaboratorsObject) {
+        if(collaboratorsObject.hasOwnProperty(name))
+        {
+            simLinks.push({source: centralAuthor, target: name, value: collaboratorsObject[name]});
+        }
+    }
 
     return {
-        nodes: nodes,
-        rings: rings,
         simNodes: simNodes,
         simLinks: simLinks
     };
 }
-function PolarToCartesian(angle, length) {
-    angle = toRad(angle);
-    return {
-        x: Math.cos(angle) * length,
-        y: Math.sin(angle) * length
-    }
-}
-function toRad(deg) {
-    return deg*Math.PI/180;
-}
-function getPositions (previousPositions, currentAmount) {
-    var range = 360 / currentAmount;
-    // if(range == 360) range = 180;
-    var currentPositions = [];
-    for(var angle = 0; angle < 360; angle += range) {
-        currentPositions.push(angle);
-    }
-
-    var positionDifferences = [];
-    var minimalPositionDifference = 0, currentBestOffset = 0;
-    for(var offset=0; offset<range; offset += (range/20) ) {
-
-        positionDifferences = currentPositions.map(function (position) {
-            var distancesFromSinglePoint = [];
-            previousPositions.forEach(function (previousPosition) {
-                distancesFromSinglePoint.push(Math.abs(previousPosition - position - offset) % 180);
-            });
-            //console.log(Math.min.apply(null, distancesFromSinglePoint));
-            return Math.min.apply(null, distancesFromSinglePoint);
-        });
-
-        if(Math.min.apply(null, positionDifferences) > minimalPositionDifference) {
-            minimalPositionDifference = Math.min.apply(null, positionDifferences);
-            currentBestOffset = offset
-        }
-
-    }
-
-    return currentPositions.map(function (position) {
-        return position + currentBestOffset;
-    })
-}
-
-function getRingValues(singleCollaborationList) {
-
-    singleCollaborationList = singleCollaborationList.sort(compareCollaboratorsByAmount);
-
-    var ringValues = [{
-        worksAmount: 1,
-        people: []
-    }];
-    for(var i = 1; i<singleCollaborationList.length; i++) {
-        if(singleCollaborationList[i-1].amount != singleCollaborationList[i].amount) {
-            ringValues.push( {
-                worksAmount: singleCollaborationList[i].amount,
-                people: [singleCollaborationList[i].name]
-            } )
-        }
-        else {
-            ringValues[ ringValues.length - 1 ].people.push(singleCollaborationList[i].name);
-        }
-    }
-    return ringValues;
-}
-
-function incrementCollaboration (arr, name) {
-    for(var i=0; i<arr.length; i++) {
-        if(arr[i].name == name) {
-            arr[i].amount++;
-            return
-        }
-    }
-}
-
-function getCompleteCollaboratorList ( allWorks ) {
-
-    var allCollaborators = [];
-    var allCollaboratorsWithAmounts = [];
-    var collaborationAmountArray = [];
-    allWorks.forEach(function (work) {
-        work.forEach(function (person) {
-            if(!allCollaborators.includes(person)) {
-                allCollaborators.push(person);
-                collaborationAmountArray.push(
-                        {
-                            name: person,
-                            amount: 0
-                        })
-            }
-
-        })
-    });
-
-    allCollaborators.forEach(function (person) {
-        allCollaboratorsWithAmounts.push(
-                {
-                    name: person,
-                    collaborations: JSON.parse(JSON.stringify(collaborationAmountArray))
-                })
-    });
 
 
-    allCollaboratorsWithAmounts.forEach(function (collaborator, index, arr) {
-        for(var i=0; i<allWorks.length; i++) {
-            if(allWorks[i].includes(collaborator.name)) {
-                allWorks[i].forEach(function (person) {
-                    incrementCollaboration(collaborator.collaborations, person);
-                });
-            }
-        }
-    });
 
-    return allCollaboratorsWithAmounts;
-}
 
-function compareCollaboratorsByAmount (a, b) {
-    if (a.amount < b.amount) {
-        return -1;
-    }
-    if (a.amount > b.amount) {
-        return 1;
-    }
-    return 0;
-}
 
 function clearSvg() {
     d3.select('svg').selectAll('*').remove();
-}
-
-function ParseExpertusCollaborationList(rawText) { //an array of arrays containing author names
-    rawText = rawText.trim();
-    var lines = rawText.split('\n');
-    var works = [];
-    for(var i=0; i<lines.length; i++) {
-        var people = [];
-        while(isPerson(lines[i]) != false && i < lines.length) {
-            people.push(isPerson(lines[i]));
-            i++
-        }
-        if(people.length > 0) works.push(people);
-    }
-
-    return(works);
 }
 
 function PolskaFleksjaSlowaPraca(word, number) {
