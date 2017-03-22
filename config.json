@@ -1,3 +1,5 @@
 {
-  "port": 8080
+  "port": 8080,
+  "nominatimKey": "xOs9i99BIGeke1FucwPGvkoPN88kLJ6P",
+  "googleKey": "AIzaSyAywxSXWKDNwhXREAw_guGFtv0ptqYGrhA"
 }

@@ -35,4 +35,10 @@ Models.Person = mg.model('Person', new mg.Schema( {
     cloneOf: String
 }));
 
+Models.City = mg.model('City', new mg.Schema( {
+    name: {type:String, required: true},
+    lat: {type: Number, required: true},
+    lng: {type: Number, required: true}
+}));
+
 module.exports = Models;

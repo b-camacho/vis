@@ -56,7 +56,7 @@ parser.parse = function (rawText, done) {
 
                 case 'Opis wydawn.':
                     recordObject.potentialCity =  splitLine[1].split(':').length != 1 ?
-                        splitLine[1].split(':')[0] :
+                        splitLine[1].split(':')[0].trim() :
                         null;
 
                     recordObject.year = Number.parseInt(splitLine[1].substr(splitLine.length - 6));

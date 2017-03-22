@@ -21,6 +21,8 @@ var iconv = require('iconv-lite');
 var parser = require('./parseUploadedExpertusFile');
 const rawDbWordsParser = require('./getWordObjectsArray');
 
+const geocoder = require('./geocoder');
+
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -35,10 +37,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.get('*', function (req, res, next) {
-    console.log(req.session);
-    next();
-})
+
 
 app.post('/retrieve', function (req, res) {
     retriever.run(req.body.name, {mode: req.body.mode}, function (err, result) {
@@ -130,6 +129,14 @@ app.post('/google-mapDataExamples', function (req, res) {
     res.send(mapDataExamples)
 })
 
+app.post('/google-map', function (req, res) {
+    geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
+        res.json(workObjectsWithLocations);
+        console.log(workObjectsWithLocations);
+    })
+
+})
+
 
 var Canvas = require("canvas");
 
@@ -166,12 +173,12 @@ app.post('/wordcloudData', function (req, res) {
 
     console.log(wordsArray.slice(0, 10));
 
-    const maxSize = Math.min(req.body.height, req.body.width) * 1.5 / wordsArray[0].amount, minSize = 10,
+    const maxSize = Math.min(req.body.height, req.body.width) * 1.5 / wordsArray[0].amount, minSize = 5 ,
         maxAmount = wordsArray[0].amount, minAmount = 1;
 
     let words = wordsArray
         .map(function(el) {
-            return {text: el.text, size: Math.max(Math.pow(el.amount/maxAmount, 0.8) * maxSize, minSize)};
+            return {text: el.text, size: Math.max(Math.pow(el.amount/maxAmount, 1.5) * maxSize, minSize)};
         });
 
     cloud().size([req.body.width, req.body.height])
@@ -215,6 +222,11 @@ app.post('/upload', function (req, res) {
             fileBuffer = iconv.decode(fileBuffer, "ISO-8859-2");
             parser.parse(fileBuffer.toString(), (err, parsedObjects) => {
                 req.session.works = parsedObjects;
+
+                geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
+                    req.session.works = workObjectsWithLocations;
+                    console.log(workObjectsWithLocations);
+                })
             });
 
 
@@ -226,8 +238,10 @@ app.post('/upload', function (req, res) {
         res.end();
     });
     req.pipe(busboy);
+
 })
 
 app.listen(config.port || 3000, function () {
     console.log('Example app listening on port ' + (config.port || 3000));
 });
+

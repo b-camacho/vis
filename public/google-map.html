@@ -84,23 +84,24 @@
     }
 
     $(document).ready(function () {
-        $.post("google-mapDataExamples", {}, function (data) {
+        $.post("google-map", {}, function (data) {
             let markers = [];
-            data.worksWithLocations.forEach((workObject) => {
+            console.log(data);
+            data.forEach((workObject) => {
+                if(typeof workObject.lat != 'number') return;
                 markers.push(
                     new google.maps.Marker({
-                        position: new google.maps.LatLng(workObject.lat, workObject.lon),
+                        position: new google.maps.LatLng(workObject.lat, workObject.lng),
                         map: map,
                         //label: workObject.title + ' : ' + workObject.city,
                         clickable: false
                     }));
-                markers[markers.length - 1].setClickable(false);
 
+                markers[markers.length - 1].setClickable(false);
             });
 
             const markerCluster = new MarkerClusterer(map, markers,
                 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', clickable: false});
-            markerCluster.removeEventListener('click');
 
         })
     })
