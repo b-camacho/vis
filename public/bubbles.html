@@ -38,6 +38,10 @@
             <li style="font-size: medium">Scientific output visualizer</li>
         </ul>
     </div>
+
+    <div style="float: right; height: 50px">
+        <a href="index.html"><i class="fa fa-arrow-left back-arrow" aria-hidden="true"></i></a>
+    </div>
 </div>
 
 <div class="row main-row">
@@ -45,15 +49,15 @@
         <div class="row">
             <div class="card">
                 <div class="card-content white-text">
-                    <span class="card-title">Graf bąbelkowy</span>
-                    <p>Szczegółowy opis grafu bąbelkowego</p>
+                    <span class="card-title">Objętość piśmiennicza w skali czasu</span>
+                    <p>Wykres bąbelkowy pokazuje sumacyjną ilość stron w publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie długich rozdziałów  w książkach. Poniżej są zamieszczone skumulowana suma punktów dla publikacji danego roku według punktacji MNiSW. </p>
                 </div>
             </div>
         </div>
 
             <!--<div class="row">-->
                 <!--<ul class="collection with-header z-depth-1">-->
-                    <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
+                    <!--<li class="collection-header"><h5>Statystyki</h5></li>-->
                     <!--<li class="collection-item"><div><span>Liczba współautorów: </span> <span id="coworkers-amount-display" style="float: right">-</span></div></li>-->
                     <!--<li class="collection-item"><div><span>Najwięcej wspólnych prac z: </span> <span id="max-shared-works-amount-display" style="float: right">-</span></div></li>-->
                     <!--<li class="collection-item"><div><span>Średnia liczba prac: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>-->
@@ -88,15 +92,20 @@
             var PageCountsGroupedByYear = [];
             PageCountsGroupedByYear[0] = {
                 year: data[0].year,
-                pages: 0
+                pages: 0,
+                points: 0
             };
 
             data.forEach(function (el) {
                 var last = PageCountsGroupedByYear.length - 1;
-                if(PageCountsGroupedByYear[last].year == el.year && (typeof el.pageAmount) == 'number') PageCountsGroupedByYear[last].pages += el.pageAmount;
+                if(PageCountsGroupedByYear[last].year == el.year && (typeof el.pageAmount) == 'number') {
+                    PageCountsGroupedByYear[last].pages += el.pageAmount;
+                    PageCountsGroupedByYear[last].points += el.points;
+                }
                 else if((typeof el.pageAmount) == "number") PageCountsGroupedByYear.push({
                     year: el.year,
-                    pages: el.pageAmount
+                    pages: el.pageAmount,
+                    points: el.points
                 })
             });
             console.log(PageCountsGroupedByYear);
@@ -111,19 +120,27 @@
         var svg = d3.select('#svg-port');
 
         var width = parseInt(svg.style('width').replace('px', '')) - 40;
-        var height = parseInt(svg.style('height').replace('px', ''));
+        var trueHeight = parseInt(svg.style('height').replace('px', ''));
+        var height = 0.85 * trueHeight;
 
 
         var sumOfPages = 0;
+        var sumOfPoints = 0;
         var years = data.map(function (el) {
             sumOfPages += el.pages;
+            sumOfPoints += el.points;
             return el.year;
         });
 
         var rays = [];
         data.forEach(function (el) {
-            rays.push((el.pages / sumOfPages) * width/2)
+            rays.push((el.pages / sumOfPages) * Math.min(width, height) * 0.8)
         });
+
+        var pointRays = [];
+        data.forEach(function (el) {
+            pointRays.push((el.points / sumOfPoints) * Math.min(width, height) / 10)
+        })
 
         var centres = [];
         rays.forEach(function (el, index) {
@@ -140,6 +157,7 @@
         console.log(years)
         console.log(rays)
         console.log(centres)
+        console.log(pointRays)
 
         var xScale = d3.scaleOrdinal()
                 .domain(years)
@@ -148,17 +166,33 @@
         var bubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
             if(!data[i]) {
                 console.log(data);
-                console.log(d)
+                console.log(d);
                 console.log(i);
             }
-            return 'Rok: ' + years[i] + '<br>' + 'Woluminów: ' + Math.ceil(data[i].pages / 40)});
+            return 'Rok: ' + years[i] + '<br>' + 'Stron: ' + data[i].pages });
         svg.call(bubbleTip);
 
+        var pointBubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
+            if(!data[i]) {
+                console.log(data);
+                console.log(d);
+                console.log(i);
+            }
+            return 'Rok: ' + years[i] + '<br>' + 'Punktacja ministerstwa: ' + data[i].points });
+        svg.call(pointBubbleTip);
 
-        ///Drawing the axis
+
+        ///Drawing the axes
         var bottomYears=[], bottomCentres=[];
         var topYears=[], topCentres=[];
+        var pointYears = [], pointCentres = [];
+
         years.forEach(function (el, index) {
+            if(pointRays[index] != 0) {
+                pointYears.push(years[index]);
+                pointCentres.push(centres[index]);
+            }
+
             if(index%2 == 0) {
                 bottomYears.push(el);
                 bottomCentres.push(centres[index]);
@@ -177,8 +211,13 @@
             if(bottomCentres[i] - bottomCentres[i-1] < 10) return "";
             return d;
         });
+        var xAxisPoints = d3.axisBottom(d3.scaleOrdinal().range(pointCentres).domain(pointYears)).tickFormat(function (d, i) {
+            if(pointCentres[i] - pointCentres[i-1] < 10) return "";
+            return d;
+        });
         var axisGroupTop = svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [20, 20 ] + ')');
         var axisGroupBottom = svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [20, height -20 ] + ')');
+        var axisGroupPoints = svg.append('g').call(xAxisPoints).attr('transform', 'translate(' + [20, trueHeight - 20] + ')');
 
 
         ///Drawing the guidelines
@@ -234,6 +273,36 @@
                 .attr('r', function (d, i) {
                     return rays[i];
                 })
+
+        ///Drawing the point bubbles
+        var pointBubbles = svg
+            .selectAll('rect')
+            .data(data);
+
+        pointBubbles.enter()
+            .append('circle')
+            .attr('transform', 'translate(' + [20, -10] + ')')
+            .attr('cx', function (d) {
+                return xScale(d.year);
+            })
+            .attr('cy', function () {
+                return height + (trueHeight - height) / 2;
+            })
+            .attr('fill', function () {
+                return NextColor()
+            })
+            .attr('r', '0')
+            .on('mouseover', function (d, i) {
+                pointBubbleTip.show(d, i);
+            })
+            .on('mouseout', function (d, i) {
+                pointBubbleTip.hide(d, i);
+            })
+            .transition()
+            .duration(500)
+            .attr('r', function (d, i) {
+                return pointRays[i];
+            })
 
 
 

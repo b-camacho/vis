@@ -5,7 +5,6 @@
 var mg = require('mongoose');
 var m = require('./models');
 const NodeGeocoder = require('node-geocoder');
-const request = require('request');
 const config = JSON.parse(require('fs').readFileSync('config.json'));
 
 // mg.connect('mongodb:localhost/vis', (err) => {
@@ -40,7 +39,7 @@ const geocoder = {
                 citiesToObjectsMap[city.name].forEach((workObject) => {
                     workObject.lat = city.lat;
                     workObject.lng = city.lng;
-                    console.log('Added lat:'  + city.lat + ' to work ' + workObject.title)
+                    // console.log('Added lat:'  + city.lat + ' to work ' + workObject.title)
 
                 });
                 citiesToObjectsMap[city.name].length = 0;
@@ -81,7 +80,7 @@ const geocoder = {
 
         cityList.forEach((city)=> {
             nodeGeocoder.geocode(city, (err, res) => {
-                console.log('Resolving ' + city);
+                // console.log('Resolving ' + city);
                 if(err) {
                     waitingFor--;
                     if(waitingFor == 0) done(null, resolvedCities)

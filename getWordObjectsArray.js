@@ -69,19 +69,21 @@ function getFilteredWordAmountsArray(wordsToFilterFrom) {
     let wordsWithAmountsArray = [];
     for(let word in wordsWithAmountsObject) {
         if(wordsWithAmountsObject.hasOwnProperty(word)) {
-            wordsWithAmountsArray.push({text: word, amount: wordsWithAmountsObject[word]})
+            //if(wordsWithAmountsObject[word] > 1)
+                wordsWithAmountsArray.push({text: word, amount: wordsWithAmountsObject[word]})
         }
     }
+
 
     return wordsWithAmountsArray;
  }
 
-function get(rawData) {
+function get(rawData, lang) {
 
     let wordArray = [];
     let str = '';
     rawData.map( (record) => {
-        return record.keywords;
+        return record[lang + 'keywords'];
     }).forEach( (title, index) => {
         if(title) wordArray = wordArray.concat(...title);
         else console.log('Undefined title at ' + index)

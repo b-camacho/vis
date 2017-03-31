@@ -150,20 +150,19 @@ app.post('/wordcloudData', function (req, res) {
     }
     if(!req.body.height) {
         console.log('Queried for wordcloud data without a height, using a default of 500');
-
         req.body.height = 500;
     }
 
+    req.body.width = req.body.width / 2;
+
+    let polishEnd = false, englishEnd = false;
+    let resultWords = {
+        polish: null,
+        english: null
+    };
     const works = req.session.works;
 
-    let worksPolishOnly = [];
-    works.forEach((work) => {
-        work.languages.includes("POL") ? worksPolishOnly.push(work) : null;
-    });
-
-
-
-    const wordsArray = rawDbWordsParser(worksPolishOnly)
+    const wordsArray = rawDbWordsParser(works, 'polish')
         .sort(function (a, b) {
         if(a.amount < b.amount) return -1;
         if(a.amount > b.amount) return 1;
@@ -173,12 +172,12 @@ app.post('/wordcloudData', function (req, res) {
 
     console.log(wordsArray.slice(0, 10));
 
-    const maxSize = Math.min(req.body.height, req.body.width) * 1.5 / wordsArray[0].amount, minSize = 5 ,
-        maxAmount = wordsArray[0].amount, minAmount = 1;
+    const maxSize = Math.max(req.body.height, req.body.width) / 4, minSize = 5 ,
+        maxAmount = wordsArray[0].amount, minAmount = 2;
 
     let words = wordsArray
         .map(function(el) {
-            return {text: el.text, size: Math.max(Math.pow(el.amount/maxAmount, 1.5) * maxSize, minSize)};
+            return {text: el.text, size: Math.max(el.amount/maxAmount * maxSize, minSize)};
         });
 
     cloud().size([req.body.width, req.body.height])
@@ -189,10 +188,46 @@ app.post('/wordcloudData', function (req, res) {
         .font(()=>{return 'sans-serif'})
         .fontSize(function(d) { return d.size; })
         .on("end", end)
-        // .spiral('rectangular')
         .start();
 
-    function end(words) { res.json(words); }
+    function end(words) {
+        resultWords.polish = words;
+        polishEnd = true;
+        if(polishEnd && englishEnd)
+            res.json(resultWords);
+    }
+
+    const engWordsArray = rawDbWordsParser(works, 'english')
+        .sort(function (a, b) {
+            if(a.amount < b.amount) return -1;
+            if(a.amount > b.amount) return 1;
+            return 0;
+        })
+        .reverse();
+
+    console.log(engWordsArray.slice(0, 10));
+
+    let engWords = engWordsArray
+        .map(function(el) {
+            return {text: el.text, size: Math.max(el.amount/maxAmount * maxSize, minSize)};
+        });
+
+    cloud().size([req.body.width, req.body.height])
+        .canvas(function() { return new Canvas(req.body.width, req.body.height); })
+        .words(engWords)
+        .padding(1)
+        .rotate(function() { return Math.random() > 0.5 ? 90 : 0})
+        .font(()=>{return 'sans-serif'})
+        .fontSize(function(d) { return d.size; })
+        .on("end", engEnd)
+        .start();
+
+    function engEnd(words) {
+        resultWords.english = words;
+        englishEnd = true;
+        if(polishEnd && englishEnd)
+            res.json(resultWords);
+    }
 
 
 });
@@ -220,12 +255,12 @@ app.post('/upload', function (req, res) {
             console.log('File [' + fieldname + '] Finished');
             var fileBuffer = Buffer.concat(chunks);
             fileBuffer = iconv.decode(fileBuffer, "ISO-8859-2");
-            parser.parse(fileBuffer.toString(), (err, parsedObjects) => {
+            parser.parse(fileBuffer.toString(), (err, parsedObjects, queryName) => {
                 req.session.works = parsedObjects;
-
+                req.session.queryName = queryName;
                 geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
                     req.session.works = workObjectsWithLocations;
-                    console.log(workObjectsWithLocations);
+                    //console.log(workObjectsWithLocations);
                 })
             });
 
@@ -239,6 +274,11 @@ app.post('/upload', function (req, res) {
     });
     req.pipe(busboy);
 
+})
+
+app.get('/name', function (req, res) {
+    if(req.session.queryName) res.send({available: true, name: req.session.queryName});
+    else res.send({available:false, name: null});
 })
 
 app.listen(config.port || 3000, function () {

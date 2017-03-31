@@ -84,6 +84,10 @@
             <li style="font-size: medium">Scientific output visualizer</li>
         </ul>
     </div>
+
+    <div style="float: right; height: 50px">
+        <a href="index.html"><i class="fa fa-arrow-left back-arrow" aria-hidden="true"></i></a>
+    </div>
 </div>
 
 <div class="row main-row">
@@ -93,15 +97,15 @@
         <div class="row">
             <div class="card">
                 <div class="card-content white-text">
-                    <span class="card-title">Graf współpracy</span>
-                    <p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z wyszczególnieniem artykułów.</p>
+                    <span class="card-title">Dynamika liczby publikacji</span>
+                    <p>Dynamika opublikowanych prac w czasie. Kolorem czerwonym oznakowane są monografie autorskie.</p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <ul class="collection with-header z-depth-1">
-                <li class="collection-header"><h5>Szczegóły</h5></li>
+                <li class="collection-header"><h5>Statystyki</h5></li>
                 <li class="collection-item">
                     <div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span>
                     </div>
@@ -140,7 +144,7 @@
                 height = $(".svg-port").height();
         svg.selectAll('*').remove();
         var barYearTip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-            return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '</br> W tym: ' + d.books + ' książek';
+            return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '</br> W tym monografii: ' + d.books + ' ';
         });
         svg.call(barYearTip);
 

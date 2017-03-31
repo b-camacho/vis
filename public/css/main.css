@@ -107,6 +107,17 @@ nav {
 .vis-details-card {
     margin-left: 0.5rem;
 }
+
+.name-display {
+    font-size: 20px;
+    margin-top: 19px;
+}
+
+.back-arrow {
+    font-size: 40px;
+    margin-top: 16px;
+    color: #dfdfdf;
+}
 html, body, h1, h2, h3, h4, h5, h6, div {
     padding: 0;
     border: 0;

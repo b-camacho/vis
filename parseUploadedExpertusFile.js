@@ -11,11 +11,13 @@ const labels = [
 ]
 
 parser.parse = function (rawText, done) {
+
     const exp1 = new RegExp(/<BR> [0-9]{0,3}\. <BR>/);
     const exp2 = new RegExp(/<span class="label">/);
 
     let recordObjectsArray = [];
-
+    const queryName = rawText.split('id="querylabel">Zapytanie: </span>')[1].split('<BR><FONT')[0];
+    console.log(queryName);
     const rawTextArray = rawText.split(exp1);
 
     console.log(rawTextArray.length + ' records in total');
@@ -26,7 +28,8 @@ parser.parse = function (rawText, done) {
         let recordObject = {
             authorsExpertusFormat: [],
             languages: [],
-            keywords: [],
+            polishkeywords: [],
+            englishkeywords: [],
             authors: []
         };
 
@@ -36,7 +39,7 @@ parser.parse = function (rawText, done) {
 
         recordArray.forEach( (line) => {
             const splitLine = line.substr(0, line.length - 4).split(': </span>');
-
+            recordObject.points = 0;
             switch (splitLine[0]) {
                 case 'Aut.':
                     splitLine[1].split(',').forEach((name) => {
@@ -62,13 +65,18 @@ parser.parse = function (rawText, done) {
                     recordObject.year = Number.parseInt(splitLine[1].substr(splitLine.length - 6));
                     break;
 
-                case 'Typ formalny publikacji':
-                    recordObject.publicationTypeNumber = Number.parseInt(splitLine[1]);
-                    recordObject.publicationType = 'article';
+                // case 'Typ formalny publikacji':
+                //     recordObject.publicationTypeNumber = Number.parseInt(splitLine[1]);
+                //     recordObject.publicationType = 'article';
+                //
+                //     if(recordObject.publicationTypeNumber == 4) {
+                //         recordObject.publicationType = 'book';
+                //     }
+                //     break;
 
-                    if(recordObject.publicationTypeNumber == 4) {
-                        recordObject.publicationType = 'book';
-                    }
+                case 'Typ merytoryczny publikacji':
+                    if(splitLine[1].substr(0, 3) == 'KNP')  recordObject.publicationType = 'book';
+                    else recordObject.publicationType = 'article';
                     break;
 
                 case 'Język':
@@ -78,10 +86,23 @@ parser.parse = function (rawText, done) {
                 case 'Polskie słowa kluczowe':
                     splitLine[1].split('<LI>').forEach((elem, index) => {
                         if(index == 0) return;
-                       elem = elem.split(redundantSufix).join('');
-                        recordObject.keywords.push(elem.trim());
+                        elem = elem.split(redundantSufix).join('');
+                        elem = elem.split('<!-- 10.txt begin -->')[0];
+                        //console.log(elem);
+                        recordObject.polishkeywords.push(elem.trim());
                     });
                     break;
+
+                case 'Angielskie słowa kluczowe':
+                    splitLine[1].split('<LI>').forEach((elem, index) => {
+                        if(index == 0) return;
+                        elem = elem.split(redundantSufix).join('');
+                        elem = elem.split('<!-- 10.txt begin -->')[0];
+                        //console.log(elem);
+                        recordObject.englishkeywords.push(elem.trim());
+                    });
+                    break;
+
 
                 case 'Opis fiz.':
                     const pageRange = splitLine[1].match(/[0-9]{1,5}-[0-9]{1,5}/);
@@ -101,6 +122,10 @@ parser.parse = function (rawText, done) {
                     }
                     break;
 
+                case 'Punktacja ministerstwa':
+                    const styleTrimmed = splitLine[1].split('<span class="field">')[1].split('</span>')[0];
+                    recordObject.points = Number.parseInt(styleTrimmed);
+
             }
 
 
@@ -109,7 +134,7 @@ parser.parse = function (rawText, done) {
         recordObjectsArray.push(recordObject);
 
     });
-    done(null, recordObjectsArray);
+    done(null, recordObjectsArray, queryName);
 
 }
 
