@@ -137,9 +137,9 @@
             rays.push((el.pages / sumOfPages) * Math.min(width, height) * 0.8)
         });
 
-        var pointRays = [];
+        var points = [];
         data.forEach(function (el) {
-            pointRays.push((el.points / sumOfPoints) * Math.min(width, height) / 10)
+            points.push(el.points)
         })
 
         var centres = [];
@@ -157,7 +157,7 @@
         console.log(years)
         console.log(rays)
         console.log(centres)
-        console.log(pointRays)
+        console.log(points)
 
         var xScale = d3.scaleOrdinal()
                 .domain(years)
@@ -188,10 +188,9 @@
         var pointYears = [], pointCentres = [];
 
         years.forEach(function (el, index) {
-            if(pointRays[index] != 0) {
-                pointYears.push(years[index]);
-                pointCentres.push(centres[index]);
-            }
+
+            pointYears.push(years[index]);
+            pointCentres.push(centres[index]);
 
             if(index%2 == 0) {
                 bottomYears.push(el);
@@ -215,6 +214,7 @@
             if(pointCentres[i] - pointCentres[i-1] < 10) return "";
             return d;
         });
+
         var axisGroupTop = svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [20, 20 ] + ')');
         var axisGroupBottom = svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [20, height -20 ] + ')');
         var axisGroupPoints = svg.append('g').call(xAxisPoints).attr('transform', 'translate(' + [20, trueHeight - 20] + ')');
@@ -275,6 +275,11 @@
                 })
 
         ///Drawing the point bubbles
+
+        var pointHeightScale = d3.scaleLinear()
+            .domain([Math.max(...points), Math.min(...points)])
+            .range([height + ( (trueHeight - height) / 2), trueHeight - 10])
+
         var pointBubbles = svg
             .selectAll('rect')
             .data(data);
@@ -285,11 +290,11 @@
             .attr('cx', function (d) {
                 return xScale(d.year);
             })
-            .attr('cy', function () {
-                return height + (trueHeight - height) / 2;
+            .attr('cy', function (d) {
+                return pointHeightScale(d.points);
             })
             .attr('fill', function () {
-                return NextColor()
+                return '#545454'
             })
             .attr('r', '0')
             .on('mouseover', function (d, i) {
@@ -301,9 +306,31 @@
             .transition()
             .duration(500)
             .attr('r', function (d, i) {
-                return pointRays[i];
+                return 4;
+            });
+
+        pointBubbles.enter()
+            .append('line')
+            .attr('transform', 'translate(' + [20, -10] + ')')
+            .attr('x1', function (d) {
+                return xScale(d.year)
+            })
+            .attr('y1', function (d) {
+                return pointHeightScale(d.points)
+            })
+            .attr('x2', function (d, i) {
+                if(i < data.length - 1)
+                return xScale(data[i+1].year)
+                else return xScale(data[i].year);
             })
 
+            .attr('y2', function (d, i) {
+                console.log(points[i+1]);
+                if(i < data.length - 1) return pointHeightScale(points[i+1])
+                else return pointHeightScale(points[i]);
+            })
+            .attr('stroke-width', '1px')
+            .attr('stroke', '#6e6e6e')
 
 
     }
