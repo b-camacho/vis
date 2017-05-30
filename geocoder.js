@@ -61,7 +61,7 @@ const geocoder = {
 
                 let newCity = new m.City(object);
                 newCity.save((err)=> {
-                    console.log(err)
+                    err ? console.log(err) : null;
                 });
             })
             //console.log(workObjects)

@@ -76,18 +76,17 @@
 
 <script>
     $(document).ready(function () {
-        $.post("bubblesData", {}, function (data) {
+        $.post("bubblesData", function (data) {
             //console.log("Post to /bubblesData results: " + data);
-            var removedCounter = 0;
-            data.forEach(function (invalidEl, invalidIndex, arr) {
-                if(!invalidEl.year) console.log('Invalid record: ' + invalidIndex);
-                data.splice(invalidIndex + removedCounter, 1)
-            });
+//            data.forEach((datum) => {
+//                console.log(datum.year + ' : ' + datum.points)
+//            })
+
 
             data = data.sort(function (a, b) {
                 if(a.year && b.year) return (a.year > b.year) - (a.year < b.year);
             });
-            //console.log(data);
+            console.log(data);
 
             var PageCountsGroupedByYear = [];
             PageCountsGroupedByYear[0] = {
@@ -98,11 +97,11 @@
 
             data.forEach(function (el) {
                 var last = PageCountsGroupedByYear.length - 1;
-                if(PageCountsGroupedByYear[last].year == el.year && (typeof el.pageAmount) == 'number') {
+                if(PageCountsGroupedByYear[last].year == el.year) {
                     PageCountsGroupedByYear[last].pages += el.pageAmount;
                     PageCountsGroupedByYear[last].points += el.points;
                 }
-                else if((typeof el.pageAmount) == "number") PageCountsGroupedByYear.push({
+                else PageCountsGroupedByYear.push({
                     year: el.year,
                     pages: el.pageAmount,
                     points: el.points

@@ -80,7 +80,7 @@ app.post('/research-map', function (req, res) {
 });
 
 app.post('/bubblesData', function (req, res) {
-    res.json(req.session.works)
+    res.send(req.session.works);
 });
 
 const mapDataExamples = {
@@ -246,27 +246,28 @@ app.post('/upload', function (req, res) {
 
     var chunks = [];
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+        // console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
         file.on('data', function(chunk) {
             chunks.push(chunk);
-            console.log('File [' + fieldname + '] got ' + chunk.length + ' bytes');
+            // console.log('File [' + fieldname + '] got ' + chunk.length + ' bytes');
         });
         file.on('end', function() {
-            console.log('File [' + fieldname + '] Finished');
+            // console.log('File [' + fieldname + '] Finished');
             var fileBuffer = Buffer.concat(chunks);
             fileBuffer = iconv.decode(fileBuffer, "ISO-8859-2");
             parser.parse(fileBuffer.toString(), (err, parsedObjects, queryName) => {
                 req.session.works = parsedObjects;
                 req.session.queryName = queryName;
+                console.log(req.session.works);
                 geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
                     req.session.works = workObjectsWithLocations;
-                    //console.log(workObjectsWithLocations);
                 })
             });
 
 
         });
     });
+
     busboy.on('finish', function() {
         console.log('Done parsing form!');
         res.writeHead(303, { Connection: 'close', Location: '/' });

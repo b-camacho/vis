@@ -33,6 +33,12 @@ parser.parse = function (rawText, done) {
             authors: []
         };
 
+        let pageCountTowardsSumConditions = {
+            typFormalny : false,
+            typMerytoryczny : false,
+            czyWycinek : false
+        }
+
         const recordArray = record.split(exp2);
 
         const redundantSufix = '</UL></span>';
@@ -62,20 +68,21 @@ parser.parse = function (rawText, done) {
                         splitLine[1].split(':')[0].trim() :
                         null;
 
-                    recordObject.year = Number.parseInt(splitLine[1].substr(splitLine.length - 6));
+                    recordObject.year = Number.parseInt(splitLine[1].trim().substr(splitLine.length - 6));
+
                     break;
 
-                // case 'Typ formalny publikacji':
-                //     recordObject.publicationTypeNumber = Number.parseInt(splitLine[1]);
-                //     recordObject.publicationType = 'article';
-                //
-                //     if(recordObject.publicationTypeNumber == 4) {
-                //         recordObject.publicationType = 'book';
-                //     }
-                //     break;
+                case 'Typ formalny publikacji':
+                        let publicationType = splitLine[1];
+                        if(publicationType == '008') pageCountTowardsSumConditions.typFormalny = true;
+
+                    break;
 
                 case 'Typ merytoryczny publikacji':
-                    if(splitLine[1].substr(0, 3) == 'KNP')  recordObject.publicationType = 'book';
+                    if(splitLine[1].substr(0, 3) == 'KNP')  {
+                        recordObject.publicationType = 'book';
+                        pageCountTowardsSumConditions.typMerytoryczny = true;
+                    }
                     else recordObject.publicationType = 'article';
                     break;
 
@@ -110,13 +117,14 @@ parser.parse = function (rawText, done) {
                         const pageArray = pageRange[0].split('-');
                         recordObject.pageRange = pageRange[0];
                         recordObject.pageAmount = Number.parseInt(pageArray[1]) - Number.parseInt(pageArray[0]) + 1;
+                        pageCountTowardsSumConditions.czyWycinek = true;
                     }
                     else if(line.match(/[0-9]{1,5}/) != null) {
                         recordObject.pageRange = '0-' + splitLine[1].match(/[0-9]{1,5}/)[0].trim();
                         recordObject.pageAmount = Number.parseInt(splitLine[1].match(/[0-9]{1,5}/)[0].trim());
                     }
                     else  {
-                        console.log(new Error('Failed RegExp parse at pageRange of line: ' + splitLine[1]).message)
+                        console.log(new Error('Failed RegExp parse at pageRange of line: ' + splitLine[1]).message);
                         recordObject.invalid["300"] = 'Could not infer page range from description';
                         recordObject.unparsedPageAmount = line.substr(4);
                     }
@@ -124,12 +132,23 @@ parser.parse = function (rawText, done) {
 
                 case 'Punktacja ministerstwa':
                     const styleTrimmed = splitLine[1].split('<span class="field">')[1].split('</span>')[0];
-                    recordObject.points = Number.parseInt(styleTrimmed);
+                    recordObject.points = Number.parseFloat(styleTrimmed);
+                    if (!(recordObject.points > 0) )console.log(line);
 
             }
 
 
         });
+
+        let countPages = (
+            (recordObject.authors.length == 1 && (pageCountTowardsSumConditions.typFormalny || pageCountTowardsSumConditions.typMerytoryczny) )
+        || pageCountTowardsSumConditions.czyWycinek);
+         if(!countPages) recordObject.pageAmount = 0;
+
+         // if(recordObject.year == 2016) {
+         //     console.log(recordObject.title);
+         //     console.log(recordObject.points);
+         // } else console.log(recordObject.year);
 
         recordObjectsArray.push(recordObject);
 
