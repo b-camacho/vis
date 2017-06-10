@@ -79,7 +79,7 @@ parser.parse = function (rawText, done) {
                     break;
 
                 case 'Typ merytoryczny publikacji':
-                    if(splitLine[1].substr(0, 3) == 'KNP')  {
+                    if(['KNP','PAP','PSP'].indexOf(splitLine[1].substr(0, 3)) != -1)  {
                         recordObject.publicationType = 'book';
                         pageCountTowardsSumConditions.typMerytoryczny = true;
                     }

@@ -81,7 +81,11 @@
 //            data.forEach((datum) => {
 //                console.log(datum.year + ' : ' + datum.points)
 //            })
-
+            var removedCounter = 0;
+            data.forEach(function (invalidEl, invalidIndex, arr) {
+                if(!invalidEl.year) {console.log('Invalid record: ' + invalidIndex);
+                data.splice(invalidIndex + removedCounter, 1)}
+            });
 
             data = data.sort(function (a, b) {
                 if(a.year && b.year) return (a.year > b.year) - (a.year < b.year);
@@ -283,30 +287,7 @@
             .selectAll('rect')
             .data(data);
 
-        pointBubbles.enter()
-            .append('circle')
-            .attr('transform', 'translate(' + [20, -10] + ')')
-            .attr('cx', function (d) {
-                return xScale(d.year);
-            })
-            .attr('cy', function (d) {
-                return pointHeightScale(d.points);
-            })
-            .attr('fill', function () {
-                return '#545454'
-            })
-            .attr('r', '0')
-            .on('mouseover', function (d, i) {
-                pointBubbleTip.show(d, i);
-            })
-            .on('mouseout', function (d, i) {
-                pointBubbleTip.hide(d, i);
-            })
-            .transition()
-            .duration(500)
-            .attr('r', function (d, i) {
-                return 4;
-            });
+
 
         pointBubbles.enter()
             .append('line')
@@ -329,7 +310,32 @@
                 else return pointHeightScale(points[i]);
             })
             .attr('stroke-width', '1px')
-            .attr('stroke', '#6e6e6e')
+            .attr('stroke', '#525690')
+
+        pointBubbles.enter()
+            .append('circle')
+            .attr('transform', 'translate(' + [20, -10] + ')')
+            .attr('cx', function (d) {
+                return xScale(d.year);
+            })
+            .attr('cy', function (d) {
+                return pointHeightScale(d.points);
+            })
+            .attr('fill', function () {
+                return '#2627d7'
+            })
+            .attr('r', '0')
+            .on('mouseover', function (d, i) {
+                pointBubbleTip.show(d, i);
+            })
+            .on('mouseout', function (d, i) {
+                pointBubbleTip.hide(d, i);
+            })
+            .transition()
+            .duration(500)
+            .attr('r', function (d, i) {
+                return 4;
+            });
 
 
     }
