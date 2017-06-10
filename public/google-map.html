@@ -87,8 +87,19 @@
         });
     }
 
+
     $(document).ready(function () {
         $.post("google-map", {}, function (data) {
+
+            var maxSize = 200;
+            var minSize = 20;
+            var maxAmount = data.length;
+            var calc = function(markers) {
+                var size = (markers.length / maxAmount) * maxSize;
+                if(size < minSize) size = minSize;
+                return {width: size, height: size};
+            }
+
             let markers = [];
             console.log(data);
 //            data.forEach(function (datum) {
@@ -118,6 +129,7 @@
                 zoomOnClick: false,
                 minimumClusterSize: 1
             });
+            //markerCluster.setCalculator(calc)
 
             google.maps.event.addListener(markerCluster, "click", function (c) {
                 console.log('event fired');
