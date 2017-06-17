@@ -43,22 +43,19 @@
 
 
     <!--<div style="float: right" class="input-field-container" hidden>-->
-            <!--<input placeholder="Nazwisko i imię" type="text" id="name-and-surname-autocomplete"-->
+            <!--<input placeholder="Nazwisko i imię" type="text id="name-and-surname-autocomplete"-->
                    <!--class=" autocomplete name-input-bar" name="name" title="name" style="color: #454545;margin-bottom: 10px"-->
                    <!--oninput="InputChanged()" onfocus="SetInputFocused()"-->
                    <!--onblur="SetInputBlurred()">-->
             <!--<ul id="results" class="dropdown-content" style="opacity:100; display: block"></ul>-->
     <!--</div>-->
-
-
-
-    <div style="float: right; margin-right: 20px">
+    <div style="float: right; margin-right: 20px;">
         <form method="post" action="upload" enctype="multipart/form-data">
             <div class="file-field input-field btn" >
-                    Wybierz plik
-                    <input type="file" id="file-input" name="expertus" onchange="StartUpload()">
+                Wybierz plik
+                <input type="file" id="file-input" name="expertus" onchange="StartUpload()">
                 <!--<div class="file-path-wrapper">-->
-                    <!--<input class="file-path validate" type="text">-->
+                <!--<input class="file-path validate" type="text">-->
                 <!--</div>-->
             </div>
 
@@ -67,11 +64,24 @@
         </form>
     </div>
 
-    <div style="float: right; margin-right: 20px;" id="query-name-container" class="name-display">
+    <div style="margin-left: auto; margin-right: auto;padding-top: 5px;  width: 600px; height:5em">
+        <ul>
+            <li style="margin-top: -15px;" id="query-name-caption">Wizualizacje dla:</li>
+            <li><div id="query-name-container" class="name-display"></div></li>
+        </ul>
 
     </div>
 
+
+
+
+
+
+
+
 </div>
+
+
 <script>
     function StartUpload() {
     $('#file-input-submit').click();
@@ -172,13 +182,16 @@
 
     $('document').ready(
         $.ajax('name').done(function (response) {
-            var $nameContainer = $('#query-name-container');
+            var $nameContainer = $('#query-name-container')
+                ,$nameCaption = $('#query-name-caption');
             if(response.available) {
                 $nameContainer.text(response.name);
                 $nameContainer.css('display', 'visible');
+                $nameCaption.css('display', 'visible');
             }
             else {
                 $nameContainer.css('display', 'none');
+                $nameCaption.css('display', 'none');
             }
         }))
 
