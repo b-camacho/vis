@@ -18,6 +18,7 @@
     "d3-cloud": "^1.2.4",
     "express": "^4.15.3",
     "express-busboy": "^5.0.0",
+    "express-session": "^1.15.3",
     "iconv-lite": "^0.4.15",
     "iso-8859-2": "^1.0.0",
     "json": "^9.0.4",
