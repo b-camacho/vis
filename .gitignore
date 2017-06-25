@@ -67,3 +67,5 @@ typings/
 .env
 
 
+remove-diacritics.js
+unverifiedCities.json
