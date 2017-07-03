@@ -15,6 +15,9 @@ nav {
     color: white;
 }
 
+.top-nav a {
+    color: whitesmoke;
+}
 .main-row {
     position: fixed;
     top: 75px;
@@ -124,6 +127,9 @@ nav {
     padding-top: 18px;
     padding-right: 30px;
     font-size: 20px;
+}
+.top-link a {
+    color: #FFFFFF;
 }
 
 html, body, h1, h2, h3, h4, h5, h6, div {

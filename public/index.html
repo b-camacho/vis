@@ -35,7 +35,7 @@
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
-            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px">Wizualizator dorobku naukowego</li>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/"> Wizualizator dorobku naukowego </a></li>
             <li style="font-size: medium">Scientific output visualizer</li>
         </ul>
     </div>
@@ -64,9 +64,12 @@
         </form>
     </div>
 
-    <div class="top-link"><a href="/about.html">O nas</a></div>
+    <div class="top-link"><a href="/en">English</a></div>
 
-    <div class="top-link"><a href="/goal.html">Cel projektu</a></div>
+    <div class="top-link"><a href="about.html">O nas</a></div>
+
+    <div class="top-link"><a href="goal.html">Cel projektu</a></div>
+
 
     <div style="margin-left: auto; margin-right: auto;padding-top: 5px;  width: 600px; height:5em">
         <ul>
@@ -199,56 +202,6 @@
                 $nameCaption.css('display', 'none');
             }
         }))
-
-    //    $(document).ready(
-    //            $('#name-input-form').submit(function (event) {
-    //
-    //                event.preventDefault();
-    //                /* var name = null, surname = null;
-    //                 $('#name-input-form').find('input[type=text]').each(function () {
-    //                 if($(this).name == 'name') name = $(this).name;
-    //                 else surname = $(this).name;
-    //                 });*/
-    //                var formData = {};
-    //                $('#name-input-form').serializeArray().forEach(function (el) {
-    //                    if(el.name == 'name') formData.name = el.value;
-    //                    if(el.name == 'surname') formData.surname = el.value;
-    //                });
-    //                document.cookie = 'name=' + formData.name + ' ' + formData.surname + ';';
-    //                EnableVisualisationRedirectButtons();
-    //                formData.mode = 'names';
-    //                formData.name = formData.surname + ' ' + formData.name;
-    //                console.log('Fetching with formData: ');
-    //                console.log(formData);
-    //                $.post("retrieve", formData, function( data ) {
-    //                    console.log(data);
-    //                    data = JSON.parse(data);
-    //                    // var selectForm = $('#name-select-form');
-    //                    var listHeader = $('#name-select-list-header');
-    //                    data = data.slice(0, 5).reverse();
-    //                    data.forEach(function (name, index) {
-    //                        name = name.split(' ')[1] + ' ' + name.split(' ')[0];
-    //                        var listElement =
-    //                                $(  '<li class="collection-item">' +
-    //                                        '<input name="true_name" type="radio" id="' + index + '">' +
-    //                                        '<label for="' + index + '">' + name + '</label></li>' );
-    //                        listHeader.after(listElement);
-    //                    });
-    //                    $('#name-select-card').attr("hidden", false)
-    //
-    //                });
-    //            })
-    //    );
-//
-//    $(document).click(function (event) {
-//        if (!$(event.target).closest('#results').length) {
-//            $('#results').empty();
-//        }
-//    });
-//
-//    function EnableVisualisationRedirectButtons() {
-//        $('.vis-redirect').prop('disabled', false)
-//    }
 </script>
 
 <div class="row main-row">

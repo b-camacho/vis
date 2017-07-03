@@ -23,7 +23,8 @@ const rawDbWordsParser = require('./getWordObjectsArray');
 
 const geocoder = require('./geocoder');
 
-app.use(express.static('public'));
+app.use('/pl', express.static('public'));
+app.use('/en', express.static('public-en'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -37,11 +38,25 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.get('/', function (req, res, next) {
+    if(typeof req.session.lang !== 'undefined') res.redirect('/' + req.session.lang + '/');
+    else res.redirect('/pl/')
+})
 
-
+app.post('/pl/*', function (req, res, next) {
+    req.url = req.url.substr(3);
+    req.session.lang = 'pl';
+    console.log(req.url);
+    next()
+})
+app.post('/en/*', function (req, res, next) {
+    req.url = req.url.substr(3);
+    req.session.lang = 'en';
+    console.log(req.url);
+    next()
+})
 app.post('/retrieve', function (req, res) {
     retriever.run(req.body.name, {mode: req.body.mode}, function (err, result) {
-        console.log('Done retrieving, result: ' + result);
         res.json(JSON.stringify(result));
     });
 });
@@ -80,7 +95,7 @@ app.post('/research-map', function (req, res) {
 });
 
 app.post('/bubblesData', function (req, res) {
-    res.send(req.session.works);
+    res.json(req.session.works);
 });
 
 const mapDataExamples = {
@@ -243,13 +258,13 @@ app.get('/name-lookup', function (req, res) {
 
 app.post('/upload', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
-q
     var chunks = [];
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
         // console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
         file.on('data', function(chunk) {
             chunks.push(chunk);
-            // console.log('File [' + fieldname + '] got ' + chunk.length + ' bytes');
+            // co4'2nsole.log('File [' + fieldname + '] got ' + chunk.
+            // 1length + ' bytes');
         });
         file.on('end', function() {
             // console.log('File [' + fieldname + '] Finished');
@@ -277,7 +292,7 @@ q
 
 })
 
-app.get('/name', function (req, res) {
+app.get('/*/name', function (req, res) {
     if(req.session.queryName) res.send({available: true, name: req.session.queryName});
     else res.send({available:false, name: null});
 })
