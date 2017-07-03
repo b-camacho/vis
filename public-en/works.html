@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Graf wspolpracy</title>
+</head>
+
+<body>
+
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="js/remove-diacritics.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="js/d3-tip.js"></script>
+<script src="js/parse-raw-expertus.js"></script>
+<script src="js/collab-demo-1.js"></script>
+<script src="js/bar-graph.js"></script>
+<script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
+<script src="js/collab.js"></script>
+
+
+<!--<nav>-->
+    <!--<div class="nav-wrapper">-->
+        <!--<a href="#" class="brand-logo">Wizualizator naukowca</a>-->
+        <!--<ul id="nav-mobile" class="right hide-on-med-and-down">-->
+            <!--<li><a href="index.html">Wizualizacje</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</nav>-->
+<!--<div class="row">-->
+    <!--<div class="col s4" style="padding-left: 0">-->
+        <!--<div class="z-depth-1 vis-info">-->
+            <!--<div class="row">-->
+                <!--<div class="card">-->
+                    <!--<div class="card-content white-text">-->
+                        <!--<span class="card-title">Prace w czasie</span>-->
+                        <!--<p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z-->
+                            <!--wyszczególnieniem artykułów..</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="row">-->
+                <!--<ul class="collection with-header z-depth-1">-->
+                    <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
+                    <!--<li class="collection-item">-->
+                        <!--<div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="collection-item">-->
+                        <!--<div><span>Publikacji w czasopismach: </span> <span id="publications-amount-display"-->
+                                                                            <!--style="float: right">-</span></div>-->
+                    <!--</li>-->
+                    <!--<li class="collection-item">-->
+                        <!--<div><span>Średnia prac w czasie: </span> <span id="mean-works-amount-display"-->
+                                                                        <!--style="float: right">-</span></div>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+    <!--<div class="col s8">-->
+        <!--<svg class="z-depth-1 svg-port" id="svg-port"></svg>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="row top-nav z-depth-1">
+    <div style="float: left; height: 50px">
+        <ul>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/"> Wizualizator dorobku naukowego </a></li>
+            <li style="font-size: medium">Scientific output visualizer</li>
+        </ul>
+    </div>
+
+    <div style="float: right; height: 50px">
+        <a href="index.html"><i class="fa fa-arrow-left back-arrow" aria-hidden="true"></i></a>
+    </div>
+
+    <div style="margin-left: auto; margin-right: auto;padding-top: 5px;  width: 600px; height:5em">
+        <ul>
+            <li style="margin-top: -15px;" id="query-name-caption">Visualisation for:</li>
+            <li><div id="query-name-container" class="name-display"></div></li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="row main-row">
+
+    <div class="col s3 vis-details z-depth-1" style="padding-left: 0">
+
+        <div class="row">
+            <div class="card">
+                <div class="card-content white-text">
+                    <span class="card-title">Publication volume dynamic</span>
+                    <p>Amount and volume of publications displayed across time. The color red denotes monographs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="collection with-header z-depth-1">
+                <li class="collection-header"><h5>Meta-data</h5></li>
+                <li class="collection-item">
+                    <div><span>All publications: </span> <span id="works-amount-display" style="float: right">-</span>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div><span>Publications in journals: </span> <span id="publications-amount-display"
+                                                                        style="float: right">-</span></div>
+                </li>
+                <li class="collection-item">
+                    <div><span>Average amount of publications: </span> <span id="mean-works-amount-display" style="float: right">-</span></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col s9 svg-container">
+        <svg class="z-depth-1 svg-port" id="svg-port"></svg>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.post("worksData", function (data) {
+                    var barData = getBars(data);
+                    drawWorksOverTimeGraph(barData);
+                    displayWorkStatsWorksInTime(barData);
+                }
+        )
+    });
+    function drawWorksOverTimeGraph(data) {
+
+        var red = "#f44336";
+        var blue = "#26a69a";
+        var stackMargin = 10;
+        var svg = d3.select("#svg-port"),
+                width = $(".svg-port").width(),
+                height = $(".svg-port").height();
+        svg.selectAll('*').remove();
+        var barYearTip = d3.tip().attr('class', 'd3-tip').html(function (d) {
+            return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '</br> Including: ' + d.books + ' monographs';
+        });
+        svg.call(barYearTip);
+
+        var maxBarHeight = height / 2;
+        var maxBarWidth = width;
+        var yScaleWidth = 30;
+        var xScale = d3.scaleBand()
+                .domain(data.map(function (el) {
+                    return el.year;
+                }))
+                .range([0, maxBarWidth - yScaleWidth])
+                .paddingInner(0.1)
+                .paddingOuter(0.2)
+        var yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, function (d) {
+                    return d.works
+                })])
+                .range([0, maxBarHeight]);
+        var colorScale = d3.scaleSequential(d3.interpolateCool)
+                .domain([d3.min(data, function (el) {
+                    return el.year
+                }), d3.max(data, function (el) {
+                    return el.year
+                })]);
+
+        if (svg.select('g').empty()) svg.append('g').attr('id', 'bars');
+        var bars = svg.select('g')
+                .selectAll('rect')
+                .data(data);
+        bars.enter().append('rect')
+                .attr('width', xScale.bandwidth())
+                .attr('x', function (d) {
+                    return xScale(d.year);
+                })
+                .attr('y', maxBarHeight)
+                .attr('height', 0)
+                .style('fill', '#FFFFFF')
+                .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+                .on('mouseover', barYearTip.show)
+                .on('mouseout', barYearTip.hide)
+                .transition()
+                .duration(1000)
+                .attr('y', function (d) {
+                    return maxBarHeight - yScale(d.articles);
+                })
+                .attr('height', function (d) {
+                    return yScale(d.articles);
+                })
+                .style('fill', '#8BC34A');
+        bars.enter().append('rect')
+                .attr('width', xScale.bandwidth())
+                .attr('x', function (d) {
+                    return xScale(d.year);
+                })
+                .attr('y', function (d) {
+                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+                    else return maxBarHeight - yScale(d.works)
+                })
+                .attr('height', 0)
+                .style('fill', red)
+                .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+                .on('mouseover', barYearTip.show)
+                .on('mouseout', barYearTip.hide)
+                .transition()
+                .duration(1000)
+                .attr('y', function (d) {
+                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+                    else return maxBarHeight - yScale(d.works)
+                })
+                .attr('height', function (d) {
+                    return yScale(d.books);
+                })
+//                .style('fill', '#8BC34A');
+
+        bars.exit()
+                .transition()
+                .duration(300)
+                .attr('width', 0)
+                .remove();
+        var xAxis = d3.axisBottom(xScale);
+        svg.append('g').attr('id', 'x-axis').call(xAxis).attr('transform', 'translate( ' + [-width, height / 2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [yScaleWidth, height - 20] + ')');
+        var yAxis = d3.axisLeft(yScale.domain(yScale.domain().reverse()));
+        svg.append('g').attr('id', 'y-axis').call(yAxis).attr('transform', 'translate( ' + [0, height * 2] + ')').transition().duration(1000).attr('transform', 'translate( ' + [30, height - maxBarHeight - 20] + ')');
+        //svg.select('g').call(xAxis).attr('width', 0).transition().duration(1000).attr('width', width);
+
+    }
+
+    function ConvertDbOutputIntoLegacyExpertusFormat(data, mainName) { //[ {authors: [author1, author2]} ]
+        var LegacyCollaboratorList = [];
+
+        data.forEach(function (work) {
+            var singleWorkAuthors = [];
+            work.authors.forEach(function (author) {
+                if (author != mainName) singleWorkAuthors.push(author);
+            });
+            LegacyCollaboratorList.push(singleWorkAuthors)
+        });
+
+        return LegacyCollaboratorList
+    }
+
+    function getBars(allWorks) {
+        allWorks.forEach(function (el) {
+            if (Number.parseInt(el.year) < 1900) el.year = Number.parseInt(el.year) - (-1000);
+        });
+        allWorks.sort(dynamicSort('year'));
+        console.log('Sorted works');
+        console.log(allWorks);
+
+        var bars = [];
+        for (var i = 0; i < (allWorks[allWorks.length - 1].year - allWorks[0].year - (-1)); i++) {
+            bars.push(countYearOccurences(allWorks[0].year - (-i), allWorks))
+        }
+        console.log(bars);
+        return bars;
+    }
+
+    function countYearOccurences(year, arr) {
+        var resObj = {
+            works: 0,
+            articles: 0,
+            books: 0,
+            year: year
+        };
+        arr.forEach(function (el) {
+            if (el.year == year) {
+                resObj.works++;
+                (el.publicationType == 'article') ? resObj.articles++ : resObj.books++
+            }
+        });
+        return resObj;
+    }
+
+    function incrementCollaboration(arr, name) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].name == name) {
+                arr[i].works++;
+                return
+            }
+        }
+    }
+
+    function getCompleteCollaboratorList(allWorks) {
+
+        var allCollaborators = [];
+        var allCollaboratorsWithAmounts = [];
+        var collaborationAmountArray = [];
+        allWorks.forEach(function (work) {
+            work.forEach(function (person) {
+                if (!allCollaborators.includes(person)) {
+                    allCollaborators.push(person);
+                    collaborationAmountArray.push(
+                            {
+                                name: person,
+                                amount: 0
+                            })
+                }
+
+            })
+        });
+
+        allCollaborators.forEach(function (person) {
+            allCollaboratorsWithAmounts.push(
+                    {
+                        name: person,
+                        collaborations: JSON.parse(JSON.stringify(collaborationAmountArray))
+                    })
+        });
+
+
+        allCollaboratorsWithAmounts.forEach(function (collaborator, index, arr) {
+            for (var i = 0; i < allWorks.length; i++) {
+                if (allWorks[i].includes(collaborator.name)) {
+                    allWorks[i].forEach(function (person) {
+                        incrementCollaboration(collaborator.collaborations, person);
+                    });
+                }
+            }
+        });
+
+        return allCollaboratorsWithAmounts;
+    }
+
+    function compareCollaboratorsByAmount(a, b) {
+        if (a.amount < b.amount) {
+            return -1;
+        }
+        if (a.amount > b.amount) {
+            return 1;
+        }
+        return 0;
+    }
+
+    function clearSvg() {
+        d3.select('svg').selectAll('*').remove();
+    }
+    function PolskaFleksjaSlowaPraca(word, number) {
+        if (number == 1) return number + ' praca'
+        if (number >= 2 && number <= 4) return number + ' prace'
+        return number + ' prac'
+    }
+
+    function dynamicSort(property) {
+        var sortOrder = 1;
+        if (property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a, b) {
+            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
+    function displayWorkStatsWorksInTime(data) {
+
+        var displayValues = {
+            meanPerYear: 0,
+            sumOfWorks: 0,
+            sumOfArticles: 0
+        };
+
+        data.forEach(function (year, index) {
+            displayValues.sumOfWorks += Number.parseInt(year.works);
+            displayValues.sumOfArticles += Number.parseInt(year.articles);
+        });
+        displayValues.meanPerYear = displayValues.sumOfWorks / data.length;
+
+        console.log(displayValues);
+
+        $('#mean-works-amount-display').text(displayValues.meanPerYear.toFixed(2));
+        $('#publications-amount-display').text(displayValues.sumOfArticles);
+        $('#works-amount-display').text(displayValues.sumOfWorks);
+    }
+</script>
+<script src="js/load-name.js"></script>
+
+
+</body>
+</html>

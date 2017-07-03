@@ -1,0 +1,139 @@
+.dropdown-namelist-item {
+    font-size: 16px;
+    color: #26a69a;
+    display: block;
+    line-height: 22px
+}
+nav {
+    background-color: #FF9800;
+}
+.top-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #FF9800;
+    height: 5em;
+    color: white;
+}
+
+.top-nav a {
+    color: whitesmoke;
+}
+.main-row {
+    position: fixed;
+    top: 75px;
+    height: calc(100% - 75px);
+    width: 100%;
+    background-color: #e4e4e4;
+}
+.input-field-container {
+
+    width: 20em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+
+}
+
+.file-input-container {
+    margin-top: 20px;
+
+}
+
+.brand-logo {
+    margin-left: 2em;
+}
+
+.vis-select {
+    height: 100%;
+    background-color: #f5f5f5;
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-top: 20px
+}
+/*.status-bar {*/
+    /*width: 70%;*/
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*height: 7em;*/
+    /*padding-right: 2em;*/
+    /*padding-left: 2em;*/
+    /*padding-top: 20px*/
+/*}*/
+
+.card {
+    background-color: #FF9800;
+}
+.demo {
+    float: right;
+}
+.file-input-card {
+    background-color: #FFFFFF;
+}
+.name-input-card {
+    background-color: #FFFFFF;
+}
+
+
+.name-select-card {
+    padding: 20px;
+    background-color: #FFFFFF;
+}
+
+.svg-container {
+    height: calc(100% - 20px);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.svg-port {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+.collection {
+    border: 0;
+}
+
+
+
+.vis-details {
+    background-color: #e4e4e4;
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-top: 20px;
+    height: 100%;
+}
+
+.vis-details-card {
+    margin-left: 0.5rem;
+}
+
+.name-display {
+    font-size: 30px;
+    font-style: oblique;
+}
+
+.back-arrow {
+    font-size: 40px;
+    margin-top: 16px;
+    color: #dfdfdf;
+}
+
+.top-link {
+    float: right;
+    padding-top: 18px;
+    padding-right: 30px;
+    font-size: 20px;
+}
+.top-link a {
+    color: #FFFFFF;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, div {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}

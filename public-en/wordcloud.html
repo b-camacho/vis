@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Graf wspolpracy</title>
+</head>
+
+<body>
+
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="js/remove-diacritics.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="js/d3-tip.js"></script>
+<script src="js/parse-raw-expertus.js"></script>
+<script src="js/collab-demo-1.js"></script>
+<script src="js/bar-graph.js"></script>
+<script src="js/works-over-time-demo-1.js"></script>
+<script src="js/expertus-retriever.js"></script>
+<script src="js/collab.js"></script>
+
+<div class="row top-nav z-depth-1">
+    <div style="float: left; height: 50px">
+        <ul>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/"> Wizualizator dorobku naukowego </a></li>
+            <li style="font-size: medium">Scientific output visualizer</li>
+        </ul>
+    </div>
+
+    <div style="float: right; height: 50px">
+        <a href="index.html"><i class="fa fa-arrow-left back-arrow" aria-hidden="true"></i></a>
+    </div>
+
+    <div style="margin-left: auto; margin-right: auto;padding-top: 5px;  width: 600px; height:5em">
+        <ul>
+            <li style="margin-top: -15px;" id="query-name-caption">Visualisation for:</li>
+            <li><div id="query-name-container" class="name-display"></div></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row main-row">
+    <div class="col s3 vis-details z-depth-1" style="padding-left: 0">
+        <div class="row">
+            <div class="card">
+                <div class="card-content white-text">
+                    <span class="card-title">Keyword clusters</span>
+                    <p>Frequency of author-specified keyword occurrence is expressed via a wordcloud. The largest words denote the most common occurence, therefore underlining the weight of a certain topic or idea for the author. Separate visualiations were generated for Polish and English keywords.</p>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row">-->
+        <!--<ul class="collection with-header z-depth-1">-->
+        <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
+        <!--<li class="collection-item"><div><span>Liczba współautorów: </span> <span id="coworkers-amount-display" style="float: right">-</span></div></li>-->
+        <!--<li class="collection-item"><div><span>Najwięcej wspólnych prac z: </span> <span id="max-shared-works-amount-display" style="float: right">-</span></div></li>-->
+        <!--<li class="collection-item"><div><span>Średnia liczba prac: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>-->
+        <!--<li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+
+    </div>
+    <div class="col s9 svg-container">
+        <svg class="z-depth-1 svg-port" id="svg-port"></svg>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        const svg = d3.select('#svg-port');
+
+        const width = parseInt(svg.style('width').replace('px', ''));
+        const height = parseInt(svg.style('height').replace('px', ''));
+
+
+        $.post("wordcloudData", {width: width, height: height}, function (data) {
+
+                    console.log(data);
+                    displayWordcloud(data);
+//                    displayWorkStatsWorksInTime(barData);
+                }
+        )
+    });
+
+
+
+
+    function displayWordcloud(textObjects) {
+        const svg = d3.select('#svg-port');
+
+        const width = parseInt(svg.style('width').replace('px', ''));
+        const height = parseInt(svg.style('height').replace('px', ''));
+
+        const colorScale = d3.scaleOrdinal(d3.schemeSet3)
+            .domain([0, 10]);
+
+        svg
+            .append('g')
+            .attr('id', 'polish')
+            .attr('transform','translate( ' + [width/4, height/2] + ')')
+            .selectAll('text')
+            .data(textObjects.polish)
+            .enter()
+            .append('text')
+            .text((d) => {return d.text})
+            .attr('text-anchor', 'middle')
+            .attr('transform', (d) => {return 'translate(' + [d.x, d.y] + ')' +
+                'rotate(' + d.rotate + ')'})
+            .attr('fill', (d, i) => {return colorScale(i%10)})
+//            .attr('width', (d)=>{return d.width})
+//            .attr('height', (d)=>{return d.height})
+            .attr('font-family', 'sans-serif')
+            .attr('text-anchor', 'middle')
+            .attr('font-size', (d) => {return d.size });
+        svg
+            .append('g')
+            .attr('id', 'english')
+            .attr('transform','translate( ' + [width/1.3, height/2] + ')')
+            .selectAll('text')
+            .data(textObjects.english)
+            .enter()
+            .append('text')
+            .text((d) => {return d.text})
+            .attr('text-anchor', 'middle')
+            .attr('transform', (d) => {return 'translate(' + [d.x, d.y] + ')' +
+                'rotate(' + d.rotate + ')'})
+            .attr('fill', (d, i) => {return colorScale(i%10)})
+            //            .attr('width', (d)=>{return d.width})
+            //            .attr('height', (d)=>{return d.height})
+            .attr('font-family', 'sans-serif')
+            .attr('text-anchor', 'middle')
+            .attr('font-size', (d) => {return d.size });
+
+//            .attr('x', (d) => {return d.x})
+//            .attr('y', (d) => {return d.y})
+            //.attr('padding', (d) => {return d.padding});
+//            .attr('transform', (d) => {
+//                return 'translate( ' + [d.x, d.y] + ')';
+//        })
+
+    }
+
+    /**
+     *
+     * @param rawData {Array} - DB records cotaining field title with the full title of the work
+     * @returns {Array} - An array of all words in the titles of all works
+     */
+    function getWordsArray(rawData) {
+
+        let wordArray = [];
+
+        rawData.map( (record) => {
+            return record.title;
+        }).forEach( (title, index) => {
+
+            if(title) wordArray = wordArray.concat(title.split(' '))
+            else console.log('Undefined title at ' + index)
+        });
+
+        return wordArray;
+    }
+</script>
+<script src="js/load-name.js"></script>
+
+
+</body>
+</html>
+
+</body>
+</html>
