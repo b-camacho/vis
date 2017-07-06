@@ -32,8 +32,10 @@ app.use(bodyParser.urlencoded({
 
 const session = require('express-session');
 
+
+if(!config.appSecret) console.log('Pola appSecret w pliku config.json');
 app.use(session({
-    secret: '_______________APPSECRETHERE__________________________',
+    secret: config.appSecret,
     resave: false,
     saveUninitialized: true
 }));
@@ -62,18 +64,9 @@ app.post('/retrieve', function (req, res) {
 });
 
 
-// app.post('/retrieve', function (req, res) {
-//     retriever.run(req.body.name, {mode:req.body.mode}, function (err, result) {
-//         res.send(result);
-//     })
-// });
-
 app.post('/collab', function (req, res) {
     console.log(req.body.name);
     res.redirect('collab.html');
-    /* m.Work.find({authors: req.body.name}, function (err, works) {
-     res.send(works);
-     })*/
 });
 app.post('/collabData', function (req, res) {
     //console.log('Db lookup for ' + req.body.name);
@@ -140,7 +133,7 @@ const mapDataExamples = {
 };
 
 app.post('/google-mapDataExamples', function (req, res) {
-    console.log('Responding to map data request with examples')
+    console.log('Responding to map data request with examples');
     res.send(mapDataExamples)
 })
 
@@ -260,11 +253,9 @@ app.post('/upload', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     var chunks = [];
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        // console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
         file.on('data', function(chunk) {
             chunks.push(chunk);
-            // co4'2nsole.log('File [' + fieldname + '] got ' + chunk.
-            // 1length + ' bytes');
+
         });
         file.on('end', function() {
             // console.log('File [' + fieldname + '] Finished');
@@ -298,6 +289,6 @@ app.get('/*/name', function (req, res) {
 })
 
 app.listen(config.port || 3000, function () {
-    console.log('Example app listening on port ' + (config.port || 3000));
+    console.log('Listening on port ' + (config.port || 3000));
 });
 
