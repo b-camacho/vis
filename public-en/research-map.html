@@ -6,29 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="../../favicon.ico">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/example-styles.css">
+    <link rel="stylesheet" href="/css/main.css">
 
-    <title>Graf wspolpracy</title>
+    <title>Research map</title>
 </head>
 
 <body>
 
 <script src="https://d3js.org/d3-path.v1.min.js"></script>
-<script src="js/jquery-3.1.0.min.js"></script>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="js/remove-diacritics.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script src="js/d3-tip.js"></script>
-<script src="js/parse-raw-expertus.js"></script>
-<script src="js/collab-demo-1.js"></script>
-<script src="js/bar-graph.js"></script>
-<script src="js/works-over-time-demo-1.js"></script>
-<script src="js/expertus-retriever.js"></script>
-<script src="js/collab.js"></script>
+<script src="/js/jquery-3.1.0.min.js"></script>
+<script src="/js/d3.v4.min.js"></script>
+<script src="/js/remove-diacritics.js"></script>
+<script src="/js/d3-scale-chromatic.v1.min.js"></script>
+<script src="/js/d3-tip.js"></script>
+<script src="/js/parse-raw-expertus.js"></script>
+<script src="/js/collab-demo-1.js"></script>
+<script src="/js/bar-graph.js"></script>
+<script src="/js/works-over-time-demo-1.js"></script>
+<script src="/js/expertus-retriever.js"></script>
+<script src="/js/collab.js"></script>
 
 
 <!--<nav>-->
@@ -62,8 +62,7 @@
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
-            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/"> Wizualizator dorobku naukowego </a></li>
-            <li style="font-size: medium">Scientific output visualizer</li>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/">Scientific output visualizer</a></li>
         </ul>
     </div>
 
@@ -166,17 +165,17 @@
 
         var moreExampleDomains = [
             {
-                topic: "n. przyrodnicze",
+                topic: "science",
                 weight: 7836,
                 hue: "#ff9100"
             },
             {
-                topic: "nauki o życiu",
+                topic: "life sciences",
                 weight: 13082,
                 hue: "#ffb400"
             },
             {
-                topic: "lekarski, farmaceutyczny",
+                topic: "medicine",
                 weight: 13967,
                 hue: "#a9a9a9"
             },
@@ -186,7 +185,7 @@
                 hue: "#828282"
             },
             {
-                topic: "n. humanistyczne",
+                topic: "humanities",
                 weight: 18907,
                 hue: "#2d81a7"
             },
@@ -199,32 +198,32 @@
 
         var exampleDomains = [
             {
-                topic: "n. przyrodnicze",
+                topic: "science",
                 weight: 7836,
                 hue: "#5224cb"
             },
             {
-                topic: "nauki o życiu",
+                topic: "life sciences",
                 weight: 13082,
                 hue: "#e31a12"
             },
             {
-                topic: "lekarski, farmaceutyczny",
+                topic: "medicine",
                 weight: 13967,
                 hue: "#ff739e"
             },
             {
-                topic: "informatyka (z matematyką)",
+                topic: "mathematics and computer science",
                 weight: 1752,
                 hue: "#f66cfd"
             },
             {
-                topic: "n. humanistyczne",
+                topic: "humanities",
                 weight: 18907,
                 hue: "#fcea75"
             },
             {
-                topic: "n. społeczne",
+                topic: "social sciences",
                 weight: 8674,
                 hue: "#fcb47a"
             }
@@ -234,7 +233,7 @@
             {
                 topics:
                 [{
-                    topic:"n. humanistyczne",
+                    topic:"humanities",
                     weight: 1
                 }],
                 title: "Publication 1",
@@ -244,11 +243,11 @@
                 topics:
                 [
                     {
-                        topic:"nauki o życiu",
+                        topic:"life sciences",
                         weight: 0.5
                     },
                     {
-                        topic: "lekarski, farmaceutyczny",
+                        topic: "medicine",
                         weight: 0.5
                     }
                 ],
@@ -259,11 +258,11 @@
                 topics:
                         [
                             {
-                                topic:"n. przyrodnicze",
+                                topic:"science",
                                 weight: 0.8
                             },
                             {
-                                topic: "n. społeczne",
+                                topic: "social sciences",
                                 weight: 0.2
                             }
                         ],
@@ -274,11 +273,11 @@
                 topics:
                         [
                             {
-                                topic:"lekarski, farmaceutyczny",
+                                topic:"medicine",
                                 weight: 0.8
                             },
                             {
-                                topic: "n. przyrodnicze",
+                                topic: "science",
                                 weight: 0.2
                             }
                         ],
@@ -289,11 +288,11 @@
                 topics:
                         [
                             {
-                                topic:"lekarski, farmaceutyczny",
+                                topic:"medicine",
                                 weight: 0.5
                             },
                             {
-                                topic: "n. humanistyczne",
+                                topic: "humanities",
                                 weight: 0.5
                             }
                         ],
@@ -303,12 +302,8 @@
         ];
 
         var angleBounds = DivideDomains(exampleDomains);
-        console.log('angle bounds');
-        console.log(angleBounds);
         var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
         var domainLabelCoordinates = GetCartesianDomainCentres(angleBounds, radius * 1.5)
-        console.log('Domain coordinates');
-        console.log(domainCoordinates);
         angleBounds.forEach(function(domain){
             Publications.push({
                 anchor: true,
@@ -328,8 +323,6 @@
                         })
             })
         });
-        console.log('Domain links:');
-        console.log(linksToDomains);
 
         var domainArcs = d3
                 .arc()
@@ -507,8 +500,6 @@
             displayValues.sumOfWorks += coauthor.strengthValue
         });
         displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
-
-        console.log(displayValues);
 
         $('#coworkers-amount-display').text(displayValues.coworkersAmount);
         $('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
@@ -717,7 +708,7 @@
     }
 
 </script>
-<script src="js/load-name.js"></script>
+<script src="/js/load-name.js"></script>
 
 
 </body>

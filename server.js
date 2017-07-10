@@ -19,12 +19,14 @@ var retriever = require('./expertus-retriever');
 var Busboy = require('busboy');
 var iconv = require('iconv-lite');
 var parser = require('./parseUploadedExpertusFile');
+
 const rawDbWordsParser = require('./getWordObjectsArray');
 
 const geocoder = require('./geocoder');
 
 app.use('/pl', express.static('public'));
 app.use('/en', express.static('public-en'));
+app.use(express.static('sources'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -32,12 +34,14 @@ app.use(bodyParser.urlencoded({
 
 const session = require('express-session');
 
+const MongoStore = require('connect-mongo')(session);
 
 if(!config.appSecret) console.log('Pola appSecret w pliku config.json');
 app.use(session({
     secret: config.appSecret,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mg.connection })
 }));
 
 app.get('/', function (req, res, next) {
@@ -192,7 +196,8 @@ app.post('/wordcloudData', function (req, res) {
         .canvas(function() { return new Canvas(req.body.width, req.body.height); })
         .words(words)
         .padding(1)
-        .rotate(function() { return Math.random() > 0.5 ? 90 : 0})
+        .rotate(0)
+        //.rotate(function() { return Math.random() > 0.5 ? 90 : 0})
         .font(()=>{return 'sans-serif'})
         .fontSize(function(d) { return d.size; })
         .on("end", end)
@@ -224,7 +229,8 @@ app.post('/wordcloudData', function (req, res) {
         .canvas(function() { return new Canvas(req.body.width, req.body.height); })
         .words(engWords)
         .padding(1)
-        .rotate(function() { return Math.random() > 0.5 ? 90 : 0})
+        .rotate(0)
+        //.rotate(function() { return Math.random() > 0.5 ? 90 : 0})
         .font(()=>{return 'sans-serif'})
         .fontSize(function(d) { return d.size; })
         .on("end", engEnd)

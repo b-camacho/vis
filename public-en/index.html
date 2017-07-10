@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="../../favicon.ico">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/main.css">
 
 
     <title>Visualizer</title>
@@ -18,25 +18,24 @@
 
 <body>
 
-<script src="js/jquery-3.1.0.min.js"></script>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="js/remove-diacritics.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script src="js/collaboration-graph.js"></script>
-<script src="js/d3-tip.js"></script>
-<script src="js/parse-raw-expertus.js"></script>
-<script src="js/collab-demo-1.js"></script>
-<script src="js/bar-graph.js"></script>
-<script src="js/works-over-time-demo-1.js"></script>
-<script src="js/expertus-retriever.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+<script src="/js/jquery-3.1.0.min.js"></script>
+<script src="/js/d3.v4.min.js"></script>
+<script src="/js/remove-diacritics.js"></script>
+<script src="/js/d3-scale-chromatic.v1.min.js"></script>
+<script src="/js/collaboration-graph.js"></script>
+<script src="/js/d3-tip.js"></script>
+<script src="/js/parse-raw-expertus.js"></script>
+<script src="/js/collab-demo-1.js"></script>
+<script src="/js/bar-graph.js"></script>
+<script src="/js/works-over-time-demo-1.js"></script>
+<script src="/js/expertus-retriever.js"></script>
+<script src="/js/materialize.min.js"></script>
 
 
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
             <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/">Scientific output visualizer</a></li>
-            <li style="font-size: medium">Wizualizator dorobku naukowego</li>
         </ul>
     </div>
 
@@ -52,7 +51,7 @@
     <div style="float: right; margin-right: 20px;">
         <form method="post" action="upload" enctype="multipart/form-data">
             <div class="file-field input-field btn" >
-                Select file
+                Upload file
                 <input type="file" id="file-input" name="expertus" onchange="StartUpload()">
                 <!--<div class="file-path-wrapper">-->
                 <!--<input class="file-path validate" type="text">-->
@@ -99,7 +98,7 @@
     var DetailedDescriptions = {
         graph: 'The visualisation represents all coauthors of the work which occur in the Expertus database.' +
         ' The centre of the network is the author\'s node. The amount of shared works is represented by the distance between the two nodes',
-        works: 'THe amount of works published each year according to the Expertus database is displayed as a function of time' +
+        works: 'The amount of works published each year according to the Expertus database is displayed as a function of time' +
         'This allows for a quantitive analysys of oneself\'s publication activity as a function of time. Monographs are shown in red',
         bubbles: 'The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year',
         map: 'The map illustrates locations where the author\'s works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations',
@@ -215,7 +214,7 @@
                 <div class="card white-text" style="margin-bottom: 20px">
                     <a href="works.html" onmouseover="(function display(){DisplayDetails('works')})()">
                         <div class="card-image" >
-                            <img src="images/worksnew.png">
+                            <img src="/images/worksnew.png">
                             <!--<span class="card-title black-text">Dynamika liczby publikacji</span>-->
                         </div>
                     </a>
@@ -225,7 +224,7 @@
                 <div class="card white-text">
                     <a href="research-map.html">
                         <div class="card-image" onmouseover="(function display(){DisplayDetails('circle')})()">
-                            <img src="images/research-map.jpg">
+                            <img src="/images/research-map.jpg">
                             <!--<span class="card-title black-text">Publikacje na kole dziedzin</span>-->
                         </div>
                     </a>
@@ -239,7 +238,7 @@
                 <div class="card white-text" style="margin-bottom: 20px">
                     <a href="collab.html">
                         <div class="card-image" onmouseover="(function display(){DisplayDetails('graph')})()">
-                            <img src="images/collab.jpg">
+                            <img src="/images/collab.jpg">
                             <!--<span class="card-title black-text">Graf współautorstwa</span>-->
                         </div>
                     </a>
@@ -249,7 +248,7 @@
                 <div class="card white-text">
                     <a href="bubbles.html">
                         <div class="card-image" onmouseover="(function display(){DisplayDetails('bubbles')})()">
-                            <img src="images/bubbles.jpg" >
+                            <img src="/images/bubbles.jpg" >
                             <!--<span class="card-title black-text">Objętość piśmiennicza w skali czasu</span>-->
                         </div>
                     </a>
@@ -263,7 +262,7 @@
                 <div class="card white-text" style="margin-bottom: 20px">
                     <a href="google-map.html">
                         <div class="card-image" onmouseover="(function display(){DisplayDetails('map')})()">
-                            <img src="images/google-map.jpg">
+                            <img src="/images/google-map.jpg">
                             <!--<span class="card-title black-text">Mapa publikowania prac</span>-->
                         </div>
                     </a>
@@ -274,7 +273,7 @@
                 <div class="card white-text">
                     <a href="wordcloud.html">
                         <div class="card-image" onmouseover="(function display(){DisplayDetails('wordcloud')})()">
-                            <img src="images/wordcloud.jpg">
+                            <img src="/images/wordcloud.jpg">
                             <!--<span class="card-title black-text">Key-word clusters</span>-->
                         </div>
                     </a>
