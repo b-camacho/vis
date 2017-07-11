@@ -229,86 +229,107 @@
                 hue: "#fcb47a"
             }
         ];
+        var Publications = [];
+        for(var i=0; i<49; i++) {
+            var weight1 = Math.random(),
+                weight2 = 1 - weight1,
+                topic1 = Math.floor(Math.random() * 6),
+                topic2 = topic1;
 
-        var Publications = [
-            {
-                topics:
-                [{
-                    topic:"n. humanistyczne",
-                    weight: 1
+            while(topic2 === topic1) topic2 = Math.floor(Math.random() * 6);
+            var pub = {
+                topics: [{
+                    topic: exampleDomains[topic1].topic.toString(),
+                    weight: weight1
+                },{
+                    topic: exampleDomains[topic2].topic.toString(),
+                    weight: weight2
                 }],
-                title: "Publication 1",
-                anchor: false
-            },
-            {
-                topics:
-                [
-                    {
-                        topic:"nauki o życiu",
-                        weight: 0.5
-                    },
-                    {
-                        topic: "lekarski, farmaceutyczny",
-                        weight: 0.5
-                    }
-                ],
-                title: "Publication 2",
-                anchor: false
-            },
-            {
-                topics:
-                        [
-                            {
-                                topic:"n. przyrodnicze",
-                                weight: 0.8
-                            },
-                            {
-                                topic: "n. społeczne",
-                                weight: 0.2
-                            }
-                        ],
-                title: "Publication 4",
-                anchor: false
-            },
-            {
-                topics:
-                        [
-                            {
-                                topic:"lekarski, farmaceutyczny",
-                                weight: 0.8
-                            },
-                            {
-                                topic: "n. przyrodnicze",
-                                weight: 0.2
-                            }
-                        ],
-                title: "Publication 5",
-                anchor: false
-            },
-            {
-                topics:
-                        [
-                            {
-                                topic:"lekarski, farmaceutyczny",
-                                weight: 0.5
-                            },
-                            {
-                                topic: "n. humanistyczne",
-                                weight: 0.5
-                            }
-                        ],
-                title: "Publication 3",
+                title: i,
                 anchor: false
             }
-        ];
+            Publications.push(pub)
+        }
+
+
+
+//        var Publications = [
+//            {
+//                topics:
+//                [{
+//                    topic:"n. humanistyczne",
+//                    weight: 1
+//                }],
+//                title: "Publication 1",
+//                anchor: false
+//            },
+//            {
+//                topics:
+//                [
+//                    {
+//                        topic:"nauki o życiu",
+//                        weight: 0.5
+//                    },
+//                    {
+//                        topic: "lekarski, farmaceutyczny",
+//                        weight: 0.5
+//                    }
+//                ],
+//                title: "Publication 2",
+//                anchor: false
+//            },
+//            {
+//                topics:
+//                        [
+//                            {
+//                                topic:"n. przyrodnicze",
+//                                weight: 0.8
+//                            },
+//                            {
+//                                topic: "n. społeczne",
+//                                weight: 0.2
+//                            }
+//                        ],
+//                title: "Publication 4",
+//                anchor: false
+//            },
+//            {
+//                topics:
+//                        [
+//                            {
+//                                topic:"lekarski, farmaceutyczny",
+//                                weight: 0.8
+//                            },
+//                            {
+//                                topic: "n. przyrodnicze",
+//                                weight: 0.2
+//                            }
+//                        ],
+//                title: "Publication 5",
+//                anchor: false
+//            },
+//            {
+//                topics:
+//                        [
+//                            {
+//                                topic:"lekarski, farmaceutyczny",
+//                                weight: 0.5
+//                            },
+//                            {
+//                                topic: "n. humanistyczne",
+//                                weight: 0.5
+//                            }
+//                        ],
+//                title: "Publication 3",
+//                anchor: false
+//            }
+//        ];
 
         var angleBounds = DivideDomains(exampleDomains);
-        console.log('angle bounds');
-        console.log(angleBounds);
+
         var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
         var domainLabelCoordinates = GetCartesianDomainCentres(angleBounds, radius * 1.5)
-        console.log('Domain coordinates');
-        console.log(domainCoordinates);
+
         angleBounds.forEach(function(domain){
             Publications.push({
                 anchor: true,
@@ -328,8 +349,6 @@
                         })
             })
         });
-        console.log('Domain links:');
-        console.log(linksToDomains);
 
         var domainArcs = d3
                 .arc()
@@ -342,7 +361,6 @@
                     return d.angleBounds.end - padAngle/2;
                 });
 
-        console.log(angleBounds);
         var arcsGroup = svg
                 .append('g')
                 .attr('id', 'arcs-g');
@@ -394,7 +412,7 @@
             var string = '';
             d.topics.forEach(function (topic, index) {
                 if(index != 0) string += '<br>';
-                string += topic.topic + ' : ' + topic.weight;
+                string += topic.topic + ' : ' + Math.round(topic.weight*100)/100;
             });
             return string;
         });
@@ -508,7 +526,6 @@
         });
         displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
 
-        console.log(displayValues);
 
         $('#coworkers-amount-display').text(displayValues.coworkersAmount);
         $('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
@@ -592,7 +609,6 @@
                 previousPositions.forEach(function (previousPosition) {
                     distancesFromSinglePoint.push(Math.abs(previousPosition - position - offset) % 180);
                 });
-                //console.log(Math.min.apply(null, distancesFromSinglePoint));
                 return Math.min.apply(null, distancesFromSinglePoint);
             });
 

@@ -13,15 +13,15 @@
     <link rel="stylesheet" href="/css/main.css">
 
 
-    <title>Our goal</title>
+    <title>Data</title>
 </head>
 
 <body>
 
 <script src="/js/jquery-3.1.0.min.js"></script>
-<script src="/js/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="/js/remove-diacritics.js"></script>
-<script src="/js/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="/js/collaboration-graph.js"></script>
 <script src="/js/d3-tip.js"></script>
 <script src="/js/parse-raw-expertus.js"></script>
@@ -29,7 +29,7 @@
 <script src="/js/bar-graph.js"></script>
 <script src="/js/works-over-time-demo-1.js"></script>
 <script src="/js/expertus-retriever.js"></script>
-<script src="/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 
 
 <div class="row top-nav z-depth-1">
@@ -54,7 +54,8 @@
         </form>
     </div>
 
-    <div class="top-link"><a href="/pl">Polski</a></div>
+    <div class="top-link"><a href="/en">English</a></div>
+
 
     <div class="top-link"><a href="about.html">About</a></div>
 
@@ -76,10 +77,17 @@
     <div class="col s3"></div>
     <div class="col s6" style="background-color: #fcfcfc; height: 100%;">
         <h1 align="center" style="padding-top: 50px">
-            Our goal
+            Data
         </h1>
         <p align="left" style="padding-left: 30px; font-size: 20px;">
-            This space is reserved for a description of the goal of the project.
+            To create a .rtf file which is required to use the visualiser, please navigate to the
+            <a href="http://bg.cm.umk.pl/splendor/umk/">Expertus UMK</a>service and enter your surname in the <i>Autor</i> field and search the database by presing <i>
+            Indeks</i>.
+            After you select your name from the list which appeared, you will be redirected to a site with a list of your publications, where you can download the required file by clicking <i>pobranie pliku do edytora</i>
+            The resultant file can be sent to the visualiser. <br/>
+            Example datasets: <br/>
+            <a href="/examples/veslava_osinska.rtf" download>Set 1</a><br/>
+            <a href="/examples/wodzislaw_duch.rtf" download>Set 2</a>
         </p>
     </div>
     <div class="col s3"></div>
@@ -112,6 +120,7 @@
 
 </script>
 
+
 <script>
     function StartUpload() {
         $('#file-input-submit').click();
@@ -119,6 +128,6 @@
 </script>
 
 
-
 </body>
 </html>
+>

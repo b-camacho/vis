@@ -229,77 +229,27 @@
             }
         ];
 
-        var Publications = [
-            {
-                topics:
-                [{
-                    topic:"humanities",
-                    weight: 1
+        var Publications = [];
+        for(var i=0; i<49; i++) {
+            var weight1 = Math.random(),
+                weight2 = 1 - weight1,
+                topic1 = Math.floor(Math.random() * 6),
+                topic2 = topic1;
+
+            while(topic2 === topic1) topic2 = Math.floor(Math.random() * 6);
+            var pub = {
+                topics: [{
+                    topic: exampleDomains[topic1].topic.toString(),
+                    weight: weight1
+                },{
+                    topic: exampleDomains[topic2].topic.toString(),
+                    weight: weight2
                 }],
-                title: "Publication 1",
-                anchor: false
-            },
-            {
-                topics:
-                [
-                    {
-                        topic:"life sciences",
-                        weight: 0.5
-                    },
-                    {
-                        topic: "medicine",
-                        weight: 0.5
-                    }
-                ],
-                title: "Publication 2",
-                anchor: false
-            },
-            {
-                topics:
-                        [
-                            {
-                                topic:"science",
-                                weight: 0.8
-                            },
-                            {
-                                topic: "social sciences",
-                                weight: 0.2
-                            }
-                        ],
-                title: "Publication 4",
-                anchor: false
-            },
-            {
-                topics:
-                        [
-                            {
-                                topic:"medicine",
-                                weight: 0.8
-                            },
-                            {
-                                topic: "science",
-                                weight: 0.2
-                            }
-                        ],
-                title: "Publication 5",
-                anchor: false
-            },
-            {
-                topics:
-                        [
-                            {
-                                topic:"medicine",
-                                weight: 0.5
-                            },
-                            {
-                                topic: "humanities",
-                                weight: 0.5
-                            }
-                        ],
-                title: "Publication 3",
+                title: i,
                 anchor: false
             }
-        ];
+            Publications.push(pub)
+        }
 
         var angleBounds = DivideDomains(exampleDomains);
         var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
@@ -387,7 +337,7 @@
             var string = '';
             d.topics.forEach(function (topic, index) {
                 if(index != 0) string += '<br>';
-                string += topic.topic + ' : ' + topic.weight;
+                string += topic.topic + ' : ' + Math.round(topic.weight*100)/100;
             });
             return string;
         });
