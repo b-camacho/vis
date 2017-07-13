@@ -91,6 +91,10 @@ app.post('/research-map', function (req, res) {
     res.redirect('research-map.html');
 });
 
+app.post('/research-mapData', function (req, res) {
+    res.json(req.session.works);
+});
+
 app.post('/bubblesData', function (req, res) {
     res.json(req.session.works);
 });

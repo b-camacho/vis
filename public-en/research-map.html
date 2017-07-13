@@ -102,10 +102,14 @@
 
 <script>
 
-    $(document).ready(function () {
-        DrawDomains();
-    });
 
+    $(document).ready(function () {
+        $.post("research-mapData", {}, function (data) {
+
+            DrawDomains(data.length)
+            }
+
+        )});
 
 
     function DivideDomains(domainsList) {
@@ -148,7 +152,7 @@
         return DomainToCentreCoordinatesMap;
     }
 
-    function DrawDomains() {
+    function DrawDomains(amountOfNodes) {
         var svg = d3.select("#svg-port"),
                 jQPort = $(".svg-port"),
                 width = jQPort.width(),
@@ -230,7 +234,7 @@
         ];
 
         var Publications = [];
-        for(var i=0; i<49; i++) {
+        for(var i=0; i<amountOfNodes; i++) {
             var weight1 = Math.random(),
                 weight2 = 1 - weight1,
                 topic1 = Math.floor(Math.random() * 6),
