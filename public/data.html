@@ -35,14 +35,15 @@
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
-            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/"> Wizualizator dorobku naukowego </a></li>
+            <li style="font-size: xx-large; margin-bottom: -8px; margin-top: -10px"><a href="/"> Wizualizator dorobku
+                naukowego </a></li>
             <li style="font-size: medium">Scientific output visualizer</li>
         </ul>
     </div>
 
     <div style="float: right; margin-right: 20px;">
         <form method="post" action="upload" enctype="multipart/form-data">
-            <div class="file-field input-field btn" >
+            <div class="file-field input-field btn">
                 Wybierz plik
                 <input type="file" id="file-input" name="expertus" onchange="StartUpload()">
                 <!--<div class="file-path-wrapper">-->
@@ -68,56 +69,78 @@
     <div style="margin-left: auto; margin-right: auto;padding-top: 5px;  width: 300px; height:5em">
         <ul>
             <li style="margin-top: -15px;" id="query-name-caption">Wizualizacje dla:</li>
-            <li><div id="query-name-container" class="name-display"></div></li>
+            <li>
+                <div id="query-name-container" class="name-display"></div>
+            </li>
         </ul>
     </div>
 
 </div>
 
-<div class="main-row row">
+<div class="main-row row" >
     <div class="col s3"></div>
-    <div class="col s6" style="background-color: #fcfcfc; height: 100%;">
+    <div class="col s6" style="background-color: #fcfcfc; height: 100%; overflow-y: scroll">
         <h1 align="center" style="padding-top: 50px">
             Dane
         </h1>
         <p align="left" style="padding-left: 30px; font-size: 20px;">
-            Aby wygenerować plik .rtf potrzebny do uruchomienia wizualizatora należy odwiedzić serwis
-            <a href="http://bg.cm.umk.pl/splendor/umk/">Expertus UMK</a> a następnie wpisać swoje nazwisko w polu <i>Autor</i> i przeszukać bazę przyciskiem <i>
-            Indeks</i>.
-            Po wybraniu z listy swojego imienia i nazwiska nastąpi przekierowanie na stronę zawierającą listę publikacji, gdzie należy wybrać
-            <i>pobranie pliku do edytora</i>.
-            Uzyskany plik wystarczy przesłać do wizualizatora. <br/>
-            Dane demonstracyjne: <br/>
-            <a href="/examples/veslava_osinska.rtf" download>Zestaw 1</a><br/>
-            <a href="/examples/wodzislaw_duch.rtf" download>Zestaw 2</a>
+            Aktualnie aplikacja przetwarza dane z bibliograficznej bazy pracowników UMK Expertus, którą można znaleźć
+            pod adresem:<br/><br/>
+            http://212.122.203.4/splendor/umk/.<br/><br/>
+            W przyszłości autorzy rozszerzą możliwości wizualizacji w oparciu o dane z innych źródeł, np. Google
+            Scholar, lub Research Gate.<br/><br/>
+            Baza Expertus jest starannie opracowywana w Bibliotece Głównej UMK na podstawie systematycznie
+            aktualizowanego przez pracowników naukowych swojego dorobki naukowego.<br/><br/>
+            Serwis Expertus © SPLENDOR, Poznań umożliwia pobranie odfiltrowanych rekordów w formacie tekstowym (plik
+            RTF). Umożliwia to opcja, niestety trudno dostrzegalna „Pobranie pliku do edytora”. Ładowane są metadane
+            zaznaczonych rekordów.
+            Niestety nie ma opcji „zaznacz wszystkie”, co bardzo ułatwiłoby pobieranie bibliografii znacznego dorobku,
+            liczącego na przykład kilkaset publikacji.<br/><br/>
+            Struktura zapisu jest wierszowa. Rekordy publikacji są ponumerowane i rozdzielone kilkoma pustymi wierszami.
+            Zapisywane są następujące pola:
+            <br/></p>
+        <ul style="padding-left: 30px; font-size: 20px;">
+            <li>Autor(zy)</li>
+            <li>Tytuł</li>
+            <li>Tytuł wydania zbiorowego/Czasopismo</li>
+            <li>Opis wydawniczy</li>
+            <li>Język</li>
+            <li>Typ formalny</li>
+            <li>Typ formalny</li>
+            <li>Typ merytoryczny</li>
+            <li>Pełny tytuł czasopisma</li>
+            <li>Sygnatura</li>
+            <li>Punktacja MNiSW</li>
+            <li>Słowa kluczowe</li>
+        </ul>
+        <p align="left" style="padding-left: 30px; font-size: 20px;">
+        W aplikacji wykorzystano te pola, które przekazują wartościowe informacje pod względem analizy danych. <br>
+        Przykładowy plik do przećwiczenia jest dostępny tu: <a href="/examples/veslava_osinska.rtf" download>link</a>
         </p>
     </div>
     <div class="col s3"></div>
 
 
-
 </div>
-
-
 
 
 <script>
 
 
     $('document').ready(
-        $.ajax('name').done(function (response) {
-            var $nameContainer = $('#query-name-container')
-                ,$nameCaption = $('#query-name-caption');
-            if(response.available) {
-                $nameContainer.text(response.name);
-                $nameContainer.css('display', 'visible');
-                $nameCaption.css('display', 'visible');
-            }
-            else {
-                $nameContainer.css('display', 'none');
-                $nameCaption.css('display', 'none');
-            }
-        }))
+            $.ajax('name').done(function (response) {
+                var $nameContainer = $('#query-name-container')
+                        , $nameCaption = $('#query-name-caption');
+                if (response.available) {
+                    $nameContainer.text(response.name);
+                    $nameContainer.css('display', 'visible');
+                    $nameCaption.css('display', 'visible');
+                }
+                else {
+                    $nameContainer.css('display', 'none');
+                    $nameCaption.css('display', 'none');
+                }
+            }))
 
 
 </script>
