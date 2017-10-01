@@ -19,6 +19,7 @@
 <body>
 
 <script src="/js/jquery-3.1.0.min.js"></script>
+<script src="/js/cosmetics.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="/js/remove-diacritics.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -124,26 +125,7 @@
 </div>
 
 
-<script>
-
-
-    $('document').ready(
-            $.ajax('name').done(function (response) {
-                var $nameContainer = $('#query-name-container')
-                        , $nameCaption = $('#query-name-caption');
-                if (response.available) {
-                    $nameContainer.text(response.name);
-                    $nameContainer.css('display', 'visible');
-                    $nameCaption.css('display', 'visible');
-                }
-                else {
-                    $nameContainer.css('display', 'none');
-                    $nameCaption.css('display', 'none');
-                }
-            }))
-
-
-</script>
+<script src="/js/load-name.js"></script>
 
 
 <script>

@@ -19,6 +19,7 @@
 <body>
 
 <script src="/js/jquery-3.1.0.min.js"></script>
+<script src="/js/load-name.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="/js/remove-diacritics.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -30,6 +31,7 @@
 <script src="/js/works-over-time-demo-1.js"></script>
 <script src="/js/expertus-retriever.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
 
 <!-- GoStats JavaScript Based Code -->
 <script type="text/javascript" src="http://gostats.pl/js/counter.js"></script>
@@ -185,36 +187,6 @@ _got=5;_goi=1;_gol='licznik na stronie';_GoStatsRun();</script>
 //            limit: 20 // The max amount of results that can be shown at once. Default: Infinity.
 //        });
     }
-
-    function SetChosenResult(chosenListElement) {
-        console.log('Selected ' + chosenListElement.textContent);
-
-        var resultArray = chosenListElement.textContent.trim().split(' ');
-        resultArray = resultArray.map(function (allCapsWord) {
-            var initial = allCapsWord.charAt(0);
-            return initial + allCapsWord.slice(1).toLocaleLowerCase()
-        });
-        $('#name-and-surname-autocomplete').val(chosenListElement.textContent);
-        $('#results').empty();
-        EnableVisualisationRedirectButtons();
-        document.cookie = 'name=' + resultArray[resultArray.length - 1] + ' ' + resultArray[0] + '; ';
-        console.log(document.cookie)
-    }
-
-    $('document').ready(
-        $.ajax('name').done(function (response) {
-            var $nameContainer = $('#query-name-container')
-                ,$nameCaption = $('#query-name-caption');
-            if(response.available) {
-                $nameContainer.text(response.name);
-                $nameContainer.css('display', 'visible');
-                $nameCaption.css('display', 'visible');
-            }
-            else {
-                $nameContainer.css('display', 'none');
-                $nameCaption.css('display', 'none');
-            }
-        }))
 </script>
 
 <div class="row main-row">

@@ -30,7 +30,8 @@ parser.parse = function (rawText, done) {
             languages: [],
             polishkeywords: [],
             englishkeywords: [],
-            authors: []
+            authors: [],
+            invalid: {}
         };
 
         let pageCountTowardsSumConditions = {

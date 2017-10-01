@@ -9,6 +9,12 @@ $('document').ready(
             $nameContainer.text(response.name);
             $nameContainer.css('display', 'visible');
             $nameCaption.css('display', 'visible');
+
+            console.log($nameContainer.height())
+            while($nameContainer.height() > 45) {1
+                $nameContainer.css('font-size', (parseInt($nameContainer.css('font-size')) - 1) + 'px');
+            }
+
         }
         else {
             $nameContainer.css('display', 'none');
