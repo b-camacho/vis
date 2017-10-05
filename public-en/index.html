@@ -19,7 +19,6 @@
 <body>
 
 <script src="/js/jquery-3.1.0.min.js"></script>
-<script src="/js/load-name.js"></script>
 <script src="/js/d3.v4.min.js"></script>
 <script src="/js/remove-diacritics.js"></script>
 <script src="/js/d3-scale-chromatic.v1.min.js"></script>
@@ -151,53 +150,6 @@ _got=5;_goi=1;_gol='licznik na stronie';_GoStatsRun();</script>
 
     function DisplayDetails(visName) {
         $('#details-host').text(DetailedDescriptions[visName])
-    }
-
-    function QueryForSuggestions() {
-        var autocompletedInput = $('#name-and-surname-autocomplete');
-        var queryName = autocompletedInput.val();
-        console.log(queryName);
-
-        $.ajax('/name-lookup', {
-            data: {
-                name: queryName
-            }
-        }).done(function (queryResults) {
-            console.log(queryResults);
-
-            function getLi(content) {
-                return '<li onclick="SetChosenResult(this)" class="dropdown-namelist-item"><span>' + content + ' </span> </li >'
-            }
-
-            var $results = $('#results');
-            queryResults.forEach(function (result) {
-                $results.append(getLi(result))
-            })
-
-        });
-//        var queryResults = {};
-//        queryResults[queryName] = null;
-//        queryResults[queryName + '1'] = null;
-//        queryResults[queryName + '2'] = null;
-//        $('input.autocomplete').autocomplete({
-//            queryResults,
-//            limit: 20 // The max amount of results that can be shown at once. Default: Infinity.
-//        });
-    }
-
-    function SetChosenResult(chosenListElement) {
-        console.log('Selected ' + chosenListElement.textContent);
-
-        var resultArray = chosenListElement.textContent.trim().split(' ');
-        resultArray = resultArray.map(function (allCapsWord) {
-            var initial = allCapsWord.charAt(0);
-            return initial + allCapsWord.slice(1).toLocaleLowerCase()
-        });
-        $('#name-and-surname-autocomplete').val(chosenListElement.textContent);
-        $('#results').empty();
-        EnableVisualisationRedirectButtons();
-        document.cookie = 'name=' + resultArray[resultArray.length - 1] + ' ' + resultArray[0] + '; ';
-        console.log(document.cookie)
     }
     
 </script>
@@ -333,6 +285,6 @@ _got=5;_goi=1;_gol='licznik na stronie';_GoStatsRun();</script>
     </div>
 </div>
 
-
+<script src="/js/load-name.js"></script>
 </body>
 </html>
