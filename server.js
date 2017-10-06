@@ -13,9 +13,6 @@ mg.connect('mongodb://127.0.0.1/vis', function (err) {
     else console.log('Connected to mongoDB!')
 });
 var m = require('./models');
-
-var retriever = require('./expertus-retriever');
-
 var Busboy = require('busboy');
 var iconv = require('iconv-lite');
 var parser = require('./parseUploadedExpertusFile');
@@ -36,7 +33,7 @@ const session = require('express-session');
 
 const MongoStore = require('connect-mongo')(session);
 
-if(!config.appSecret) console.log('Pola appSecret w pliku config.json');
+if(!config.appSecret) console.log('Brak pola appSecret w pliku config.json');
 app.use(session({
     secret: config.appSecret,
     resave: false,
@@ -52,24 +49,16 @@ app.get('/', function (req, res, next) {
 app.post('/pl/*', function (req, res, next) {
     req.url = req.url.substr(3);
     req.session.lang = 'pl';
-    console.log(req.url);
     next()
 })
 app.post('/en/*', function (req, res, next) {
     req.url = req.url.substr(3);
     req.session.lang = 'en';
-    console.log(req.url);
     next()
 })
-app.post('/retrieve', function (req, res) {
-    retriever.run(req.body.name, {mode: req.body.mode}, function (err, result) {
-        res.json(JSON.stringify(result));
-    });
-});
 
 
 app.post('/collab', function (req, res) {
-    console.log(req.body.name);
     res.redirect('collab.html');
 });
 app.post('/collabData', function (req, res) {
@@ -78,7 +67,6 @@ app.post('/collabData', function (req, res) {
 });
 
 app.post('/works', function (req, res) {
-    console.log(req.body.name);
     res.redirect('works.html');
 });
 app.post('/worksData', function (req, res) {
@@ -148,7 +136,6 @@ app.post('/google-mapDataExamples', function (req, res) {
 app.post('/google-map', function (req, res) {
     geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
         res.json(workObjectsWithLocations);
-        console.log(workObjectsWithLocations);
     })
 
 })
@@ -186,7 +173,6 @@ app.post('/wordcloudData', function (req, res) {
         })
         .reverse();
 
-    console.log(wordsArray.slice(0, 10));
 
     const maxSize = Math.max(req.body.height, req.body.width) / 4, minSize = 5 ,
         maxAmount = wordsArray[0].amount, minAmount = 2;
@@ -222,7 +208,6 @@ app.post('/wordcloudData', function (req, res) {
         })
         .reverse();
 
-    console.log(engWordsArray.slice(0, 10));
 
     let engWords = engWordsArray
         .map(function(el) {
@@ -251,14 +236,6 @@ app.post('/wordcloudData', function (req, res) {
 });
 
 
-app.get('/name-lookup', function (req, res) {
-    console.log(req.query.name);
-    retriever.run(req.query.name, {mode: 'names'}, function (err, result) {
-        console.log(err);
-        res.send(result);
-    });
-})
-
 app.post('/upload', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     var chunks = [];
@@ -285,7 +262,6 @@ app.post('/upload', function (req, res) {
     });
 
     busboy.on('finish', function() {
-        console.log('Done parsing form!');
         res.writeHead(303, { Connection: 'close', Location: '/' });
         res.end();
     });
@@ -301,4 +277,3 @@ app.get('/*/name', function (req, res) {
 app.listen(config.port || 3000, function () {
     console.log('Listening on port ' + (config.port || 3000));
 });
-

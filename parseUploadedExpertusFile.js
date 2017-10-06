@@ -4,12 +4,6 @@
 
 var parser = {};
 
-const labels = [
-    {
-
-    }
-]
-
 parser.parse = function (rawText, done) {
 
     const exp1 = new RegExp(/<BR> [0-9]{0,3}\. <BR>/);
@@ -17,10 +11,7 @@ parser.parse = function (rawText, done) {
 
     let recordObjectsArray = [];
     const queryName = rawText.split('id="querylabel">Zapytanie: </span>')[1].split('<BR><FONT')[0];
-    console.log(queryName);
     const rawTextArray = rawText.split(exp1);
-
-    console.log(rawTextArray.length + ' records in total');
 
     rawTextArray.forEach((record, index) => {
         if(index == 0) return;
@@ -134,7 +125,6 @@ parser.parse = function (rawText, done) {
                 case 'Punktacja ministerstwa':
                     const styleTrimmed = splitLine[1].split('<span class="field">')[1].split('</span>')[0];
                     recordObject.points = Number.parseFloat(styleTrimmed);
-                    if (!(recordObject.points > 0) )console.log(line);
 
             }
 
