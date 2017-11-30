@@ -84,6 +84,9 @@
         <div class="row" style="padding-left: 10px;">
             <button class="btn" onclick="genPdfDoc()">Generuj PDF</button>
         </div>
+        <div class="row" style="padding-left: 10px">
+            <button class="btn" onclick="showEdits()" id="toggleView">Widok redakcji</button>
+        </div>
 
     </div>
 
@@ -95,18 +98,22 @@
 
 
 <script>
-
+var rawData;
 $(document).ready(function () {
             $.post("collabData", {}, function (data) {
-                console.log(data);
-                drawSimulationCollaborationGraph(getNodes((data)));
+            	rawData = data;
+	            if(data.filter(function (work) {
+			            return work.publicationType === 'edit'
+		            }).length < 3) document.querySelector('#toggleView').setAttribute('disabled', 'disabled');
+                // console.log(data);
+                drawSimulationCollaborationGraph(getNodes(data, false));
                 //displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
         }
 
 )});
 
 function drawSimulationCollaborationGraph(data) {
-    console.log(data);
+    // console.log(data);
     clearSvg();
 
 
@@ -127,7 +134,7 @@ function drawSimulationCollaborationGraph(data) {
     data.simNodes[0].fy = height / 2;
 
 
-        console.log(width + ' ' + height);
+        // console.log(width + ' ' + height);
 
     var simulation = d3.forceSimulation()
             .force("link", d3.forceLink()
@@ -226,7 +233,7 @@ function drawSimulationCollaborationGraph(data) {
     }
 
 
-    console.log('Simulation finished')
+    // console.log('Simulation finished')
 }
 
 var colorCounter = 0;
@@ -252,7 +259,7 @@ function displayWorkStatsCollab (data) {
     });
     displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
 
-    console.log(displayValues);
+    // console.log(displayValues);
 
     $('#coworkers-amount-display').text(displayValues.coworkersAmount);
     $('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
@@ -271,7 +278,7 @@ function ConvertDbOutputIntoLegacyExpertusFormat(data) { //[ {authors: [author1,
         LegacyCollaboratorList.push(singleWorkAuthors)
     });
 
-    console.log(LegacyCollaboratorList);
+    // console.log(LegacyCollaboratorList);
 
     return LegacyCollaboratorList
 }
@@ -312,9 +319,12 @@ function ConvertDbOutputIntoLegacyExpertusFormat(data) { //[ {authors: [author1,
 //}
 
 
-function getNodes (allWorks) {
-
+function getNodes (allWorks, showEdits) {
     var authorsSet = new Set();
+    allWorks = allWorks.filter(function (work) {
+        return (work.publicationType === 'edit') === showEdits
+    });
+    console.log(allWorks)
     var authorLists = allWorks.map(function (el) {
         if(!el.authors) return;
         el.authors.forEach(function (person) {
@@ -334,8 +344,8 @@ function getNodes (allWorks) {
         }
     })
 
-    console.log('Query made by: ' + centralAuthor);
-    console.log('This person has ' + centralAuthorWorks + ' works out of ' + authorLists.length + ' in this set of records.');
+    // console.log('Query made by: ' + centralAuthor);
+    // console.log('This person has ' + centralAuthorWorks + ' works out of ' + authorLists.length + ' in this set of records.');
 
     var collaboratorsObject = {};
     var collaborators = [];
@@ -350,7 +360,7 @@ function getNodes (allWorks) {
     })
 
 
-    console.log(collaboratorsObject);
+    // console.log(collaboratorsObject);
 
     var simCentralAuthorObject = {
         id: centralAuthor,
@@ -386,7 +396,7 @@ function genPdfDoc() {
 	})
 		, stream = doc.pipe(blobStream());
 	doc.fontSize(25)
-		.text('Graf współautorstwa', 100, 40);
+		.text('Graf wspolautorstwa', 100, 40);
 	doc.fontSize(12)
 		.text('Wygenerowano przez ', {
 			continued: true
@@ -417,7 +427,14 @@ function genPdfDoc() {
 	doc.end();
 
 }
+var toggled = false;
+function showEdits() {
+	toggled = !toggled;
+    clearSvg();
 
+    document.querySelector('#toggleView').innerHTML = toggled ? 'Widok standardowy' : 'Widok prac redagowanych';
+    drawSimulationCollaborationGraph(getNodes(rawData, toggled))
+}
 
 
 
@@ -433,7 +450,7 @@ function PolskaFleksjaSlowaPraca(word, number) {
 }
 
 </script>
-<script src="/js/load-name.js">x</script>
+<script src="/js/load-name.js"></script>
 
 
 </body>

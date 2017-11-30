@@ -158,7 +158,7 @@
                 height = $(".svg-port").height();
         svg.selectAll('*').remove();
         var barYearTip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-            return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '</br> W tym monografii: ' + d.books + ' ';
+            return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '.</br> W tym ' + d.books + ' monografii <br> oraz ' + PolskaFleksjaSlowaPraca('praca', d.edits) + PolskaFleksjaSlowaPraca('redagowana', d.edits) + '.';
         });
         svg.call(barYearTip);
 
@@ -225,12 +225,36 @@
                 .transition()
                 .duration(1000)
                 .attr('y', function (d) {
-                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+                    if (d.articles > 0) return maxBarHeight - yScale(d.works - d.edits) - stackMargin;
                     else return maxBarHeight - yScale(d.works)
                 })
                 .attr('height', function (d) {
                     return yScale(d.books);
-                })
+                });
+        bars.enter().append('rect')
+	        .attr('width', xScale.bandwidth())
+	        .attr('x', function (d) {
+		        return xScale(d.year);
+	        })
+	        .attr('y', function (d) {
+		        if (d.articles > 0 || d.books > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+		        else return maxBarHeight - yScale(d.works)
+	        })
+	        .attr('height', 0)
+	        .style('fill', 'yellow')
+	        .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+	        .on('mouseover', barYearTip.show)
+	        .on('mouseout', barYearTip.hide)
+	        .transition()
+	        .duration(1000)
+	        .attr('y', function (d) {
+		        if (d.articles > 0 && d.books > 0) return maxBarHeight - yScale(d.works) - 2*stackMargin;
+		        else if (d.articles > 0 || d.books > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+		        else return maxBarHeight - yScale(d.edits)
+	        })
+	        .attr('height', function (d) {
+		        return yScale(d.edits);
+	        })
 //                .style('fill', '#8BC34A');
 
         bars.exit()
@@ -281,12 +305,15 @@
             works: 0,
             articles: 0,
             books: 0,
+            edits: 0,
             year: year
         };
         arr.forEach(function (el) {
-            if (el.year == year) {
+            if (el.year === year) {
                 resObj.works++;
-                (el.publicationType == 'article') ? resObj.articles++ : resObj.books++
+                if(el.publicationType === 'book') resObj.books++;
+	            if(el.publicationType === 'edit') resObj.edits++;
+	            if(el.publicationType === 'article') resObj.articles++;
             }
         });
         return resObj;
@@ -294,7 +321,7 @@
 
     function incrementCollaboration(arr, name) {
         for (var i = 0; i < arr.length; i++) {
-            if (arr[i].name == name) {
+            if (arr[i].name === name) {
                 arr[i].works++;
                 return
             }
@@ -356,9 +383,17 @@
         d3.select('svg').selectAll('*').remove();
     }
     function PolskaFleksjaSlowaPraca(word, number) {
-        if (number == 1) return number + ' praca'
-        if (number >= 2 && number <= 4) return number + ' prace'
-        return number + ' prac'
+        switch (word) {
+            case 'praca':
+                if (number === 1) return number + ' praca'
+                if (number >= 2 && number <= 4) return number + ' prace'
+                return number + ' prac'
+            case 'redagowana':
+                if (number === 1) return ' redagowana'
+                if (number >= 2 && number <= 4) return ' redagowane'
+                return ' redagowanych';
+        }
+
     }
 
     function dynamicSort(property) {

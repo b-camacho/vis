@@ -143,50 +143,73 @@
         var bars = svg.select('g')
                 .selectAll('rect')
                 .data(data);
-        bars.enter().append('rect')
-                .attr('width', xScale.bandwidth())
-                .attr('x', function (d) {
-                    return xScale(d.year);
-                })
-                .attr('y', maxBarHeight)
-                .attr('height', 0)
-                .style('fill', '#FFFFFF')
-                .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
-                .on('mouseover', barYearTip.show)
-                .on('mouseout', barYearTip.hide)
-                .transition()
-                .duration(1000)
-                .attr('y', function (d) {
-                    return maxBarHeight - yScale(d.articles);
-                })
-                .attr('height', function (d) {
-                    return yScale(d.articles);
-                })
-                .style('fill', '#8BC34A');
-        bars.enter().append('rect')
-                .attr('width', xScale.bandwidth())
-                .attr('x', function (d) {
-                    return xScale(d.year);
-                })
-                .attr('y', function (d) {
-                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
-                    else return maxBarHeight - yScale(d.works)
-                })
-                .attr('height', 0)
-                .style('fill', red)
-                .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
-                .on('mouseover', barYearTip.show)
-                .on('mouseout', barYearTip.hide)
-                .transition()
-                .duration(1000)
-                .attr('y', function (d) {
-                    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
-                    else return maxBarHeight - yScale(d.works)
-                })
-                .attr('height', function (d) {
-                    return yScale(d.books);
-                })
-//                .style('fill', '#8BC34A');
+	    bars.enter().append('rect')
+		    .attr('width', xScale.bandwidth())
+		    .attr('x', function (d) {
+			    return xScale(d.year);
+		    })
+		    .attr('y', maxBarHeight)
+		    .attr('height', 0)
+		    .style('fill', '#FFFFFF')
+		    .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+		    .on('mouseover', barYearTip.show)
+		    .on('mouseout', barYearTip.hide)
+		    .transition()
+		    .duration(1000)
+		    .attr('y', function (d) {
+			    return maxBarHeight - yScale(d.articles);
+		    })
+		    .attr('height', function (d) {
+			    return yScale(d.articles);
+		    })
+		    .style('fill', '#8BC34A');
+	    bars.enter().append('rect')
+		    .attr('width', xScale.bandwidth())
+		    .attr('x', function (d) {
+			    return xScale(d.year);
+		    })
+		    .attr('y', function (d) {
+			    if (d.articles > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+			    else return maxBarHeight - yScale(d.works)
+		    })
+		    .attr('height', 0)
+		    .style('fill', red)
+		    .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+		    .on('mouseover', barYearTip.show)
+		    .on('mouseout', barYearTip.hide)
+		    .transition()
+		    .duration(1000)
+		    .attr('y', function (d) {
+			    if (d.articles > 0) return maxBarHeight - yScale(d.works - d.edits) - stackMargin;
+			    else return maxBarHeight - yScale(d.works)
+		    })
+		    .attr('height', function (d) {
+			    return yScale(d.books);
+		    });
+	    bars.enter().append('rect')
+		    .attr('width', xScale.bandwidth())
+		    .attr('x', function (d) {
+			    return xScale(d.year);
+		    })
+		    .attr('y', function (d) {
+			    if (d.articles > 0 || d.books > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+			    else return maxBarHeight - yScale(d.works)
+		    })
+		    .attr('height', 0)
+		    .style('fill', 'yellow')
+		    .attr('transform', 'translate( ' + [yScaleWidth, maxBarHeight - 20] + ')')
+		    .on('mouseover', barYearTip.show)
+		    .on('mouseout', barYearTip.hide)
+		    .transition()
+		    .duration(1000)
+		    .attr('y', function (d) {
+			    if (d.articles > 0 && d.books > 0) return maxBarHeight - yScale(d.works) - 2*stackMargin;
+			    else if (d.articles > 0 || d.books > 0) return maxBarHeight - yScale(d.works) - stackMargin;
+			    else return maxBarHeight - yScale(d.edits)
+		    })
+		    .attr('height', function (d) {
+			    return yScale(d.edits);
+		    })
 
         bars.exit()
                 .transition()
@@ -232,19 +255,22 @@
     }
 
     function countYearOccurences(year, arr) {
-        var resObj = {
-            works: 0,
-            articles: 0,
-            books: 0,
-            year: year
-        };
-        arr.forEach(function (el) {
-            if (el.year == year) {
-                resObj.works++;
-                (el.publicationType == 'article') ? resObj.articles++ : resObj.books++
-            }
-        });
-        return resObj;
+	    var resObj = {
+		    works: 0,
+		    articles: 0,
+		    books: 0,
+		    edits: 0,
+		    year: year
+	    };
+	    arr.forEach(function (el) {
+		    if (el.year === year) {
+			    resObj.works++;
+			    if(el.publicationType === 'book') resObj.books++;
+			    if(el.publicationType === 'edit') resObj.edits++;
+			    if(el.publicationType === 'article') resObj.articles++;
+		    }
+	    });
+	    return resObj;
     }
 
     function incrementCollaboration(arr, name) {
@@ -350,7 +376,7 @@
     function genPdfDoc() {
 	    var $svg = document.querySelector('#svg-port')
 		    , doc = new PDFDocument({
-		    layout: 'landscape'
+		    layout: 'landscape',
 	    })
 		    , stream = doc.pipe(blobStream());
 	    doc.fontSize(25)

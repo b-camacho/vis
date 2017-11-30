@@ -75,6 +75,9 @@ parser.parse = function (rawText, done) {
                         recordObject.publicationType = 'book';
                         pageCountTowardsSumConditions.typMerytoryczny = true;
                     }
+                    else if('ECP' === splitLine[1].substr(0,3) || 'EZ' === splitLine[1].substr(0,2)) {
+                        recordObject.publicationType = 'edit'
+                    }
                     else recordObject.publicationType = 'article';
                     break;
 
