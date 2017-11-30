@@ -56,7 +56,7 @@ parser.parse = function (rawText, done) {
                     break;
 
                 case 'Opis wydawn.':
-                    recordObject.potentialCity =  splitLine[1].split(':').length != 1 ?
+                    recordObject.potentialCity =  splitLine[1].split(':').length !== 1 ?
                         splitLine[1].split(':')[0].trim() :
                         null;
 
@@ -71,7 +71,7 @@ parser.parse = function (rawText, done) {
                     break;
 
                 case 'Typ merytoryczny publikacji':
-                    if(['KNP','PAP','PSP'].indexOf(splitLine[1].substr(0, 3)) != -1)  {
+                    if(['KNP','PAP','PSP'].indexOf(splitLine[1].substr(0, 3)) !== -1)  {
                         recordObject.publicationType = 'book';
                         pageCountTowardsSumConditions.typMerytoryczny = true;
                     }

@@ -29,7 +29,9 @@
 <script src="/js/expertus-retriever.js"></script>
 <script src="/js/collab.js"></script>
 
-
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
@@ -60,6 +62,9 @@
                     <p>The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year</p>
                 </div>
             </div>
+        </div>
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Create PDF</button>
         </div>
 
             <!--<div class="row">-->
@@ -136,16 +141,16 @@
 
         var sumOfPages = 0;
         var sumOfPoints = 0;
-        var years = data.map(function (el) {
-            sumOfPages += el.pages;
-            sumOfPoints += el.points;
-            return el.year;
-        });
+	    var years = data.map(function (el) {
+		    sumOfPages += Math.sqrt(el.pages);
+		    sumOfPoints += Math.sqrt(el.points);
+		    return el.year;
+	    });
 
-        var rays = [];
-        data.forEach(function (el) {
-            rays.push((el.pages / sumOfPages) * Math.min(width, height) * 0.8)
-        });
+	    var rays = [];
+	    data.forEach(function (el) {
+		    rays.push((Math.sqrt(el.pages) / sumOfPages) * Math.min(width, height) * 0.8);
+	    });
 
         var points = [];
         data.forEach(function (el) {
@@ -353,6 +358,45 @@
         return d3.schemeSet2[colorCounter++];
     }
 
+    function genPdfDoc() {
+	    var $svg = document.querySelector('#svg-port')
+		    , doc = new PDFDocument({
+		    layout: 'landscape',
+	    })
+		    , stream = doc.pipe(blobStream());
+	    doc.fontSize(25)
+		    .text('Volume of publications in time', 100, 40);
+	    doc.fontSize(12)
+		    .text('Created with', {
+			    continued: true
+		    })
+		    .text('Scientific Output Visualiser', {
+			    continued: true,
+			    link: 'http://visualizeme.umk.pl'
+		    })
+		    .text(' for ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	    var scale = doc.page.width / $svg.width.baseVal.value;
+	    var width = $svg.width.baseVal.value;
+	    var height = $svg.height.baseVal.value;
+	    console.log(scale);
+//        $svg = $svg.cloneNode(true);
+	    $svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	    SVGtoPDF(doc, $svg, 100, height/6, {width: width, height: height});
+
+
+
+
+
+	    stream.on('finish', function() {
+		    console.log(stream.toBlobURL('application/pdf'));
+		    window.location = stream.toBlobURL('application/pdf');
+	    });
+	    doc.end();
+
+    }
 
 </script>
 <script src="/js/load-name.js">x</script>

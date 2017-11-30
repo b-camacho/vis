@@ -30,6 +30,10 @@
 <script src="/js/expertus-retriever.js"></script>
 <script src="/js/collab.js"></script>
 
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
+
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
@@ -56,9 +60,12 @@
             <div class="card">
                 <div class="card-content white-text">
                     <span class="card-title">Chmury słów kluczowych</span>
-                    <p>Statystyka słów kluczowych, które specyfikują autorzy publikacji zwizualizowana jest za pomocą chmury słów. Największe wyrazy oznaczają najczęstsze występowanie, i tym samym  podkreślają wagę danego tematu/pojęcia w badaniach autora.  Dla polskich i angielskich słów kluczowych wygenerowano osobne wizualizacje.</p>
+                    <p>Statystyka słów kluczowych, które podają autorzy publikacji zwizualizowana jest za pomocą chmury słów. Stopień pisma danego wyrazu wskazuje na częstość jego występowania i tym samym podkreśla wagę danego tematu/pojęcia w badaniach autora. Zatem największy wyraz = najczęstsze występowanie. Dla polskich i angielskich słów kluczowych wygenerowano osobne wizualizacje.</p>
                 </div>
             </div>
+        </div>
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Generuj PDF</button>
         </div>
 
         <!--<div class="row">-->
@@ -169,6 +176,46 @@
         });
 
         return wordArray;
+    }
+
+    function genPdfDoc() {
+	    var $svg = document.querySelector('#svg-port')
+		    , doc = new PDFDocument({
+		    layout: 'landscape'
+	    })
+		    , stream = doc.pipe(blobStream());
+	    doc.fontSize(25)
+		    .text('Chmura słów kluczowych', 100, 40);
+	    doc.fontSize(12)
+		    .text('Wygenerowano przez ', {
+			    continued: true
+		    })
+		    .text('Wizualizator Dorobku Naukowego', {
+			    continued: true,
+			    link: 'http://visualizeme.umk.pl'
+		    })
+		    .text(' dla ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	    var scale = doc.page.width / $svg.width.baseVal.value;
+	    var width = $svg.width.baseVal.value;
+	    var height = $svg.height.baseVal.value;
+	    console.log(scale);
+//        $svg = $svg.cloneNode(true);
+	    $svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	    SVGtoPDF(doc, $svg, 100, 100, {width: width, height: height});
+
+
+
+
+
+	    stream.on('finish', function() {
+		    console.log(stream.toBlobURL('application/pdf'));
+		    window.location = stream.toBlobURL('application/pdf');
+	    });
+	    doc.end();
+
     }
 </script>
 <script src="/js/load-name.js"></script>

@@ -33,6 +33,10 @@
 <script src="/js/d3-tip.js"></script>
 <script src="/js/works-over-time-demo-1.js"></script>
 <script src="/js/wordcloud2.js"></script>
+
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
@@ -64,6 +68,9 @@
             </div>
         </div>
 
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Generuj PDF</button>
+        </div>
         <!--<div class="row">-->
         <!--<ul class="collection with-header z-depth-1">-->
         <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
@@ -83,6 +90,45 @@
 <script>
     WordCloud($('#svg-port'), {list: [['xd', 50],['top', 25], ['bka', 10]]})
 
+    function genPdfDoc() {
+	    var $svg = document.querySelector('#svg-port')
+		    , doc = new PDFDocument({
+		    layout: 'landscape'
+	    })
+		    , stream = doc.pipe(blobStream());
+	    doc.fontSize(25)
+		    .text('Liczba publikacji w czasie', 100, 40);
+	    doc.fontSize(12)
+		    .text('Wygenerowano przez ', {
+			    continued: true
+		    })
+		    .text('Wizualizator Dorobku Naukowego', {
+			    continued: true,
+			    link: 'http://visualizeme.umk.pl'
+		    })
+		    .text(' dla ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	    var scale = doc.page.width / $svg.width.baseVal.value;
+	    var width = $svg.width.baseVal.value;
+	    var height = $svg.height.baseVal.value;
+	    console.log(scale);
+//        $svg = $svg.cloneNode(true);
+	    $svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	    SVGtoPDF(doc, $svg, 100, 100, {width: width, height: height});
+
+
+
+
+
+	    stream.on('finish', function() {
+		    console.log(stream.toBlobURL('application/pdf'));
+		    window.location = stream.toBlobURL('application/pdf');
+	    });
+	    doc.end();
+
+    }
 </script>
 
 <script src="/js/load-name.js"></script>

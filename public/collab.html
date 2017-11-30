@@ -30,6 +30,10 @@
 <script src="/js/expertus-retriever.js"></script>
 <script src="/js/collab.js"></script>
 
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
+
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
@@ -49,6 +53,7 @@
         </ul>
 
     </div>
+
 </div>
 
 <div class="row main-row">
@@ -59,10 +64,12 @@
             <div class="card">
                 <div class="card-content white-text">
                     <span class="card-title">Graf współautorstwa</span>
-                    <p>W środku znajduje się węzeł autora, którego  wielkość zależy od sumacyjnej liczby publikacji tegoż autora. Im więcej wspólnych prac, tym krótsze jest połączenie pomiędzy autorami. Węzły autorów o tej samej randze współautorstwa są rozmieszczone równomiernie. Kolor dobierany jest losowo. </p>
+                    <p>W środku znajduje się węzeł autora, którego wielkość zależy od liczby jego publikacji. Im więcej wspólnych prac, tym krótsze jest połączenie pomiędzy autorami. Węzły autorów o tej samej randze współautorstwa są rozmieszczone równomiernie. Kolor dobierany jest losowo. </p>
                 </div>
             </div>
         </div>
+
+
 
         <div class="row">
         <ul class="collection with-header z-depth-1">
@@ -73,6 +80,11 @@
         <li class="collection-item"><div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span></div></li>
         </ul>
         </div>
+
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Generuj PDF</button>
+        </div>
+
     </div>
 
     <div class="col s9 svg-container">
@@ -365,6 +377,45 @@ function getNodes (allWorks) {
         simNodes: simNodes,
         simLinks: simLinks
     };
+}
+
+function genPdfDoc() {
+	var $svg = document.querySelector('#svg-port')
+		, doc = new PDFDocument({
+		layout: 'landscape'
+	})
+		, stream = doc.pipe(blobStream());
+	doc.fontSize(25)
+		.text('Graf współautorstwa', 100, 40);
+	doc.fontSize(12)
+		.text('Wygenerowano przez ', {
+			continued: true
+		})
+		.text('Wizualizator Dorobku Naukowego', {
+			continued: true,
+			link: 'http://visualizeme.umk.pl'
+		})
+		.text(' dla ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	var scale = doc.page.width / Math.max($svg.height.baseVal.value, $svg.width.baseVal.value);
+	var width = $svg.width.baseVal.value;
+	var height = $svg.height.baseVal.value;
+	console.log(scale);
+	$svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	SVGtoPDF(doc, $svg, 100, 50, {width: width, height: height});
+
+
+
+
+
+	stream.on('finish', function() {
+		console.log(stream.toBlobURL('application/pdf'));
+		window.location = stream.toBlobURL('application/pdf');
+	});
+	doc.end();
+
 }
 
 

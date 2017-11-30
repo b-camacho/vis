@@ -30,6 +30,9 @@
 <script src="/js/expertus-retriever.js"></script>
 <script src="/js/collab.js"></script>
 
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
@@ -71,6 +74,10 @@
         <li class="collection-item"><div><span>Average amount of works: </span> <span id="mean-coworkers-amount-display" style="float: right">-</span></div></li>
         <li class="collection-item"><div><span>Sum of works: </span> <span id="works-amount-display" style="float: right">-</span></div></li>
         </ul>
+        </div>
+
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Create PDF</button>
         </div>
     </div>
 
@@ -374,10 +381,43 @@ function clearSvg() {
     d3.select('svg').selectAll('*').remove();
 }
 
-function PolskaFleksjaSlowaPraca(word, number) {
-    if(number == 1) return number + ' praca'
-    if(number >=2 && number <=4) return number + ' prace'
-    return number + ' prac'
+function genPdfDoc() {
+	var $svg = document.querySelector('#svg-port')
+		, doc = new PDFDocument({
+		layout: 'landscape'
+	})
+		, stream = doc.pipe(blobStream());
+	doc.fontSize(25)
+		.text('Collaboration graph', 100, 40);
+	doc.fontSize(12)
+		.text('Created with ', {
+			continued: true
+		})
+		.text('Scientific Output Visualiser', {
+			continued: true,
+			link: 'http://visualizeme.umk.pl'
+		})
+		.text(' for ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	var scale = doc.page.width / Math.max($svg.height.baseVal.value, $svg.width.baseVal.value);
+	var width = $svg.width.baseVal.value;
+	var height = $svg.height.baseVal.value;
+	console.log(scale);
+	$svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	SVGtoPDF(doc, $svg, 100, 50, {width: width, height: height});
+
+
+
+
+
+	stream.on('finish', function() {
+		console.log(stream.toBlobURL('application/pdf'));
+		window.location = stream.toBlobURL('application/pdf');
+	});
+	doc.end();
+
 }
 
 </script>

@@ -30,52 +30,10 @@
 <script src="/js/expertus-retriever.js"></script>
 <script src="/js/collab.js"></script>
 
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
 
-<!--<nav>-->
-    <!--<div class="nav-wrapper">-->
-        <!--<a href="#" class="brand-logo">Wizualizator naukowca</a>-->
-        <!--<ul id="nav-mobile" class="right hide-on-med-and-down">-->
-            <!--<li><a href="index.html">Wizualizacje</a></li>-->
-        <!--</ul>-->
-    <!--</div>-->
-<!--</nav>-->
-<!--<div class="row">-->
-    <!--<div class="col s4" style="padding-left: 0">-->
-        <!--<div class="z-depth-1 vis-info">-->
-            <!--<div class="row">-->
-                <!--<div class="card">-->
-                    <!--<div class="card-content white-text">-->
-                        <!--<span class="card-title">Prace w czasie</span>-->
-                        <!--<p>Zestawienie liczby publikacji na osi Oy wraz z rokiem publikacji na osi Ox, z-->
-                            <!--wyszczególnieniem artykułów..</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<ul class="collection with-header z-depth-1">-->
-                    <!--<li class="collection-header"><h5>Szczegóły</h5></li>-->
-                    <!--<li class="collection-item">-->
-                        <!--<div><span>Łącznie prac: </span> <span id="works-amount-display" style="float: right">-</span>-->
-                        <!--</div>-->
-                    <!--</li>-->
-                    <!--<li class="collection-item">-->
-                        <!--<div><span>Publikacji w czasopismach: </span> <span id="publications-amount-display"-->
-                                                                            <!--style="float: right">-</span></div>-->
-                    <!--</li>-->
-                    <!--<li class="collection-item">-->
-                        <!--<div><span>Średnia prac w czasie: </span> <span id="mean-works-amount-display"-->
-                                                                        <!--style="float: right">-</span></div>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-
-    <!--</div>-->
-    <!--<div class="col s8">-->
-        <!--<svg class="z-depth-1 svg-port" id="svg-port"></svg>-->
-    <!--</div>-->
-<!--</div>-->
 
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
@@ -125,6 +83,10 @@
                     <div><span>Average amount of publications: </span> <span id="mean-works-amount-display" style="float: right">-</span></div>
                 </li>
             </ul>
+        </div>
+
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Create PDF</button>
         </div>
     </div>
 
@@ -384,6 +346,45 @@
         $('#mean-works-amount-display').text(displayValues.meanPerYear.toFixed(2));
         $('#publications-amount-display').text(displayValues.sumOfArticles);
         $('#works-amount-display').text(displayValues.sumOfWorks);
+    }
+    function genPdfDoc() {
+	    var $svg = document.querySelector('#svg-port')
+		    , doc = new PDFDocument({
+		    layout: 'landscape'
+	    })
+		    , stream = doc.pipe(blobStream());
+	    doc.fontSize(25)
+		    .text('Publications in time', 100, 40);
+	    doc.fontSize(12)
+		    .text('Created with ', {
+			    continued: true
+		    })
+		    .text('Scientific Output Visualiser', {
+			    continued: true,
+			    link: 'http://visualizeme.umk.pl/en/'
+		    })
+		    .text(' for ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	    var scale = doc.page.width / $svg.width.baseVal.value;
+	    var width = $svg.width.baseVal.value;
+	    var height = $svg.height.baseVal.value;
+	    console.log(scale);
+//        $svg = $svg.cloneNode(true);
+	    $svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	    SVGtoPDF(doc, $svg, 100, 0, {width: width, height: height});
+
+
+
+
+
+	    stream.on('finish', function() {
+		    console.log(stream.toBlobURL('application/pdf'));
+		    window.location = stream.toBlobURL('application/pdf');
+	    });
+	    doc.end();
+
     }
 </script>
 <script src="/js/load-name.js"></script>

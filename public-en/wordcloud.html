@@ -39,6 +39,9 @@
 <script src="/js/expertus-retriever.js"></script>
 <script src="/js/collab.js"></script>
 
+<script src="/js/pdfkit.js"></script>
+<script src="/js/svgtopdfkit.js"></script>
+<script src="/js/blob-stream.js"></script>
 <div class="row top-nav z-depth-1">
     <div style="float: left; height: 50px">
         <ul>
@@ -67,6 +70,9 @@
                     <p>Frequency of author-specified keyword occurrence is expressed via a wordcloud. The largest words denote the most common occurence, therefore underlining the weight of a certain topic or idea for the author. Separate visualiations were generated for Polish and English keywords.</p>
                 </div>
             </div>
+        </div>
+        <div class="row" style="padding-left: 10px;">
+            <button class="btn" onclick="genPdfDoc()">Create PDF</button>
         </div>
 
         <!--<div class="row">-->
@@ -177,6 +183,45 @@
         });
 
         return wordArray;
+    }
+    function genPdfDoc() {
+	    var $svg = document.querySelector('#svg-port')
+		    , doc = new PDFDocument({
+		    layout: 'landscape'
+	    })
+		    , stream = doc.pipe(blobStream());
+	    doc.fontSize(25)
+		    .text('Wordcloud', 100, 40);
+	    doc.fontSize(12)
+		    .text('Created with ', {
+			    continued: true
+		    })
+		    .text('Scientific Output Visualiser', {
+			    continued: true,
+			    link: 'http://visualizeme.umk.pl/en/'
+		    })
+		    .text(' for ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+	    var scale = doc.page.width / $svg.width.baseVal.value;
+	    var width = $svg.width.baseVal.value;
+	    var height = $svg.height.baseVal.value;
+	    console.log(scale);
+//        $svg = $svg.cloneNode(true);
+	    $svg.setAttribute('transform', 'scale(' + scale + ')');
+
+	    SVGtoPDF(doc, $svg, 100, 100, {width: width, height: height});
+
+
+
+
+
+	    stream.on('finish', function() {
+		    console.log(stream.toBlobURL('application/pdf'));
+		    window.location = stream.toBlobURL('application/pdf');
+	    });
+	    doc.end();
+
     }
 </script>
 <script src="/js/load-name.js"></script>
