@@ -1,0 +1,56 @@
+{
+  "this": "en",
+  "other": "pl",
+  "data": "Data",
+  "goals": "Goals",
+  "about": "About",
+  "alt_lang": "Polski",
+  "select_file": "Upload file",
+
+  "visualising_for": "Visualising for",
+
+  "editorial_view": "Editorial view",
+  "generate_pdf": "Generate PDF",
+  "title": "Scientific Output Visualiser",
+  "alt_title": "Vizualizator Dorobku Naukowego",
+
+  "vis_details_title": "About visualisation",
+
+  "vis_titles": {
+	"collab": "Collaboration graph",
+	"works": "Publication volume dynamic",
+	"google-map": "Publication map",
+	"research-map": "Domain map",
+	"wordcloud": "Keyword clusters",
+	"bubbles": "Publication volume as a function of time"
+  },
+  "vis_details": {
+	"collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
+	"works": "Amount and volume of publications displayed across time. The color red denotes monographs.",
+	"google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
+	"research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
+	"wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
+	"bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
+  },
+  "scriptable": {
+	"vis_details": {
+	  "collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
+	  "works": "Amount and volume of publications displayed across time. The color red denotes monographs.",
+	  "google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
+	  "research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
+	  "wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
+	  "bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
+	},
+	"vis_titles": {
+	  "collab": "Collaboration graph",
+	  "works": "Publication volume dynamic",
+	  "google-map": "Publication map",
+	  "research-map": "Domain map",
+	  "wordcloud": "Keyword clusters",
+	  "bubbles": "Publication volume as a function of time"
+	},
+	"pdf_caption": "Created with",
+	"pdf_caption_title": "Scientific Output Visualiser",
+	"for":" for "
+  }
+}

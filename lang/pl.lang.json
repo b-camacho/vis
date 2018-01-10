@@ -1,0 +1,57 @@
+{
+
+  "this": "pl",
+  "other": "en",
+  "data": "Dane",
+  "goals": "Cele projektu",
+  "about": "O nas",
+  "alt_lang": "English",
+  "select_file": "Wybierz plik",
+
+  "visualising_for": "Wizualizacje dla:",
+
+  "editorial_view": "Widok redakcji",
+  "generate_pdf": "Generuj PDF",
+  "title": "Wizualizator Dorobku Naukowego",
+  "alt_title": "Scientific Output Visualiser",
+
+  "vis_details_title": "Informacje o wizualizacji",
+
+  "vis_titles": {
+	"collab": "Graf współautorstwa",
+	"works": "Dynamika liczby publikacji",
+	"google-map": "Mapa publikowania prac",
+	"research-map": "Koło dziedzin",
+	"wordcloud": "Chmury słów kluczowych",
+	"bubbles": "Objętość piśmiennicza w skali czasu"
+  },
+  "vis_details": {
+	"collab": "W środku znajduje się węzeł autora, którego wielkość zależy od liczby jego publikacji. Im więcej wspólnych prac, tym krótsze jest połączenie pomiędzy autorami. Węzły autorów o tej samej randze współautorstwa są rozmieszczone równomiernie. Kolor dobierany jest losowo. ",
+	"works": "Dynamika opublikowanych prac w czasie. Kolorem czerwonym oznakowane są monografie autorskie.",
+	"google-map": "Mapa ukazuje miejsca gdzie są wydawane prace autora. Wyświetlany obszar jest automatycznie skalowany do zakresu geograficznego występujących lokalizacji.",
+	"research-map": "Wykres kołowy rozmieszczający publikacje w przestrzeni dziedzin na podstawie tytułów czasopism, w których zostały opublikowane.",
+	"wordcloud": "Statystyka słów kluczowych, które podają autorzy publikacji zwizualizowana jest za pomocą chmury słów. Stopień pisma danego wyrazu wskazuje na częstość jego występowania i tym samym podkreśla wagę danego tematu/pojęcia w badaniach autora. Zatem największy wyraz = najczęstsze występowanie. Dla polskich i angielskich słów kluczowych wygenerowano osobne wizualizacje.",
+	"bubbles": "Wykres bąbelkowy pokazuje sumę liczby stron wszystkich publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie obszernych rozdziałów w monografiach. Poniżej zamieszczono skumulowaną liczbę punktów dla publikacji danego roku według punktacji MNiSW."
+  },
+  "scriptable": {
+	"vis_details": {
+	  "works": "W skali czasu wyświetlona zostanie liczba opublikowanych prac każdego roku według bazy Expertus. W ten sposób można ilościowo oszacować własną aktywność piśmienniczą w zależności od czasu. Monografie autorskie wyróżnione są kolorem czerwonym.",
+	  "collab": "Wizualizacja przedstawia wszystkich występujących w bazie Expertus współautorów publikacji. Środek sieci przypada na węzeł autora. Liczba wspólnych prac jest reprezentowana przez odległość od węzła centralnego oraz wielkość kołka.",
+	  "google-map": "Mapa ukazuje miejsca gdzie są wydawane prace autora. Wyświetlany obszar jest automatycznie skalowany do zakresu geograficznego występujących lokalizacji.",
+	  "research-map": "Mapa nauki w postaci wykresu pierścieniowego pokazuje strukturę dziedzinową publikowanych prac dla danej uczelni. Autorskie publikacje są rozmieszczane na tym kole według zasad geometrii z uwzględnieniem przynależności dziedzinowej czasopism, w których zostały publikowane. Koło dziedzin jest podzielone na 6 segmentów dziedzinowych pokolorowanych według wzorca globalnej mapy nauki UCSD autorstwa K. Boyacka: http://www.mapofscience.com/",
+	  "bubbles": "Wykres bąbelkowy pokazuje sumacyjną ilość stron w publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie długich rozdziałów w książkach. Poniżej są zamieszczone skumulowana suma punktów dla publikacji danego roku według punktacji MNiSW.",
+	  "wordcloud": "Statystyka słów kluczowych, które specyfikują autorzy publikacji zwizualizowana jest za pomocą chmury słów. Największe wyrazy oznaczają najczęstsze występowanie, i tym samym podkreślają wagę danego tematu/pojęcia w badaniach autora. Dla polskich i angielskich słów kluczowych wygenerowano osobne wizualizacje."
+	},
+	"vis_titles": {
+	  "collab": "Graf współautorstwa",
+	  "works": "Dynamika liczby publikacji",
+	  "google-map": "Mapa publikowania prac",
+	  "research-map": "Koło dziedzin",
+	  "wordcloud": "Chmury słów kluczowych",
+	  "bubbles": "Objętość piśmiennicza w skali czasu"
+	},
+	"pdf_caption": "Wygenerowano przez ",
+	"pdf_caption_title": "Wizualizator Dorobku Naukowego",
+	"for":" dla "
+  }
+}

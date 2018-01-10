@@ -6,7 +6,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var config = JSON.parse(fs.readFileSync('config.json').toString());
-
+var path = require('path');
 var mg = require('mongoose');
 mg.connect('mongodb://127.0.0.1/vis', function (err) {
     if (err) console.log(err);
@@ -21,8 +21,9 @@ const rawDbWordsParser = require('./getWordObjectsArray');
 
 const geocoder = require('./geocoder');
 
-app.use('/pl', express.static('public'));
-app.use('/en', express.static('public-en'));
+// app.use('/pl', express.static('public'));
+// app.use('/en', express.static('public-en'));
+
 app.use(express.static('sources'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -41,21 +42,29 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mg.connection })
 }));
 
-app.get('/', function (req, res, next) {
-    if(typeof req.session.lang !== 'undefined') res.redirect('/' + req.session.lang + '/');
-    else res.redirect('/pl/')
-})
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-app.post('/pl/*', function (req, res, next) {
-    req.url = req.url.substr(3);
-    req.session.lang = 'pl';
-    next()
-})
-app.post('/en/*', function (req, res, next) {
-    req.url = req.url.substr(3);
-    req.session.lang = 'en';
-    next()
-})
+app.get('/pl', function (req, res, next) {
+	req.url = req.url.substr(3);
+	req.session.lang = 'pl';
+	next()
+});
+app.get('/en', function (req, res, next) {
+	req.url = req.url.substr(3);
+	req.session.lang = 'en';
+	next()
+});
+
+const router = require('./routes/index');
+app.use('/', router);
+
+// app.get('/', function (req, res, next) {
+//     if(typeof req.session.lang !== 'undefined') res.redirect('/' + req.session.lang + '/');
+//     else res.redirect('/pl/')
+// });
+
+
 
 
 app.post('/collab', function (req, res) {

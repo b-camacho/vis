@@ -1,0 +1,97 @@
+html
+	head
+		link(rel='icon', href='../../favicon.ico')
+		link(type='text/css', rel='stylesheet', href='/css/materialize.min.css', media='screen,projection')
+		link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+		link(href='/font-awesome-4.6.3/css/font-awesome.min.css', rel='stylesheet')
+		link(rel='stylesheet', href='/css/example-styles.css')
+		link(rel='stylesheet', href='/css/main.css')
+	body
+		.row.top-nav.z-depth-1
+			div(style='float: left; height: 50px')
+				ul
+					li(style='font-size: xx-large; margin-bottom: -8px; margin-top: -10px')
+						a(href='/')=lang.title
+					li(style='font-size: medium') Scientific output visualizer
+			if(visname)
+				div(style='float: right; height: 50px')
+					a(href='/')
+						i.fa.fa-arrow-left.back-arrow(aria-hidden='true')
+			else
+				div(style='float: right; margin-right: 20px;')
+					form(method='post', action='/upload', enctype='multipart/form-data')
+						.file-field.input-field.btn=lang.select_file
+							input#file-input(type='file', name='expertus', onchange='StartUpload()')
+						input#file-input-submit(type='submit', hidden='hidden')
+			.top-link
+				a(href='/' + lang.other)=lang.alt_lang
+			.top-link
+				a(href='about.html')=lang.about
+			.top-link
+				a(href='goal.html')=lang.goals
+			.top-link
+				a(href='data.html')=lang.data
+			div(style='margin-left: auto; margin-right: auto;padding-top: 5px;  width: 300px; height:5em')
+				ul
+					li#query-name-caption(style='margin-top: -15px;')=name ? lang.visualising_for : ''
+					li
+						#query-name-container.name-display=name ? name : ''
+
+		block content
+block scripts
+	script(src='/js/jquery-3.1.0.min.js')
+	script(src='https://d3js.org/d3.v4.min.js')
+	script(src='/js/remove-diacritics.js')
+	script(src='https://d3js.org/d3-scale-chromatic.v1.min.js')
+	script(src='/js/d3-tip.js')
+	script(src='/js/pdfkit.js')
+	script(src='/js/svgtopdfkit.js')
+	script(src="/js/markerclusterer.js")
+	script(src="/js/blob-stream.js")
+	script(type="text/javascript").
+		function StartUpload() {
+			$('#file-input-submit').click();
+		}
+		$nameContainer = $('#query-name-container')
+		while ($nameContainer.height() > 45) {
+			$nameContainer.css('font-size', (parseInt($nameContainer.css('font-size')) - 1) + 'px');
+		}
+		function genPdfDoc() {
+			var $svg = document.querySelector('#svg-port')
+				, doc = new PDFDocument({
+				layout: 'landscape',
+			})
+				, stream = doc.pipe(blobStream());
+			doc.fontSize(25)
+				.text('Objetosc pismiennicza w czasie', 100, 40);
+			doc.fontSize(12)
+				.text('Wygenerowano przez ', {
+					continued: true
+				})
+				.text('Wizualizator Dorobku Naukowego', {
+					continued: true,
+					link: 'http://visualizeme.umk.pl'
+				})
+				.text(' dla ' + name.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+
+
+			var scale = doc.page.width / $svg.width.baseVal.value;
+			var width = $svg.width.baseVal.value;
+			var height = $svg.height.baseVal.value;
+			console.log(scale);
+			//        $svg = $svg.cloneNode(true);
+			$svg.setAttribute('transform', 'scale(' + scale + ')');
+
+			SVGtoPDF(doc, $svg, 100, height / 6, {width: width, height: height});
+
+
+			stream.on('finish', function () {
+				console.log(stream.toBlobURL('application/pdf'));
+				window.location = stream.toBlobURL('application/pdf');
+			});
+			doc.end();
+
+		}
+
+
+
