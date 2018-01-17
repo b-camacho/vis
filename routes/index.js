@@ -30,11 +30,23 @@ router.get('/*', function (req, res, next) {
 	else next()
 });
 
-router.get('/en', function (req, res) {
-	res.redirect('/')
+router.get('/info/*', function (req, res, next) {
+	var sub = req.path.split('/').pop() ;
+
+	if(res.data.lang.info[sub]){
+		res.data.info = res.data.lang.info[sub];
+		res.render('text', res.data)
+	}
+	else {
+		res.render('404', res.data);
+	}
 });
-router.get('/pl', function (req, res) {
-	res.redirect('/')
-});
+
+// router.get('/en', function (req, res) {
+// 	res.redirect('/')
+// });
+// router.get('/pl', function (req, res) {
+// 	res.redirect('/')
+// });
 
 module.exports = router

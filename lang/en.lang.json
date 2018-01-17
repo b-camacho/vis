@@ -52,5 +52,96 @@
 	"pdf_caption": "Created with",
 	"pdf_caption_title": "Scientific Output Visualiser",
 	"for":" for "
+  },
+  "info": {
+	"about": {
+	  "page_title": "About",
+	  "paragraphs": [
+		"We work on a National Science Center grant 2013/11/B/HS2/03048/ The study of the structure and dynamics of digital knowledge by means of visualization methods.",
+		"We focus on practical solutions how to effectively present visually scientific resources and thus help native scientists in bibliometric and scientometric research.",
+		"We represent universities in both Torun and York",
+		"Our team consists of:"
+	  ],
+	  "list": [
+		{
+		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
+		  "title": "Wiesława Osińska",
+		  "description": " – responsible for conceptualization, tasks management, data analysis"
+		},
+		{
+		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
+		  "title": "Brian Camacho",
+		  "description": " – responsible for application developing, data analysis"
+		},
+		{
+		  "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
+		  "title": "Grzegorz Osinski",
+		  "description": " – responsible for modelling, calculation and data analysis"
+		}
+	  ],
+	  "footer": "We are always open to co-operation and broaden the current team. Therefore, we invite you for testing our application, evaluating and sharing with us your opinion. For details, please email wieo@umk.pl"
+	},
+	"data": {
+	  "page_title": "Data",
+	  "paragraphs": [
+		"Current application applies the data of Nicolaus Copernicus University bibliographic database Expertus, which can be found at: http://212.122.203.4/splendor/umk/",
+		"In the future, authors plan to expand visualization scope by mapping the data derived from other sources, such as Google Scholar, or Research Gate.",
+		"Expertus database is carefully elaborated in the Central University Library and systematically updated by librarians.",
+		"Expertus © SPLENDOR (Poznan) allows you to retrieve filtered records in text format (RTF file). This can be accessed through option \"Downloading a file\". All the metadata of selected records constitute  this file, structured as rows.",
+		"Publications are numbered and separated by several CR. The following fields can be analyzed:"
+	  ],
+	  "list": [
+		{
+		  "title": "Author (s)"
+		},
+		{
+		  "title": "Title"
+		},
+		{
+		  "title": "Source title"
+		},
+		{
+		  "title": "Editorial description"
+		},
+		{
+		  "title": "Physical description"
+		},
+		{
+		  "title": "Language"
+		},
+		{
+		  "title": "Formal type"
+		},
+		{
+		  "title": "Subject type"
+		},
+		{
+		  "title": "Full title of the journal"
+		},
+		{
+		  "title": "Signature"
+		},
+		{
+		  "title": "Ministerial scoring"
+		},
+		{
+		  "title": "Keywords"
+		}
+	  ],
+	  "footer": "Only highly informative fields are used in current application. A sample file for is available here:",
+	  "footer_link": "/examples/veslava_osinska.rtf",
+	  "footer_link_dl": true,
+	  "footer_link_text": "link"
+	},
+	"goals": {
+	  "page_title": "Our goal",
+	  "paragraphs": [
+		"The application aims to support the researcher in analyzing own scientific output. The main problem in Poland concerns great dissemination of bibliographic databases. But one of the fully complementary can be obtained on local level, i.e. university database Expertus.",
+		"Publications set is visualized in different ways. Researchers will see the dynamics of their published papers on the timeline, as well as the cumulative ministerial score for each year. They can also analyze personal collaboration network due to multiscale graph. The geography of publishing is presented on a map of Poland, Europe or world depending on localization scope.",
+		"Words clouds provide insight into research topics. Technology is based on counting and sorting the frequencies of words; in this case a set of keywords in Polish, and separately in English.",
+		"Thus, the scientist could study and analize visually own scientific output for free. He is able to track critical points in his career, minimize excessive variability in publication dynamics. Visualization is supposed to serve as ancillary tool for managing the scientific achievement."
+	  ]
+	}
+
   }
 }

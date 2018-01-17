@@ -49,12 +49,12 @@ app.set('view engine', 'pug');
 app.get('/pl', function (req, res, next) {
 	req.url = req.url.substr(3);
 	req.session.lang = 'pl';
-	next()
+	res.redirect('/')
 });
 app.get('/en', function (req, res, next) {
 	req.url = req.url.substr(3);
 	req.session.lang = 'en';
-	next()
+	res.redirect('/')
 });
 
 const router = require('./routes/index');

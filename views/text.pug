@@ -1,0 +1,22 @@
+extends layout
+block content
+	.row.padded-text
+		h3(align='center', style='padding-top: 20px')=info.page_title
+		each paragaph in info.paragraphs
+			p.description=paragaph
+
+		if info.list
+			ul(style='padding-left: 30px; font-size: 20px;')
+			each item in info.list
+				li
+					if item.link
+						a(href=item.link)=item.title
+					else
+						span=item.title
+					if item.description
+						span=item.description
+		if info.footer
+			p=info.footer
+			if info.footer_link
+				a(href=info.footer_link download=info.footer_link_dl)=info.footer_link_text
+

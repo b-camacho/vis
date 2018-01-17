@@ -35,9 +35,9 @@ function displayWordcloud(textObjects) {
 		.data(textObjects.polish)
 		.enter()
 		.append('text')
-		.text((d) => {return d.text})
+		.text(function (d) {return d.text})
 .attr('text-anchor', 'middle')
-		.attr('transform', (d) => {return 'translate(' + [d.x, d.y] + ')' +
+		.attr('transform', function (d) {return 'translate(' + [d.x, d.y] + ')' +
 		'rotate(' + d.rotate + ')'})
 .attr('fill', (d, i) => {return colorScale(i%10)})
 //            .attr('width', (d)=>{return d.width})
@@ -80,12 +80,11 @@ function displayWordcloud(textObjects) {
  */
 function getWordsArray(rawData) {
 
-	let wordArray = [];
+	var wordArray = [];
 
-	rawData.map( (record) => {
+	rawData.map( function (record) {
 		return record.title;
-}).forEach( (title, index) => {
-
+}).forEach( function (title, index) {
 		if(title) wordArray = wordArray.concat(title.split(' '))
 		else console.log('Undefined title at ' + index)
 	});
@@ -93,42 +92,42 @@ function getWordsArray(rawData) {
 	return wordArray;
 }
 
-function genPdfDoc() {
-	var $svg = document.querySelector('#svg-port')
-		, doc = new PDFDocument({
-		layout: 'landscape'
-	})
-		, stream = doc.pipe(blobStream());
-	doc.fontSize(25)
-		.text('Chmura slow kluczowych', 100, 40);
-	doc.fontSize(12)
-		.text('Wygenerowano przez ', {
-			continued: true
-		})
-		.text('Wizualizator Dorobku Naukowego', {
-			continued: true,
-			link: 'http://visualizeme.umk.pl'
-		})
-		.text(' dla ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
-
-
-	var scale = doc.page.width / $svg.width.baseVal.value;
-	var width = $svg.width.baseVal.value;
-	var height = $svg.height.baseVal.value;
-	console.log(scale);
-//        $svg = $svg.cloneNode(true);
-	$svg.setAttribute('transform', 'scale(' + scale + ')');
-
-	SVGtoPDF(doc, $svg, 100, 100, {width: width, height: height});
-
-
-
-
-
-	stream.on('finish', function() {
-		console.log(stream.toBlobURL('application/pdf'));
-		window.location = stream.toBlobURL('application/pdf');
-	});
-	doc.end();
-
-}
+// function genPdfDoc() {
+// 	var $svg = document.querySelector('#svg-port')
+// 		, doc = new PDFDocument({
+// 		layout: 'landscape'
+// 	})
+// 		, stream = doc.pipe(blobStream());
+// 	doc.fontSize(25)
+// 		.text('Chmura slow kluczowych', 100, 40);
+// 	doc.fontSize(12)
+// 		.text('Wygenerowano przez ', {
+// 			continued: true
+// 		})
+// 		.text('Wizualizator Dorobku Naukowego', {
+// 			continued: true,
+// 			link: 'http://visualizeme.umk.pl'
+// 		})
+// 		.text(' dla ' + authorName.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+//
+//
+// 	var scale = doc.page.width / $svg.width.baseVal.value;
+// 	var width = $svg.width.baseVal.value;
+// 	var height = $svg.height.baseVal.value;
+// 	console.log(scale);
+// //        $svg = $svg.cloneNode(true);
+// 	$svg.setAttribute('transform', 'scale(' + scale + ')');
+//
+// 	SVGtoPDF(doc, $svg, 100, 100, {width: width, height: height});
+//
+//
+//
+//
+//
+// 	stream.on('finish', function() {
+// 		console.log(stream.toBlobURL('application/pdf'));
+// 		window.location = stream.toBlobURL('application/pdf');
+// 	});
+// 	doc.end();
+//
+// }

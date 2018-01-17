@@ -51,7 +51,95 @@
 	  "bubbles": "Objętość piśmiennicza w skali czasu"
 	},
 	"pdf_caption": "Wygenerowano przez ",
-	"pdf_caption_title": "Wizualizator Dorobku Naukowego",
+	"pdf_caption_title": "Scientific Visualiser",
 	"for":" dla "
+  },
+  "info": {
+	"about": {
+	  "page_title": "O nas",
+	  "paragraphs": [
+		"Działamy w ramach grantu z Narodowego Centrum Nauki 2013/11/B/HS2/03048/pt. Badanie struktury i dynamiki cyfrowych zasobów wiedzy za pomocą metod wizualizacji (Information Visualization methods in digital knowledge structure and dynamics study) dotyczy analizy rozwoju nauk humanistycznych i społecznych (HS) w Polsce przy wykorzystaniu metodologii wizualizacji.",
+		"Skupiamy się na rozwiązaniach praktycznych w zakresie wizualizacji zasobów naukowych, które mają wspomóc rodzimych naukowców w bibliometrycznych i naukometrycznych pracach. Reprezentujemy uczelnie w Toruniu i University of York.",
+		"Zespół projektantów składa się z:"
+	  ],
+	  "list": [
+		{
+		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
+		  "title": "Wiesława Osińska",
+		  "description": " - konceptualizacja, zarządzanie pracami, analiza danych"
+		},
+		{
+		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
+		  "title": "Brian Camacho",
+		  "description": " – rozwijanie aplikacji, analiza danych"
+		},
+		{
+		  "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
+		  "title": "Grzegorz Osinski",
+		  "description": " – tworzenie modeli, analiza danych"
+		}
+	  ],
+	  "footer": "Jesteśmy zawsze otwarci na współpracę i poszerzenie obecnego grona projektantów. Dlatego zapraszamy do testowania naszej aplikacji i opiniowania. Kontakt: wieo@umk.pl"
+	},
+	"data": {
+	  "page_title": "Dane",
+	  "paragraphs": [
+		"Aktualnie aplikacja przetwarza dane z bibliograficznej bazy pracowników UMK Expertus, którą można znaleźć pod adresem: http://212.122.203.4/splendor/umk/.",
+		"W przyszłości autorzy rozszerzą możliwości wizualizacji w oparciu o dane z innych źródeł, np. Google Scholar, lub Research Gate.",
+		"Baza Expertus jest starannie opracowywana w Bibliotece Głównej UMK na podstawie systematycznie aktualizowanego przez pracowników naukowych swojego dorobki naukowego.",
+		"Serwis Expertus © SPLENDOR, Poznań umożliwia pobranie odfiltrowanych rekordów w formacie tekstowym (plik RTF). Umożliwia to opcja, niestety trudno dostrzegalna „Pobranie pliku do edytora”. Ładowane są metadane zaznaczonych rekordów.",
+		"Niestety nie ma opcji „zaznacz wszystkie”, co bardzo ułatwiłoby pobieranie bibliografii znacznego dorobku, liczącego na przykład kilkaset publikacji.",
+		"Struktura zapisu jest wierszowa. Rekordy publikacji są ponumerowane i rozdzielone kilkoma pustymi wierszami. Zapisywane są następujące pola:"
+	  ],
+	  "list": [
+		{
+		  "title": "Autor"
+		},
+		{
+		  "title": "Tytuł"
+		},
+		{
+		  "title": "Tytuł wydania zbiorowego/Czasopismo"
+		},
+		{
+		  "title": "Opis wydawniczy"
+		},
+		{
+		  "title": "Język"
+		},
+		{
+		  "title": "Typ formalny"
+		},
+		{
+		  "title": "Typ merytoryczny"
+		},
+		{
+		  "title": "Pełny tytuł czasopisma"
+		},
+		{
+		  "title": "Sygnatura"
+		},
+		{
+		  "title": "Punktacja MNiSW"
+		},
+		{
+		  "title": "Słowa kluczowe"
+		}
+	  ],
+	  "footer": "W aplikacji wykorzystano te pola, które przekazują wartościowe informacje pod względem analizy danych. Przykładowy plik do przećwiczenia jest dostępny tu:",
+	  "footer_link": "/examples/veslava_osinska.rtf",
+	  "footer_link_dl": true,
+	  "footer_link_text": "link"
+	},
+	"goals": {
+	  "page_title": "Cel projektu",
+	  "paragraphs": [
+		"Aplikacja ma na celu wsparcie naukowca w analizach własnego dorobku naukowego. Podstawowym problemem jest rozproszenie danych bibliograficznych w różnych bazach danych. Lecz tak potrzebną komplementarność można uzyskać w bazie uczelnianej, na przykład Expertus na UMK.",
+		"Ten właśnie rejestrowany dorobek piśmienniczy jest wizualizowany na różne sposoby. Badacze zobaczą dynamikę publikowanych prac na osi czasu, jak również się sumaryczną punktację MNiSW obliczona dla każdego roku. Mogą także przeanalizować przy pomocy grafu swoją sieć współpracowników. Geografię publikowanych prac wskaże mapa Polski lub Europy czy świata.",
+		"Chmurki słów zapewnią spojrzenie na tematykę badań; wykonane są one na bazie zestawów słów kluczowych, osobno w języku polskim i angielskim. Poza tym, autorzy wcielili oryginalną koncepcję koła dziedzin, na którym pozycjonują wszystkie publikację danego autora, tym samym pokazując dorobek w kontekście interdyscyplinarności. W wyborze 6 dziedzin wzorowano się na komercyjnym narzędziu InCites: nauki przyrodnicze, informatyka i inżynieria, medycyna, nauki o życiu, nauki społeczne, sztuka i humanistyka.",
+		"Tym samym naukowiec bez ponoszenia kosztów na specjalistyczne oprogramowanie może dokonać przejrzystej analizy własnego dorobku, prześledzić punkty krytyczne w swojej karierze, zminimalizować nadmierną zmienność w dynamice. Wizualizacja ma posłużyć jako pomocnicze narzędzie w zarządzaniu dorobkiem naukowym."
+	  ]
+	  }
+
   }
 }

@@ -286,6 +286,7 @@ function displayWorkStatsWorksInTime(data) {
 	$('#works-amount-display').text(displayValues.sumOfWorks);
 }
 
+/*
 function genPdfDoc() {
 	var $svg = document.querySelector('#svg-port')
 		, doc = new PDFDocument({
@@ -324,4 +325,4 @@ function genPdfDoc() {
 	});
 	doc.end();
 
-}
+}*/
