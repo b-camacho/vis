@@ -48,16 +48,9 @@ function genPdfDocArgs(title, made_with, visualiser_name, made_for, author_name,
 		}
 		doc.registerFont(name, buf);
 
-		doc.font('Open Sans').fontSize(25)
-			.text(title, 50, 40);
-		doc.font('Open Sans').fontSize(12)
-			.text(made_with, {
-				continued: true
-			})
-			.text(visualiser_name, {
-				continued: true,
-				link: 'http://visualizeme.umk.pl'
-			})
+		doc.font('Open Sans').fontSize(25).fillColor('#ff6600')
+			.text(title, 50, 40)
+			.fillColor('#444dce').fontSize(18)
 			.text(made_for + authorName);
 
 		var scale = doc.page.width / $svg.width.baseVal.value;
@@ -78,25 +71,27 @@ function genPdfDocArgs(title, made_with, visualiser_name, made_for, author_name,
 		xhr.responseType = 'arraybuffer'
 		xhr.onload = function() {
 			var buf = new Buffer(xhr.response)
-			doc.image(buf, doc.page.width - 130, 100,{width: 100})
+			doc.image(buf, doc.page.width/2 - 100, 100,{width: 150})
 
-			var xhrLicense = new XMLHttpRequest()
-			xhrLicense.responseType = 'arraybuffer'
+			var xhrLicense = new XMLHttpRequest();
+			xhrLicense.responseType = 'arraybuffer';
 			xhrLicense.onload= function () {
-				var licenseBuf = new Buffer(xhrLicense.response)
-				doc.image(licenseBuf, 50, doc.page.height - 100,{width: 150});
-				doc.font('Open Sans').fontSize(12)
-					.text(' by UMK (2018)', 220, doc.page.height - 100)
+				var licenseBuf = new Buffer(xhrLicense.response);
+				doc.font('Open Sans').fontSize(12).fillColor('#191919')
+					.text(visualiser_name + ' by UMK (\u00A9 2018)',120,doc.page.height - 100);
+				doc.image(licenseBuf, 50, doc.page.height - 100,{width: 50});
+				// doc.font('Open Sans').fontSize(12)
+				// 	.text(' by UMK (\u00A9 2018)', 220, doc.page.height - 100)
 				doc.end();
 			}
-			xhrLicense.open('GET', '/images/license.png', true)
+			xhrLicense.open('GET', '/images/logo200.png', true)
 			stream.on('finish', function () {
 				console.log(stream.toBlobURL('application/pdf'));
 				window.location = stream.toBlobURL('application/pdf');
 			});
 			xhrLicense.send();
 		}
-		xhr.open('GET', '/images/logo.png', true)
+		xhr.open('GET', '/images/watermark.png', true)
 
 		xhr.send()
 
