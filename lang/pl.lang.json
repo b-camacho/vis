@@ -128,7 +128,7 @@
 	  ],
 	  "footer": "W aplikacji wykorzystano te pola, które przekazują wartościowe informacje pod względem analizy danych. Przykładowy plik do przećwiczenia jest dostępny tu:",
 	  "footer_link": "/examples/veslava_osinska.rtf",
-	  "footer_link_dl": true,
+	  "footer_link_dl": "plik_probny.rtf",
 	  "footer_link_text": "link"
 	},
 	"goals": {

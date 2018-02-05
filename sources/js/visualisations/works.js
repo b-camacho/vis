@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	$.post("worksData", function (data) {
+		console.log(data)
 			var barData = getBars(data);
 			drawWorksOverTimeGraph(barData);
 			displayWorkStatsWorksInTime(barData);
@@ -7,7 +8,7 @@ $(document).ready(function () {
 	)
 });
 function drawWorksOverTimeGraph(data) {
-
+	console.log(data)
 	var red = "#f44336";
 	var blue = "#26a69a";
 	var stackMargin = 10;
@@ -16,7 +17,10 @@ function drawWorksOverTimeGraph(data) {
 		height = $(".svg-port").height();
 	svg.selectAll('*').remove();
 	var barYearTip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-		return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) + '.</br> W tym ' + d.books + ' monografii <br> oraz ' + PolskaFleksjaSlowaPraca('praca', d.edits) + PolskaFleksjaSlowaPraca('redagowana', d.edits) + '.';
+		return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) +
+		'.</br> W tym ' + d.books + ' monografii <br> oraz ' + PolskaFleksjaSlowaPraca('praca', d.edits) +
+		PolskaFleksjaSlowaPraca('redagowana', d.edits) +
+		(d.edits == 0 ? '.' : ':<br>' + d.titles.map(function(t){return t.length > 30 ? t.substr(0, 30) + '...' : t}).join("; "));
 	});
 	svg.call(barYearTip);
 
@@ -147,14 +151,10 @@ function getBars(allWorks) {
 		if (Number.parseInt(el.year) < 1900) el.year = Number.parseInt(el.year) - (-1000);
 	});
 	allWorks.sort(dynamicSort('year'));
-	console.log('Sorted works');
-	console.log(allWorks);
-
 	var bars = [];
 	for (var i = 0; i < (allWorks[allWorks.length - 1].year - allWorks[0].year - (-1)); i++) {
 		bars.push(countYearOccurences(allWorks[0].year - (-i), allWorks))
 	}
-	console.log(bars);
 	return bars;
 }
 
@@ -164,13 +164,18 @@ function countYearOccurences(year, arr) {
 		articles: 0,
 		books: 0,
 		edits: 0,
-		year: year
+		year: year,
+		titles: []
 	};
 	arr.forEach(function (el) {
 		if (el.year === year) {
 			resObj.works++;
 			if(el.publicationType === 'book') resObj.books++;
-			if(el.publicationType === 'edit') resObj.edits++;
+			if(el.publicationType === 'edit') {
+				resObj.edits++;
+				console.log('Pushing ' + el.title)
+				resObj.titles.push(el.title);
+			}
 			if(el.publicationType === 'article') resObj.articles++;
 		}
 	});

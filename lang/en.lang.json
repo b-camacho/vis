@@ -130,7 +130,7 @@
 	  ],
 	  "footer": "Only highly informative fields are used in current application. A sample file for is available here:",
 	  "footer_link": "/examples/veslava_osinska.rtf",
-	  "footer_link_dl": true,
+	  "footer_link_dl": "sample_file.rtf",
 	  "footer_link_text": "link"
 	},
 	"goals": {
