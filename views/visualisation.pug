@@ -17,12 +17,16 @@ block content
 		.col.s9.svg-container
 			svg#svg-port.z-depth-1.svg-port
 block append scripts
-
 	script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
 	script(src='/js/visualisations/' + visname + '.js')
+	script(src='/js/util.js')
 	script(type='text/javascript').
 		var jsStrings = !{JSON.stringify(lang.scriptable)};
 		var visname = !{JSON.stringify(visname)};
 		var authorName = !{JSON.stringify(name)};
+	if visname === "research-map"
+		script(src='/js/domains.js')
+		script(src='/js/journals.js')
+		
 
 

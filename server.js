@@ -262,7 +262,6 @@ app.post('/upload', function (req, res) {
 	            parser.parse(fileBuffer.toString(), (err, parsedObjects, queryName) => {
 		            req.session.works = parsedObjects;
 		            req.session.queryName = queryName;
-		            console.log(req.session.works);
 		            geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
 			            req.session.works = workObjectsWithLocations;
 		            })

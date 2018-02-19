@@ -128,6 +128,11 @@ parser.parse = function (rawText, done) {
                 case 'Punktacja ministerstwa':
                     const styleTrimmed = splitLine[1].split('<span class="field">')[1].split('</span>')[0];
                     recordObject.points = Number.parseFloat(styleTrimmed);
+                    break;
+
+                case 'Pełny tytuł czasop.':
+                    recordObject.journalTitle = splitLine[1].split('<BR>')[0];
+                    break;
 
             }
 
