@@ -12,7 +12,7 @@ function methodToggleButton () {
 	})}
 
 $(document).ready(function () {
-	$('#genPdfBtn').parent().append("<button class='btn' style='margin-top: 20px' onclick='methodToggleButton()'>Metoda uśredniania</button>")
+	$('#genPdfBtn').parent().append("<button class='btn' onclick='methodToggleButton()'>Metoda uśredniania</button>")
 
 	$.post("research-mapData", {}, function (data) {
 
