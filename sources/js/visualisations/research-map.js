@@ -5,11 +5,10 @@ function methodToggleButton () {
 	$.post("research-mapData", {}, function (data) {
 
 
-		var domainsList = GetDomainList();
 
-		var articles = AssignWorksToDomains(data, domainsList);
+		var articles = AssignWorksToDomains(data, DOMAINS);
 
-		DrawDomains(articles, GetDomainAngleBounds(domainsList))
+		DrawDomains(articles, GetDomainAngleBounds(DOMAINS))
 	})}
 
 $(document).ready(function () {
@@ -18,24 +17,11 @@ $(document).ready(function () {
 	$.post("research-mapData", {}, function (data) {
 
 
-		var domainsList = GetDomainList();
+		var articles = AssignWorksToDomains(data, DOMAINS);
 
-		var articles = AssignWorksToDomains(data, domainsList);
-
-		DrawDomains(articles, GetDomainAngleBounds(domainsList))
+		DrawDomains(articles, GetDomainAngleBounds(DOMAINS))
 	})
 });
-
-
-function GetDomainList () {
-	return Object.keys(DOMAINS).map(function(key) {
-		return {
-			weight: DOMAINS[key].weight,
-			topic: key,
-			hue: DOMAINS[key].hue
-		}
-	});
-}
 
 /**
 	* @returns {Array} of article-type work objects with domain array added as property
@@ -57,9 +43,15 @@ function AssignWorksToDomains(works, domainsList) {
 				worksByJournal[w.journalTitle].amount++
 			}
 			else {
+
+
 				w.domains = JOURNALS[w.journalTitle].domains;
 				w.discipline = JOURNALS[w.journalTitle].disciplines[0].name;
-				w.domains[0].hue = DOMAINS[w.domains[0].name].hue;
+
+				DOMAINS.forEach(function (domain) {
+					if(domain.topic === w.domains[0].name)
+						w.domains[0].hue = domain.hue
+				})
 				w.amount = 1;
 				w.index = 0;
 				worksByJournal[w.journalTitle] = w;
@@ -137,7 +129,7 @@ function GetDisciplineAngleBounds(angleBounds, works) {
 function GetCartesianDomainCentres(anglePositions, radius) {
 	var centres = anglePositions.map(function (pos) {
 		return {
-			centre: pos.angleBounds.begin + ((pos.angleBounds.end - pos.angleBounds.begin) / 2) - Math.PI / 2,
+			centre: (pos.angleBounds.begin + pos.angleBounds.end) / 2 - Math.PI / 4,
 			topic: pos.topic
 		};
 	});
