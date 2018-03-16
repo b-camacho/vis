@@ -142,8 +142,8 @@ function GetCartesianDomainCentres(anglePositions, radius) {
 
 function GetCartesianNodeSlots(angleBounds, slotRingRadius, slotRingRadiiDist, nodeRadius, nodePadding) {
 	return angleBounds.map(function(bounds) {
-		bounds.slotAmount = 0
-		bounds.slotPositions = []
+		bounds.slotAmount = 0;
+		bounds.slotPositions = [];
 
 
 		for(var j = 0; j < 5; j++) {
@@ -174,9 +174,9 @@ function DrawDomains(articles, angleBounds) {
 		jQPort = $(".svg-port"),
 		width = jQPort.width(),
 		height = jQPort.height();
-	var radius = height / 3;
-	var nodeRadius = 8
-	var nodePadding = 10
+	var radius = height / 2.3;
+	var nodeRadius = 6
+	var nodePadding = 3
 	var ringWidth = 30;
 	var stackingOffset = 5;
 	var centre =
@@ -203,13 +203,24 @@ function DrawDomains(articles, angleBounds) {
 	console.log("Discipline Angle Bounds")
 	console.log(disciplineAngleBounds)
 	// var domainLabelCoordinates = GetCartesianDomainCentres(angleBounds, radius * 1.5)
-	var publicationNodeSlotCoordinates = GetCartesianNodeSlots(disciplineAngleBounds, radius * 0.8, radius * 0.1, 8, 3)
+	var publicationNodeSlotCoordinates = GetCartesianNodeSlots(disciplineAngleBounds, radius * 0.8, radius * 0.1, nodeRadius, nodePadding)
 	console.log(publicationNodeSlotCoordinates)
 	var disciplineToSlotCoordArrayMap = {};
 	publicationNodeSlotCoordinates.forEach(function(domain) {
 		disciplineToSlotCoordArrayMap[domain.discipline] = domain;
 		disciplineToSlotCoordArrayMap[domain.discipline].counter = 0
 	})
+
+	articles = articles.sort(function compare(a, b) {
+		if (a.amount < b.amount) {
+			return -1;
+		}
+		if (a.amount < b.amount) {
+			return 1;
+		}
+		return 0;
+	});
+
 	var crossings = {}
 	articles.forEach(function (article) {
 		if(article.domains.length === 2) {
@@ -263,20 +274,31 @@ function DrawDomains(articles, angleBounds) {
 	var lenArticles = articles.length;
 	var artIdx = 0;
 	while(artIdx < lenArticles) {
-		var article = articles[artIdx]
+		var article = articles[artIdx];
 		if(article.index === 0) {
 			if(article.domains.length === 1 || methodToggle) {
 				article.coords = disciplineToSlotCoordArrayMap[article.discipline].slotPositions[disciplineToSlotCoordArrayMap[article.discipline].counter++]
+				if (!disciplineToSlotCoordArrayMap[article.discipline].slotPositions[disciplineToSlotCoordArrayMap[article.discipline].counter]) {
+					console.log('Exhausted discipline slots at ' + disciplineToSlotCoordArrayMap[article.discipline].counter)
+				}
 			}
 			else {
 				article.coords = crossingToSlotCoordArrayMap[article.crossing].slotPositions[crossingToSlotCoordArrayMap[article.crossing].counter++];
+				if (!crossingToSlotCoordArrayMap[article.crossing].slotPositions[crossingToSlotCoordArrayMap[article.crossing].counter]) {
+					console.log('Exhausted crossing slots at ' + crossingToSlotCoordArrayMap[article.crossing].counter)
+				}
 			}
-
 		}
+		if(!article.coords) {
+			console.log('Exhausted slots')
+			article.coords = {x: 0, y: 0, r:1, angle: 0}
+		}
+
 		var i = 1;
 		while(article.amount > article.index + i) {
 			var articleCopy = JSON.parse(JSON.stringify(article));
 			articleCopy.index++;
+			console.log(article)
 			articleCopy.coords = OffsetNodeCoords(article.coords, stackingOffset * i);
 			articles.push(articleCopy);
 			i++
@@ -363,8 +385,8 @@ function DrawDomains(articles, angleBounds) {
 		.on('mouseout', nodeTip.hide)
 
 
-
-/* Draw node slots for debugging
+/*
+//Draw node slots for debugging
 	var nodeSlot = svg.append("g")
 		.attr("class", "node-slots")
 		.selectAll("circle.node-slots")
@@ -381,6 +403,6 @@ function DrawDomains(articles, angleBounds) {
 		.attr("cy", function(d){return d.y})
 		.attr("fill", function(d){return d.hue})
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
-		*/
+*/
 
 }
