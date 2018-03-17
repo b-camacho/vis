@@ -2,7 +2,7 @@ extends layout
 
 block content
 	.row.main-row
-		.col.s8(style='margin-top: 20px')
+		.col.s7(style='margin-top: 20px')
 			.row
 				#row1.col.s4
 					.card.white-text(style='margin-bottom: 20px')
@@ -37,20 +37,35 @@ block content
 							.card-image(onmouseover="(function display(){DisplayDetails('wordcloud')})()")
 								img(src='/images/wordcloud.jpg')
 								// <span class="card-title black-text">Chmury słów kluczowych</span>
-		.col.s4(style='height: 100%; padding-right: 0')
+		.col.s5(style='height: 100%; padding-right: 0')
 			.z-depth-1.vis-select
-				.row(hidden='')
-					.card.name-input-card.col.s12
-						.card-content.black-text
-							span.card-title Nazwisko i Imię
-							p
-								| Podaj swoje nazwisko i imię powyżej, a aplikacja przeszuka bazę Ekspertus i wczyta twoje prace.
 				.row
 					.card.name-input-card.col.s12
 						.card-content.black-text
 							span.card-title=lang.vis_details_title
 							br
 							span#details-host
+				.row
+					ul.collection.with-header.z-depth-1
+						li.collection-header
+							h5 Statystyki
+						li.collection-item
+							div
+								span Łącznie prac:
+								span#works-amount-display(style='float: right') -
+						li.collection-item
+							div
+								span Średnia liczba prac na rok:
+								span#mean-works-amount-display(style='float: right') -
+						li.collection-item
+							div
+								span Liczba współautorów:
+								span#coworkers-amount-display(style='float: right') -
+						li.collection-item
+							div
+								span Najczęstsza współpraca:
+								span#max-shared-works-amount-display(style='float: right') -
+
 block append scripts
 	script(type='text/javascript').
 		var jsStrings = !{JSON.stringify(lang.scriptable)};

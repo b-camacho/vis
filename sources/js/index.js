@@ -45,28 +45,70 @@ function InputChanged() {
 	}, 1500)
 }
 
-var DisplayDetails;
 
-// function QueryForSuggestions() {
-// 	var autocompletedInput = $('#name-and-surname-autocomplete');
-// 	var queryName = autocompletedInput.val();
-// 	console.log(queryName);
-//
-// 	$.ajax('/name-lookup', {
-// 		data: {
-// 			name: queryName
-// 		}
-// 	}).done(function (queryResults) {
-// 		console.log(queryResults);
-//
-// 		function getLi(content) {
-// 			return '<li onclick="SetChosenResult(this)" class="dropdown-namelist-item"><span>' + content + ' </span> </li >'
-// 		}
-//
-// 		var $results = $('#results');
-// 		queryResults.forEach(function (result) {
-// 			$results.append(getLi(result))
-// 		})
-//
-// 	});
-// }
+function ComputeStatistics(data) {
+
+	var stats = {
+	"works-amount-display": '-',
+	"mean-works-amount-display": '-',
+	"coworkers-amount-display": '-',
+	"max-shared-works-amount-display": '-'
+	}
+
+	console.log(data);
+	if(!data || !data.length) return;
+
+	stats["works-amount-display"] = data.length;
+
+	var beginYear = data[0].year, endYear = data[0].year;
+
+	data.forEach(function (work) {
+		if(work.year < beginYear) beginYear = work.year;
+		if(work.year > endYear) endYear = work.year;
+	})
+
+	stats["mean-works-amount-display"] = data.length / (endYear - beginYear + 1);
+
+	var authorMap = {}, mostShared = {amount: -1, name: "-"}, mostSharedNotSelf = {amount: -1, name: "-"};
+
+	data.forEach(function (work) {
+		work.authors.forEach(function (author) {
+			authorMap[author] = authorMap[author] ? authorMap[author]++ : 1;
+		})
+	})
+
+	stats["coworkers-amount-display"] = Object.keys(authorMap).length;
+
+	for(var name in authorMap)
+		if(authorMap.hasOwnProperty(name)) {
+			if(authorMap[name] > mostShared.amount) {
+				mostShared.amount = authorMap[name];
+				mostShared.name = name;
+			}
+		}
+
+	for(var secondName in authorMap)
+		if(authorMap.hasOwnProperty(secondName)) {
+			if(authorMap[secondName] > mostSharedNotSelf.amount && secondName !== mostShared.name) {
+				mostSharedNotSelf.amount = authorMap[name];
+				mostSharedNotSelf.name = name;
+			}
+		}
+
+
+	stats["max-shared-works-amount-display"] = mostSharedNotSelf.name;
+
+
+	for (var title in stats)
+		if(stats.hasOwnProperty(title)) {
+		console.log('setting'  + title + ' to ' + stats[title])
+			$('#' + title).text(stats[title]);
+		}
+
+	return stats;
+}
+
+
+$.post("collabData", {}, ComputeStatistics)
+
+var DisplayDetails;

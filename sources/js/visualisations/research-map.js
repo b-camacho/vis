@@ -1,4 +1,6 @@
 var methodToggle = true;
+var missingJournals = 0;
+var justArticles = 0;
 function methodToggleButton () {
 	methodToggle = !methodToggle;
 	d3.select('svg').selectAll('*').remove();
@@ -28,6 +30,12 @@ $(document).ready(function () {
 **/
 function AssignWorksToDomains(works, domainsList) {
 	var worksByJournal = {};
+	works.forEach(function (w) {
+		if(w.publicationType === 'article') justArticles++;
+		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.journalTitle] === undefined)
+			missingJournals++;
+	})
+
 	works
 		.filter(function(w) {
 			return w.publicationType === 'article' &&
@@ -181,12 +189,13 @@ function DrawDomains(articles, angleBounds) {
 	var stackingOffset = 5;
 	var centre =
 		{
-			x: width / 2,
+			x: width / 1.6,
 			y: height / 2
 		};
 	var padAngle = toRad(5);
 
 	var subringRadius = 20;
+
 
 	console.log("Angle Bounds")
 	console.log(angleBounds)
@@ -212,14 +221,14 @@ function DrawDomains(articles, angleBounds) {
 	})
 
 	articles = articles.sort(function compare(a, b) {
-		if (a.amount < b.amount) {
+		if (a.amount > b.amount) {
 			return -1;
 		}
 		if (a.amount < b.amount) {
 			return 1;
 		}
 		return 0;
-	});
+	}).reverse();
 
 	var crossings = {}
 	articles.forEach(function (article) {
@@ -298,7 +307,7 @@ function DrawDomains(articles, angleBounds) {
 		while(article.amount > article.index + i) {
 			var articleCopy = JSON.parse(JSON.stringify(article));
 			articleCopy.index++;
-			console.log(article)
+			// console.log(article)
 			articleCopy.coords = OffsetNodeCoords(article.coords, stackingOffset * i);
 			articles.push(articleCopy);
 			i++
@@ -383,6 +392,67 @@ function DrawDomains(articles, angleBounds) {
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
 		.on('mouseover', nodeTip.show)
 		.on('mouseout', nodeTip.hide)
+
+
+	//Draw legend
+	var mapkeyLineSpacing = 20;
+	var mapkeyLeftMargin = 10;
+	var mapkeyNodeSpacing = 20;
+	var mapkeyBottomPadding = 10;
+	var mapkeyCircleRadius = 6;
+
+	var keyGroups = svg.append("g")
+		.attr("id", "mapkey")
+		.attr("z-index", 100)
+		.selectAll("text")
+		.data(DOMAINS).enter()
+		.append("g")
+		.attr("id", function (d, i) {
+			return "mapkey-domain-" + i;
+		})
+
+	keyGroups
+		.append("text")
+		.attr("x", mapkeyLeftMargin)
+		.attr("y", function (d, i) {
+			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding
+		})
+		.text(function (d) {
+			return d.topic;
+		})
+
+	var jQmapkey = $("#mapkey")
+	var mapkeyWidth = jQmapkey.width();
+	var mapkeyHeight = jQmapkey.height();
+
+	svg.select("#mapkey")
+		.append("text")
+		.attr("x", mapkeyLeftMargin)
+		.attr("y", height - mapkeyHeight - 26)
+		.text(missingJournals > 0 ?
+			"Przypisano " + (justArticles - missingJournals) + "/" + justArticles + " publikacji do dziedzin."
+			: "Przypisano wszystkie publikacje do dziedzin.")
+	svg.select("#mapkey")
+		.append("text")
+		.attr("x", mapkeyLeftMargin)
+		.attr("y", height - mapkeyHeight - 10)
+		.text("Legenda:")
+	// 	.attr("height", mapkeyHeight)
+	// 	.attr("width", mapkeyWidth)
+	// 	.attr("fill", "#e4e4e4")
+	// 	.attr("z-index", 0);
+
+	keyGroups
+		.append("circle")
+		.attr("cx", mapkeyWidth + mapkeyNodeSpacing)
+		.attr("cy", function (d, i) {
+			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding - mapkeyCircleRadius/2 - 2
+		})
+		.attr("r", mapkeyCircleRadius)
+		.attr("fill", function (d) {
+			return d.hue;
+		})
+
 
 
 /*
