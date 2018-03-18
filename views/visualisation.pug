@@ -9,10 +9,10 @@ block content
 						p=lang.vis_details[visname]
 
 			.row(style='padding-left: 10px;')
-				button.btn#genPdfBtn(onclick='genPdfDoc()')=lang.generate_pdf
+				button.btn.line-btn#genPdfBtn(onclick='genPdfDoc()')=lang.generate_pdf
 			if (visname === 'collab')
 				.row(style='padding-left: 10px')
-					button#toggleView.btn(onclick='showEdits()')=lang.editorial_view
+					button#toggleView.btn.line-btn(onclick='showEdits()')=lang.editorial_view
 
 		.col.s9.svg-container
 			svg#svg-port.z-depth-1.svg-port

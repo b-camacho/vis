@@ -151,7 +151,10 @@ nav {
 	margin: 0 20%;
 
 }
-
+.line-btn {
+    display: block;
+    margin-top: 10px;
+}
 html, body, h1, h2, h3, h4, h5, h6, div {
     padding: 0;
     border: 0;

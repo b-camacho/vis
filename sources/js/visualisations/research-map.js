@@ -1,4 +1,4 @@
-var methodToggle = true;
+var methodToggle = true, whiskerToggle = true;
 var missingJournals = 0;
 var justArticles = 0;
 function methodToggleButton () {
@@ -7,21 +7,38 @@ function methodToggleButton () {
 	$.post("research-mapData", {}, function (data) {
 
 
-
+		missingJournals = 0;
+		justArticles = 0;
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
 		DrawDomains(articles, GetDomainAngleBounds(DOMAINS))
-	})}
+	})
+}
+
+function whiskerToggleButton() {
+	whiskerToggle = !whiskerToggle;
+	if (whiskerToggle) {
+		$(".whiskers").show();
+		$(".disciplineTitles").show();
+	}
+	else {
+		$(".whiskers").hide();
+		$(".disciplineTitles").hide();
+	}
+
+}
 
 $(document).ready(function () {
-	$('#genPdfBtn').parent().append("<button class='btn' onclick='methodToggleButton()'>Metoda uśredniania</button>")
+	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='methodToggleButton()'>Metoda uśredniania</button>")
+	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='whiskerToggleButton()'>Nazwy dyscyplin</button>")
 
 	$.post("research-mapData", {}, function (data) {
 
 
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
-		DrawDomains(articles, GetDomainAngleBounds(DOMAINS))
+		DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
+		whiskerToggleButton()
 	})
 });
 
@@ -182,7 +199,7 @@ function DrawDomains(articles, angleBounds) {
 		jQPort = $(".svg-port"),
 		width = jQPort.width(),
 		height = jQPort.height();
-	var radius = height / 2.3;
+	var radius = height / 2.5;
 	var nodeRadius = 6
 	var nodePadding = 3
 	var ringWidth = 30;
@@ -392,6 +409,60 @@ function DrawDomains(articles, angleBounds) {
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
 		.on('mouseover', nodeTip.show)
 		.on('mouseout', nodeTip.hide)
+
+	disciplineAngleBounds.forEach(function (discipline) {
+		var disciplineAngularCentre = (discipline.angleBounds.end + discipline.angleBounds.begin) / 2;
+		var contactPoint = PolarToCartesian(disciplineAngularCentre+ (Math.PI / 2), radius );
+		var bendPoint = PolarToCartesian(disciplineAngularCentre+ (Math.PI / 2), radius * 1.2 );
+		var bendRight = disciplineAngularCentre < Math.PI//(disciplineAngularCentre > Math.PI/4 && disciplineAngularCentre < Math.PI*3/2);
+
+		discipline.contactPoint = contactPoint;
+		discipline.bendRight = bendRight;
+		discipline.bendPoint = bendPoint;
+
+		discipline.text = discipline.discipline.substr(0, 20) + (discipline.discipline.length > 20 ? "..." : "");
+
+	})
+	var disciplineWhiskers = svg.append("g")
+		.attr("class", "whiskers")
+		.selectAll("line")
+		.data(disciplineAngleBounds).enter()
+		.append("path")
+		.attr("d", function (d) {
+
+
+
+			return "M " + d.contactPoint.x + " " + d.contactPoint.y +
+					"L " + d.bendPoint.x + " " + d.bendPoint.y +
+					"L " + (d.bendRight? d.bendPoint.x - 100 : d.bendPoint.x + 100) + " " + d.bendPoint.y;
+		})
+		.attr("stroke", function (d) {
+			return "#c3c3c3";
+		})
+		.attr("fill", "none")
+		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
+
+	var disciplineTitles = svg.append("g")
+		.attr("class", "disciplineTitles")
+		.selectAll("text")
+		.data(disciplineAngleBounds).enter()
+		.append("text")
+		.attr("x", function (d) {
+			return d.bendRight? d.bendPoint.x - 100 : d.bendPoint.x
+		})
+		.attr("y", function (d) {
+			return d.bendPoint.y
+		})
+		.text(function (d) {
+			return d.text;
+		})
+		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
+
+
+
+
+
+
 
 
 	//Draw legend

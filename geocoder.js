@@ -81,7 +81,7 @@ const geocoder = {
         cityList.forEach((city)=> {
             nodeGeocoder.geocode(city, (err, res) => {
                 // console.log('Resolving ' + city);
-                if(err) {
+                if(err || !res || !res[0]) {
                     waitingFor--;
                     if(waitingFor == 0) done(null, resolvedCities)
                 }
