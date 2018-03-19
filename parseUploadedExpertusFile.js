@@ -131,7 +131,12 @@ parser.parse = function (rawText, done) {
                     break;
 
                 case 'Pełny tytuł czasop.':
-                    recordObject.journalTitle = splitLine[1].split('<BR>')[0];
+                    recordObject.journalTitle = splitLine[1].split('<BR>')[0].split("<!--")[0];
+                    recordObject.compJournalTitle = recordObject.journalTitle.toLowerCase();
+                    [' ', '.', ',', '\'', '', ':', ';'].forEach(function (ignoredChar) {
+                        recordObject.compJournalTitle = recordObject.compJournalTitle.split(ignoredChar).join('')
+                    })
+
                     break;
 
             }
@@ -155,7 +160,5 @@ parser.parse = function (rawText, done) {
     done(null, recordObjectsArray, queryName);
 
 }
-
-
 
 module.exports = parser;
