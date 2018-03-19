@@ -1,12 +1,14 @@
 $(document).ready(function () {
 	$.post("worksData", function (data) {
 		console.log(data)
+		// console.log(jsStrings)
 			var barData = getBars(data);
 			drawWorksOverTimeGraph(barData);
 			displayWorkStatsWorksInTime(barData);
 		}
 	)
 });
+
 function drawWorksOverTimeGraph(data) {
 	console.log(data)
 	var red = "#f44336";
@@ -17,10 +19,9 @@ function drawWorksOverTimeGraph(data) {
 		height = $(".svg-port").height();
 	svg.selectAll('*').remove();
 	var barYearTip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-		return 'Rok ' + d.year + ': ' + PolskaFleksjaSlowaPraca('praca', d.works) +
-		'.</br> W tym ' + d.books + ' monografii <br> oraz ' + PolskaFleksjaSlowaPraca('praca', d.edits) +
-		PolskaFleksjaSlowaPraca('redagowana', d.edits) +
-		(d.edits == 0 ? '.' : ':<br>' + d.titles.map(function(t){return t.length > 30 ? t.substr(0, 30) + '...' : t}).join("; "));
+		return jsStrings.vis.year["1"] + " " + d.year + ': ' + d.works + " " + multiple(jsStrings.vis.work, d.works) +
+		'.</br> ' + jsStrings.vis.including + " " + d.books + ' ' + jsStrings.vis.monographies + "." +
+		(d.edits === 0 ? '' : '<br>' + d.titles.map(function(t){return t.length > 30 ? t.substr(0, 30) + '...' : t}).join("; "));
 	});
 	svg.call(barYearTip);
 

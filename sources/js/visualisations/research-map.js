@@ -343,7 +343,11 @@ function DrawDomains(articles, angleBounds) {
 	console.log(articles);
 
 	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-		return d.tip || d.topic || d.discipline + " - " + d.domains.map(function(dom){return dom.name}).join("; ") + "<br>"  + PolskaFleksjaSlowaPraca("praca", d.amount) + " w " + d.journalTitle;
+		if(d.topic)
+			return jsStrings.vis.domains[d.topic]// + " - " +
+		else
+			return d.domains.map(function(dom){return jsStrings.vis.domains[dom.name]}).join("; ") +
+				"<br>"  + d.amount + " " + multiple(jsStrings.vis.work, d.amount) + " " + jsStrings.vis.in + " " + d.journalTitle;
 	});
 
 	var domainArcs = d3

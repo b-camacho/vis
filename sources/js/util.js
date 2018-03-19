@@ -4,6 +4,12 @@ function PolskaFleksjaSlowaPraca(word, number) {
 	return number + ' prac'
 }
 
+function multiple(wordObj, n) {
+	if(n === 1) return wordObj["1"];
+	if(n === 2) return wordObj["2"];
+	return wordObj["many"];
+}
+
 if (!Array.prototype.includes) {
    Array.prototype.includes = function(searchElement /*, fromIndex*/) {
        'use strict';

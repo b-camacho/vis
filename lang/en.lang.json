@@ -51,7 +51,43 @@
 	},
 	"pdf_caption": "Created with",
 	"pdf_caption_title": "Scientific Output Visualiser",
-	"for":" for "
+	"for":" for ",
+
+	"vis": {
+	  "work": {
+		"1": "work",
+		"2": "works",
+		"many": "works"
+	  },
+	  "year": {
+		"1": "year",
+		"2": "years",
+		"many": "years"
+	  },
+	  "page": {
+		"1": "page",
+		"2": "pages",
+		"many": "pages"
+	  },
+
+
+	  "and": "and",
+	  "in": "in",
+	  "ministerial_score": "Ministry of Education score",
+	  "including": "Including",
+	  "monographies": "monographies",
+
+	  "domains": {
+		"nauki medyczne i o zdrowiu": "health sciences",
+		"nauki humanistyczne": "humanities",
+		"nauki społeczne": "social sciences",
+		"nauki przyrodnicze": "natural sciences",
+		"nauki ścisłe": "science",
+		"nauki techniczne": "technical sciences",
+		"nauki rolnicze, leśnicze, weterynaryjne": "forestry, agricultural and veterinary sciences",
+		"sztuka": "art"
+	  }
+	}
   },
   "info": {
 	"about": {

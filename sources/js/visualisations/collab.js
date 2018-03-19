@@ -50,7 +50,7 @@ function drawSimulationCollaborationGraph(data) {
 		.force("center",
 			d3.forceCenter(width / 2, height / 2));
 
-	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + PolskaFleksjaSlowaPraca('praca', d.strengthValue)});
+	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + d.strengthValue + " " + multiple(jsStrings.vis.work, d.strengthValue)});
 	svg.call(nodeTip);
 
 	var link = svg.append("g")

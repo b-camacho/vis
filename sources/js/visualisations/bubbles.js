@@ -93,7 +93,7 @@ function drawBubbleGraph(data) {
 			console.log(d);
 			console.log(i);
 		}
-		return 'Rok: ' + years[i] + '<br>' + 'Stron: ' + data[i].pages });
+		return jsStrings.vis.year["1"] + ": " + years[i] + '<br>' + jsStrings.vis.page["many"] + ": " + data[i].pages });
 	svg.call(bubbleTip);
 
 	var pointBubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
@@ -102,7 +102,7 @@ function drawBubbleGraph(data) {
 			console.log(d);
 			console.log(i);
 		}
-		return 'Rok: ' + years[i] + '<br>' + 'Punktacja ministerstwa: ' + data[i].points });
+		return jsStrings.vis.year["1"] + ": " + years[i] + '<br>' + jsStrings.vis.ministerial_score + ": " + data[i].points });
 	svg.call(pointBubbleTip);
 
 

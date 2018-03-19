@@ -50,6 +50,42 @@
 	  "wordcloud": "Chmury słów kluczowych",
 	  "bubbles": "Objętość piśmiennicza w skali czasu"
 	},
+	"vis": {
+	  "work": {
+		"1": "praca",
+		"2": "prace",
+		"many": "prac"
+	  },
+	  "year": {
+		"1": "rok",
+		"2": "lata",
+		"many": "lat"
+	  },
+	  "page": {
+		"1": "strona",
+		"2": "strony",
+		"many": "stron"
+	  },
+
+
+	  "and": "oraz",
+	  "in": "w",
+	  "ministerial_score": "Punktacja ministerstwa",
+	  "including": "W tym",
+	  "monographies": "monografii",
+
+	  "domains": {
+		"nauki medyczne i o zdrowiu": "nauki medyczne i o zdrowiu",
+		"nauki humanistyczne": "nauki humanistyczne",
+		"nauki społeczne": "nauki społeczne",
+		"nauki przyrodnicze": "nauki przyrodnicze",
+		"nauki ścisłe": "nauki ścisłe",
+		"nauki techniczne": "nauki techniczne",
+		"nauki rolnicze, leśnicze, weterynaryjne": "nauki rolnicze, leśnicze, weterynaryjne",
+		"sztuka": "sztuka"
+	  }
+	},
+
 	"pdf_caption": "Wygenerowano przez ",
 	"pdf_caption_title": "Scientific Visualiser",
 	"for":" dla "
