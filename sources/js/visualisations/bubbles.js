@@ -1,12 +1,9 @@
 $(document).ready(function () {
 	$.post("/bubblesData", function (data) {
-			//console.log("Post to /bubblesData results: " + data);
-//            data.forEach((datum) => {
-//                console.log(datum.year + ' : ' + datum.points)
-//            })
+
 			var removedCounter = 0;
 			data.forEach(function (invalidEl, invalidIndex, arr) {
-				if(!invalidEl.year) {console.log('Invalid record: ' + invalidIndex);
+				if(!invalidEl.year || invalidEl.pageAmount < 0) {console.log('Invalid record: ' + invalidIndex);
 					data.splice(invalidIndex + removedCounter, 1)}
 			});
 
@@ -24,7 +21,7 @@ $(document).ready(function () {
 
 			data.forEach(function (el) {
 				var last = PageCountsGroupedByYear.length - 1;
-				if(PageCountsGroupedByYear[last].year == el.year) {
+				if(PageCountsGroupedByYear[last].year === el.year) {
 					PageCountsGroupedByYear[last].pages += el.pageAmount;
 					PageCountsGroupedByYear[last].points += el.points;
 				}
@@ -60,6 +57,7 @@ function drawBubbleGraph(data) {
 
 	var rays = [];
 	data.forEach(function (el) {
+		console.log(el.pages)
 		rays.push((Math.sqrt(el.pages) / sumOfPages) * Math.min(width, height) * 0.8);
 	});
 
