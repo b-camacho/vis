@@ -29,8 +29,8 @@ function whiskerToggleButton() {
 }
 
 $(document).ready(function () {
-	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='methodToggleButton()'>Metoda uśredniania</button>")
-	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='whiskerToggleButton()'>Nazwy dyscyplin</button>")
+	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='methodToggleButton()'>" + jsStrings.averaging_method + "</button>")
+	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + jsStrings.show_disciplines + "</button>")
 
 	$.post("research-mapData", {}, function (data) {
 
@@ -493,7 +493,7 @@ function DrawDomains(articles, angleBounds) {
 			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding
 		})
 		.text(function (d) {
-			return d.topic;
+			return jsStrings.vis.domains[d.topic];
 		})
 
 	var jQmapkey = $("#mapkey")
@@ -505,13 +505,13 @@ function DrawDomains(articles, angleBounds) {
 		.attr("x", mapkeyLeftMargin)
 		.attr("y", height - mapkeyHeight - 26)
 		.text(missingJournals > 0 ?
-			"Przypisano " + (justArticles - missingJournals) + "/" + justArticles + " publikacji do dziedzin."
-			: "Przypisano wszystkie publikacje do dziedzin.")
+			jsStrings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + jsStrings.vis.pubs_to_doms
+			: jsStrings.vis.assigned_all)
 	svg.select("#mapkey")
 		.append("text")
 		.attr("x", mapkeyLeftMargin)
 		.attr("y", height - mapkeyHeight - 10)
-		.text("Legenda:")
+		.text(jsStrings.vis.map_key + ":")
 	// 	.attr("height", mapkeyHeight)
 	// 	.attr("width", mapkeyWidth)
 	// 	.attr("fill", "#e4e4e4")

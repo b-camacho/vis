@@ -12,6 +12,7 @@
 
   "editorial_view": "Widok redakcji",
   "generate_pdf": "Generuj PDF",
+
   "title": "Wizualizator Dorobku Naukowego",
   "alt_title": "Scientific Output Visualiser",
 
@@ -34,6 +35,9 @@
 	"bubbles": "Wykres bąbelkowy pokazuje sumę liczby stron wszystkich publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie obszernych rozdziałów w monografiach. Poniżej zamieszczono skumulowaną liczbę punktów dla publikacji danego roku według punktacji MNiSW."
   },
   "scriptable": {
+	"averaging_method": "Metoda uśredniania",
+	"show_disciplines": "Wyświetl dyscypliny",
+
 	"vis_details": {
 	  "works": "W skali czasu wyświetlona zostanie liczba opublikowanych prac każdego roku według bazy Expertus. W ten sposób można ilościowo oszacować własną aktywność piśmienniczą w zależności od czasu. Monografie autorskie wyróżnione są kolorem czerwonym.",
 	  "collab": "Wizualizacja przedstawia wszystkich występujących w bazie Expertus współautorów publikacji. Środek sieci przypada na węzeł autora. Liczba wspólnych prac jest reprezentowana przez odległość od węzła centralnego oraz wielkość kołka.",
@@ -83,12 +87,17 @@
 		"nauki techniczne": "nauki techniczne",
 		"nauki rolnicze, leśnicze, weterynaryjne": "nauki rolnicze, leśnicze, weterynaryjne",
 		"sztuka": "sztuka"
-	  }
-	},
+	  },
 
-	"pdf_caption": "Wygenerowano przez ",
-	"pdf_caption_title": "Scientific Visualiser",
-	"for":" dla "
+	  "assigned": "Przypisano",
+	  "assigned_all": "Przypisano wszystkie publikacje do dziedzin.",
+	  "pubs_to_doms": "publikacji do dziedzin",
+	  "map_key": "Legenda",
+
+	  "pdf_caption": "Wygenerowano przez ",
+	  "pdf_caption_title": "Scientific Visualiser",
+	  "for":" dla "
+	}
   },
   "info": {
 	"about": {
