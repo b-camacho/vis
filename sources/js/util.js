@@ -60,19 +60,3 @@ function CartesianLengthToPolar(length, radius){
 function toRad(deg) {
 	return deg*Math.PI/180;
 }
-
-function compJournalTitles(titles) {
-	titles = titles.map(function (title) {
-		title.toLowerCase()
-		[' ', '.', ',', '\'', '', ':', ';'].forEach(function (ignoredChar) {
-			title.split(ignoredChar).join('')
-		})
-	});
-
-	return titles.reduce(function (title, acc) {
-		return acc && (title === acc)
-	}, titles[0]);
-
-
-
-}

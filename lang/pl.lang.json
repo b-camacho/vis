@@ -37,6 +37,7 @@
   "scriptable": {
 	"averaging_method": "Metoda uśredniania",
 	"show_disciplines": "Wyświetl dyscypliny",
+	"show_missing_journals": "Wyświetl czasopisma",
 
 	"vis_details": {
 	  "works": "W skali czasu wyświetlona zostanie liczba opublikowanych prac każdego roku według bazy Expertus. W ten sposób można ilościowo oszacować własną aktywność piśmienniczą w zależności od czasu. Monografie autorskie wyróżnione są kolorem czerwonym.",
@@ -92,12 +93,12 @@
 	  "assigned": "Przypisano",
 	  "assigned_all": "Przypisano wszystkie publikacje do dziedzin.",
 	  "pubs_to_doms": "publikacji do dziedzin",
-	  "map_key": "Legenda",
+	  "map_key": "Legenda"
+	},
 
-	  "pdf_caption": "Wygenerowano przez ",
-	  "pdf_caption_title": "Scientific Visualiser",
-	  "for":" dla "
-	}
+	"pdf_caption": "Wygenerowano przez ",
+	"pdf_caption_title": "Scientific Visualiser",
+	"for":"Wygenerowano dla "
   },
   "info": {
 	"about": {

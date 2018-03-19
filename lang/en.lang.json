@@ -37,6 +37,7 @@
 
 	"averaging_method": "Averaging method",
 	"show_disciplines": "Show disciplines",
+	"show_missing_journals": "Show journals",
 
 	"vis_details": {
 	  "collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
@@ -56,7 +57,7 @@
 	},
 	"pdf_caption": "Created with",
 	"pdf_caption_title": "Scientific Output Visualiser",
-	"for":" for ",
+	"for":"Generated for ",
 
 	"vis": {
 	  "work": {

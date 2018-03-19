@@ -1,5 +1,6 @@
-var methodToggle = true, whiskerToggle = true;
+var methodToggle = true, whiskerToggle = true, missingToggle = false;
 var missingJournals = 0;
+var missingJournalsMap = {};
 var justArticles = 0;
 function methodToggleButton () {
 	methodToggle = !methodToggle;
@@ -28,9 +29,30 @@ function whiskerToggleButton() {
 
 }
 
+function showMissingJournals() {
+	missingToggle = !missingToggle;
+	var missingJournalList = [];
+	for(var title in missingJournalsMap)
+		if(missingJournalsMap.hasOwnProperty(title)) {
+		missingJournalList.push(title)
+		}
+	if(missingToggle)
+		$('#genPdfBtn').parent()
+			.append("<p id='missingTitles'> " + missingJournalList.map(
+				function (title) {
+					return title + "; "
+				}
+			).join("") + "</p>")
+	else
+		$('#missingTitles').remove();
+}
+
 $(document).ready(function () {
-	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='methodToggleButton()'>" + jsStrings.averaging_method + "</button>")
-	$('#genPdfBtn').parent().append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + jsStrings.show_disciplines + "</button>")
+	$buttonHost = $('#genPdfBtn').parent();
+	$buttonHost.append("<button class='btn line-btn' onclick='methodToggleButton()'>" + jsStrings.averaging_method + "</button>")
+	$buttonHost.append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + jsStrings.show_disciplines + "</button>")
+	$buttonHost.append("<button class='btn line-btn' onclick='showMissingJournals()'>" + jsStrings.show_missing_journals + "</button>")
+
 
 	$.post("research-mapData", {}, function (data) {
 
@@ -49,29 +71,31 @@ function AssignWorksToDomains(works, domainsList) {
 	var worksByJournal = {};
 	works.forEach(function (w) {
 		if(w.publicationType === 'article') justArticles++;
-		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.journalTitle] === undefined)
+		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.compJournalTitle] === undefined) {
+			missingJournalsMap[w.journalTitle] = true;
 			missingJournals++;
+		}
 	})
 
 	works
 		.filter(function(w) {
 			return w.publicationType === 'article' &&
 			w.journalTitle !== undefined &&
-			JOURNALS[w.journalTitle] !== undefined
+			JOURNALS[w.compJournalTitle] !== undefined
 		})
 		.forEach(function (w) {
 			if(JOURNALS[w.journalTitle] === undefined) {
 				console.log(w.journalTitle)
 			}
 
-			if(worksByJournal[w.journalTitle]){
-				worksByJournal[w.journalTitle].amount++
+			if(worksByJournal[w.compJournalTitle]){
+				worksByJournal[w.compJournalTitle].amount++
 			}
 			else {
 
 
-				w.domains = JOURNALS[w.journalTitle].domains;
-				w.discipline = JOURNALS[w.journalTitle].disciplines[0].name;
+				w.domains = JOURNALS[w.compJournalTitle].domains;
+				w.discipline = JOURNALS[w.compJournalTitle].disciplines[0].name;
 
 				DOMAINS.forEach(function (domain) {
 					if(domain.topic === w.domains[0].name)
@@ -79,7 +103,7 @@ function AssignWorksToDomains(works, domainsList) {
 				})
 				w.amount = 1;
 				w.index = 0;
-				worksByJournal[w.journalTitle] = w;
+				worksByJournal[w.compJournalTitle] = w;
 			}
 		});
 
