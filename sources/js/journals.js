@@ -1088,9 +1088,13 @@ var JOURNALS = {
   "actauniversitatisnicolaicopernicipedagogika": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      }, 
+	    {
+        "name": "nauki humanistyczne",
+	    "weight": 1
+	    }
     ],
     "disciplines": [
       {
@@ -1365,9 +1369,9 @@ var JOURNALS = {
   "actauniversitatiswratislaviensispracepedagogiczne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      }, {"name": "nauki humanistyczne", "weight":1 }
     ],
     "disciplines": [
       {
