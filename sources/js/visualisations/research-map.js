@@ -440,9 +440,9 @@ function DrawDomains(articles, angleBounds) {
 
 	disciplineAngleBounds.forEach(function (discipline) {
 		var disciplineAngularCentre = (discipline.angleBounds.end + discipline.angleBounds.begin) / 2;
-		var contactPoint = PolarToCartesian(disciplineAngularCentre+ (Math.PI / 2), radius );
-		var bendPoint = PolarToCartesian(disciplineAngularCentre+ (Math.PI / 2), radius * 1.2 );
-		var bendRight = disciplineAngularCentre < Math.PI//(disciplineAngularCentre > Math.PI/4 && disciplineAngularCentre < Math.PI*3/2);
+		var contactPoint = PolarToCartesian(disciplineAngularCentre - (Math.PI / 2), radius );
+		var bendPoint = PolarToCartesian(disciplineAngularCentre -  (Math.PI / 2), radius * 1.2 );
+		var bendRight = disciplineAngularCentre > Math.PI//(disciplineAngularCentre > Math.PI/4 && disciplineAngularCentre < Math.PI*3/2);
 
 		discipline.contactPoint = contactPoint;
 		discipline.bendRight = bendRight;

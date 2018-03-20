@@ -63,7 +63,7 @@ function genPdfDocArgs(title, made_with, visualiser_name, made_for, author_name,
 
 
 	};
-
+	
 	function loadImg() {
 		var xhr = new XMLHttpRequest()
 		xhr.responseType = 'arraybuffer'
@@ -85,7 +85,8 @@ function genPdfDocArgs(title, made_with, visualiser_name, made_for, author_name,
 			xhrLicense.open('GET', '/images/logo200.png', true)
 			stream.on('finish', function () {
 				console.log(stream.toBlobURL('application/pdf'));
-				window.location = stream.toBlobURL('application/pdf');
+				window.location = URL.createObjectURL(stream);
+				// window.location = stream.toBlobURL('application/pdf');
 			});
 			xhrLicense.send();
 		}
