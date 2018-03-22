@@ -1,5 +1,9 @@
 require('buffer')
+var shadowLink = document.createElement('a');
+shadowLink.setAttribute("download", "vis.pdf");
+shadowLink.setAttribute("hidden", "hidden");
 
+document.querySelector('body').appendChild(shadowLink)
 document.querySelector('#genPdfBtn').addEventListener('click', function (ev) {
 	console.log('generating pdf...')
 	genPdfDocArgs(jsStrings.vis_titles[visname],
@@ -85,7 +89,9 @@ function genPdfDocArgs(title, made_with, visualiser_name, made_for, author_name,
 			xhrLicense.open('GET', '/images/logo200.png', true)
 			stream.on('finish', function () {
 				console.log(stream.toBlobURL('application/pdf'));
-				window.location = URL.createObjectURL(stream);
+				shadowLink.setAttribute("href", stream.toBlobURL('application/pdf'));
+				shadowLink.click();
+				// window.location = URL.createObjectURL(stream);
 				// window.location = stream.toBlobURL('application/pdf');
 			});
 			xhrLicense.send();

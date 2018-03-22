@@ -1,4 +1,7 @@
 var express = require('express');
+var PDFDocument = require('pdfkit');
+var svgToPdf = require('svg-to-pdfkit');
+var fs = require('fs');
 var router = express.Router();
 
 var lang = {
@@ -42,6 +45,36 @@ router.get('/info/*', function (req, res, next) {
 	}
 });
 
+router.post('/genPdf', function (req, res, next) {
+
+	var doc = new PDFDocument({layout: 'landscape'});
+	doc.registerFont('Open Sans', 'sources/fonts/open-sans.regular.ttf');
+	var tmpFilePath = './download/infovis'+ Math.random().toString(36).substr(2, 5) + '.pdf';
+	var tmpWriteStream = fs.createWriteStream(tmpFilePath)
+	doc.pipe(tmpWriteStream);
+	doc.font('Open Sans').fontSize(25).fillColor('#ff6600')
+		.text(req.body.args.title, 50, 40)
+		.fillColor('#444dce').fontSize(18)
+		.text(req.body.args.for + req.body.args.authorName);
+
+	svgToPdf(doc, req.body.svg, 50, 100);
+
+
+	doc.image('sources/images/logo200.png', 50, doc.page.height - 100,{width: 50});
+	doc.font('Open Sans').fontSize(12).fillColor('#191919')
+		.text(req.body.args.caption_title + ' by UMK (\u00A9 2018)',120,doc.page.height - 100);
+
+
+	tmpWriteStream.on('finish', function () {
+		res.send(tmpFilePath)
+	})
+
+	setTimeout(function () {
+		fs.unlink(tmpFilePath, console.log)
+	}, 60000);
+
+	doc.end()
+})
 // router.get('/en', function (req, res) {
 // 	res.redirect('/')
 // });

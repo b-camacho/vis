@@ -25,6 +25,7 @@ const geocoder = require('./geocoder');
 // app.use('/en', express.static('public-en'));
 
 app.use(express.static('sources'));
+app.use('/download', express.static('download'));
 app.use('/favicons', express.static('favicons'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
