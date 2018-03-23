@@ -19,7 +19,6 @@ var parser = require('./parseUploadedExpertusFile');
 
 const rawDbWordsParser = require('./getWordObjectsArray');
 
-const geocoder = require('./geocoder');
 
 // app.use('/pl', express.static('public'));
 // app.use('/en', express.static('public-en'));
@@ -145,10 +144,11 @@ app.post('/google-mapDataExamples', function (req, res) {
 })
 
 app.post('/google-map', function (req, res) {
-    geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
-        res.json(workObjectsWithLocations);
-    })
 
+	res.json(req.session.works);
+    // geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
+    //     res.json(workObjectsWithLocations);
+    // })
 })
 
 
@@ -263,9 +263,6 @@ app.post('/upload', function (req, res) {
 	            parser.parse(fileBuffer.toString(), (err, parsedObjects, queryName) => {
 		            req.session.works = parsedObjects;
 		            req.session.queryName = queryName;
-		            geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
-			            req.session.works = workObjectsWithLocations;
-		            })
 	            });
             } catch (e) {
                 console.log(e)

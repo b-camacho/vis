@@ -1,7 +1,5 @@
-/**
- * Created by nopony on 20.03.17.
- */
-
+const cities = require('./cities.json');
+const journals = require('./journals.json');
 var parser = {};
 
 parser.parse = function (rawText, done) {
@@ -136,6 +134,15 @@ parser.parse = function (rawText, done) {
                     [' ', '.', ',', '\'', '', ':', ';'].forEach(function (ignoredChar) {
                         recordObject.compJournalTitle = recordObject.compJournalTitle.split(ignoredChar).join('')
                     })
+	                if(journals[recordObject.compJournalTitle]) {
+		                let city = journals[recordObject.compJournalTitle].city;
+		                if(city) {
+			                recordObject.city = city;
+			                let latLng = cities[city];
+			                recordObject.latLng = latLng;
+		                }
+	                }
+
 
                     break;
 

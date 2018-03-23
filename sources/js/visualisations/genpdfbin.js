@@ -1,4 +1,3 @@
-console.log("XDDDDDDDDDDd")
 function genPdfDoc() {
 	$.post('/genPdf',
 		{

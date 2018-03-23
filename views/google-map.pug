@@ -62,6 +62,10 @@ block append scripts
 		//    }
 		$(document).ready(function () {
 			$.post("google-map", {}, function (data) {
+				data = data.filter(function (data) {
+					return !!data.latLng
+				})
+				console.log(data)
 				var maxSize = 200;
 				var minSize = 20;
 				var maxAmount = data.length;
@@ -76,17 +80,16 @@ block append scripts
 				//                //for(var prop in datum) if(datum.hasOwnProperty(prop)) console.log(prop);
 				//            })
 				var titles = {};
-				data.forEach((workObject, index) => {
-					if(typeof workObject.lat != 'number') return;
-				titles[index] = workObject.title;
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(workObject.lat, workObject.lng),
-					map: map,
-					clickable: false,
-					titleKey: index
-				})
-				markers.push(marker);
-				markers[markers.length - 1].setClickable(false);
+				data.forEach(function (workObject, index) {
+					titles[index] = workObject.title;
+					var marker = new google.maps.Marker({
+						position: new google.maps.LatLng(workObject.latLng.lat, workObject.latLng.lng),
+						map: map,
+						clickable: false,
+						titleKey: index
+					})
+					markers.push(marker);
+					markers[markers.length - 1].setClickable(false);
 			});
 				var markerCluster = new MarkerClusterer(map, markers, {
 					averageCenter: true,
@@ -107,6 +110,6 @@ block append scripts
 				})
 			});
 		})
-	script(src='/js/load-name.js')
+
 	script(src='/js/markerclusterer.js')
 	script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDlLa8WDlJVmN_zmQ3zw4UrvPujezvkRAo&callback=initMap', async='', defer='')

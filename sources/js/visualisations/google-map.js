@@ -1,10 +1,12 @@
 var map;
 function initMap() {
-	console.log('Running initmap');
-	map = new google.maps.Map($('#svg'), {
-		center: {lat: 52.23, lng: 20.92},
-		zoom: 3
-	});
+	$(document).ready(function () {
+		map = new google.maps.Map('svg', {
+			center: {lat: 52.23, lng: 20.92},
+			zoom: 3
+		});
+	})
+
 }
 
 var clustererStyles = [ {
@@ -46,9 +48,8 @@ var clustererStyles = [ {
 //    }
 
 $(document).ready(function () {
-	console.log('map fetched')
 	$.post("google-map", {}, function (data) {
-
+		console.log(data)
 
 		console.log('posted for data')
 		var maxSize = 200;
@@ -57,7 +58,7 @@ $(document).ready(function () {
 		var calc = function(markers) {
 			var size = (markers.length / maxAmount) * maxSize;
 			if(size < minSize) size = minSize;
-			return {width: size, height: size}0;
+			return {width: size, height: size};
 		}
 
 		var markers = [];
@@ -70,7 +71,7 @@ $(document).ready(function () {
 			if(typeof workObject.lat != 'number') return;
 		titles[index] = workObject.title;
 		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(workObject.lat, workObject.lng),
+			position: new google.maps.LatLng(workObject.latLng.lat, workObject.latLng.lng),
 			map: map,
 			clickable: false,
 			titleKey: index

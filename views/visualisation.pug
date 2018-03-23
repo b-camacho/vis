@@ -10,7 +10,7 @@ block content
 
 			.row(style='padding-left: 10px;')
 				button.btn.line-btn#genPdfBtn(onclick='genPdfDoc()')=lang.generate_pdf
-			if (visname === 'collab')
+			if (visname === 'collab') //TODO: move buttons from research-map.js to if blocks in this file
 				.row(style='padding-left: 10px')
 					button#toggleView.btn.line-btn(onclick='showEdits()')=lang.editorial_view
 

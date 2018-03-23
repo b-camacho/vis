@@ -1,0 +1,3332 @@
+{
+  "Chichester": {
+    "lat": 50.836486,
+    "lng": -0.779172,
+    "name": "Chichester"
+  },
+  "Darmstadt": {
+    "lat": 49.872775,
+    "lng": 8.651178,
+    "name": "Darmstadt"
+  },
+  "Mississauga": {
+    "lat": 43.586162,
+    "lng": -79.646215,
+    "name": "Mississauga"
+  },
+  "Port Republic": {
+    "lat": 39.51934,
+    "lng": -74.490877,
+    "name": "Port Republic"
+  },
+  "Schwalbach": {
+    "lat": 50.497415,
+    "lng": 8.469018,
+    "name": "Schwalbach"
+  },
+  "Cedar Rapids": {
+    "lat": 41.978122,
+    "lng": -91.669808,
+    "name": "Cedar Rapids"
+  },
+  "Warszawa": {
+    "lat": 37.958434,
+    "lng": -76.755329,
+    "name": "Warszawa"
+  },
+  "51-168": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "51-168"
+  },
+  "A Coruña": {
+    "lat": 43.371209,
+    "lng": -8.395877,
+    "name": "A Coruña"
+  },
+  "Aachen": {
+    "lat": 50.776351,
+    "lng": 6.083862,
+    "name": "Aachen"
+  },
+  "Aarhus": {
+    "lat": 56.149628,
+    "lng": 10.213405,
+    "name": "Aarhus"
+  },
+  "Abingdon": {
+    "lat": 36.709074,
+    "lng": -81.976964,
+    "name": "Abingdon"
+  },
+  "Adana": {
+    "lat": 37.003348,
+    "lng": 35.326325,
+    "name": "Adana"
+  },
+  "Ahmedabad": {
+    "lat": 23.021624,
+    "lng": 72.579707,
+    "name": "Ahmedabad"
+  },
+  "Akwizgran": {
+    "lat": 50.776351,
+    "lng": 6.083862,
+    "name": "Akwizgran"
+  },
+  "Alba Iulia": {
+    "lat": 46.068739,
+    "lng": 23.57044,
+    "name": "Alba Iulia"
+  },
+  "Alberta": {
+    "lat": 53.609511,
+    "lng": -115.653249,
+    "name": "Alberta"
+  },
+  "Albuquerque": {
+    "lat": 35.084248,
+    "lng": -106.649241,
+    "name": "Albuquerque"
+  },
+  "Aldershot": {
+    "lat": 51.249417,
+    "lng": -0.763015,
+    "name": "Aldershot"
+  },
+  "Aleksandrów Kujawski": {
+    "lat": 52.876537,
+    "lng": 18.693574,
+    "name": "Aleksandrów Kujawski"
+  },
+  "Alhambra": {
+    "lat": 34.095162,
+    "lng": -118.126842,
+    "name": "Alhambra"
+  },
+  "Aligarh": {
+    "lat": 27.881541,
+    "lng": 78.069022,
+    "name": "Aligarh"
+  },
+  "Amiens": {
+    "lat": 49.894171,
+    "lng": 2.295695,
+    "name": "Amiens"
+  },
+  "Amsterdam": {
+    "lat": 52.371009,
+    "lng": 4.900112,
+    "name": "Amsterdam"
+  },
+  "Angers": {
+    "lat": 47.473988,
+    "lng": -0.551559,
+    "name": "Angers"
+  },
+  "Ankara": {
+    "lat": 39.927232,
+    "lng": 32.851977,
+    "name": "Ankara"
+  },
+  "Ann Arbor": {
+    "lat": 42.281419,
+    "lng": -83.748478,
+    "name": "Ann Arbor"
+  },
+  "Antalya": {
+    "lat": 36.900878,
+    "lng": 30.693712,
+    "name": "Antalya"
+  },
+  "Armonk": {
+    "lat": 41.126645,
+    "lng": -73.713879,
+    "name": "Armonk"
+  },
+  "Assen": {
+    "lat": 52.995354,
+    "lng": 6.560553,
+    "name": "Assen"
+  },
+  "Ateny": {
+    "lat": 37.984149,
+    "lng": 23.727984,
+    "name": "Ateny"
+  },
+  "Athens": {
+    "lat": 37.984149,
+    "lng": 23.727984,
+    "name": "Athens"
+  },
+  "Athens Ohio": {
+    "lat": 39.3292,
+    "lng": -82.101165,
+    "name": "Athens Ohio"
+  },
+  "Atlanta": {
+    "lat": 33.748547,
+    "lng": -84.391502,
+    "name": "Atlanta"
+  },
+  "Auckland": {
+    "lat": -36.541281,
+    "lng": 174.550609,
+    "name": "Auckland"
+  },
+  "Bacau": {
+    "lat": 46.556049,
+    "lng": 26.915356,
+    "name": "Bacau"
+  },
+  "Bach": {
+    "lat": 50.658923,
+    "lng": 7.988319,
+    "name": "Bach"
+  },
+  "Badajoz": {
+    "lat": 38.859946,
+    "lng": -6.971777,
+    "name": "Badajoz"
+  },
+  "Baden-Baden": {
+    "lat": 48.757997,
+    "lng": 8.242288,
+    "name": "Baden-Baden"
+  },
+  "Balice": {
+    "lat": 50.08683,
+    "lng": 19.792135,
+    "name": "Balice"
+  },
+  "Baltimore": {
+    "lat": 39.290443,
+    "lng": -76.612333,
+    "name": "Baltimore"
+  },
+  "Barcelona": {
+    "lat": 41.38256,
+    "lng": 2.177135,
+    "name": "Barcelona"
+  },
+  "Barnet": {
+    "lat": 51.653149,
+    "lng": -0.200541,
+    "name": "Barnet"
+  },
+  "Basel": {
+    "lat": 47.558108,
+    "lng": 7.587826,
+    "name": "Basel"
+  },
+  "Baton Rouge": {
+    "lat": 30.443319,
+    "lng": -91.187488,
+    "name": "Baton Rouge"
+  },
+  "Bayreuth": {
+    "lat": 49.94272,
+    "lng": 11.576308,
+    "name": "Bayreuth"
+  },
+  "Bazylea": {
+    "lat": 47.558108,
+    "lng": 7.587826,
+    "name": "Bazylea"
+  },
+  "Bedford": {
+    "lat": 52.136381,
+    "lng": -0.467504,
+    "name": "Bedford"
+  },
+  "Belgrad": {
+    "lat": 44.817879,
+    "lng": 20.456809,
+    "name": "Belgrad"
+  },
+  "Bellaterra": {
+    "lat": 39.183802,
+    "lng": -0.23525,
+    "name": "Bellaterra"
+  },
+  "Bellingham": {
+    "lat": 48.754899,
+    "lng": -122.478122,
+    "name": "Bellingham"
+  },
+  "Bengaluru": {
+    "lat": 12.97912,
+    "lng": 77.5913,
+    "name": "Bengaluru"
+  },
+  "Bensheim": {
+    "lat": 49.680984,
+    "lng": 8.622773,
+    "name": "Bensheim"
+  },
+  "Bentley": {
+    "lat": 51.989667,
+    "lng": 1.075096,
+    "name": "Bentley"
+  },
+  "Berkeley": {
+    "lat": 37.869058,
+    "lng": -122.270455,
+    "name": "Berkeley"
+  },
+  "Berlin": {
+    "lat": 52.517037,
+    "lng": 13.38886,
+    "name": "Berlin"
+  },
+  "Berno": {
+    "lat": 46.948276,
+    "lng": 7.451501,
+    "name": "Berno"
+  },
+  "Bethesda": {
+    "lat": 38.984757,
+    "lng": -77.094135,
+    "name": "Bethesda"
+  },
+  "Bethesda ": {
+    "lat": 38.984757,
+    "lng": -77.094135,
+    "name": "Bethesda "
+  },
+  "Biała Podlaska": {
+    "lat": 52.03384,
+    "lng": 23.119395,
+    "name": "Biała Podlaska"
+  },
+  "Białowieża": {
+    "lat": 52.70116,
+    "lng": 23.865944,
+    "name": "Białowieża"
+  },
+  "Białystok": {
+    "lat": 53.132398,
+    "lng": 23.159168,
+    "name": "Białystok"
+  },
+  "Bielefeld": {
+    "lat": 52.020775,
+    "lng": 8.530896,
+    "name": "Bielefeld"
+  },
+  "Bielsko-Biała": {
+    "lat": 49.822118,
+    "lng": 19.044894,
+    "name": "Bielsko-Biała"
+  },
+  "Bienne": {
+    "lat": 47.142045,
+    "lng": 7.258567,
+    "name": "Bienne"
+  },
+  "Bilbao": {
+    "lat": 43.262964,
+    "lng": -2.934948,
+    "name": "Bilbao"
+  },
+  "Bingley": {
+    "lat": 53.847953,
+    "lng": -1.838453,
+    "name": "Bingley"
+  },
+  "Birmingham": {
+    "lat": 33.522859,
+    "lng": -86.807705,
+    "name": "Birmingham"
+  },
+  "Błonie": {
+    "lat": 52.196879,
+    "lng": 20.617383,
+    "name": "Błonie"
+  },
+  "Bloomington": {
+    "lat": 39.166587,
+    "lng": -86.534893,
+    "name": "Bloomington"
+  },
+  "Boca Raton": {
+    "lat": 26.35052,
+    "lng": -80.089831,
+    "name": "Boca Raton"
+  },
+  "Bochum": {
+    "lat": 51.482679,
+    "lng": 7.219434,
+    "name": "Bochum"
+  },
+  "Bognor Regis": {
+    "lat": 50.783497,
+    "lng": -0.673072,
+    "name": "Bognor Regis"
+  },
+  "Bolonia": {
+    "lat": 44.493671,
+    "lng": 11.343035,
+    "name": "Bolonia"
+  },
+  "Bonn": {
+    "lat": 50.735851,
+    "lng": 7.10066,
+    "name": "Bonn"
+  },
+  "Bordeaux": {
+    "lat": 44.841223,
+    "lng": -0.580022,
+    "name": "Bordeaux"
+  },
+  "Borne Sulinowo": {
+    "lat": 53.581294,
+    "lng": 16.538117,
+    "name": "Borne Sulinowo"
+  },
+  "Borowy Młyn": {
+    "lat": 33.244636,
+    "lng": -81.358901,
+    "name": "Borowy Młyn"
+  },
+  "Bory Tucholskie": {
+    "lat": 50.68233,
+    "lng": 21.43687,
+    "name": "Bory Tucholskie"
+  },
+  "Boston": {
+    "lat": 42.358894,
+    "lng": -71.056742,
+    "name": "Boston"
+  },
+  "Botucatu": {
+    "lat": -22.887963,
+    "lng": -48.441071,
+    "name": "Botucatu"
+  },
+  "Boulder": {
+    "lat": 40.015831,
+    "lng": -105.27927,
+    "name": "Boulder"
+  },
+  "Bratysława": {
+    "lat": 48.065466,
+    "lng": 17.113207,
+    "name": "Bratysława"
+  },
+  "Braunschweig": {
+    "lat": 52.263996,
+    "lng": 10.525267,
+    "name": "Braunschweig"
+  },
+  "Brentwood": {
+    "lat": 40.372934,
+    "lng": -79.975486,
+    "name": "Brentwood"
+  },
+  "Wrocław": {
+    "lat": 51.108978,
+    "lng": 17.032669,
+    "name": "Wrocław"
+  },
+  "Brisbane": {
+    "lat": -27.468968,
+    "lng": 153.023499,
+    "name": "Brisbane"
+  },
+  "Bristol": {
+    "lat": 51.455699,
+    "lng": -2.595266,
+    "name": "Bristol"
+  },
+  "Brno": {
+    "lat": 49.192244,
+    "lng": 16.611338,
+    "name": "Brno"
+  },
+  "Brodnica": {
+    "lat": 53.25811,
+    "lng": 19.399433,
+    "name": "Brodnica"
+  },
+  "Bron": {
+    "lat": 45.733753,
+    "lng": 4.909235,
+    "name": "Bron"
+  },
+  "Bruksela": {
+    "lat": 50.844041,
+    "lng": 4.367202,
+    "name": "Bruksela"
+  },
+  "Budapeszt": {
+    "lat": 47.498382,
+    "lng": 19.040471,
+    "name": "Budapeszt"
+  },
+  "Buk": {
+    "lat": 52.357408,
+    "lng": 16.51668,
+    "name": "Buk"
+  },
+  "Bukareszt": {
+    "lat": 44.436139,
+    "lng": 26.102744,
+    "name": "Bukareszt"
+  },
+  "Bułgaria": {
+    "lat": 42.760147,
+    "lng": 25.241814,
+    "name": "Bułgaria"
+  },
+  "Bydgoszcz": {
+    "lat": 53.12561,
+    "lng": 18.009013,
+    "name": "Bydgoszcz"
+  },
+  "Bytom": {
+    "lat": 50.347039,
+    "lng": 18.923186,
+    "name": "Bytom"
+  },
+  "Bytów": {
+    "lat": 54.168404,
+    "lng": 17.492151,
+    "name": "Bytów"
+  },
+  "Cáceres": {
+    "lat": 39.475155,
+    "lng": -6.371413,
+    "name": "Cáceres"
+  },
+  "Cairo": {
+    "lat": 30.048819,
+    "lng": 31.243666,
+    "name": "Cairo"
+  },
+  "Calgary": {
+    "lat": 51.046362,
+    "lng": -114.05803,
+    "name": "Calgary"
+  },
+  "Cambridge": {
+    "lat": 42.365248,
+    "lng": -71.105015,
+    "name": "Cambridge"
+  },
+  "Camden": {
+    "lat": 39.945208,
+    "lng": -75.118833,
+    "name": "Camden"
+  },
+  "Campinas": {
+    "lat": -22.90556,
+    "lng": -47.06083,
+    "name": "Campinas"
+  },
+  "Çanakkale": {
+    "lat": 40.150081,
+    "lng": 26.414887,
+    "name": "Çanakkale"
+  },
+  "Canberra ": {
+    "lat": -35.282071,
+    "lng": 149.128667,
+    "name": "Canberra "
+  },
+  "Çankaya/Ankara": {
+    "lat": 39.67946,
+    "lng": 32.33731,
+    "name": "Çankaya/Ankara"
+  },
+  "Canterbury": {
+    "lat": -43.494176,
+    "lng": 171.809845,
+    "name": "Canterbury"
+  },
+  "Caransebeș": {
+    "lat": 45.410611,
+    "lng": 22.218223,
+    "name": "Caransebeș"
+  },
+  "Carlton": {
+    "lat": 54.589671,
+    "lng": -1.389564,
+    "name": "Carlton"
+  },
+  "Cary": {
+    "lat": 35.791444,
+    "lng": -78.781139,
+    "name": "Cary"
+  },
+  "Cham": {
+    "lat": 47.183174,
+    "lng": 8.461948,
+    "name": "Cham"
+  },
+  "Champaign": {
+    "lat": 40.116328,
+    "lng": -88.243522,
+    "name": "Champaign"
+  },
+  "Champaign Illinois": {
+    "lat": 40.116328,
+    "lng": -88.243522,
+    "name": "Champaign Illinois"
+  },
+  "Changchun": {
+    "lat": 43.814405,
+    "lng": 125.316942,
+    "name": "Changchun"
+  },
+  "Charków": {
+    "lat": 49.990279,
+    "lng": 36.230389,
+    "name": "Charków"
+  },
+  "Charlottesville": {
+    "lat": 38.031046,
+    "lng": -78.474159,
+    "name": "Charlottesville"
+  },
+  "Chartum": {
+    "lat": 15.835911,
+    "lng": 32.747666,
+    "name": "Chartum"
+  },
+  "Chełm": {
+    "lat": 51.134682,
+    "lng": 23.48173,
+    "name": "Chełm"
+  },
+  "Chełmża": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Chełmża"
+  },
+  "Chester": {
+    "lat": 53.190887,
+    "lng": -2.890896,
+    "name": "Chester"
+  },
+  "Chicago": {
+    "lat": 41.883229,
+    "lng": -87.632398,
+    "name": "Chicago"
+  },
+  "Chile": {
+    "lat": -35.288689,
+    "lng": -71.231911,
+    "name": "Chile"
+  },
+  "Chojnice": {
+    "lat": 53.697766,
+    "lng": 17.565797,
+    "name": "Chojnice"
+  },
+  "Ćidambaram": {
+    "lat": 11.399483,
+    "lng": 79.690938,
+    "name": "Ćidambaram"
+  },
+  "Cieszyn": {
+    "lat": 49.748862,
+    "lng": 18.633431,
+    "name": "Cieszyn"
+  },
+  "Clayton": {
+    "lat": 37.940544,
+    "lng": -121.933441,
+    "name": "Clayton"
+  },
+  "Cleveland": {
+    "lat": 41.505546,
+    "lng": -81.6915,
+    "name": "Cleveland"
+  },
+  "Cluj-Napoca": {
+    "lat": 46.769337,
+    "lng": 23.59006,
+    "name": "Cluj-Napoca"
+  },
+  "Cluj-Nappoca": {
+    "lat": 44.30048,
+    "lng": 23.78019,
+    "name": "Cluj-Nappoca"
+  },
+  "Coimbra": {
+    "lat": 40.21098,
+    "lng": -8.429206,
+    "name": "Coimbra"
+  },
+  "Cold Spring Harbor": {
+    "lat": 40.872241,
+    "lng": -73.454315,
+    "name": "Cold Spring Harbor"
+  },
+  "College Park": {
+    "lat": 38.987195,
+    "lng": -76.946,
+    "name": "College Park"
+  },
+  "Connecticut": {
+    "lat": 41.575155,
+    "lng": -72.738288,
+    "name": "Connecticut"
+  },
+  "Cumberland": {
+    "lat": 39.647979,
+    "lng": -78.761152,
+    "name": "Cumberland"
+  },
+  "Czeskie Budziejowice": {
+    "lat": 48.974736,
+    "lng": 14.474285,
+    "name": "Czeskie Budziejowice"
+  },
+  "Częstochowa": {
+    "lat": 50.812047,
+    "lng": 19.113213,
+    "name": "Częstochowa"
+  },
+  "Daejeon": {
+    "lat": 36.333302,
+    "lng": 127.433296,
+    "name": "Daejeon"
+  },
+  "Dallas": {
+    "lat": 32.777977,
+    "lng": -96.796215,
+    "name": "Dallas"
+  },
+  "Danbury": {
+    "lat": 41.393666,
+    "lng": -73.451539,
+    "name": "Danbury"
+  },
+  "Darmstadt ": {
+    "lat": 49.872775,
+    "lng": 8.651178,
+    "name": "Darmstadt "
+  },
+  "Davis": {
+    "lat": 38.546421,
+    "lng": -121.745384,
+    "name": "Davis"
+  },
+  "Davos": {
+    "lat": 46.796174,
+    "lng": 9.823727,
+    "name": "Davos"
+  },
+  "Dayton": {
+    "lat": 39.760982,
+    "lng": -84.192203,
+    "name": "Dayton"
+  },
+  "Debrecen": {
+    "lat": 47.531399,
+    "lng": 21.625978,
+    "name": "Debrecen"
+  },
+  "Delhi ": {
+    "lat": 28.657291,
+    "lng": 77.22726,
+    "name": "Delhi "
+  },
+  "Denton": {
+    "lat": 33.215533,
+    "lng": -97.13245,
+    "name": "Denton"
+  },
+  "Deventer ": {
+    "lat": 52.253227,
+    "lng": 6.158473,
+    "name": "Deventer "
+  },
+  "Dharamsala": {
+    "lat": 32.214304,
+    "lng": 76.319672,
+    "name": "Dharamsala"
+  },
+  "Dinkelscherben": {
+    "lat": 48.349232,
+    "lng": 10.589303,
+    "name": "Dinkelscherben"
+  },
+  "Dobrzeń Wielki": {
+    "lat": 43.247651,
+    "lng": -89.343827,
+    "name": "Dobrzeń Wielki"
+  },
+  "Dordrecht": {
+    "lat": 51.795881,
+    "lng": 4.677935,
+    "name": "Dordrecht"
+  },
+  "Duluth": {
+    "lat": 46.782882,
+    "lng": -92.105457,
+    "name": "Duluth"
+  },
+  "Durham": {
+    "lat": 35.996948,
+    "lng": -78.899023,
+    "name": "Durham"
+  },
+  "Działdowo": {
+    "lat": 53.236323,
+    "lng": 20.176209,
+    "name": "Działdowo"
+  },
+  "Eastbourne": {
+    "lat": 50.768563,
+    "lng": 0.29703,
+    "name": "Eastbourne"
+  },
+  "Edwardsville": {
+    "lat": 38.811309,
+    "lng": -89.955724,
+    "name": "Edwardsville"
+  },
+  "Edynburg": {
+    "lat": 55.94834,
+    "lng": -3.193272,
+    "name": "Edynburg"
+  },
+  "Eianina": {
+    "lat": 32.829168,
+    "lng": -117.248044,
+    "name": "Eianina"
+  },
+  "Elbląg": {
+    "lat": 54.158688,
+    "lng": 19.395885,
+    "name": "Elbląg"
+  },
+  "Ełk": {
+    "lat": 53.82497,
+    "lng": 22.361359,
+    "name": "Ełk"
+  },
+  "Erfurt": {
+    "lat": 50.977829,
+    "lng": 11.029646,
+    "name": "Erfurt"
+  },
+  "Eschborn": {
+    "lat": 50.143422,
+    "lng": 8.573204,
+    "name": "Eschborn"
+  },
+  "Exeter": {
+    "lat": 50.725647,
+    "lng": -3.526661,
+    "name": "Exeter"
+  },
+  "Fairfax": {
+    "lat": 38.847183,
+    "lng": -77.306292,
+    "name": "Fairfax"
+  },
+  "Fairfield": {
+    "lat": 38.251488,
+    "lng": -122.049851,
+    "name": "Fairfield"
+  },
+  "Fajsalabad": {
+    "lat": 31.422056,
+    "lng": 73.092325,
+    "name": "Fajsalabad"
+  },
+  "Fayetteville": {
+    "lat": 36.061928,
+    "lng": -94.160583,
+    "name": "Fayetteville"
+  },
+  "Filadelfia": {
+    "lat": 39.951061,
+    "lng": -75.16562,
+    "name": "Filadelfia"
+  },
+  "Florencja": {
+    "lat": 43.769871,
+    "lng": 11.255576,
+    "name": "Florencja"
+  },
+  "Frankfurt": {
+    "lat": 50.110653,
+    "lng": 8.682093,
+    "name": "Frankfurt"
+  },
+  "Frankfurt nad Menem": {
+    "lat": 50.110653,
+    "lng": 8.682093,
+    "name": "Frankfurt nad Menem"
+  },
+  "Freiburg": {
+    "lat": 46.678912,
+    "lng": 7.102711,
+    "name": "Freiburg"
+  },
+  "Freising": {
+    "lat": 48.400791,
+    "lng": 11.74376,
+    "name": "Freising"
+  },
+  "Frombork": {
+    "lat": 54.358363,
+    "lng": 19.68237,
+    "name": "Frombork"
+  },
+  "Fryburg Bryzgowijski": {
+    "lat": 48.002132,
+    "lng": 7.823903,
+    "name": "Fryburg Bryzgowijski"
+  },
+  "Gainesville": {
+    "lat": 29.651958,
+    "lng": -82.325024,
+    "name": "Gainesville"
+  },
+  "Gaithersburg": {
+    "lat": 39.142187,
+    "lng": -77.193402,
+    "name": "Gaithersburg"
+  },
+  "Gardolo": {
+    "lat": 39.363578,
+    "lng": -121.696463,
+    "name": "Gardolo"
+  },
+  "Gdańsk": {
+    "lat": 54.348226,
+    "lng": 18.654289,
+    "name": "Gdańsk"
+  },
+  "Gdynia": {
+    "lat": 54.503558,
+    "lng": 18.46255,
+    "name": "Gdynia"
+  },
+  "Genewa": {
+    "lat": 46.201756,
+    "lng": 6.146601,
+    "name": "Genewa"
+  },
+  "Georgetown": {
+    "lat": 6.802577,
+    "lng": -58.162861,
+    "name": "Georgetown"
+  },
+  "Getynga": {
+    "lat": 51.53276,
+    "lng": 9.935205,
+    "name": "Getynga"
+  },
+  "Giessen": {
+    "lat": 50.584398,
+    "lng": 8.67487,
+    "name": "Giessen"
+  },
+  "Giżycko": {
+    "lat": 54.040026,
+    "lng": 21.771557,
+    "name": "Giżycko"
+  },
+  "Glen Carbon": {
+    "lat": 38.749393,
+    "lng": -89.980527,
+    "name": "Glen Carbon"
+  },
+  "Gliwice": {
+    "lat": 50.294113,
+    "lng": 18.665731,
+    "name": "Gliwice"
+  },
+  "Gniezno": {
+    "lat": 52.535978,
+    "lng": 17.595886,
+    "name": "Gniezno"
+  },
+  "Goradnâ": {
+    "lat": 48.41862,
+    "lng": 21.17462,
+    "name": "Goradnâ"
+  },
+  "Görlitz": {
+    "lat": 51.151743,
+    "lng": 14.984403,
+    "name": "Görlitz"
+  },
+  "Górna Grupa - Dragacz": {
+    "lat": 36.072701,
+    "lng": -79.793899,
+    "name": "Górna Grupa - Dragacz"
+  },
+  "Gorzów Wielkopolski": {
+    "lat": 52.730993,
+    "lng": 15.240045,
+    "name": "Gorzów Wielkopolski"
+  },
+  "Gottingen": {
+    "lat": 51.53276,
+    "lng": 9.935205,
+    "name": "Gottingen"
+  },
+  "Göttingen": {
+    "lat": 51.53276,
+    "lng": 9.935205,
+    "name": "Göttingen"
+  },
+  "Göttingen ": {
+    "lat": 51.53276,
+    "lng": 9.935205,
+    "name": "Göttingen "
+  },
+  "Göttingen": {
+    "lat": 51.53276,
+    "lng": 9.935205,
+    "name": "Göttingen"
+  },
+  "Grabonóg ": {
+    "lat": 33.244437,
+    "lng": -84.263911,
+    "name": "Grabonóg "
+  },
+  "Grajewo": {
+    "lat": 53.647567,
+    "lng": 22.455389,
+    "name": "Grajewo"
+  },
+  "Grańsk": {
+    "lat": 54.35603,
+    "lng": 18.64612,
+    "name": "Grańsk"
+  },
+  "Greenville": {
+    "lat": 34.850746,
+    "lng": -82.398964,
+    "name": "Greenville"
+  },
+  "Greenwith": {
+    "lat": -34.78745,
+    "lng": 138.72926,
+    "name": "Greenwith"
+  },
+  "Greifswald ": {
+    "lat": 54.095791,
+    "lng": 13.381524,
+    "name": "Greifswald "
+  },
+  "Grenada": {
+    "lat": 37.18302,
+    "lng": -3.602192,
+    "name": "Grenada"
+  },
+  "Gródek": {
+    "lat": 49.616613,
+    "lng": 18.737311,
+    "name": "Gródek"
+  },
+  "Groningen": {
+    "lat": 53.219065,
+    "lng": 6.568008,
+    "name": "Groningen"
+  },
+  "Grudziądz": {
+    "lat": 53.472657,
+    "lng": 18.772124,
+    "name": "Grudziądz"
+  },
+  "Guilford": {
+    "lat": 41.281228,
+    "lng": -72.681651,
+    "name": "Guilford"
+  },
+  "Gütersloh": {
+    "lat": 51.9064,
+    "lng": 8.378208,
+    "name": "Gütersloh"
+  },
+  "Haga": {
+    "lat": 52.079984,
+    "lng": 4.311346,
+    "name": "Haga"
+  },
+  "Hajdarabad": {
+    "lat": 17.361623,
+    "lng": 78.474731,
+    "name": "Hajdarabad"
+  },
+  "Halle": {
+    "lat": 50.736803,
+    "lng": 4.232848,
+    "name": "Halle"
+  },
+  "Hamburg": {
+    "lat": 53.550341,
+    "lng": 10.000654,
+    "name": "Hamburg"
+  },
+  "Hannover": {
+    "lat": 52.374478,
+    "lng": 9.738553,
+    "name": "Hannover"
+  },
+  "Heidelberg": {
+    "lat": 49.409361,
+    "lng": 8.694813,
+    "name": "Heidelberg"
+  },
+  "Heidelberg ": {
+    "lat": 49.409361,
+    "lng": 8.694813,
+    "name": "Heidelberg "
+  },
+  "Hel": {
+    "lat": 54.606643,
+    "lng": 18.802878,
+    "name": "Hel"
+  },
+  "Helsinki": {
+    "lat": 60.166628,
+    "lng": 24.943508,
+    "name": "Helsinki"
+  },
+  "Henderson": {
+    "lat": 36.034095,
+    "lng": -114.984455,
+    "name": "Henderson"
+  },
+  "Hertford": {
+    "lat": 51.795741,
+    "lng": -0.078521,
+    "name": "Hertford"
+  },
+  "Heverlee": {
+    "lat": 50.864591,
+    "lng": 4.693774,
+    "name": "Heverlee"
+  },
+  "Hildesheim": {
+    "lat": 52.153218,
+    "lng": 9.952394,
+    "name": "Hildesheim"
+  },
+  "Hilversum": {
+    "lat": 52.22481,
+    "lng": 5.176352,
+    "name": "Hilversum"
+  },
+  "Hiroszima": {
+    "lat": 34.391606,
+    "lng": 132.451816,
+    "name": "Hiroszima"
+  },
+  "Hoboken": {
+    "lat": 40.743464,
+    "lng": -74.029065,
+    "name": "Hoboken"
+  },
+  "Hollywood": {
+    "lat": 34.098301,
+    "lng": -118.325798,
+    "name": "Hollywood"
+  },
+  "Homel": {
+    "lat": 52.436834,
+    "lng": 30.97434,
+    "name": "Homel"
+  },
+  "Houston": {
+    "lat": 29.760803,
+    "lng": -95.369506,
+    "name": "Houston"
+  },
+  "Hradec Králové": {
+    "lat": 50.209444,
+    "lng": 15.826944,
+    "name": "Hradec Králové"
+  },
+  "Hradec Králové": {
+    "lat": 50.209444,
+    "lng": 15.826944,
+    "name": "Hradec Králové"
+  },
+  "Hradec Králové ": {
+    "lat": 50.209444,
+    "lng": 15.826944,
+    "name": "Hradec Králové "
+  },
+  "Huesca": {
+    "lat": 42.138254,
+    "lng": -0.40809,
+    "name": "Huesca"
+  },
+  "Igalo": {
+    "lat": 42.443467,
+    "lng": 18.499644,
+    "name": "Igalo"
+  },
+  "Indiana": {
+    "lat": 39.919991,
+    "lng": -86.2818,
+    "name": "Indiana"
+  },
+  "Indore": {
+    "lat": 22.720385,
+    "lng": 75.86821,
+    "name": "Indore"
+  },
+  "Innsbruck": {
+    "lat": 47.26543,
+    "lng": 11.392769,
+    "name": "Innsbruck"
+  },
+  "Inowrocław": {
+    "lat": 52.795241,
+    "lng": 18.259562,
+    "name": "Inowrocław"
+  },
+  "Instabul": {
+    "lat": -35.07117,
+    "lng": 138.60027,
+    "name": "Instabul"
+  },
+  "Ipswich": {
+    "lat": 52.05795,
+    "lng": 1.152635,
+    "name": "Ipswich"
+  },
+  "Irvine": {
+    "lat": 33.685908,
+    "lng": -117.824719,
+    "name": "Irvine"
+  },
+  "Izmir": {
+    "lat": 38.415342,
+    "lng": 27.144474,
+    "name": "Izmir"
+  },
+  "j. w.": {
+    "lat": 30.355241,
+    "lng": -94.193678,
+    "name": "j. w."
+  },
+  "Jabłonna": {
+    "lat": 49.66104,
+    "lng": 14.138441,
+    "name": "Jabłonna"
+  },
+  "Jassy": {
+    "lat": 47.161494,
+    "lng": 27.58405,
+    "name": "Jassy"
+  },
+  "Jekaterynburg": {
+    "lat": 56.839103,
+    "lng": 60.60825,
+    "name": "Jekaterynburg"
+  },
+  "Jelenia Góra": {
+    "lat": 50.903103,
+    "lng": 15.734431,
+    "name": "Jelenia Góra"
+  },
+  "Jena": {
+    "lat": 50.93314,
+    "lng": 11.583309,
+    "name": "Jena"
+  },
+  "Jeruzalem": {
+    "lat": 31.796816,
+    "lng": 35.213782,
+    "name": "Jeruzalem"
+  },
+  "Józefów": {
+    "lat": 51.408064,
+    "lng": 19.342523,
+    "name": "Józefów"
+  },
+  "Julianów": {
+    "lat": 51.321082,
+    "lng": 21.532018,
+    "name": "Julianów"
+  },
+  "Kadyks": {
+    "lat": 36.521647,
+    "lng": -6.282601,
+    "name": "Kadyks"
+  },
+  "Kair": {
+    "lat": 30.048819,
+    "lng": 31.243666,
+    "name": "Kair"
+  },
+  "Kaliningrad": {
+    "lat": 54.706642,
+    "lng": 20.510517,
+    "name": "Kaliningrad"
+  },
+  "Kalisz": {
+    "lat": 51.757765,
+    "lng": 18.083346,
+    "name": "Kalisz"
+  },
+  "Kamieniec Wrocławski": {
+    "lat": 34.961781,
+    "lng": -77.961988,
+    "name": "Kamieniec Wrocławski"
+  },
+  "Karaczi": {
+    "lat": 24.86678,
+    "lng": 67.031129,
+    "name": "Karaczi"
+  },
+  "Karaikudi": {
+    "lat": 10.068091,
+    "lng": 78.765701,
+    "name": "Karaikudi"
+  },
+  "Karlowe Wary": {
+    "lat": 50.230469,
+    "lng": 12.871077,
+    "name": "Karlowe Wary"
+  },
+  "Karlsruhe": {
+    "lat": 49.014068,
+    "lng": 8.404437,
+    "name": "Karlsruhe"
+  },
+  "Katlenburg-Lindau": {
+    "lat": 47.550753,
+    "lng": 9.692662,
+    "name": "Katlenburg-Lindau"
+  },
+  "Katowice": {
+    "lat": 50.259432,
+    "lng": 19.022134,
+    "name": "Katowice"
+  },
+  "Katowice ": {
+    "lat": 50.259432,
+    "lng": 19.022134,
+    "name": "Katowice "
+  },
+  "Kawasaki": {
+    "lat": 35.50357,
+    "lng": 139.745784,
+    "name": "Kawasaki"
+  },
+  "Kazachstan": {
+    "lat": 50.5093,
+    "lng": 64.914497,
+    "name": "Kazachstan"
+  },
+  "Kelowna": {
+    "lat": 49.883706,
+    "lng": -119.493496,
+    "name": "Kelowna"
+  },
+  "Kielce": {
+    "lat": 50.871788,
+    "lng": 20.630835,
+    "name": "Kielce"
+  },
+  "Kijów": {
+    "lat": 50.449988,
+    "lng": 30.523494,
+    "name": "Kijów"
+  },
+  "Kilece": {
+    "lat": -5.05876,
+    "lng": 18.06358,
+    "name": "Kilece"
+  },
+  "Kioto": {
+    "lat": 35.01858,
+    "lng": 135.763835,
+    "name": "Kioto"
+  },
+  "Kiszyniów": {
+    "lat": 47.012274,
+    "lng": 28.860594,
+    "name": "Kiszyniów"
+  },
+  "Klagenfurt am Wörthersee": {
+    "lat": 46.622816,
+    "lng": 14.30796,
+    "name": "Klagenfurt am Wörthersee"
+  },
+  "Kłajpeda": {
+    "lat": 55.710121,
+    "lng": 21.130698,
+    "name": "Kłajpeda"
+  },
+  "Knivsta": {
+    "lat": 59.728272,
+    "lng": 17.788173,
+    "name": "Knivsta"
+  },
+  "Kocani": {
+    "lat": 41.921133,
+    "lng": 22.411418,
+    "name": "Kocani"
+  },
+  "Kołobrzeg": {
+    "lat": 54.17609,
+    "lng": 15.576603,
+    "name": "Kołobrzeg"
+  },
+  "Kolonia": {
+    "lat": 50.938361,
+    "lng": 6.959974,
+    "name": "Kolonia"
+  },
+  "Komorów": {
+    "lat": 51.963062,
+    "lng": 14.763931,
+    "name": "Komorów"
+  },
+  "Konin": {
+    "lat": 52.230193,
+    "lng": 18.252111,
+    "name": "Konin"
+  },
+  "Konstancin": {
+    "lat": 41.927062,
+    "lng": -73.997619,
+    "name": "Konstancin"
+  },
+  "Konstantynów Łódzki": {
+    "lat": 51.747555,
+    "lng": 19.325512,
+    "name": "Konstantynów Łódzki"
+  },
+  "Kopenhaga": {
+    "lat": 55.686724,
+    "lng": 12.570069,
+    "name": "Kopenhaga"
+  },
+  "Koper": {
+    "lat": 45.547955,
+    "lng": 13.730491,
+    "name": "Koper"
+  },
+  "Kórnik": {
+    "lat": 52.249275,
+    "lng": 17.090124,
+    "name": "Kórnik"
+  },
+  "Kościerzyna": {
+    "lat": 54.121369,
+    "lng": 17.978376,
+    "name": "Kościerzyna"
+  },
+  "Košice": {
+    "lat": 48.717227,
+    "lng": 21.249677,
+    "name": "Košice"
+  },
+  "Koszalin": {
+    "lat": 54.19092,
+    "lng": 16.17707,
+    "name": "Koszalin"
+  },
+  "Köthen": {
+    "lat": 51.750005,
+    "lng": 11.966699,
+    "name": "Köthen"
+  },
+  "Kowal": {
+    "lat": 52.53106,
+    "lng": 19.15067,
+    "name": "Kowal"
+  },
+  "Kowno": {
+    "lat": 54.898106,
+    "lng": 23.911752,
+    "name": "Kowno"
+  },
+  "Krakow": {
+    "lat": 50.061947,
+    "lng": 19.936856,
+    "name": "Krakow"
+  },
+  "Kraków": {
+    "lat": 50.061947,
+    "lng": 19.936856,
+    "name": "Kraków"
+  },
+  "KRAKÓW": {
+    "lat": 50.061947,
+    "lng": 19.936856,
+    "name": "KRAKÓW"
+  },
+  "Kruševac": {
+    "lat": 43.583831,
+    "lng": 21.326592,
+    "name": "Kruševac"
+  },
+  "Kurytyba": {
+    "lat": -25.428693,
+    "lng": -49.272373,
+    "name": "Kurytyba"
+  },
+  "Kutno": {
+    "lat": 52.231756,
+    "lng": 19.357018,
+    "name": "Kutno"
+  },
+  "Kwidzyn": {
+    "lat": 53.733584,
+    "lng": 18.931922,
+    "name": "Kwidzyn"
+  },
+  "Kwidzyń": {
+    "lat": 53.733584,
+    "lng": 18.931922,
+    "name": "Kwidzyń"
+  },
+  "La Grange Park": {
+    "lat": 41.822448,
+    "lng": -87.872588,
+    "name": "La Grange Park"
+  },
+  "Lae": {
+    "lat": -6.73259,
+    "lng": 147.002109,
+    "name": "Lae"
+  },
+  "Lampertheim": {
+    "lat": 48.651979,
+    "lng": 7.698666,
+    "name": "Lampertheim"
+  },
+  "Las Vegas": {
+    "lat": 36.169202,
+    "lng": -115.140597,
+    "name": "Las Vegas"
+  },
+  "Lawrence": {
+    "lat": 38.973037,
+    "lng": -95.235957,
+    "name": "Lawrence"
+  },
+  "Lębork": {
+    "lat": 54.53915,
+    "lng": 17.747227,
+    "name": "Lębork"
+  },
+  "Legnica": {
+    "lat": 51.201814,
+    "lng": 16.16709,
+    "name": "Legnica"
+  },
+  "Lejda": {
+    "lat": 52.159865,
+    "lng": 4.482427,
+    "name": "Lejda"
+  },
+  "Lejda/Boston": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Lejda/Boston"
+  },
+  "Les Ulis": {
+    "lat": 48.680559,
+    "lng": 2.169009,
+    "name": "Les Ulis"
+  },
+  "Leszno": {
+    "lat": 51.843445,
+    "lng": 16.574378,
+    "name": "Leszno"
+  },
+  "Leuvain": {
+    "lat": 50.87983,
+    "lng": 4.70054,
+    "name": "Leuvain"
+  },
+  "Leverkusen": {
+    "lat": 51.032474,
+    "lng": 6.988119,
+    "name": "Leverkusen"
+  },
+  "Liberec": {
+    "lat": 50.770265,
+    "lng": 15.058395,
+    "name": "Liberec"
+  },
+  "Libertyville": {
+    "lat": 42.282996,
+    "lng": -87.953339,
+    "name": "Libertyville"
+  },
+  "Licheń Stary": {
+    "lat": 34.052238,
+    "lng": -118.243344,
+    "name": "Licheń Stary"
+  },
+  "Liége": {
+    "lat": 50.645138,
+    "lng": 5.57342,
+    "name": "Liége"
+  },
+  "Lipno": {
+    "lat": 51.01879,
+    "lng": 26.03451,
+    "name": "Lipno"
+  },
+  "Lipsk": {
+    "lat": 53.733277,
+    "lng": 23.401722,
+    "name": "Lipsk"
+  },
+  "Lisse": {
+    "lat": 52.25761,
+    "lng": 4.563033,
+    "name": "Lisse"
+  },
+  "Liszki": {
+    "lat": 50.038467,
+    "lng": 19.766159,
+    "name": "Liszki"
+  },
+  "Lizbona": {
+    "lat": 38.713057,
+    "lng": -9.138006,
+    "name": "Lizbona"
+  },
+  "Lleida": {
+    "lat": 41.614761,
+    "lng": 0.626784,
+    "name": "Lleida"
+  },
+  "Łódź": {
+    "lat": 51.768749,
+    "lng": 19.456982,
+    "name": "Łódź"
+  },
+  "Łódż": {
+    "lat": 51.768749,
+    "lng": 19.456982,
+    "name": "Łódż"
+  },
+  "Łomża": {
+    "lat": 53.17507,
+    "lng": 22.072755,
+    "name": "Łomża"
+  },
+  "Londyn": {
+    "lat": 51.507276,
+    "lng": -0.12766,
+    "name": "Londyn"
+  },
+  "Londyn/Filadelfia": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Londyn/Filadelfia"
+  },
+  "Londyn/Nowy Jork": {
+    "lat": 53.56578,
+    "lng": 9.62098,
+    "name": "Londyn/Nowy Jork"
+  },
+  "Los Angeles": {
+    "lat": 34.052238,
+    "lng": -118.243344,
+    "name": "Los Angeles"
+  },
+  "Lozanna": {
+    "lat": 46.521827,
+    "lng": 6.632703,
+    "name": "Lozanna"
+  },
+  "Lubawa": {
+    "lat": 53.505148,
+    "lng": 19.749406,
+    "name": "Lubawa"
+  },
+  "Lubbock": {
+    "lat": 33.583578,
+    "lng": -101.855113,
+    "name": "Lubbock"
+  },
+  "Lubeka": {
+    "lat": 53.866444,
+    "lng": 10.684738,
+    "name": "Lubeka"
+  },
+  "Lublana": {
+    "lat": 46.049865,
+    "lng": 14.506892,
+    "name": "Lublana"
+  },
+  "Lublin": {
+    "lat": 51.250559,
+    "lng": 22.570102,
+    "name": "Lublin"
+  },
+  "LUBOŃ": {
+    "lat": 52.345817,
+    "lng": 16.878479,
+    "name": "LUBOŃ"
+  },
+  "Lugansk": {
+    "lat": 48.5687,
+    "lng": 39.315111,
+    "name": "Lugansk"
+  },
+  "Lugo": {
+    "lat": 43.010609,
+    "lng": -7.556567,
+    "name": "Lugo"
+  },
+  "Luleå": {
+    "lat": 65.583135,
+    "lng": 22.146013,
+    "name": "Luleå"
+  },
+  "Lüneburg": {
+    "lat": 53.248706,
+    "lng": 10.407856,
+    "name": "Lüneburg"
+  },
+  "Luton": {
+    "lat": 51.878309,
+    "lng": -0.418273,
+    "name": "Luton"
+  },
+  "Lwów": {
+    "lat": 49.841951,
+    "lng": 24.031597,
+    "name": "Lwów"
+  },
+  "Lyon": {
+    "lat": 45.757598,
+    "lng": 4.832332,
+    "name": "Lyon"
+  },
+  "Madison": {
+    "lat": 43.073926,
+    "lng": -89.385244,
+    "name": "Madison"
+  },
+  "Madryt": {
+    "lat": 40.416705,
+    "lng": -3.703583,
+    "name": "Madryt"
+  },
+  "Magdalenka": {
+    "lat": 53.268657,
+    "lng": 18.121775,
+    "name": "Magdalenka"
+  },
+  "Malaga": {
+    "lat": 36.721081,
+    "lng": -4.421041,
+    "name": "Malaga"
+  },
+  "Malaty": {
+    "lat": 55.232058,
+    "lng": 25.418119,
+    "name": "Malaty"
+  },
+  "Malden": {
+    "lat": 42.426499,
+    "lng": -71.073534,
+    "name": "Malden"
+  },
+  "Malezja": {
+    "lat": 2.5961,
+    "lng": 112.883904,
+    "name": "Malezja"
+  },
+  "Manama": {
+    "lat": 26.223504,
+    "lng": 50.582244,
+    "name": "Manama"
+  },
+  "Manchester ": {
+    "lat": 53.479147,
+    "lng": -2.244745,
+    "name": "Manchester "
+  },
+  "Marbach": {
+    "lat": 47.72507,
+    "lng": 11.952429,
+    "name": "Marbach"
+  },
+  "Marburg": {
+    "lat": 46.555628,
+    "lng": 15.64477,
+    "name": "Marburg"
+  },
+  "Marburg/Lahn ": {
+    "lat": 35.845963,
+    "lng": -86.391449,
+    "name": "Marburg/Lahn "
+  },
+  "Maryland Heights": {
+    "lat": 38.712264,
+    "lng": -90.46815,
+    "name": "Maryland Heights"
+  },
+  "Matsumoto": {
+    "lat": 36.237623,
+    "lng": 137.972048,
+    "name": "Matsumoto"
+  },
+  "Mechernich": {
+    "lat": 50.591,
+    "lng": 6.652548,
+    "name": "Mechernich"
+  },
+  "Medford": {
+    "lat": 42.326543,
+    "lng": -122.872185,
+    "name": "Medford"
+  },
+  "Mediolan": {
+    "lat": 45.466797,
+    "lng": 9.190498,
+    "name": "Mediolan"
+  },
+  "Mehsana": {
+    "lat": 32.836038,
+    "lng": -83.631709,
+    "name": "Mehsana"
+  },
+  "Meksyk": {
+    "lat": 19.43253,
+    "lng": -99.13321,
+    "name": "Meksyk"
+  },
+  "Melville": {
+    "lat": 50.932164,
+    "lng": -102.80342,
+    "name": "Melville"
+  },
+  "Memmingen": {
+    "lat": 47.98677,
+    "lng": 10.181319,
+    "name": "Memmingen"
+  },
+  "Menasha": {
+    "lat": 44.211003,
+    "lng": -88.437881,
+    "name": "Menasha"
+  },
+  "Mérignac": {
+    "lat": 44.842236,
+    "lng": -0.64696,
+    "name": "Mérignac"
+  },
+  "Messina": {
+    "lat": 38.193757,
+    "lng": 15.554208,
+    "name": "Messina"
+  },
+  "Milano": {
+    "lat": 45.466797,
+    "lng": 9.190498,
+    "name": "Milano"
+  },
+  "Milwaukee": {
+    "lat": 43.041072,
+    "lng": -87.909421,
+    "name": "Milwaukee"
+  },
+  "Minikow": {
+    "lat": 35.10876,
+    "lng": 33.14439,
+    "name": "Minikow"
+  },
+  "Mińsk": {
+    "lat": 53.902253,
+    "lng": 27.561863,
+    "name": "Mińsk"
+  },
+  "Moguncja": {
+    "lat": 49.999995,
+    "lng": 8.271024,
+    "name": "Moguncja"
+  },
+  "Monachium": {
+    "lat": 48.13641,
+    "lng": 11.57753,
+    "name": "Monachium"
+  },
+  "Monfave": {
+    "lat": 35.05232,
+    "lng": -118.17363,
+    "name": "Monfave"
+  },
+  "Monroe Township": {
+    "lat": 39.658692,
+    "lng": -83.195424,
+    "name": "Monroe Township"
+  },
+  "Monte Carlo": {
+    "lat": 43.851246,
+    "lng": 10.668308,
+    "name": "Monte Carlo"
+  },
+  "Montreal": {
+    "lat": 45.509062,
+    "lng": -73.553363,
+    "name": "Montreal"
+  },
+  "Moskwa": {
+    "lat": 55.751634,
+    "lng": 37.618704,
+    "name": "Moskwa"
+  },
+  "München": {
+    "lat": 48.13641,
+    "lng": 11.57753,
+    "name": "München"
+  },
+  "Münster": {
+    "lat": 51.96251,
+    "lng": 7.625188,
+    "name": "Münster"
+  },
+  "Murcja": {
+    "lat": 37.99238,
+    "lng": -1.130543,
+    "name": "Murcja"
+  },
+  "Murray Hill": {
+    "lat": 38.290549,
+    "lng": -85.586627,
+    "name": "Murray Hill"
+  },
+  "Mysłowice": {
+    "lat": 50.241472,
+    "lng": 19.141453,
+    "name": "Mysłowice"
+  },
+  "Nakło nad Notecią": {
+    "lat": 53.13869,
+    "lng": 17.599889,
+    "name": "Nakło nad Notecią"
+  },
+  "Nancy": {
+    "lat": 48.692805,
+    "lng": 6.183812,
+    "name": "Nancy"
+  },
+  "Neapol": {
+    "lat": 40.844116,
+    "lng": 14.2423,
+    "name": "Neapol"
+  },
+  "Nesna": {
+    "lat": 66.199792,
+    "lng": 13.018931,
+    "name": "Nesna"
+  },
+  "Neuwied": {
+    "lat": 50.430259,
+    "lng": 7.466311,
+    "name": "Neuwied"
+  },
+  "New Delhi": {
+    "lat": 28.613897,
+    "lng": 77.215956,
+    "name": "New Delhi"
+  },
+  "New Haven": {
+    "lat": 41.308252,
+    "lng": -72.924161,
+    "name": "New Haven"
+  },
+  "New Rochelle": {
+    "lat": 40.911546,
+    "lng": -73.782337,
+    "name": "New Rochelle"
+  },
+  "Newark": {
+    "lat": 40.731507,
+    "lng": -74.174388,
+    "name": "Newark"
+  },
+  "Newmarket": {
+    "lat": 52.243851,
+    "lng": 0.408823,
+    "name": "Newmarket"
+  },
+  "Newtown": {
+    "lat": 52.51398,
+    "lng": -3.314097,
+    "name": "Newtown"
+  },
+  "Nicosia": {
+    "lat": 35.17393,
+    "lng": 33.364726,
+    "name": "Nicosia"
+  },
+  "Niezidentyfikowane": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Niezidentyfikowane"
+  },
+  "Niles": {
+    "lat": 42.026123,
+    "lng": -87.800711,
+    "name": "Niles"
+  },
+  "Nitra": {
+    "lat": 48.31295,
+    "lng": 18.089459,
+    "name": "Nitra"
+  },
+  "Norymberga": {
+    "lat": 49.45385,
+    "lng": 11.077324,
+    "name": "Norymberga"
+  },
+  "Nowe Miasto Lubawskie": {
+    "lat": 53.425593,
+    "lng": 19.593628,
+    "name": "Nowe Miasto Lubawskie"
+  },
+  "Nowosybirsk": {
+    "lat": 55.028222,
+    "lng": 82.923448,
+    "name": "Nowosybirsk"
+  },
+  "Nowy Jork": {
+    "lat": 40.713054,
+    "lng": -74.007228,
+    "name": "Nowy Jork"
+  },
+  "Nowy Sącz": {
+    "lat": 49.624917,
+    "lng": 20.691346,
+    "name": "Nowy Sącz"
+  },
+  "Nowy Sad": {
+    "lat": 45.255105,
+    "lng": 19.845081,
+    "name": "Nowy Sad"
+  },
+  "Nürnberg": {
+    "lat": 49.45385,
+    "lng": 11.077324,
+    "name": "Nürnberg"
+  },
+  "Nysa": {
+    "lat": 50.473803,
+    "lng": 17.332473,
+    "name": "Nysa"
+  },
+  "Oegstgest": {
+    "lat": 49.82462,
+    "lng": 3.24765,
+    "name": "Oegstgest"
+  },
+  "Ojców": {
+    "lat": 50.209986,
+    "lng": 19.829371,
+    "name": "Ojców"
+  },
+  "Okayama": {
+    "lat": 34.655447,
+    "lng": 133.920107,
+    "name": "Okayama"
+  },
+  "Oldenburg": {
+    "lat": 53.138975,
+    "lng": 8.214602,
+    "name": "Oldenburg"
+  },
+  "Olney": {
+    "lat": 39.152619,
+    "lng": -77.066893,
+    "name": "Olney"
+  },
+  "Olney ": {
+    "lat": 39.152619,
+    "lng": -77.066893,
+    "name": "Olney "
+  },
+  "Olomouc": {
+    "lat": 49.594137,
+    "lng": 17.25083,
+    "name": "Olomouc"
+  },
+  "Ołomuniec": {
+    "lat": 49.594137,
+    "lng": 17.25083,
+    "name": "Ołomuniec"
+  },
+  "Olsztyn": {
+    "lat": 53.775411,
+    "lng": 20.481225,
+    "name": "Olsztyn"
+  },
+  "OLSZTYN": {
+    "lat": 53.775411,
+    "lng": 20.481225,
+    "name": "OLSZTYN"
+  },
+  "Omsk": {
+    "lat": 54.991375,
+    "lng": 73.371488,
+    "name": "Omsk"
+  },
+  "Opole": {
+    "lat": 50.666818,
+    "lng": 17.923641,
+    "name": "Opole"
+  },
+  "Oradea": {
+    "lat": 47.056927,
+    "lng": 21.932605,
+    "name": "Oradea"
+  },
+  "Orchard Park": {
+    "lat": 42.767456,
+    "lng": -78.743906,
+    "name": "Orchard Park"
+  },
+  "Orlando": {
+    "lat": 28.538331,
+    "lng": -81.378879,
+    "name": "Orlando"
+  },
+  "Osaka": {
+    "lat": 34.685293,
+    "lng": 135.514694,
+    "name": "Osaka"
+  },
+  "Osijek": {
+    "lat": 45.554104,
+    "lng": 18.689682,
+    "name": "Osijek"
+  },
+  "Oslo": {
+    "lat": 59.913269,
+    "lng": 10.739111,
+    "name": "Oslo"
+  },
+  "Osnabrück": {
+    "lat": 52.266837,
+    "lng": 8.049741,
+    "name": "Osnabrück"
+  },
+  "Ostrava": {
+    "lat": 49.834914,
+    "lng": 18.282008,
+    "name": "Ostrava"
+  },
+  "Ostróda": {
+    "lat": 53.697235,
+    "lng": 19.969578,
+    "name": "Ostróda"
+  },
+  "Ostrołęka": {
+    "lat": 53.082879,
+    "lng": 21.572894,
+    "name": "Ostrołęka"
+  },
+  "Ostrołęksa": {
+    "lat": 38.706847,
+    "lng": -121.075222,
+    "name": "Ostrołęksa"
+  },
+  "Ottawa": {
+    "lat": 45.420421,
+    "lng": -75.692432,
+    "name": "Ottawa"
+  },
+  "Oxford": {
+    "lat": 51.752155,
+    "lng": -1.258214,
+    "name": "Oxford"
+  },
+  "Oxford ": {
+    "lat": 51.752155,
+    "lng": -1.258214,
+    "name": "Oxford "
+  },
+  "Oxford/Nowy Jork": {
+    "lat": 54.86014,
+    "lng": -95.33839,
+    "name": "Oxford/Nowy Jork"
+  },
+  "Padwa": {
+    "lat": 45.407717,
+    "lng": 11.873446,
+    "name": "Padwa"
+  },
+  "Palermo": {
+    "lat": 38.11127,
+    "lng": 13.353442,
+    "name": "Palermo"
+  },
+  "Palo Alto": {
+    "lat": 37.445103,
+    "lng": -122.160363,
+    "name": "Palo Alto"
+  },
+  "Pampeluna": {
+    "lat": 42.81855,
+    "lng": -1.644417,
+    "name": "Pampeluna"
+  },
+  "Parma": {
+    "lat": 44.801123,
+    "lng": 10.328508,
+    "name": "Parma"
+  },
+  "Paryż": {
+    "lat": 48.856506,
+    "lng": 2.352133,
+    "name": "Paryż"
+  },
+  "Pawia": {
+    "lat": 45.186004,
+    "lng": 9.154638,
+    "name": "Pawia"
+  },
+  "Pec pod Sněžkou": {
+    "lat": 50.693533,
+    "lng": 15.733388,
+    "name": "Pec pod Sněžkou"
+  },
+  "Pekin": {
+    "lat": 39.9333,
+    "lng": 116.400002,
+    "name": "Pekin"
+  },
+  "Pelplin": {
+    "lat": 53.927835,
+    "lng": 18.698539,
+    "name": "Pelplin"
+  },
+  "Pennington": {
+    "lat": 50.754232,
+    "lng": -1.561557,
+    "name": "Pennington"
+  },
+  "Pensacola": {
+    "lat": 30.406931,
+    "lng": -87.217578,
+    "name": "Pensacola"
+  },
+  "Pensylwania": {
+    "lat": 40.896694,
+    "lng": -77.838886,
+    "name": "Pensylwania"
+  },
+  "Petersburg": {
+    "lat": 59.960674,
+    "lng": 30.158655,
+    "name": "Petersburg"
+  },
+  "Piastow": {
+    "lat": 52.18261,
+    "lng": 20.841374,
+    "name": "Piastow"
+  },
+  "Piła": {
+    "lat": 53.149386,
+    "lng": 16.739096,
+    "name": "Piła"
+  },
+  "Pilzno": {
+    "lat": 49.978578,
+    "lng": 21.290844,
+    "name": "Pilzno"
+  },
+  "Pionki": {
+    "lat": 51.473003,
+    "lng": 21.44384,
+    "name": "Pionki"
+  },
+  "Piotrków Trybunalski": {
+    "lat": 51.409704,
+    "lng": 19.687613,
+    "name": "Piotrków Trybunalski"
+  },
+  "Pireus": {
+    "lat": 37.944011,
+    "lng": 23.648354,
+    "name": "Pireus"
+  },
+  "Piscataway Township": {
+    "lat": 40.551683,
+    "lng": -74.474819,
+    "name": "Piscataway Township"
+  },
+  "Pisz": {
+    "lat": 53.629494,
+    "lng": 21.809819,
+    "name": "Pisz"
+  },
+  "Piza": {
+    "lat": 43.715925,
+    "lng": 10.401898,
+    "name": "Piza"
+  },
+  "Plainsboro": {
+    "lat": 40.33735,
+    "lng": -74.592178,
+    "name": "Plainsboro"
+  },
+  "Pleasanton": {
+    "lat": 37.656667,
+    "lng": -121.878923,
+    "name": "Pleasanton"
+  },
+  "Płock": {
+    "lat": 52.546452,
+    "lng": 19.700861,
+    "name": "Płock"
+  },
+  "Płowdiw": {
+    "lat": 42.141912,
+    "lng": 24.749839,
+    "name": "Płowdiw"
+  },
+  "Plymouth": {
+    "lat": 50.371266,
+    "lng": -4.142566,
+    "name": "Plymouth"
+  },
+  "Poczdam": {
+    "lat": 52.400931,
+    "lng": 13.05914,
+    "name": "Poczdam"
+  },
+  "Polska": {
+    "lat": 52.121216,
+    "lng": 19.408318,
+    "name": "Polska"
+  },
+  "Potsdam": {
+    "lat": 52.400931,
+    "lng": 13.05914,
+    "name": "Potsdam"
+  },
+  "Poznań": {
+    "lat": 52.40823,
+    "lng": 16.933364,
+    "name": "Poznań"
+  },
+  "Praga": {
+    "lat": 50.08744,
+    "lng": 14.421256,
+    "name": "Praga"
+  },
+  "Preszów": {
+    "lat": 48.997631,
+    "lng": 21.240187,
+    "name": "Preszów"
+  },
+  "Pretzfeld": {
+    "lat": 49.755642,
+    "lng": 11.174243,
+    "name": "Pretzfeld"
+  },
+  "Prisztina": {
+    "lat": 42.663932,
+    "lng": 21.163853,
+    "name": "Prisztina"
+  },
+  "Providence": {
+    "lat": 41.824461,
+    "lng": -71.412747,
+    "name": "Providence"
+  },
+  "Provo": {
+    "lat": 40.233677,
+    "lng": -111.663926,
+    "name": "Provo"
+  },
+  "Pruszków": {
+    "lat": 52.164353,
+    "lng": 20.801739,
+    "name": "Pruszków"
+  },
+  "Przemyśl": {
+    "lat": 49.782156,
+    "lng": 22.769263,
+    "name": "Przemyśl"
+  },
+  "Przysiek": {
+    "lat": 52.68343,
+    "lng": 18.59333,
+    "name": "Przysiek"
+  },
+  "Pszczyna": {
+    "lat": 49.977833,
+    "lng": 18.942512,
+    "name": "Pszczyna"
+  },
+  "Puck": {
+    "lat": 54.7204,
+    "lng": 18.411338,
+    "name": "Puck"
+  },
+  "Pułtusk": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Pułtusk"
+  },
+  "Pusan": {
+    "lat": 35.099998,
+    "lng": 129.050003,
+    "name": "Pusan"
+  },
+  "Québec": {
+    "lat": 46.814184,
+    "lng": -71.207425,
+    "name": "Québec"
+  },
+  "Québec ": {
+    "lat": 46.814184,
+    "lng": -71.207425,
+    "name": "Québec "
+  },
+  "Racibórz": {
+    "lat": 50.091734,
+    "lng": 18.219677,
+    "name": "Racibórz"
+  },
+  "Radom": {
+    "lat": 51.402731,
+    "lng": 21.157225,
+    "name": "Radom"
+  },
+  "Radzymin": {
+    "lat": 52.417635,
+    "lng": 21.180784,
+    "name": "Radzymin"
+  },
+  "Radzyń Podlaski": {
+    "lat": 51.78263,
+    "lng": 22.669589,
+    "name": "Radzyń Podlaski"
+  },
+  "Raszyn": {
+    "lat": 52.158333,
+    "lng": 20.924167,
+    "name": "Raszyn"
+  },
+  "Ratlam": {
+    "lat": 23.331541,
+    "lng": 75.036658,
+    "name": "Ratlam"
+  },
+  "Ratyzbona": {
+    "lat": 49.019533,
+    "lng": 12.097487,
+    "name": "Ratyzbona"
+  },
+  "Ravenna": {
+    "lat": 44.416141,
+    "lng": 12.201762,
+    "name": "Ravenna"
+  },
+  "Reston": {
+    "lat": 38.960186,
+    "lng": -77.354497,
+    "name": "Reston"
+  },
+  "Retimno": {
+    "lat": 35.367647,
+    "lng": 24.473608,
+    "name": "Retimno"
+  },
+  "Reykjavík": {
+    "lat": 64.150002,
+    "lng": -21.9499,
+    "name": "Reykjavík"
+  },
+  "Rijeka": {
+    "lat": 45.327112,
+    "lng": 14.441356,
+    "name": "Rijeka"
+  },
+  "Ringgold": {
+    "lat": 36.608101,
+    "lng": -79.295601,
+    "name": "Ringgold"
+  },
+  "Rio Grande": {
+    "lat": -32.032469,
+    "lng": -52.098946,
+    "name": "Rio Grande"
+  },
+  "Rockville": {
+    "lat": 39.08419,
+    "lng": -77.152896,
+    "name": "Rockville"
+  },
+  "Rogów": {
+    "lat": 55.561482,
+    "lng": 24.626385,
+    "name": "Rogów"
+  },
+  "Rohtak": {
+    "lat": 28.90109,
+    "lng": 76.580194,
+    "name": "Rohtak"
+  },
+  "Rotterdam": {
+    "lat": 51.922896,
+    "lng": 4.463173,
+    "name": "Rotterdam"
+  },
+  "Rueil-Malmaison": {
+    "lat": 48.869389,
+    "lng": 2.180884,
+    "name": "Rueil-Malmaison"
+  },
+  "Rugby": {
+    "lat": 52.372668,
+    "lng": -1.262004,
+    "name": "Rugby"
+  },
+  "Ryga": {
+    "lat": 56.949398,
+    "lng": 24.105185,
+    "name": "Ryga"
+  },
+  "Rzeszów": {
+    "lat": 50.037453,
+    "lng": 22.004717,
+    "name": "Rzeszów"
+  },
+  "Rzym": {
+    "lat": 41.893344,
+    "lng": 12.483072,
+    "name": "Rzym"
+  },
+  "Saarbrücken": {
+    "lat": 49.234362,
+    "lng": 6.996379,
+    "name": "Saarbrücken"
+  },
+  "Sackville": {
+    "lat": 45.897816,
+    "lng": -64.368276,
+    "name": "Sackville"
+  },
+  "Saint Cloud": {
+    "lat": 48.8426,
+    "lng": 2.204531,
+    "name": "Saint Cloud"
+  },
+  "Sakai": {
+    "lat": 34.519239,
+    "lng": 135.494824,
+    "name": "Sakai"
+  },
+  "Sakarya": {
+    "lat": 40.773183,
+    "lng": 30.481606,
+    "name": "Sakarya"
+  },
+  "Sakura-mura": {
+    "lat": 23.77289,
+    "lng": 86.80299,
+    "name": "Sakura-mura"
+  },
+  "Salamanca": {
+    "lat": 40.965157,
+    "lng": -5.664018,
+    "name": "Salamanca"
+  },
+  "Salamanka": {
+    "lat": 40.965157,
+    "lng": -5.664018,
+    "name": "Salamanka"
+  },
+  "Saloniki": {
+    "lat": 40.640317,
+    "lng": 22.935272,
+    "name": "Saloniki"
+  },
+  "San Diego": {
+    "lat": 32.71576,
+    "lng": -117.163817,
+    "name": "San Diego"
+  },
+  "San Francisco": {
+    "lat": 37.78008,
+    "lng": -122.420168,
+    "name": "San Francisco"
+  },
+  "San Ildefonso": {
+    "lat": 40.900604,
+    "lng": -4.005466,
+    "name": "San Ildefonso"
+  },
+  "Sankt Petersburg": {
+    "lat": 27.772069,
+    "lng": -82.638488,
+    "name": "Sankt Petersburg"
+  },
+  "Sankt-Peterburg": {
+    "lat": 27.772069,
+    "lng": -82.638488,
+    "name": "Sankt-Peterburg"
+  },
+  "Sanok": {
+    "lat": 49.558756,
+    "lng": 22.205236,
+    "name": "Sanok"
+  },
+  "Santa Monica": {
+    "lat": 34.010932,
+    "lng": -118.491512,
+    "name": "Santa Monica"
+  },
+  "Santafé de Bogotá": {
+    "lat": 38.918301,
+    "lng": -88.239998,
+    "name": "Santafé de Bogotá"
+  },
+  "Santiago de Compostela": {
+    "lat": 42.879483,
+    "lng": -8.541218,
+    "name": "Santiago de Compostela"
+  },
+  "São Bernardo do Campo": {
+    "lat": -23.690102,
+    "lng": -46.562962,
+    "name": "São Bernardo do Campo"
+  },
+  "Sao Paulo": {
+    "lat": -23.550651,
+    "lng": -46.633382,
+    "name": "Sao Paulo"
+  },
+  "Saragossa": {
+    "lat": 41.652134,
+    "lng": -0.880943,
+    "name": "Saragossa"
+  },
+  "Seaholme": {
+    "lat": -37.86476,
+    "lng": 144.84167,
+    "name": "Seaholme"
+  },
+  "Segedyn": {
+    "lat": 46.254631,
+    "lng": 20.148602,
+    "name": "Segedyn"
+  },
+  "Sendai": {
+    "lat": 38.296829,
+    "lng": 140.769677,
+    "name": "Sendai"
+  },
+  "Seoul ": {
+    "lat": 37.566601,
+    "lng": 127,
+    "name": "Seoul "
+  },
+  "Seul": {
+    "lat": 37.566601,
+    "lng": 127,
+    "name": "Seul"
+  },
+  "Sevilla": {
+    "lat": 37.38863,
+    "lng": -5.995317,
+    "name": "Sevilla"
+  },
+  "Shannon": {
+    "lat": 52.711046,
+    "lng": -8.882715,
+    "name": "Shannon"
+  },
+  "Sheffield": {
+    "lat": 53.382029,
+    "lng": -1.465717,
+    "name": "Sheffield"
+  },
+  "Siedlce": {
+    "lat": 52.166375,
+    "lng": 22.276514,
+    "name": "Siedlce"
+  },
+  "Siedlce 5": {
+    "lat": 40.473445,
+    "lng": -74.329239,
+    "name": "Siedlce 5"
+  },
+  "Siena": {
+    "lat": 43.318554,
+    "lng": 11.331653,
+    "name": "Siena"
+  },
+  "Sierpc": {
+    "lat": 52.852906,
+    "lng": 19.667543,
+    "name": "Sierpc"
+  },
+  "Singapur": {
+    "lat": 1.290453,
+    "lng": 103.852038,
+    "name": "Singapur"
+  },
+  "Skierniewice": {
+    "lat": 51.956858,
+    "lng": 20.143004,
+    "name": "Skierniewice"
+  },
+  "Skopije": {
+    "lat": 41.99401,
+    "lng": 21.43592,
+    "name": "Skopije"
+  },
+  "Skopje": {
+    "lat": 41.996227,
+    "lng": 21.431796,
+    "name": "Skopje"
+  },
+  "Słubice": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Słubice"
+  },
+  "Słupsk": {
+    "lat": 54.464933,
+    "lng": 17.028073,
+    "name": "Słupsk"
+  },
+  "Smithtown": {
+    "lat": 40.85496,
+    "lng": -73.197132,
+    "name": "Smithtown"
+  },
+  "Sofia": {
+    "lat": 42.697721,
+    "lng": 23.322596,
+    "name": "Sofia"
+  },
+  "Solec Kujawski": {
+    "lat": 53.079899,
+    "lng": 18.224287,
+    "name": "Solec Kujawski"
+  },
+  "Somerville": {
+    "lat": 42.389121,
+    "lng": -71.097145,
+    "name": "Somerville"
+  },
+  "Sopot": {
+    "lat": 54.444667,
+    "lng": 18.568587,
+    "name": "Sopot"
+  },
+  "Sosnowiec": {
+    "lat": 50.280692,
+    "lng": 19.13493,
+    "name": "Sosnowiec"
+  },
+  "Southampton": {
+    "lat": 50.902535,
+    "lng": -1.404189,
+    "name": "Southampton"
+  },
+  "Soveria Mannelli": {
+    "lat": 39.08289,
+    "lng": 16.371898,
+    "name": "Soveria Mannelli"
+  },
+  "Springfield": {
+    "lat": 39.79936,
+    "lng": -89.643624,
+    "name": "Springfield"
+  },
+  "Środa Wielkopolska": {
+    "lat": 52.228427,
+    "lng": 17.277827,
+    "name": "Środa Wielkopolska"
+  },
+  "Stalowa Wola": {
+    "lat": 50.569014,
+    "lng": 22.064468,
+    "name": "Stalowa Wola"
+  },
+  "Stambuł": {
+    "lat": 41.076602,
+    "lng": 29.052495,
+    "name": "Stambuł"
+  },
+  "Starogard Gdański": {
+    "lat": 53.967181,
+    "lng": 18.532113,
+    "name": "Starogard Gdański"
+  },
+  "Stevens Point": {
+    "lat": 44.523544,
+    "lng": -89.569496,
+    "name": "Stevens Point"
+  },
+  "Stevenson Ranch": {
+    "lat": 34.391434,
+    "lng": -118.577708,
+    "name": "Stevenson Ranch"
+  },
+  "Strasbourg": {
+    "lat": 48.584614,
+    "lng": 7.750713,
+    "name": "Strasbourg"
+  },
+  "Strasburg": {
+    "lat": 48.584614,
+    "lng": 7.750713,
+    "name": "Strasburg"
+  },
+  "Strzelce Krajeńskie": {
+    "lat": 52.878526,
+    "lng": 15.532593,
+    "name": "Strzelce Krajeńskie"
+  },
+  "Stuttgard": {
+    "lat": -22.98193,
+    "lng": -46.54518,
+    "name": "Stuttgard"
+  },
+  "Stuttgart": {
+    "lat": 48.778493,
+    "lng": 9.180046,
+    "name": "Stuttgart"
+  },
+  "Stuttgart ": {
+    "lat": 48.778493,
+    "lng": 9.180046,
+    "name": "Stuttgart "
+  },
+  "Stuttgart ": {
+    "lat": 48.778493,
+    "lng": 9.180046,
+    "name": "Stuttgart "
+  },
+  "Sucha Beskidzka": {
+    "lat": 49.74079,
+    "lng": 19.590598,
+    "name": "Sucha Beskidzka"
+  },
+  "Sunnyvale": {
+    "lat": 37.373676,
+    "lng": -122.036572,
+    "name": "Sunnyvale"
+  },
+  "Suwałki": {
+    "lat": 54.100335,
+    "lng": 22.933228,
+    "name": "Suwałki"
+  },
+  "Świebodzin": {
+    "lat": 52.24924,
+    "lng": 15.533739,
+    "name": "Świebodzin"
+  },
+  "Świecie": {
+    "lat": 53.407313,
+    "lng": 18.445763,
+    "name": "Świecie"
+  },
+  "Sybin": {
+    "lat": 45.797391,
+    "lng": 24.15192,
+    "name": "Sybin"
+  },
+  "Sydney": {
+    "lat": -33.854816,
+    "lng": 151.216454,
+    "name": "Sydney"
+  },
+  "Sylvains-les-Moulins": {
+    "lat": 48.919852,
+    "lng": 1.089904,
+    "name": "Sylvains-les-Moulins"
+  },
+  "Szardża": {
+    "lat": 25.358543,
+    "lng": 55.389532,
+    "name": "Szardża"
+  },
+  "Szawle": {
+    "lat": 55.926809,
+    "lng": 23.314756,
+    "name": "Szawle"
+  },
+  "Szczecin": {
+    "lat": 53.430212,
+    "lng": 14.550978,
+    "name": "Szczecin"
+  },
+  "Szczytno": {
+    "lat": 53.565489,
+    "lng": 20.991589,
+    "name": "Szczytno"
+  },
+  "Szombathely ": {
+    "lat": 47.229118,
+    "lng": 16.618763,
+    "name": "Szombathely "
+  },
+  "Sztokholm": {
+    "lat": 59.405367,
+    "lng": 18.672657,
+    "name": "Sztokholm"
+  },
+  "Sztum": {
+    "lat": 53.91977,
+    "lng": 19.030594,
+    "name": "Sztum"
+  },
+  "Taipei": {
+    "lat": 25.037638,
+    "lng": 121.564459,
+    "name": "Taipei"
+  },
+  "Tajpej": {
+    "lat": 25.037517,
+    "lng": 121.5637,
+    "name": "Tajpej"
+  },
+  "Tarakeswar": {
+    "lat": 38.779999,
+    "lng": -76.5961,
+    "name": "Tarakeswar"
+  },
+  "Târgu Jiu": {
+    "lat": 45.042636,
+    "lng": 23.271474,
+    "name": "Târgu Jiu"
+  },
+  "Tarnów": {
+    "lat": 50.012378,
+    "lng": 20.988074,
+    "name": "Tarnów"
+  },
+  "Tartu": {
+    "lat": 58.372706,
+    "lng": 26.723753,
+    "name": "Tartu"
+  },
+  "Tbilisi": {
+    "lat": 41.693435,
+    "lng": 44.801498,
+    "name": "Tbilisi"
+  },
+  "Tczew": {
+    "lat": 54.086953,
+    "lng": 18.800029,
+    "name": "Tczew"
+  },
+  "Teheran": {
+    "lat": 35.688424,
+    "lng": 51.41796,
+    "name": "Teheran"
+  },
+  "Ternopil": {
+    "lat": 49.555772,
+    "lng": 25.591886,
+    "name": "Ternopil"
+  },
+  "Thiruvananthapuram": {
+    "lat": 8.505749,
+    "lng": 76.957356,
+    "name": "Thiruvananthapuram"
+  },
+  "Thorofare": {
+    "lat": 39.842251,
+    "lng": -75.196961,
+    "name": "Thorofare"
+  },
+  "Thousand Oaks": {
+    "lat": 34.176083,
+    "lng": -118.848743,
+    "name": "Thousand Oaks"
+  },
+  "Tilburg": {
+    "lat": 51.55847,
+    "lng": 5.083076,
+    "name": "Tilburg"
+  },
+  "Timişoara ": {
+    "lat": 45.753836,
+    "lng": 21.225747,
+    "name": "Timişoara "
+  },
+  "Tirana": {
+    "lat": 41.331144,
+    "lng": 19.826398,
+    "name": "Tirana"
+  },
+  "Tiruchengode ": {
+    "lat": 11.378647,
+    "lng": 77.894952,
+    "name": "Tiruchengode "
+  },
+  "Tokio": {
+    "lat": 35.680071,
+    "lng": 139.768522,
+    "name": "Tokio"
+  },
+  "Tomsk": {
+    "lat": 56.488592,
+    "lng": 84.952324,
+    "name": "Tomsk"
+  },
+  "Toronto": {
+    "lat": 43.651893,
+    "lng": -79.381713,
+    "name": "Toronto"
+  },
+  "Toruń": {
+    "lat": 53.021067,
+    "lng": 18.618612,
+    "name": "Toruń"
+  },
+  "Totowa": {
+    "lat": 40.903417,
+    "lng": -74.2161,
+    "name": "Totowa"
+  },
+  "Toyonaka": {
+    "lat": 34.77779,
+    "lng": 135.474645,
+    "name": "Toyonaka"
+  },
+  "Triest": {
+    "lat": 45.650034,
+    "lng": 13.770656,
+    "name": "Triest"
+  },
+  "Trnava ": {
+    "lat": 48.373209,
+    "lng": 17.581351,
+    "name": "Trnava "
+  },
+  "Trondheim": {
+    "lat": 63.430566,
+    "lng": 10.395193,
+    "name": "Trondheim"
+  },
+  "Trydent": {
+    "lat": 46.066423,
+    "lng": 11.12576,
+    "name": "Trydent"
+  },
+  "Trzcianka": {
+    "lat": 53.041758,
+    "lng": 16.461099,
+    "name": "Trzcianka"
+  },
+  "Trzcianka Lubuska": {
+    "lat": 53.04089,
+    "lng": 16.45942,
+    "name": "Trzcianka Lubuska"
+  },
+  "Tsim Sha Tsui": {
+    "lat": 35.167852,
+    "lng": -103.726151,
+    "name": "Tsim Sha Tsui"
+  },
+  "Tuchola": {
+    "lat": 53.58798,
+    "lng": 17.859532,
+    "name": "Tuchola"
+  },
+  "Tuchów": {
+    "lat": 49.895159,
+    "lng": 21.053875,
+    "name": "Tuchów"
+  },
+  "Tucson": {
+    "lat": 32.221878,
+    "lng": -110.971225,
+    "name": "Tucson"
+  },
+  "Tuluza": {
+    "lat": 43.604462,
+    "lng": 1.444247,
+    "name": "Tuluza"
+  },
+  "Turku ": {
+    "lat": 60.451753,
+    "lng": 22.267052,
+    "name": "Turku "
+  },
+  "Tybinga": {
+    "lat": 48.523616,
+    "lng": 9.053553,
+    "name": "Tybinga"
+  },
+  "Udine": {
+    "lat": 46.064698,
+    "lng": 13.235749,
+    "name": "Udine"
+  },
+  "Uppsala": {
+    "lat": 60.160056,
+    "lng": 17.624066,
+    "name": "Uppsala"
+  },
+  "Urbana": {
+    "lat": 40.112458,
+    "lng": -88.207457,
+    "name": "Urbana"
+  },
+  "Uście nad Łabą": {
+    "lat": 50.668432,
+    "lng": 14.04088,
+    "name": "Uście nad Łabą"
+  },
+  "Utrecht": {
+    "lat": 52.095942,
+    "lng": 5.110414,
+    "name": "Utrecht"
+  },
+  "Valencia": {
+    "lat": 44.933228,
+    "lng": 4.892081,
+    "name": "Valencia"
+  },
+  "Vigo": {
+    "lat": 42.23766,
+    "lng": -8.724721,
+    "name": "Vigo"
+  },
+  "Villigen": {
+    "lat": 47.526268,
+    "lng": 8.214728,
+    "name": "Villigen"
+  },
+  "Voorburg": {
+    "lat": 52.07032,
+    "lng": 4.355856,
+    "name": "Voorburg"
+  },
+  "Wąbrzeźno": {
+    "lat": 53.28034,
+    "lng": 18.94807,
+    "name": "Wąbrzeźno"
+  },
+  "Wałbrzych": {
+    "lat": 48.750392,
+    "lng": 7.196545,
+    "name": "Wałbrzych"
+  },
+  "Wałcz": {
+    "lat": 53.269745,
+    "lng": 16.467066,
+    "name": "Wałcz"
+  },
+  "Waltham": {
+    "lat": 42.376228,
+    "lng": -71.237058,
+    "name": "Waltham"
+  },
+  "Warminister": {
+    "lat": 37.64895,
+    "lng": -78.66362,
+    "name": "Warminister"
+  },
+  "Warsaw": {
+    "lat": 37.958434,
+    "lng": -76.755329,
+    "name": "Warsaw"
+  },
+  "WARSZAWA": {
+    "lat": 37.958434,
+    "lng": -76.755329,
+    "name": "WARSZAWA"
+  },
+  "Warszawa 30": {
+    "lat": 52.17507,
+    "lng": 21.23145,
+    "name": "Warszawa 30"
+  },
+  "Waszyngton": {
+    "lat": 38.892062,
+    "lng": -77.019912,
+    "name": "Waszyngton"
+  },
+  "Waterloo": {
+    "lat": 43.465041,
+    "lng": -80.523566,
+    "name": "Waterloo"
+  },
+  "Watykan": {
+    "lat": 41.902153,
+    "lng": 12.452806,
+    "name": "Watykan"
+  },
+  "Weinheim": {
+    "lat": 49.552304,
+    "lng": 8.666455,
+    "name": "Weinheim"
+  },
+  "Werona": {
+    "lat": 45.438496,
+    "lng": 10.992412,
+    "name": "Werona"
+  },
+  "West Sussex": {
+    "lat": 51,
+    "lng": -0.416667,
+    "name": "West Sussex"
+  },
+  "Weymouth": {
+    "lat": 50.619112,
+    "lng": -2.456246,
+    "name": "Weymouth"
+  },
+  "Wiedeń": {
+    "lat": 48.192309,
+    "lng": 16.371364,
+    "name": "Wiedeń"
+  },
+  "Wiesbaden": {
+    "lat": 50.0833,
+    "lng": 8.25,
+    "name": "Wiesbaden"
+  },
+  "Willowdale": {
+    "lat": 39.874199,
+    "lng": -75.718102,
+    "name": "Willowdale"
+  },
+  "Wilno": {
+    "lat": 54.684314,
+    "lng": 25.285398,
+    "name": "Wilno"
+  },
+  "Wisła": {
+    "lat": 49.652365,
+    "lng": 18.870926,
+    "name": "Wisła"
+  },
+  "Włocławek": {
+    "lat": 52.651059,
+    "lng": 19.064102,
+    "name": "Włocławek"
+  },
+  "Wraszawa": {
+    "lat": 52.23498,
+    "lng": 21.00849,
+    "name": "Wraszawa"
+  },
+  "Wrocałw": {
+    "lat": 51.11055,
+    "lng": 17.02556,
+    "name": "Wrocałw"
+  },
+  "Wroclaw": {
+    "lat": 51.108978,
+    "lng": 17.032669,
+    "name": "Wroclaw"
+  },
+  "Wrocław/Kolonia": {
+    "lat": 51.175289,
+    "lng": 17.085467,
+    "name": "Wrocław/Kolonia"
+  },
+  "Würzburg": {
+    "lat": 49.79245,
+    "lng": 9.932966,
+    "name": "Würzburg"
+  },
+  "Würzburg": {
+    "lat": 49.79245,
+    "lng": 9.932966,
+    "name": "Würzburg"
+  },
+  "Würzburg / Moguncja": {
+    "lat": 49.76014,
+    "lng": 9.71641,
+    "name": "Würzburg / Moguncja"
+  },
+  "Yorkshire": {
+    "lat": 38.793327,
+    "lng": -77.447597,
+    "name": "Yorkshire"
+  },
+  "Yorshire": {
+    "lat": 30.78081,
+    "lng": -83.98973,
+    "name": "Yorshire"
+  },
+  "Zabrze": {
+    "lat": 50.308417,
+    "lng": 18.786691,
+    "name": "Zabrze"
+  },
+  "ZAGREB": {
+    "lat": 45.813155,
+    "lng": 15.97703,
+    "name": "ZAGREB"
+  },
+  "Zagrzeb": {
+    "lat": 45.813155,
+    "lng": 15.97703,
+    "name": "Zagrzeb"
+  },
+  "Zakroczym": {
+    "lat": 52.433353,
+    "lng": 20.611677,
+    "name": "Zakroczym"
+  },
+  "Zamość": {
+    "lat": 50.717063,
+    "lng": 23.252565,
+    "name": "Zamość"
+  },
+  "Zielona Góra": {
+    "lat": 51.938292,
+    "lng": 15.504568,
+    "name": "Zielona Góra"
+  },
+  "Zlin": {
+    "lat": 49.226766,
+    "lng": 17.666742,
+    "name": "Zlin"
+  },
+  "Złocieniec": {
+    "lat": 53.53107,
+    "lng": 16.012067,
+    "name": "Złocieniec"
+  },
+  "Zurich": {
+    "lat": 47.368559,
+    "lng": 8.540443,
+    "name": "Zurich"
+  },
+  "Zürich": {
+    "lat": 47.368559,
+    "lng": 8.540443,
+    "name": "Zürich"
+  },
+  "Zurich-Durnten": {
+    "lat": 39.390897,
+    "lng": -99.066067,
+    "name": "Zurich-Durnten"
+  },
+  "Zwolle": {
+    "lat": 52.508976,
+    "lng": 6.094377,
+    "name": "Zwolle"
+  },
+  "Żylina ": {
+    "lat": 49.223485,
+    "lng": 18.739268,
+    "name": "Żylina "
+  }
+}
