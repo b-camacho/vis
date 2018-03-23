@@ -67,7 +67,7 @@ function ComputeStatistics(data) {
 		if(work.year > endYear) endYear = work.year;
 	})
 
-	stats["mean-works-amount-display"] = data.length / (endYear - beginYear + 1);
+	stats["mean-works-amount-display"] = (data.length / (endYear - beginYear + 1)).toFixed(1);
 
 	var authorMap = {}, mostShared = {amount: -1, name: "-"}, mostSharedNotSelf = {amount: -1, name: "-"};
 
