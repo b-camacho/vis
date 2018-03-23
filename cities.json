@@ -29,11 +29,6 @@
     "lng": -91.669808,
     "name": "Cedar Rapids"
   },
-  "Warszawa": {
-    "lat": 37.958434,
-    "lng": -76.755329,
-    "name": "Warszawa"
-  },
   "51-168": {
     "lat": 39.390897,
     "lng": -99.066067,
@@ -3140,19 +3135,24 @@
     "name": "Warminister"
   },
   "Warsaw": {
-    "lat": 37.958434,
-    "lng": -76.755329,
+    "lat": 52.17507,
+    "lng": 21.0122,
     "name": "Warsaw"
   },
   "WARSZAWA": {
-    "lat": 37.958434,
-    "lng": -76.755329,
+    "lat": 52.17507,
+    "lng": 21.0122,
     "name": "WARSZAWA"
   },
   "Warszawa 30": {
     "lat": 52.17507,
-    "lng": 21.23145,
+    "lng": 21.0122,
     "name": "Warszawa 30"
+  },
+  "Warszawa": {
+    "lat": 52.17507,
+    "lng": 21.0122,
+    "name": "Warszawa"
   },
   "Waszyngton": {
     "lat": 38.892062,
