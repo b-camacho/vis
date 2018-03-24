@@ -2,9 +2,9 @@ var JOURNALS = {
   "45minuttoruńskiprzeglądoświatowy": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -2845,9 +2845,9 @@ var JOURNALS = {
   "annalesuniversitatismariaecurie-skłodowskasectiojpaedagogia-psychologia": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },
     ],
     "disciplines": [
       {
@@ -2897,9 +2897,9 @@ var JOURNALS = {
   "annalesuniversitatismariaecurie-skłodowskasectioneducationova": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -2966,9 +2966,9 @@ var JOURNALS = {
   "annalesuniversitatispaedagogicaecracoviensisstudiaadinstitutionemeteducationempertinentia": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -3018,9 +3018,9 @@ var JOURNALS = {
   "annalesuniversitatispaedagogicaecracoviensisstudiadesecuritateeteducationecivili": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -3109,9 +3109,9 @@ var JOURNALS = {
   "annalesuniversitatispaedagogicaecracoviensisstudiapaedagogica": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -5194,9 +5194,9 @@ var JOURNALS = {
   "auxiliumsocialenovum": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -5773,9 +5773,9 @@ var JOURNALS = {
   "bildungunderziehung": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -6731,9 +6731,9 @@ var JOURNALS = {
   "biuletyninformacyjnycentralnegoośrodkametodycznegostudiównauczycielskich": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -11239,9 +11239,9 @@ var JOURNALS = {
   "dialogischeerziehunginformationenzurpaulofreirepädagogik": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -11577,9 +11577,9 @@ var JOURNALS = {
   "dramaporadnikdlanauczycieliiwychowawców": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -11815,9 +11815,9 @@ var JOURNALS = {
   "dzieckoiedukacja": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -12218,9 +12218,9 @@ var JOURNALS = {
   "eduakcjamagazynedukacjielektronicznej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -12339,9 +12339,9 @@ var JOURNALS = {
   "edukacjahumanistycznaroczniknaukowo-dydaktyczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -13520,9 +13520,9 @@ var JOURNALS = {
   "europeaneducation": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -15846,9 +15846,9 @@ var JOURNALS = {
   "gazetawolnychinicjatywedukacyjnych": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -19302,9 +19302,9 @@ var JOURNALS = {
   "internationaljournalofpedagogicalinnovations": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -19315,9 +19315,9 @@ var JOURNALS = {
   "internationaljournalofpedagogyinnovationandnewtechnologies": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -19458,9 +19458,9 @@ var JOURNALS = {
   "internationaljournalofresearchinhumanitiesandsocialsciences": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -19471,9 +19471,9 @@ var JOURNALS = {
   "internationaljournalofresearchinteachereducation": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -19960,9 +19960,9 @@ var JOURNALS = {
   "istoriko-pedagogičnistudii": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -20324,9 +20324,9 @@ var JOURNALS = {
   "językpolskiwszkoledlaklasiv-vi": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -20454,9 +20454,9 @@ var JOURNALS = {
   "journalfürbegabtenförderungfüreinebegabungsfreundlichelernkultur": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -22875,9 +22875,9 @@ var JOURNALS = {
   "journalofmodernscience=zeszyty": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -27243,9 +27243,9 @@ var JOURNALS = {
   "managementandeducationacademicjournal(burgas)": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -28057,9 +28057,9 @@ var JOURNALS = {
   "meritummazowieckikwartalnikedukacyjny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -29752,9 +29752,9 @@ var JOURNALS = {
   "nauczycieliwychowanie": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -29842,9 +29842,9 @@ var JOURNALS = {
   "naukiowychowaniustudiainterdyscyplinarne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -29881,9 +29881,9 @@ var JOURNALS = {
   "naukov?zapiskiser?âpedagog?čn?ta?storičn?nauki": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -29907,9 +29907,9 @@ var JOURNALS = {
   "networkajournalforenglishlanguageteachereducation": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -30075,9 +30075,9 @@ var JOURNALS = {
   "neweducationalreview": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -30936,9 +30936,9 @@ var JOURNALS = {
   "obliczaedukacji": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -32231,9 +32231,9 @@ var JOURNALS = {
   "pátioensinomédioprofissionaletecnológico": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -32244,9 +32244,9 @@ var JOURNALS = {
   "pedagog?ka?psiholog?âki?v": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -32287,9 +32287,9 @@ var JOURNALS = {
   "pedagogikapracy": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -34941,9 +34941,9 @@ var JOURNALS = {
   "pracenaukowewyższejszkołypedagogicznejw": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -35300,9 +35300,9 @@ var JOURNALS = {
   "problemsofeducationinthe21stcentury": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -36017,9 +36017,9 @@ var JOURNALS = {
   "przeglądhistoryczno-oświatowy": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -37164,9 +37164,9 @@ var JOURNALS = {
   "refleksjepismopedagogiczne-edukacjaoświata": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -37346,9 +37346,9 @@ var JOURNALS = {
   "reportzeitschriftfürweiterbildungsforschung": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -38043,9 +38043,9 @@ var JOURNALS = {
   "roczniknaukowykujawsko-pomorskiejszkoływyższejwbydgoszczy": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -38095,9 +38095,9 @@ var JOURNALS = {
   "rocznikpedagogiczny(wrocław)": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -38463,9 +38463,9 @@ var JOURNALS = {
   "rocznikipedagogikispecjalnej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -39986,9 +39986,9 @@ var JOURNALS = {
   "speciálnípedagogika": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -40539,9 +40539,9 @@ var JOURNALS = {
   "studiagdańskiewizjeirzeczywistość/gdańskawyższaszkołahumanistyczna": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -40876,9 +40876,9 @@ var JOURNALS = {
   "studiaosztucedladziecka": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -40902,9 +40902,9 @@ var JOURNALS = {
   "studiapedagogiczno-artystyczne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -41759,9 +41759,9 @@ var JOURNALS = {
   "teraźniejszośćczłowiekedukacja": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -44250,9 +44250,9 @@ var JOURNALS = {
   "wszystkodlaszkołymiesięcznikzpokojunauczycielskiego": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -44289,9 +44289,9 @@ var JOURNALS = {
   "wychowawcamiesięczniknauczycieliiwychowawcówkatolickich": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -45020,9 +45020,9 @@ var JOURNALS = {
   "zeitschriftfürweiterbildungsforschung-report": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -45739,9 +45739,9 @@ var JOURNALS = {
   "zeszytynaukowewsps/wyższaszkołapracysocjalnejwewłocławku": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -45964,9 +45964,9 @@ var JOURNALS = {
   "zeszytynaukowepedagogikahistoriawychowania/uniwersytetgdański": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -46354,9 +46354,9 @@ var JOURNALS = {
   "życieszkoływyższej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -48332,9 +48332,9 @@ var JOURNALS = {
   "bibliotekawspółczesnejmyślipedagogicznej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -48560,9 +48560,9 @@ var JOURNALS = {
   "biuletynhistoriiwychowania": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -48837,9 +48837,9 @@ var JOURNALS = {
   "bliżejprzedszkola": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -49096,9 +49096,9 @@ var JOURNALS = {
   "chowanna": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -49122,9 +49122,9 @@ var JOURNALS = {
   "cieszyńskialmanachpedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -49681,9 +49681,9 @@ var JOURNALS = {
   "dialogi": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -49837,9 +49837,9 @@ var JOURNALS = {
   "dyrektorszkoły": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -49850,9 +49850,9 @@ var JOURNALS = {
   "dyskursymłodychandragogów": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -50032,9 +50032,9 @@ var JOURNALS = {
   "edukacjadorosłych": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -50058,9 +50058,9 @@ var JOURNALS = {
   "edukacjahumanistyczna": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -50071,9 +50071,9 @@ var JOURNALS = {
   "edukacjaidialog": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -50097,9 +50097,9 @@ var JOURNALS = {
   "edukacjaotwarta": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -50123,9 +50123,9 @@ var JOURNALS = {
   "edukacjaustawicznadorosłych": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -51101,9 +51101,9 @@ var JOURNALS = {
   "forumoświatowe": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -51114,9 +51114,9 @@ var JOURNALS = {
   "forumpedagogiczne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -51404,9 +51404,9 @@ var JOURNALS = {
   "gdyńskikwartalnikoświatowy": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -51573,9 +51573,9 @@ var JOURNALS = {
   "głospedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -51819,9 +51819,9 @@ var JOURNALS = {
   "horyzontywychowania": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -51975,9 +51975,9 @@ var JOURNALS = {
   "interdyscyplinarnekontekstypedagogikispecjalnej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -52014,9 +52014,9 @@ var JOURNALS = {
   "internationaljournalofresearchine-learning": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -53071,9 +53071,9 @@ var JOURNALS = {
   "kwartalnikedukacyjny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -53231,9 +53231,9 @@ var JOURNALS = {
   "kwartalnikpedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -53785,9 +53785,9 @@ var JOURNALS = {
   "lubelskirocznikpedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -54599,9 +54599,9 @@ var JOURNALS = {
   "nauczycieliszkoła": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -54724,9 +54724,9 @@ var JOURNALS = {
   "neodidagmata": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -54802,9 +54802,9 @@ var JOURNALS = {
   "neweducationalreviewthe": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -55014,9 +55014,9 @@ var JOURNALS = {
   "nowaszkoła": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -55356,9 +55356,9 @@ var JOURNALS = {
   "opinieedukacyjnepolskiejakademiiumiejętności": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -55473,9 +55473,9 @@ var JOURNALS = {
   "paedagogiachristiana": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -55646,9 +55646,9 @@ var JOURNALS = {
   "parezja": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -55711,9 +55711,9 @@ var JOURNALS = {
   "pedagogikaspołeczna": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -55724,9 +55724,9 @@ var JOURNALS = {
   "pedagogikaszkoływyższej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -56274,9 +56274,9 @@ var JOURNALS = {
   "polishjournalofsocialscience": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -56529,9 +56529,9 @@ var JOURNALS = {
   "polskamyślpedagogiczna": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -57612,9 +57612,9 @@ var JOURNALS = {
   "problemywczesnejedukacji": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -57794,9 +57794,9 @@ var JOURNALS = {
   "przeglądbadańedukacyjnych": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -58309,9 +58309,9 @@ var JOURNALS = {
   "przeglądoświatowy": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -58335,9 +58335,9 @@ var JOURNALS = {
   "przeglądpedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -58348,9 +58348,9 @@ var JOURNALS = {
   "przeglądpedagogiczny(1882)": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -59314,9 +59314,9 @@ var JOURNALS = {
   "resocjalizacjapolska": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -59366,9 +59366,9 @@ var JOURNALS = {
   "rocznikandragogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -59742,9 +59742,9 @@ var JOURNALS = {
   "rocznikpedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -60170,9 +60170,9 @@ var JOURNALS = {
   "rocznikipedagogiczne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -60339,9 +60339,9 @@ var JOURNALS = {
   "rozprawyzdziejówoświaty": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -60430,9 +60430,9 @@ var JOURNALS = {
   "ruchpedagogiczny": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -61183,9 +61183,9 @@ var JOURNALS = {
   "studiadydaktyczne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -61209,9 +61209,9 @@ var JOURNALS = {
   "studiaedukacyjne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -61932,9 +61932,9 @@ var JOURNALS = {
   "studiapaedagogicaignatiana": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -61958,9 +61958,9 @@ var JOURNALS = {
   "studiapedagogiczne(pan)": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -62621,9 +62621,9 @@ var JOURNALS = {
   "studiazteoriiwychowania": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -62803,9 +62803,9 @@ var JOURNALS = {
   "szkołaspecjalna": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -63573,9 +63573,9 @@ var JOURNALS = {
   "uczyćlepiej": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -63707,9 +63707,9 @@ var JOURNALS = {
   "warmińsko-mazurskikwartalniknaukowynaukispołeczne": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -64222,9 +64222,9 @@ var JOURNALS = {
   "wszystkodlaszkoły": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -64235,9 +64235,9 @@ var JOURNALS = {
   "wychowanienacodzień": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -64248,9 +64248,9 @@ var JOURNALS = {
   "wychowaniewprzedszkolu": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -64274,9 +64274,9 @@ var JOURNALS = {
   "wychowawca": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -64793,9 +64793,9 @@ var JOURNALS = {
   "zeszytynaukowepaństwowejwyższejszkołyzawodowejwpłockupedagogika": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -65157,9 +65157,9 @@ var JOURNALS = {
   "zeszytywszechnicyświętokrzyskiejturystyka": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
@@ -65239,9 +65239,9 @@ var JOURNALS = {
   "życieszkoły": {
     "domains": [
       {
-        "name": "nauki medyczne i o zdrowiu",
+        "name": "nauki społeczne",
         "weight": 1
-      }
+      },{"name": "nauki humanistyczne", "weight":1}
     ],
     "disciplines": [
       {
