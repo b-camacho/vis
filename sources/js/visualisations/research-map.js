@@ -29,20 +29,30 @@ function whiskerToggleButton() {
 
 }
 
+function download(filename, text) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+
+	document.body.removeChild(element);
+}
+
 function showMissingJournals() {
 	missingToggle = !missingToggle;
-	var missingJournalList = [];
+	var missingJournalString = jsStrings.tsv_footer + '\r\n' + jsStrings.journal_name + '\t' + jsStrings.missing_publications + '\r\n';
 	for(var title in missingJournalsMap)
 		if(missingJournalsMap.hasOwnProperty(title)) {
-		missingJournalList.push(title)
+		missingJournalString +=  title + '\t' + missingJournalsMap[title] + '\r\n'
 		}
-	if(missingToggle)
-		$('#genPdfBtn').parent()
-			.append("<p id='missingTitles'> " + missingJournalList.map(
-				function (title) {
-					return title + "; "
-				}
-			).join("") + "</p>")
+	if(missingToggle) {
+		download('journals.tsv', missingJournalString)
+	}
+
 	else
 		$('#missingTitles').remove();
 }
@@ -72,7 +82,7 @@ function AssignWorksToDomains(works, domainsList) {
 	works.forEach(function (w) {
 		if(w.publicationType === 'article') justArticles++;
 		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.compJournalTitle] === undefined) {
-			missingJournalsMap[w.journalTitle] = true;
+			missingJournalsMap[w.journalTitle] = missingJournalsMap[w.journalTitle] ? missingJournalsMap[w.journalTitle]++ : 1;
 			missingJournals++;
 		}
 	})

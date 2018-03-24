@@ -37,7 +37,11 @@
 
 	"averaging_method": "Averaging method",
 	"show_disciplines": "Show disciplines",
-	"show_missing_journals": "Show journals",
+	"show_missing_journals": "List missing journals",
+
+	"journal_name": "Journal Title",
+	"missing_publications": "Missing publications",
+	"tsv_footer": "Please report assignment errors to Veslava Osińska - wieo@umk.pl",
 
 	"vis_details": {
 	  "collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
