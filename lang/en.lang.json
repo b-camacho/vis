@@ -175,9 +175,9 @@
 		  "title": "Keywords"
 		}
 	  ],
-	  "footer": "Only highly informative fields are used in current application. A sample file for is available here:",
-	  "footer_link": "/examples/veslava_osinska.rtf",
-	  "footer_link_dl": "sample_file.rtf",
+	  "footer": "Only highly informative fields are used in current application. A package of sample files is available here:",
+	  "footer_link": "/examples/samples.zip",
+	  "footer_link_dl": "samples.zip",
 	  "footer_link_text": "link"
 	},
 	"goals": {
