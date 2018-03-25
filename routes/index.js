@@ -47,7 +47,7 @@ router.get('/info/*', function (req, res, next) {
 
 router.post('/genPdf', function (req, res, next) {
 
-	var doc = new PDFDocument({layout: 'landscape'});
+	var doc = new PDFDocument({layout: 'landscape', size: [595, 842]});
 	doc.registerFont('Open Sans', 'sources/fonts/open-sans.regular.ttf');
 	var tmpFilePath = './download/infovis'+ Math.random().toString(36).substr(2, 5) + '.pdf';
 	var tmpWriteStream = fs.createWriteStream(tmpFilePath)
@@ -57,7 +57,11 @@ router.post('/genPdf', function (req, res, next) {
 		.fillColor('#444dce').fontSize(18)
 		.text(req.body.args.for + req.body.args.authorName);
 
-	svgToPdf(doc, req.body.svg, 50, 100);
+	var visX = 50, visY = 100;
+	var scale = Math.min(doc.page.width / req.body.args.width, doc.page.height / req.body.args.height, 1);
+	req.body.svg = '<svg transform="scale(' + scale + ')"> ' + req.body.svg.substr(4);
+	// if(req.body.args.type = "works") visY -= (req.body.args.height / 2);
+	svgToPdf(doc, req.body.svg, visX, visY,{width:req.body.args.width, height: req.body.args.height});
 
 
 	doc.image('sources/images/logo200.png', 50, doc.page.height - 100,{width: 50});

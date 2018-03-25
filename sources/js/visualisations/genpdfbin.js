@@ -1,8 +1,14 @@
 function genPdfDoc() {
+
+
+	var $svgPort = $('#svg-port');
 	$.post('/genPdf',
 		{
-			svg: "<svg>" + $('#svg-port')[0].innerHTML + "</svg>" ,
+			svg: '<svg ' + $svgPort[0].innerHTML + '</svg>' ,
 			args: {
+				type: visname,
+				width: $svgPort.width(),
+				height: $svgPort.height(),
 				title: jsStrings.vis_titles[visname],
 				caption: jsStrings.pdf_caption,
 				caption_title: jsStrings.pdf_caption_title,
