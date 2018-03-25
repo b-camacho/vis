@@ -45,16 +45,16 @@ function download(filename, text) {
 
 function showMissingJournals() {
 	missingToggle = !missingToggle;
-	var missingJournalString = jsStrings.tsv_footer + '\r\n' + jsStrings.journal_name + '\t' + jsStrings.domain1 + '\t' + jsStrings.domain2 + '\t' + jsStrings.discipline + '\r\n';
+	var missingJournalString = jsStrings.tsv_footer + '\r\n' + jsStrings.journal_name + '\t' + jsStrings.discipline + '\t' + jsStrings.domain1 + '\t' + jsStrings.domain2 + '\r\n';
 	for (var title in foundJournalsMap)
 		if(foundJournalsMap.hasOwnProperty(title)) {
 		console.log(title)
 		console.log(foundJournalsMap[title])
 			missingJournalString +=
 				foundJournalsMap[title] + '\t' +
+				JOURNALS[title].disciplines[0].name + '\t' +
 				JOURNALS[title].domains[0].name + '\t' +
-				(JOURNALS[title].domains.length > 1 ? JOURNALS[title].domains[1].name : '-') + '\t' +
-				JOURNALS[title].disciplines[0].name + '\r\n'
+				(JOURNALS[title].domains.length > 1 ? JOURNALS[title].domains[1].name : '-') + '\r\n'
 		}
 	missingJournalString += jsStrings.missing_journal_name + '\r\n';
 	for(var title in missingJournalsMap)

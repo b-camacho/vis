@@ -37,7 +37,7 @@
   "scriptable": {
 	"averaging_method": "Metoda uśredniania",
 	"show_disciplines": "Wyświetl dyscypliny",
-	"show_missing_journals": "Lista brakujących czasopism",
+	"show_missing_journals": "Pobierz listę czasopism",
 
 	"journal_name": "Tytuł czasopisma",
 	"missing_journal_name": "Tytuły brakujących czasopism",

@@ -37,7 +37,7 @@
 
 	"averaging_method": "Averaging method",
 	"show_disciplines": "Show disciplines",
-	"show_missing_journals": "List missing journals",
+	"show_missing_journals": "Download journal list",
 
 	"journal_name": "Journal Title",
 	"missing_journal_name": "Missing journal titles",
