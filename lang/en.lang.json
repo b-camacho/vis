@@ -40,7 +40,10 @@
 	"show_missing_journals": "List missing journals",
 
 	"journal_name": "Journal Title",
-	"missing_publications": "Missing publications",
+	"missing_journal_name": "Missing journal titles",
+	"domain1": "Domain 1",
+	"domain2": "Domain 2",
+	"discipline": "Discipline",
 	"tsv_footer": "Please report assignment errors to Veslava Osińska - wieo@umk.pl",
 
 	"vis_details": {

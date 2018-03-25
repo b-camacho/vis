@@ -40,7 +40,10 @@
 	"show_missing_journals": "Lista brakujących czasopism",
 
 	"journal_name": "Tytuł czasopisma",
-	"missing_publications": "Liczba prac",
+	"missing_journal_name": "Tytuły brakujących czasopism",
+	"domain1": "Dziedzina 1",
+	"domain2": "Dziedzina 2",
+	"discipline": "Dyscyplina",
 	"tsv_footer": "W przypadku błędów kategoryzacji proszę konktować się z Veslava Osińska - wieo@umk.pl",
 
 	"vis_details": {

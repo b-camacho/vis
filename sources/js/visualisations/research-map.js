@@ -1,6 +1,7 @@
 var methodToggle = true, whiskerToggle = true, missingToggle = false;
 var missingJournals = 0;
 var missingJournalsMap = {};
+var foundJournalsMap = {};
 var justArticles = 0;
 function methodToggleButton () {
 	methodToggle = !methodToggle;
@@ -44,10 +45,21 @@ function download(filename, text) {
 
 function showMissingJournals() {
 	missingToggle = !missingToggle;
-	var missingJournalString = jsStrings.tsv_footer + '\r\n' + jsStrings.journal_name + '\t' + jsStrings.missing_publications + '\r\n';
+	var missingJournalString = jsStrings.tsv_footer + '\r\n' + jsStrings.journal_name + '\t' + jsStrings.domain1 + '\t' + jsStrings.domain2 + '\t' + jsStrings.discipline + '\r\n';
+	for (var title in foundJournalsMap)
+		if(foundJournalsMap.hasOwnProperty(title)) {
+		console.log(title)
+		console.log(foundJournalsMap[title])
+			missingJournalString +=
+				foundJournalsMap[title] + '\t' +
+				JOURNALS[title].domains[0].name + '\t' +
+				(JOURNALS[title].domains.length > 1 ? JOURNALS[title].domains[1].name : '-') + '\t' +
+				JOURNALS[title].disciplines[0].name + '\r\n'
+		}
+	missingJournalString += jsStrings.missing_journal_name + '\r\n';
 	for(var title in missingJournalsMap)
 		if(missingJournalsMap.hasOwnProperty(title)) {
-		missingJournalString +=  title + '\t' + missingJournalsMap[title] + '\r\n'
+		missingJournalString +=  title + '\r\n'
 		}
 	if(missingToggle) {
 		download('journals.tsv', missingJournalString)
@@ -84,6 +96,9 @@ function AssignWorksToDomains(works, domainsList) {
 		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.compJournalTitle] === undefined) {
 			missingJournalsMap[w.journalTitle] = missingJournalsMap[w.journalTitle] ? missingJournalsMap[w.journalTitle]++ : 1;
 			missingJournals++;
+		}
+		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.compJournalTitle] !== undefined) {
+			foundJournalsMap[w.compJournalTitle] = w.journalTitle;
 		}
 	})
 
