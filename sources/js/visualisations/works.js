@@ -1,6 +1,5 @@
 $(document).ready(function () {
 	$.post("worksData", function (data) {
-		console.log(data)
 		// console.log(jsStrings)
 			var barData = getBars(data);
 			drawWorksOverTimeGraph(barData);
@@ -10,7 +9,6 @@ $(document).ready(function () {
 });
 
 function drawWorksOverTimeGraph(data) {
-	console.log(data)
 	var red = "#f44336";
 	var blue = "#26a69a";
 	var stackMargin = 10;
@@ -148,14 +146,23 @@ function ConvertDbOutputIntoLegacyExpertusFormat(data, mainName) { //[ {authors:
 }
 
 function getBars(allWorks) {
-	allWorks.forEach(function (el) {
-		if (Number.parseInt(el.year) < 1900) el.year = Number.parseInt(el.year) - (-1000);
+	allWorks = allWorks.map(function (el) {
+		if (Number.parseInt(el.year) < 1900) {
+			el.year = Number.parseInt(el.year) - (-1000);
+		}
+		else el.year = Number.parseInt(el.year);
+		return el;
 	});
+
 	allWorks.sort(dynamicSort('year'));
+
+
 	var bars = [];
+	
 	for (var i = 0; i < (allWorks[allWorks.length - 1].year - allWorks[0].year - (-1)); i++) {
 		bars.push(countYearOccurences(allWorks[0].year - (-i), allWorks))
 	}
+
 	return bars;
 }
 
@@ -174,7 +181,7 @@ function countYearOccurences(year, arr) {
 			if(el.publicationType === 'book') resObj.books++;
 			if(el.publicationType === 'edit') {
 				resObj.edits++;
-				console.log('Pushing ' + el.title)
+				// console.log('Pushing ' + el.title)
 				resObj.titles.push(el.title);
 			}
 			if(el.publicationType === 'article') resObj.articles++;
@@ -285,7 +292,6 @@ function displayWorkStatsWorksInTime(data) {
 	});
 	displayValues.meanPerYear = displayValues.sumOfWorks / data.length;
 
-	console.log(displayValues);
 
 	$('#mean-works-amount-display').text(displayValues.meanPerYear.toFixed(2));
 	$('#publications-amount-display').text(displayValues.sumOfArticles);

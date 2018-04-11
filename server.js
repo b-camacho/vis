@@ -26,9 +26,12 @@ const rawDbWordsParser = require('./getWordObjectsArray');
 app.use(express.static('sources'));
 app.use('/download', express.static('download'));
 app.use('/favicons', express.static('favicons'))
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
+    limit: '5mb'
 }));
 
 const session = require('express-session');

@@ -8,11 +8,12 @@ parser.parse = function (rawText, done) {
     const exp2 = new RegExp(/<span class="label">/);
 
     let recordObjectsArray = [];
+    //TODO: handle 2 name query with OR in the middle
     const queryName = rawText.split('id="querylabel">Zapytanie: </span>')[1].split('<BR><FONT')[0];
     const rawTextArray = rawText.split(exp1);
 
     rawTextArray.forEach((record, index) => {
-        if(index == 0) return;
+        if(index === 0) return;
 
         let recordObject = {
             authorsExpertusFormat: [],
@@ -57,13 +58,15 @@ parser.parse = function (rawText, done) {
                     recordObject.potentialCity = splitLine[1].split(':').length !== 1 ?
                         splitLine[1].split(':')[0].trim() :
                         null;
+	                ['.', ',', '\'', '', ':', ';', ']', '[', '(', ')'].forEach(function (ignoredChar) {
+		                splitLine[1] = splitLine[1].split(ignoredChar).join('')
+	                });
 
                     if(cities[recordObject.potentialCity]) {
                         recordObject.latLng = cities[recordObject.potentialCity]
                     }
 
                     recordObject.year = Number.parseInt(splitLine[1].trim().substr(splitLine.length - 6));
-
                     break;
 
                 case 'Typ formalny publikacji':
