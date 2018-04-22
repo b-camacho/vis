@@ -214,5 +214,13 @@
 	  ]
 	}
 
+  },
+  "error": {
+	"title": "Error",
+	"description": "The application has encountered an error.",
+	"reason": "Reason: ",
+	"reasons": {
+	  "parser": "Incorrect input file"
+	}
   }
 }

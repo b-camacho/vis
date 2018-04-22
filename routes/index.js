@@ -9,12 +9,21 @@ var lang = {
 	en: require('../lang/en.lang.json')
 };
 
+
+
 router.use('/', function (req, res, next) {
 	res.data = res.data ? res.data : {};
 	res.data.name = req.session.queryName || '';
 	res.data.lang = req.session.lang === 'en' ? lang.en : lang.pl;
 	next()
 });
+
+router.get('/error/:type', function (req, res) {
+	console.log(req.params.type)
+	res.data.type = req.params.type || 'parser';
+	res.data.error = res.data.lang.error;
+	res.render('error', res.data)
+})
 
 router.get('/', function (req, res) {
 	res.render('dashboard', res.data)

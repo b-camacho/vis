@@ -152,8 +152,6 @@
 		  "title": "Adam Szalach",
 		  "description": " – baza danych"
 		}
-
-
 	  ],
 	  "footer": "Jesteśmy zawsze otwarci na współpracę i poszerzenie obecnego grona projektantów. Dlatego zapraszamy do testowania naszej aplikacji i opiniowania. Kontakt: wieo@umk.pl"
 	},
@@ -215,7 +213,14 @@
 		"Chmurki słów zapewnią spojrzenie na tematykę badań; wykonane są one na bazie zestawów słów kluczowych, osobno w języku polskim i angielskim. Poza tym, autorzy wcielili oryginalną koncepcję koła dziedzin, na którym pozycjonują wszystkie publikację danego autora, tym samym pokazując dorobek w kontekście interdyscyplinarności. W wyborze 6 dziedzin wzorowano się na komercyjnym narzędziu InCites: nauki przyrodnicze, informatyka i inżynieria, medycyna, nauki o życiu, nauki społeczne, sztuka i humanistyka.",
 		"Tym samym naukowiec bez ponoszenia kosztów na specjalistyczne oprogramowanie może dokonać przejrzystej analizy własnego dorobku, prześledzić punkty krytyczne w swojej karierze, zminimalizować nadmierną zmienność w dynamice. Wizualizacja ma posłużyć jako pomocnicze narzędzie w zarządzaniu dorobkiem naukowym."
 	  ]
-	  }
-
+	}
+  },
+  "error": {
+	"title": "Błąd",
+	"description": "W aplikacji wystąpił błąd",
+	"reason": "Powód: ",
+	"reasons": {
+	  "parser": "Nieprawidłowy plik wejściowy."
+	}
   }
 }

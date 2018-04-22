@@ -1,0 +1,7 @@
+extends layout
+block content
+	.row.padded-text
+		h3(align='center', style='padding-top: 20px')=error.title
+		p=error.description
+		p=error.reason
+		p=error.reasons[type]
