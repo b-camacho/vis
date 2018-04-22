@@ -4,6 +4,7 @@
   "data": "Data",
   "goals": "Goals",
   "about": "About",
+  "tutorial": "Tutorial",
   "alt_lang": "Polski",
   "select_file": "Upload file",
 
@@ -34,7 +35,6 @@
 	"bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
   },
   "scriptable": {
-
 	"averaging_method": "Averaging method",
 	"show_disciplines": "Show disciplines",
 	"show_missing_journals": "Download journal list",
@@ -52,7 +52,9 @@
 	  "google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
 	  "research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
 	  "wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
-	  "bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
+	  "bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year",
+	  "general": "This application is used for analysis and visualisation of summative data describing scientific publishing based on the followin criteria: scientific productivity dynamics, collaboration network, geolocation of publications, scientific disciplines, summative number of pages, Ministry-awarded points as well as English and Polish keywords. To use the application, a data file has to be downloaded from the Expertus system. The Tutorial section contains a detailed manual."
+
 	},
 	"vis_titles": {
 	  "collab": "Collaboration graph",
@@ -120,17 +122,32 @@
 		{
 		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
 		  "title": "Wiesława Osińska",
-		  "description": " – responsible for conceptualization, tasks management, data analysis"
+		  "description": " – conceptualization, tasks management, data analysis"
 		},
 		{
 		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
 		  "title": "Brian Camacho",
-		  "description": " – responsible for application developing, data analysis"
+		  "description": " – application developing, data analysis"
 		},
 		{
 		  "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
 		  "title": "Grzegorz Osinski",
-		  "description": " – responsible for modelling, calculation and data analysis"
+		  "description": " – modelling, calculation and data analysis"
+		},
+		{
+		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/malgorzata-kowalska-pl",
+		  "title": "Małgorzata Kowalska",
+		  "description": " – documentation, standardising bibliographical metadata"
+		},
+		{
+		  "link": "",
+		  "title": "Katarzyna Jarczewska-Walendziak",
+		  "description": " – database"
+		},
+		{
+		  "link": "",
+		  "title": "Adam Szalach",
+		  "description": " – database"
 		}
 	  ],
 	  "footer": "We are always open to co-operation and broaden the current team. Therefore, we invite you for testing our application, evaluating and sharing with us your opinion. For details, please email wieo@umk.pl"

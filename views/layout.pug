@@ -42,6 +42,9 @@ html
 				a(href='/info/goals')=lang.goals
 			.top-link
 				a(href='/info/data')=lang.data
+			.top-link
+				a(href='/examples/tutorial.pdf')=lang.tutorial
+
 			div(style='margin-left: auto; margin-right: auto;padding-top: 5px;  width: 300px; height:5em')
 				ul
 					li#query-name-caption(style='margin-top: -15px;')=name ? lang.visualising_for : ''
@@ -74,42 +77,6 @@ block scripts
 		while ($nameContainer.height() > 45) {
 			$nameContainer.css('font-size', (parseInt($nameContainer.css('font-size')) - 1) + 'px');
 		}
-		// function genPdfDoc() {
-		// 	var $svg = document.querySelector('#svg-port')
-		// 		, doc = new PDFDocument({
-		// 		layout: 'landscape',
-		// 	})
-		// 		, stream = doc.pipe(blobStream());
-		// 	doc.fontSize(25)
-		// 		.text('Objetosc pismiennicza w czasie', 100, 40);
-		// 	doc.fontSize(12)
-		// 		.text('Wygenerowano przez ', {
-		// 			continued: true
-		// 		})
-		// 		.text('Wizualizator Dorobku Naukowego', {
-		// 			continued: true,
-		// 			link: 'http://visualizeme.umk.pl'
-		// 		})
-		// 		.text(' dla ' + name.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
-		//
-		//
-		// 	var scale = doc.page.width / $svg.width.baseVal.value;
-		// 	var width = $svg.width.baseVal.value;
-		// 	var height = $svg.height.baseVal.value;
-		// 	console.log(scale);
-		// 	//        $svg = $svg.cloneNode(true);
-		// 	$svg.setAttribute('transform', 'scale(' + scale + ')');
-		//
-		// 	SVGtoPDF(doc, $svg, 100, height / 6, {width: width, height: height});
-		//
-		//
-		// 	stream.on('finish', function () {
-		// 		console.log(stream.toBlobURL('application/pdf'));
-		// 		window.location = stream.toBlobURL('application/pdf');
-		// 	});
-		// 	doc.end();
-		//
-		// }
 
 
 

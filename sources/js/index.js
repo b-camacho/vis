@@ -1,5 +1,4 @@
 
-
 $(document).ready(function () {
 
 	// var selectForm = $('#name-select-form');
@@ -11,17 +10,28 @@ $(document).ready(function () {
 
 
 	var DetailedDescriptions = {
-		graph: jsStrings.vis_details.collab,
+		collab: jsStrings.vis_details.collab,
 		works: jsStrings.vis_details.works,
 		bubbles: jsStrings.vis_details.bubbles,
-		map: jsStrings.vis_details["google-map"],
+		"google-map": jsStrings.vis_details["google-map"],
 		wordcloud: jsStrings.vis_details.wordcloud,
-		circle: jsStrings.vis_details["research-map"]
+		"research-map": jsStrings.vis_details["research-map"],
+		general: jsStrings.vis_details.general
 	};
 
-	DisplayDetails = function (visName) {
+	DisplayDetails = function(visName) {
+		console.log('setting' + visName)
 		$('#details-host').text(DetailedDescriptions[visName])
 	}
+
+	document.querySelectorAll('.card-image').forEach(function (c) {
+		c.addEventListener('mouseout', function (event) {
+			console.log('XDDDDDDD')
+			DisplayDetails('general');
+		})
+	})
+
+	DisplayDetails('general')
 });
 
 var inputFocused = false;

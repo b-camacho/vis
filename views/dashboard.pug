@@ -1,4 +1,8 @@
 extends layout
+mixin vislink(visname)
+	a(href=visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
+		.card-image
+			img(src='/images/' + visname + '.jpg')
 
 block content
 	.row.main-row
@@ -6,37 +10,19 @@ block content
 			.row
 				#row1.col.s4
 					.card.white-text(style='margin-bottom: 20px')
-						a(href='works', onmouseover="(function display(){DisplayDetails('works')})()")
-							.card-image
-								img(src='/images/worksnew.png')
-								// <span class="card-title black-text">Dynamika liczby publikacji</span>
+						+vislink('works')
 					.card.white-text
-						a(href='research-map')
-							.card-image(onmouseover="(function display(){DisplayDetails('circle')})()")
-								img(src='/images/research-map.jpg')
-								// <span class="card-title black-text">Publikacje na kole dziedzin</span>
+						+vislink('research-map')
 				#row2.col.s4
 					.card.white-text(style='margin-bottom: 20px')
-						a(href='collab')
-							.card-image(onmouseover="(function display(){DisplayDetails('graph')})()")
-								img(src='/images/collab.jpg')
-								// <span class="card-title black-text">Graf współautorstwa</span>
+						+vislink('collab')
 					.card.white-text
-						a(href='bubbles')
-							.card-image(onmouseover="(function display(){DisplayDetails('bubbles')})()")
-								img(src='/images/bubbles.jpg')
-								// <span class="card-title black-text">Objętość piśmiennicza w skali czasu</span>
+						+vislink('bubbles')
 				#row3.col.s4
 					.card.white-text(style='margin-bottom: 20px')
-						a(href='google-map')
-							.card-image(onmouseover="(function display(){DisplayDetails('map')})()")
-								img(src='/images/google-map.jpg')
-								// <span class="card-title black-text">Mapa publikowania prac</span>
+						+vislink('google-map')
 					.card.white-text
-						a(href='wordcloud')
-							.card-image(onmouseover="(function display(){DisplayDetails('wordcloud')})()")
-								img(src='/images/wordcloud.jpg')
-								// <span class="card-title black-text">Chmury słów kluczowych</span>
+						+vislink('wordcloud')
 		.col.s5(style='height: 100%; padding-right: 0')
 			.z-depth-1.vis-select
 				.row
