@@ -43,7 +43,10 @@ app.use(session({
     secret: config.appSecret,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mg.connection })
+    store: new MongoStore({ mongooseConnection: mg.connection }),
+    cookie: {
+        maxAge: 3600000
+    }
 }));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -251,8 +254,9 @@ app.post('/wordcloudData', function (req, res) {
 
 
 app.post('/upload', function (req, res) {
-    var busboy = new Busboy({ headers: req.headers });
-    var chunks = [];
+    let busboy = new Busboy({ headers: req.headers });
+    let chunks = [];
+    let error = null;
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
         file.on('data', function(chunk) {
             chunks.push(chunk);
@@ -268,7 +272,10 @@ app.post('/upload', function (req, res) {
 		            req.session.queryName = queryName;
 	            });
             } catch (e) {
-                console.log(e)
+                req.session.works = null;
+                req.session.queryName = null;
+
+                error = e;
             }
 
 
@@ -278,12 +285,20 @@ app.post('/upload', function (req, res) {
     });
 
     busboy.on('finish', function() {
-        res.writeHead(303, { Connection: 'close', Location: '/' });
+    	if(!error) {
+		    res.writeHead(303, { Connection: 'close', Location: '/' });
+	    }
+	    else{
+    		res.writeHead(303, { Connection: 'close', Location: '/error/parser'})
+	    }
+
         res.end();
     });
     req.pipe(busboy);
 
 })
+
+
 
 app.get('/*/name', function (req, res) {
     if(req.session.queryName) res.send({available: true, name: req.session.queryName});
