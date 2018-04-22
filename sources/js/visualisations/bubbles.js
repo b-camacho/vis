@@ -3,14 +3,14 @@ $(document).ready(function () {
 
 			var removedCounter = 0;
 			data.forEach(function (invalidEl, invalidIndex, arr) {
-				if(!invalidEl.year || invalidEl.pageAmount < 0) {console.log('Invalid record: ' + invalidIndex);
+				if(!invalidEl.year || invalidEl.pageAmount < 0) {//console.log('Invalid record: ' + invalidIndex);
 					data.splice(invalidIndex + removedCounter, 1)}
 			});
 
 			data = data.sort(function (a, b) {
 				if(a.year && b.year) return (a.year > b.year) - (a.year < b.year);
 			});
-			console.log(data);
+			//console.log(data);
 
 			var PageCountsGroupedByYear = [];
 			PageCountsGroupedByYear[0] = {
@@ -20,6 +20,7 @@ $(document).ready(function () {
 			};
 
 			data.forEach(function (el) {
+				if(el.pageAmount < 0) el.pageAmount = 0;
 				var last = PageCountsGroupedByYear.length - 1;
 				if(PageCountsGroupedByYear[last].year === el.year) {
 					PageCountsGroupedByYear[last].pages += el.pageAmount;
@@ -31,7 +32,7 @@ $(document).ready(function () {
 					points: el.points
 				})
 			});
-			console.log(PageCountsGroupedByYear);
+			//console.log(PageCountsGroupedByYear);
 
 			drawBubbleGraph(PageCountsGroupedByYear)
 		}
@@ -57,9 +58,9 @@ function drawBubbleGraph(data) {
 
 	var rays = [];
 	data.forEach(function (el) {
-		console.log(el.pages)
 		rays.push((Math.sqrt(el.pages) / sumOfPages) * Math.min(width, height) * 0.8);
 	});
+	console.log(rays)
 
 	var points = [];
 	data.forEach(function (el) {
@@ -78,30 +79,16 @@ function drawBubbleGraph(data) {
 		centres[centres.length - 1] += el;
 	});
 
-	console.log(years)
-	console.log(rays)
-	console.log(centres)
-	console.log(points)
 
 	var xScale = d3.scaleOrdinal()
 		.domain(years)
 		.range(centres);
 
 	var bubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
-		if(!data[i]) {
-			console.log(data);
-			console.log(d);
-			console.log(i);
-		}
 		return jsStrings.vis.year["1"] + ": " + years[i] + '<br>' + jsStrings.vis.page["many"] + ": " + data[i].pages });
 	svg.call(bubbleTip);
 
 	var pointBubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
-		if(!data[i]) {
-			console.log(data);
-			console.log(d);
-			console.log(i);
-		}
 		return jsStrings.vis.year["1"] + ": " + years[i] + '<br>' + jsStrings.vis.ministerial_score + ": " + data[i].points });
 	svg.call(pointBubbleTip);
 
@@ -111,12 +98,15 @@ function drawBubbleGraph(data) {
 	var topYears=[], topCentres=[];
 	var pointYears = [], pointCentres = [];
 
+
+	console.log(years);
+	console.log(centres)
 	years.forEach(function (el, index) {
 
 		pointYears.push(years[index]);
 		pointCentres.push(centres[index]);
 
-		if(index%2 == 0) {
+		if(index%2 === 0) {
 			bottomYears.push(el);
 			bottomCentres.push(centres[index]);
 		}
@@ -161,7 +151,7 @@ function drawBubbleGraph(data) {
 		.attr('x2', function (d, i) {
 			return centres[i]})
 		.attr('y2', function (d, i) {
-			if(i%2==0) return height;
+			if(i % 2 === 0) return height;
 			else return 20 })
 		.attr('stroke', 'black')
 		.attr('stroke-dasharray', '5, 5')
@@ -202,7 +192,7 @@ function drawBubbleGraph(data) {
 
 	var pointHeightScale = d3.scaleLinear()
 		.domain([Math.max(...points), Math.min(...points)])
-.range([height + ( (trueHeight - height) / 2), trueHeight - 10])
+		.range([height + ( (trueHeight - height) / 2), trueHeight - 10]);
 
 	var pointBubbles = svg
 		.selectAll('rect')
@@ -226,7 +216,7 @@ function drawBubbleGraph(data) {
 		})
 
 		.attr('y2', function (d, i) {
-			console.log(points[i+1]);
+			//console.log(points[i+1]);
 			if(i < data.length - 1) return pointHeightScale(points[i+1])
 			else return pointHeightScale(points[i]);
 		})
