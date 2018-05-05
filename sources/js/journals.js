@@ -4207,7 +4207,7 @@ var JOURNALS = {
   "arabianjournalforscienceandengineering": {
     "domains": [
       {
-        "name": "0",
+        "name": "nauki ścisłe",
         "weight": 1
       }
     ],
@@ -5662,7 +5662,7 @@ var JOURNALS = {
   "bestinternationaljournalofhumanitiesartsmedicineandsciences": {
     "domains": [
       {
-        "name": "0",
+        "name": "nauki ścisłe",
         "weight": 1
       }
     ],
@@ -19614,7 +19614,7 @@ var JOURNALS = {
   "internationalresearchjournalforqualityineducation": {
     "domains": [
       {
-        "name": "0",
+        "name": "nauki społeczne",
         "weight": 1
       }
     ],
@@ -32140,7 +32140,7 @@ var JOURNALS = {
   "paripexindianjournalofresearch": {
     "domains": [
       {
-        "name": "0",
+        "name": "nauki ścisłe",
         "weight": 1
       }
     ],
@@ -38710,7 +38710,7 @@ var JOURNALS = {
   "rynkialkoholowe": {
     "domains": [
       {
-        "name": "0",
+        "name": "sztuka",
         "weight": 1
       }
     ],

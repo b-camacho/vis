@@ -40,6 +40,9 @@
 
   "scriptable": {
 
+	"ministerial_points": "Punktacja ministerstwa",
+	"point_threshold": "Próg punktowy:",
+
 	"averaging_method": "Metoda uśredniania",
 	"show_disciplines": "Wyświetl dyscypliny",
 	"show_missing_journals": "Pobierz listę czasopism",

@@ -15,6 +15,20 @@ nav {
     color: white;
 }
 
+.main-title {
+    margin-bottom: -8px;
+	margin-top: -10px;
+	font-size: 20px;
+}
+.alt-title {
+	font-size: 14px;
+	margin-top: -5px;
+	margin-left: 3px;
+}
+.upload-btn {
+	float: right;
+}
+
 .top-nav a {
     color: whitesmoke;
 }
@@ -107,6 +121,11 @@ nav {
     padding-left: 2em;
     padding-top: 20px;
     height: 100%;
+
+	overflow: scroll;
+
+	line-height: 16px;
+	font-size: 14px;
 }
 
 .vis-details-card {
@@ -126,9 +145,9 @@ nav {
 
 .top-link {
     float: right;
-    padding-top: 18px;
-    padding-right: 30px;
-    font-size: 20px;
+    padding-top: 24px;
+    padding-right: 20px;
+    font-size: 16px;
 }
 .top-link a {
     color: #FFFFFF;
@@ -154,6 +173,9 @@ nav {
 .line-btn {
     display: block;
     margin-top: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 html, body, h1, h2, h3, h4, h5, h6, div {
     padding: 0;
@@ -164,3 +186,86 @@ html, body, h1, h2, h3, h4, h5, h6, div {
 html, body {
 	overflow-y: hidden;
 }
+
+.blur {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 10000;
+}
+
+.overlay {
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 80%;
+	background-color: white;
+
+}
+
+.overlay .title-bar {
+	position: absolute;
+	height: 8%;
+	width: 100%;
+	top:0;
+	left:0;
+
+	background-color: #FFB343;
+	color: white;
+}
+
+.overlay .title-bar .title {
+	margin-left: 20px;
+	font-size: 28px;
+	text-align: left;
+	line-height: 10%;
+	display: inline-block;
+}
+
+.overlay .title-bar p, .overlay .title-bar input {
+	line-height: 10%;
+	margin-top: 2.5%;
+}
+.overlay .title-bar .close-btn {
+	float: right;
+	margin-top: 1%;
+	font-size: 40px;
+	color: white;
+	margin-right: 10px;
+}
+#ministerial-label {
+	float: right;
+	display: inline-block;
+
+	margin-right: 10px
+
+}
+#ministerial-slider {
+	float: right;
+	width: 30%;
+	margin-right: 20px;
+}
+#ministerial-display{
+	float: right;
+	width: 40px;
+	font-size: 24px;
+	margin-right: 10px;
+	display: inline-block;
+
+}
+
+.overlay svg {
+	position: absolute;
+	top:8%;
+	height: 92%;
+	width: 100%;
+
+}
+/*.overlay .title-bar input {*/
+	/*float: right;*/
+	/*width: 50px;*/
+/*}*/

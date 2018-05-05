@@ -21,15 +21,15 @@ html
 			img(src="/images/logo200.png" style="float:left; height: 90%; margin-top: 5px; margin-right: 10px")
 			div(style='float: left; height: 50px')
 				ul
-					li(style='font-size: x-large; margin-bottom: -8px; margin-top: -10px')
-						a(href='/')=lang.title
-					li(style='font-size: medium') Scientific output visualizer
+					li
+						a.main-title(href='/')=lang.title
+					li.alt-title Scientific output visualizer
 			if(visname)
 				div(style='float: right; height: 50px')
 					a(href='/')
 						i.fa.fa-arrow-left.back-arrow(aria-hidden='true')
 			else
-				div(style='float: right; margin-right: 20px;')
+				div.upload-btn
 					form(method='post', action='/upload', enctype='multipart/form-data')
 						.file-field.input-field.btn=lang.select_file
 							input#file-input(type='file', name='expertus', onchange='StartUpload()')

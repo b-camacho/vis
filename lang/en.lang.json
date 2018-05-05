@@ -35,6 +35,10 @@
 	"bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
   },
   "scriptable": {
+
+	"ministerial_points": "Ministerial points",
+	"point_threshold": "Point threshold:",
+
 	"averaging_method": "Averaging method",
 	"show_disciplines": "Show disciplines",
 	"show_missing_journals": "Download journal list",

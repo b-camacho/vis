@@ -11,7 +11,7 @@ function methodToggleButton () {
 
 		missingJournals = 0;
 		justArticles = 0;
-		var articles = AssignWorksToDomains(data, DOMAINS);
+		var articles = AssignWorksToDomains(data);
 
 		DrawDomains(articles, GetDomainAngleBounds(DOMAINS))
 	})
@@ -30,26 +30,11 @@ function whiskerToggleButton() {
 
 }
 
-function download(filename, text) {
-	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-	element.setAttribute('download', filename);
-
-	element.style.display = 'none';
-	document.body.appendChild(element);
-
-	element.click();
-
-	document.body.removeChild(element);
-}
-
 function showMissingJournals() {
 	missingToggle = !missingToggle;
 	var missingJournalString = jsStrings.tsv_footer + '\r\n' + jsStrings.journal_name + '\t' + jsStrings.discipline + '\t' + jsStrings.domain1 + '\t' + jsStrings.domain2 + '\r\n';
 	for (var title in foundJournalsMap)
 		if(foundJournalsMap.hasOwnProperty(title)) {
-		console.log(title)
-		console.log(foundJournalsMap[title])
 			missingJournalString +=
 				foundJournalsMap[title] + '\t' +
 				JOURNALS[title].disciplines[0].name + '\t' +
@@ -81,6 +66,9 @@ $(document).ready(function () {
 
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
+		recomputeDomainWeights()
+		console.log('DOMAINS')
+		console.log(DOMAINS)
 		DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
 		whiskerToggleButton()
 	})
@@ -89,7 +77,7 @@ $(document).ready(function () {
 /**
 	* @returns {Array} of article-type work objects with domain array added as property
 **/
-function AssignWorksToDomains(works, domainsList) {
+function AssignWorksToDomains(works) {
 	var worksByJournal = {};
 	works.forEach(function (w) {
 		if(w.publicationType === 'article') justArticles++;
@@ -109,8 +97,8 @@ function AssignWorksToDomains(works, domainsList) {
 			JOURNALS[w.compJournalTitle] !== undefined
 		})
 		.forEach(function (w) {
-			if(JOURNALS[w.journalTitle] === undefined) {
-				console.log(w.journalTitle)
+			if(JOURNALS[w.compJournalTitle] === undefined) {
+				console.log(w.compJournalTitle)
 			}
 
 			if(worksByJournal[w.compJournalTitle]){
@@ -123,8 +111,11 @@ function AssignWorksToDomains(works, domainsList) {
 				w.discipline = JOURNALS[w.compJournalTitle].disciplines[0].name;
 
 				DOMAINS.forEach(function (domain) {
-					if(domain.topic === w.domains[0].name)
+					if(domain.topic === w.domains[0].name) {
 						w.domains[0].hue = domain.hue
+						domain.amount +=1
+					}
+
 				})
 				w.amount = 1;
 				w.index = 0;
@@ -134,6 +125,19 @@ function AssignWorksToDomains(works, domainsList) {
 
 	return Object.keys(worksByJournal).map(function (title) {
 		return worksByJournal[title]
+	})
+}
+
+function recomputeDomainWeights() {
+	var sum = 0;
+	DOMAINS.forEach(function (d) {
+		sum += d.amount + 3
+	})
+
+	DOMAINS.forEach(function (domain) {
+		var paddedAmount = domain.amount + 3
+
+		domain.weight = paddedAmount / sum
 	})
 }
 
@@ -158,7 +162,7 @@ function GetDomainAngleBounds(domainsList) {
 	});
 }
 
-function GetDisciplineAngleBounds(angleBounds, works) {
+function GetDisciplineAngleBounds(angleBounds, works, minUnit) {
 	domainToDiscliplinesMap = {}
 	disciplines = []
 	works.forEach(function (work) {
@@ -179,8 +183,12 @@ function GetDisciplineAngleBounds(angleBounds, works) {
 		// console.log(domain)
 		var begin = domain.angleBounds.begin, span = domain.angleBounds.end - domain.angleBounds.begin
 		var unit = span / domainToDiscliplinesMap[domain.topic].length;
+		if(unit < minUnit) {
+			unit = minUnit
 
+		}
 		for(var i = 0; i < domainToDiscliplinesMap[domain.topic].length; i++) {
+			if(begin + unit * (i + 1) > domain.angleBounds.end) break;
 			disciplines.push({
 				discipline: domainToDiscliplinesMap[domain.topic][i],
 				angleBounds: {
@@ -220,7 +228,7 @@ function GetCartesianNodeSlots(angleBounds, slotRingRadius, slotRingRadiiDist, n
 		bounds.slotPositions = [];
 
 
-		for(var j = 0; j < 5; j++) {
+		for(var j = 0; j < 8; j++) {
 			var currentSlotRingRadius = slotRingRadius - j*slotRingRadiiDist
 			var angularNodeRadius = CartesianLengthToPolar(nodeRadius, currentSlotRingRadius)
 			var angularNodePadding = CartesianLengthToPolar(nodePadding, currentSlotRingRadius)
@@ -249,37 +257,34 @@ function DrawDomains(articles, angleBounds) {
 		width = jQPort.width(),
 		height = jQPort.height();
 	var radius = height / 2.5;
-	var nodeRadius = 6
+	var nodeRadius = 7
 	var nodePadding = 3
 	var ringWidth = 30;
-	var stackingOffset = 5;
+	var slotRingPadding = 25;
+	var stackingOffset = 2;
 	var centre =
 		{
 			x: width / 1.6,
 			y: height / 2
 		};
-	var padAngle = toRad(5);
-
-	var subringRadius = 20;
 
 
-	console.log("Angle Bounds")
-	console.log(angleBounds)
-	console.log("Articles")
-	console.log(articles)
+	// console.log("Angle Bounds")
+	// console.log(angleBounds)
+	// console.log("Articles")
+	// console.log(articles)
 
 	var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
-	console.log("Domain coords")
-	console.log(domainCoordinates)
-
-	var disciplineAngleBounds = GetDisciplineAngleBounds(angleBounds, articles);
 
 
+	var disciplineAngleBounds = GetDisciplineAngleBounds(angleBounds, articles, CartesianLengthToPolar(nodeRadius + nodePadding, radius));
+
+	console.log(disciplineAngleBounds)
 	console.log("Discipline Angle Bounds")
 	console.log(disciplineAngleBounds)
 	// var domainLabelCoordinates = GetCartesianDomainCentres(angleBounds, radius * 1.5)
-	var publicationNodeSlotCoordinates = GetCartesianNodeSlots(disciplineAngleBounds, radius * 0.8, radius * 0.1, nodeRadius, nodePadding)
-	console.log(publicationNodeSlotCoordinates)
+	var publicationNodeSlotCoordinates = GetCartesianNodeSlots(disciplineAngleBounds, radius - ringWidth - slotRingPadding, slotRingPadding, nodeRadius, nodePadding)
+	// console.log(publicationNodeSlotCoordinates)
 	var disciplineToSlotCoordArrayMap = {};
 	publicationNodeSlotCoordinates.forEach(function(domain) {
 		disciplineToSlotCoordArrayMap[domain.discipline] = domain;
@@ -337,13 +342,13 @@ function DrawDomains(articles, angleBounds) {
 			crossings[cros].crossing = cros;
 			domainCrossingAngleBounds.push(crossings[cros])
 		}
-	var domainCrossingCartesianNodeSlots = GetCartesianNodeSlots(domainCrossingAngleBounds, radius / 2, 20, nodeRadius, nodePadding);
+	var domainCrossingCartesianNodeSlots = GetCartesianNodeSlots(domainCrossingAngleBounds, radius / 2, slotRingPadding, nodeRadius, nodePadding);
 	var crossingToSlotCoordArrayMap = {};
 	domainCrossingCartesianNodeSlots.forEach(function(cros) {
 		crossingToSlotCoordArrayMap[cros.crossing] = cros;
 		crossingToSlotCoordArrayMap[cros.crossing].counter = 0
 	})
-	console.log(crossingToSlotCoordArrayMap)
+	// console.log(crossingToSlotCoordArrayMap)
 
 
 	var lenArticles = articles.length;
@@ -352,6 +357,10 @@ function DrawDomains(articles, angleBounds) {
 		var article = articles[artIdx];
 		if(article.index === 0) {
 			if(article.domains.length === 1 || methodToggle) {
+				if(! disciplineToSlotCoordArrayMap[article.discipline]) {
+					artIdx++;
+					continue;
+				};
 				article.coords = disciplineToSlotCoordArrayMap[article.discipline].slotPositions[disciplineToSlotCoordArrayMap[article.discipline].counter++]
 				if (!disciplineToSlotCoordArrayMap[article.discipline].slotPositions[disciplineToSlotCoordArrayMap[article.discipline].counter]) {
 					console.log('Exhausted discipline slots at ' + disciplineToSlotCoordArrayMap[article.discipline].counter)
@@ -389,7 +398,7 @@ function DrawDomains(articles, angleBounds) {
 	}
 
 
-	console.log(articles);
+	// console.log(articles);
 
 	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) {
 		if(d.topic)
@@ -413,7 +422,7 @@ function DrawDomains(articles, angleBounds) {
 	var arcsGroup = svg
 		.append('g')
 		.attr('id', 'arcs-g');
-	console.log(angleBounds)
+	// console.log(angleBounds)
 	angleBounds.forEach(function (angles) {
 		arcsGroup.append('path')
 			.attr('d', domainArcs(angles))
@@ -442,7 +451,9 @@ function DrawDomains(articles, angleBounds) {
 	var node = svg.append("g")
 		.attr("class", "nodes")
 		.selectAll("circle")
-		.data(articles)
+		.data(articles.filter(function (art) {
+			return !!art.coords;
+		}))
 		.enter().append("circle")
 		.attr("r", function (d) {
 			return nodeRadius
@@ -579,8 +590,9 @@ function DrawDomains(articles, angleBounds) {
 
 
 
-/*
+
 //Draw node slots for debugging
+/*
 	var nodeSlot = svg.append("g")
 		.attr("class", "node-slots")
 		.selectAll("circle.node-slots")
@@ -597,6 +609,6 @@ function DrawDomains(articles, angleBounds) {
 		.attr("cy", function(d){return d.y})
 		.attr("fill", function(d){return d.hue})
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
-*/
 
+*/
 }

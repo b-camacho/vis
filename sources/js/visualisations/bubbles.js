@@ -1,7 +1,8 @@
+var gData;
 $(document).ready(function () {
 	$.post("/bubblesData", function (data) {
 
-			var removedCounter = 0;
+			var removedCounter  = 0;
 			data.forEach(function (invalidEl, invalidIndex, arr) {
 				if(!invalidEl.year || invalidEl.pageAmount < 0) {//console.log('Invalid record: ' + invalidIndex);
 					data.splice(invalidIndex + removedCounter, 1)}
@@ -32,13 +33,177 @@ $(document).ready(function () {
 					points: el.points
 				})
 			});
-			//console.log(PageCountsGroupedByYear);
-
+			gData = data;
+			$buttonHost = $('#genPdfBtn').parent();
+			$buttonHost.append("<button class='btn line-btn' onclick='showOverlayWrapper()'>" + jsStrings.ministerial_points + "</button>")
 			drawBubbleGraph(PageCountsGroupedByYear)
 		}
 
 	)});
+function showOverlayWrapper() {
+	showOverlay(gData)
+}
+function closeOverlay(){
+	console.log('closing')
+	$('.blur').remove()
+}
+function showOverlay(works) {
+	var overlay = $('' +
+		'<div class="blur">' +
+		'   <div class="overlay"> ' +
+		'       <div class="title-bar">' +
+		'           <p class="title">' + jsStrings.ministerial_points + '</p>' +
+		'           <a href="#" onclick="closeOverlay()"><i class="close-btn fa fa-times" aria-hidden="true"></i></a>' +
+		'	        <input id="ministerial-slider" type="range" min="0" max="50" step="1" />' +
+		'           <p id="ministerial-display">15</p>' +
+		'           <p id="ministerial-label">' + jsStrings.point_threshold + '</p>' +
+		'       </div>' +
+		'       <svg id="overlay-svg-port"></svg>' +
+		'   </div>' +
+		'</div>');
+	overlay.appendTo(document.body)
 
+	var slider = $('#ministerial-slider');
+	var display = $('#ministerial-display');
+	var port = $('#overlay-svg-port')
+
+	DrawPoints(works, slider.val(), port.width(), port.height())
+
+	slider.on('input', function () {
+		display.text(slider.val())
+		clearDisplay()
+		DrawPoints(works, slider.val(), port.width(), port.height())
+	})
+
+}
+
+function DrawPoints(works, threshold, portWidth, portHeight) {
+	var yearRange = getYearRange(works);
+	var filteredWorks = filterByMinisterial(works, Number.parseInt(threshold));
+	var yearNodes = groupByYear(yearRange, filteredWorks);
+	var scoreRange = getScoreRange(yearNodes);
+
+	var svg = d3.select('#overlay-svg-port');
+
+	var axisPadding = 25;
+
+	console.log(yearRange)
+
+	var xScale = d3.scaleLinear()
+		.domain(yearRange)
+		.range([axisPadding, portWidth - axisPadding]);
+
+	xScale(1990)
+	var yScale = d3.scaleLinear()
+		.domain(scoreRange)
+		.range([axisPadding,portHeight - axisPadding].reverse());
+
+	yScale(20);
+
+	var overlayLines = svg.append('g').selectAll('line').data(yearNodes);
+	var overlayCircles = svg.append('g').selectAll('circle').data(yearNodes);
+
+	console.log(yearNodes)
+
+	overlayLines.enter()
+		.append('line')
+		.attr('x1', function (d) {
+			return xScale(d.year)
+		})
+		.attr('y1', function (d) {
+			return yScale(d.points)
+		})
+		.attr('x2', function (d, i) {
+			if(yearNodes[i+1])
+				return xScale(yearNodes[i+1].year);
+			else return xScale(yearNodes[i].year);
+		})
+		.attr('y2', function (d, i) {
+			if(yearNodes[i+1])
+				return yScale(yearNodes[i+1].points);
+			else return yScale(yearNodes[i].points);
+		})
+		.attr('stroke-width', '1px')
+		.attr('stroke', '#525690')
+
+	overlayCircles.enter()
+		.append('circle')
+		// .attr('transform', 'translate(' + [20, -10] + ')')
+		.attr('cx', function (d) {
+			return xScale(d.year);
+		})
+		.attr('cy', function (d) {
+			return yScale(d.points);
+		})
+		.attr('fill', function () {
+			return '#2627d7'
+		})
+		// .attr('r', '0')
+		// .transition()
+		// .duration(500)
+		.attr('r', function (d, i) {
+			return 6;
+		});
+
+	var xAxis = d3.axisBottom().scale(xScale);
+	var yAxis = d3.axisLeft().scale(yScale);
+
+	svg.append('g').call(xAxis)
+		.attr('transform', 'translate(' + [0, portHeight - axisPadding] + ')')
+	svg.append('g').call(yAxis)
+		.attr('transform', 'translate(' + [axisPadding, 0] + ')')
+
+
+}
+
+function clearDisplay() {
+	d3.select('#overlay-svg-port').selectAll('*').remove();
+}
+
+function getYearRange(works) {
+	var min = works[0].year, max = works[0].year;
+
+	works.forEach(function (work) {
+		if(work.year < min) min = work.year;
+		if(work.year > max) max = work.year;
+	});
+
+	return [min, max]
+}
+function filterByMinisterial(works, threshold) {
+	return works.filter(function (work) {
+		return work.points >= threshold
+	})
+}
+function groupByYear(yearRange, works) {
+	var years = [], wIdx = 0;
+	for (var year = yearRange[0]; year < yearRange[1]; year++) {
+		var groupedPoints = 0
+		while(works[wIdx] && works[wIdx].year === year) {
+			groupedPoints += works[wIdx].points
+			wIdx++
+		}
+
+		years.push({
+			year: year,
+			points: groupedPoints
+		})
+	}
+
+	return years
+}
+
+function getScoreRange(works) {
+	if(works.length === 0) return [0, 0];
+	var min = works[0].points, max = works[0].points;
+
+	works.forEach(function (work) {
+		if(work.points < min) min = work.points;
+		if(work.points > max) max = work.points;
+	});
+
+	return [min, max]
+}
 function drawBubbleGraph(data) {
 
 	var svg = d3.select('#svg-port');
@@ -60,7 +225,7 @@ function drawBubbleGraph(data) {
 	data.forEach(function (el) {
 		rays.push((Math.sqrt(el.pages) / sumOfPages) * Math.min(width, height) * 0.8);
 	});
-	console.log(rays)
+	// console.log(rays)
 
 	var points = [];
 	data.forEach(function (el) {
@@ -99,8 +264,8 @@ function drawBubbleGraph(data) {
 	var pointYears = [], pointCentres = [];
 
 
-	console.log(years);
-	console.log(centres)
+	// console.log(years);
+	// console.log(centres)
 	years.forEach(function (el, index) {
 
 		pointYears.push(years[index]);
