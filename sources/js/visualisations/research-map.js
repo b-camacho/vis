@@ -66,7 +66,7 @@ $(document).ready(function () {
 
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
-		recomputeDomainWeights()
+		// recomputeDomainWeights()
 		console.log('DOMAINS')
 		console.log(DOMAINS)
 		DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
