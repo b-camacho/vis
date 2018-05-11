@@ -55,7 +55,7 @@ function showOverlay(works) {
 		'           <p class="title">' + jsStrings.ministerial_points + '</p>' +
 		'           <a href="#" onclick="closeOverlay()"><i class="close-btn fa fa-times" aria-hidden="true"></i></a>' +
 		'	        <input id="ministerial-slider" type="range" min="0" max="50" step="1" />' +
-		'           <p id="ministerial-display">15</p>' +
+		'           <p id="ministerial-display">25</p>' +
 		'           <p id="ministerial-label">' + jsStrings.point_threshold + '</p>' +
 		'       </div>' +
 		'       <svg id="overlay-svg-port"></svg>' +
@@ -85,13 +85,13 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 
 	var svg = d3.select('#overlay-svg-port');
 
-	var axisPadding = 25;
+	var axisPadding = 25, barPadding = 10;
 
 	console.log(yearRange)
 
 	var xScale = d3.scaleLinear()
 		.domain(yearRange)
-		.range([axisPadding, portWidth - axisPadding]);
+		.range([axisPadding + barPadding, portWidth - axisPadding]);
 
 	xScale(1990)
 	var yScale = d3.scaleLinear()
@@ -101,39 +101,47 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 	yScale(20);
 
 	var overlayLines = svg.append('g').selectAll('line').data(yearNodes);
-	var overlayCircles = svg.append('g').selectAll('circle').data(yearNodes);
+	var overlayCircles = svg.append('g').selectAll('rect').data(yearNodes);
 
 	console.log(yearNodes)
 
-	overlayLines.enter()
-		.append('line')
-		.attr('x1', function (d) {
-			return xScale(d.year)
-		})
-		.attr('y1', function (d) {
-			return yScale(d.points)
-		})
-		.attr('x2', function (d, i) {
-			if(yearNodes[i+1])
-				return xScale(yearNodes[i+1].year);
-			else return xScale(yearNodes[i].year);
-		})
-		.attr('y2', function (d, i) {
-			if(yearNodes[i+1])
-				return yScale(yearNodes[i+1].points);
-			else return yScale(yearNodes[i].points);
-		})
-		.attr('stroke-width', '1px')
-		.attr('stroke', '#525690')
-
+	//todo: remove this
+	var rectWidth = portWidth / (yearRange[1] - yearRange[0]) - barPadding;
+	// overlayLines.enter()
+	// 	.append('line')
+	// 	.attr('x1', function (d) {
+	// 		return xScale(d.year)
+	// 	})
+	// 	.attr('y1', function (d) {
+	// 		return yScale(d.points)
+	// 	})
+	// 	.attr('x2', function (d, i) {
+	// 		if(yearNodes[i+1])
+	// 			return xScale(yearNodes[i+1].year);
+	// 		else return xScale(yearNodes[i].year);
+	// 	})
+	// 	.attr('y2', function (d, i) {
+	// 		if(yearNodes[i+1])
+	// 			return yScale(yearNodes[i+1].points);
+	// 		else return yScale(yearNodes[i].points);
+	// 	})
+	// 	.attr('stroke-width', '1px')
+	// 	.attr('stroke', '#525690')
+	console.log(yScale(0))
+	console.log(yScale(10))
 	overlayCircles.enter()
-		.append('circle')
+		.append('rect')
 		// .attr('transform', 'translate(' + [20, -10] + ')')
-		.attr('cx', function (d) {
-			return xScale(d.year);
+		.attr('x', function (d) {
+			return xScale(d.year) - rectWidth/2;
 		})
-		.attr('cy', function (d) {
+		.attr('y', function (d) {
 			return yScale(d.points);
+		})
+		.attr('width', rectWidth)
+		.attr('height', function (d) {
+			return portHeight - yScale(d.points) - axisPadding
+
 		})
 		.attr('fill', function () {
 			return '#2627d7'
@@ -195,7 +203,7 @@ function groupByYear(yearRange, works) {
 
 function getScoreRange(works) {
 	if(works.length === 0) return [0, 0];
-	var min = works[0].points, max = works[0].points;
+	var min = 0, max = 10;
 
 	works.forEach(function (work) {
 		if(work.points < min) min = work.points;
