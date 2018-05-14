@@ -9,7 +9,10 @@ parser.parse = function (rawText, done) {
 
     let recordObjectsArray = [];
     //TODO: handle 2 name query with OR in the middle
-    const queryName = rawText.split('id="querylabel">Zapytanie: </span>')[1].split('<BR><FONT')[0];
+    let queryName = rawText.split('id="querylabel">Zapytanie: </span>')[1].split('<BR><FONT')[0];
+    if(queryName.indexOf('</FONT>') !== -1) {
+		queryName = queryName.split('/FONT>')[1].split(' <FONT')[0]
+    }
     const rawTextArray = rawText.split(exp1);
 
     rawTextArray.forEach((record, index) => {
@@ -159,14 +162,9 @@ parser.parse = function (rawText, done) {
         });
 
         let countPages = (
-            (recordObject.authors.length == 1 && (pageCountTowardsSumConditions.typFormalny || pageCountTowardsSumConditions.typMerytoryczny) )
+            (recordObject.authors.length === 1 && (pageCountTowardsSumConditions.typFormalny || pageCountTowardsSumConditions.typMerytoryczny) )
         || pageCountTowardsSumConditions.czyWycinek);
          if(!countPages) recordObject.pageAmount = 0;
-
-         // if(recordObject.year == 2016) {
-         //     console.log(recordObject.title);
-         //     console.log(recordObject.points);
-         // } else console.log(recordObject.year);
 
         recordObjectsArray.push(recordObject);
 

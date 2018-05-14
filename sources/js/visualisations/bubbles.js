@@ -78,6 +78,11 @@ function showOverlay(works) {
 }
 
 function DrawPoints(works, threshold, portWidth, portHeight) {
+	works = works.filter(function (w) {
+		if(w.publicationType !== 'article')
+		return w.publicationType === 'article'
+	})
+
 	var yearRange = getYearRange(works);
 	var filteredWorks = filterByMinisterial(works, Number.parseInt(threshold));
 	var yearNodes = groupByYear(yearRange, filteredWorks);
@@ -105,28 +110,8 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 
 	console.log(yearNodes)
 
-	//todo: remove this
 	var rectWidth = portWidth / (yearRange[1] - yearRange[0]) - barPadding;
-	// overlayLines.enter()
-	// 	.append('line')
-	// 	.attr('x1', function (d) {
-	// 		return xScale(d.year)
-	// 	})
-	// 	.attr('y1', function (d) {
-	// 		return yScale(d.points)
-	// 	})
-	// 	.attr('x2', function (d, i) {
-	// 		if(yearNodes[i+1])
-	// 			return xScale(yearNodes[i+1].year);
-	// 		else return xScale(yearNodes[i].year);
-	// 	})
-	// 	.attr('y2', function (d, i) {
-	// 		if(yearNodes[i+1])
-	// 			return yScale(yearNodes[i+1].points);
-	// 		else return yScale(yearNodes[i].points);
-	// 	})
-	// 	.attr('stroke-width', '1px')
-	// 	.attr('stroke', '#525690')
+
 	console.log(yScale(0))
 	console.log(yScale(10))
 	overlayCircles.enter()
