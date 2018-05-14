@@ -76,10 +76,11 @@ function showOverlay(works) {
 	})
 
 }
-
+function toDate(year){
+	return new Date(year, 0, 1)
+}
 function DrawPoints(works, threshold, portWidth, portHeight) {
 	works = works.filter(function (w) {
-		if(w.publicationType !== 'article')
 		return w.publicationType === 'article'
 	})
 
@@ -95,7 +96,7 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 	console.log(yearRange)
 
 	var xScale = d3.scaleLinear()
-		.domain(yearRange)
+		.domain(yearRange.map(toDate))
 		.range([axisPadding + barPadding, portWidth - axisPadding]);
 
 	xScale(1990)
@@ -118,7 +119,7 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 		.append('rect')
 		// .attr('transform', 'translate(' + [20, -10] + ')')
 		.attr('x', function (d) {
-			return xScale(d.year) - rectWidth/2;
+			return xScale(toDate(d.year)) - rectWidth/2;
 		})
 		.attr('y', function (d) {
 			return yScale(d.points);
@@ -138,7 +139,7 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 			return 6;
 		});
 
-	var xAxis = d3.axisBottom().scale(xScale);
+	var xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.timeFormat('%Y'));
 	var yAxis = d3.axisLeft().scale(yScale);
 
 	svg.append('g').call(xAxis)
@@ -154,6 +155,7 @@ function clearDisplay() {
 }
 
 function getYearRange(works) {
+	if(works.length === 0) return [0, 0];
 	var min = works[0].year, max = works[0].year;
 
 	works.forEach(function (work) {
