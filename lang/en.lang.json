@@ -13,10 +13,18 @@
   "editorial_view": "Editorial view",
   "generate_pdf": "Generate PDF",
 
-  "title": "Scientific Output Visualiser - 2018.7 (beta)",
+  "title": "Scientific Output Visualiser - 2018.8 (beta)",
   "alt_title": "Wizualizator Dorobku Naukowego",
 
   "vis_details_title": "About visualisation",
+
+  "stats": {
+	"title": "Metrics:",
+	"sum": "Sum of works:",
+	"average": "Average works per year:",
+	"coauthors": "Sum of coauthors:",
+	"main_coauthor": "Most collaborations with: "
+  },
 
   "vis_titles": {
 	"collab": "Collaboration graph",
@@ -154,7 +162,7 @@
 		  "description": " – database"
 		}
 	  ],
-	  "footer": "We are always open to co-operation and broaden the current team. Therefore, we invite you for testing our application, evaluating and sharing with us your opinion. For details, please email wieo@umk.pl"
+	  "footer": "We are always open to co-operation and broadening the current team. Therefore, we invite you for testing our application, evaluating and sharing with us your opinion. For details, please email wieo@umk.pl"
 	},
 	"data": {
 	  "page_title": "Data",

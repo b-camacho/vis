@@ -34,22 +34,22 @@ block content
 				.row
 					ul.collection.with-header.z-depth-1
 						li.collection-header
-							h5 Statystyki
+							h5=lang.stats.title
 						li.collection-item
 							div
-								span Łącznie prac:
+								span=lang.stats.sum
 								span#works-amount-display(style='float: right') -
 						li.collection-item
 							div
-								span Średnia liczba prac na rok:
+								span=lang.stats.average
 								span#mean-works-amount-display(style='float: right') -
 						li.collection-item
 							div
-								span Liczba współautorów:
+								span=lang.stats.coauthors
 								span#coworkers-amount-display(style='float: right') -
 						li.collection-item
 							div
-								span Najczęstsza współpraca:
+								span=lang.stats.main_coauthor
 								span#max-shared-works-amount-display(style='float: right') -
 
 block append scripts

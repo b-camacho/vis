@@ -14,12 +14,21 @@
   "editorial_view": "Widok redakcji",
   "generate_pdf": "Generuj PDF",
 
-  "title": "Wizualizator Dorobku Naukowego - 2018.7 (beta)",
+  "title": "Wizualizator Dorobku Naukowego - 2018.8 (beta)",
   "alt_title": "Scientific Output Visualiser",
 
 
 
   "vis_details_title": "Informacje o wizualizacji",
+
+
+  "stats": {
+	"title": "Statystyki:",
+	"sum": "Łącznie prac:",
+	"average": "Średnia liczba prac na rok:",
+	"coauthors": "Liczba współautorów:",
+	"main_coauthor": "Najczęstsza współpraca:"
+  },
 
   "vis_titles": {
 	"collab": "Graf współautorstwa",
