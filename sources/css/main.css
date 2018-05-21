@@ -265,6 +265,10 @@ html, body {
 	width: 100%;
 
 }
+
+.d3-tip {
+	z-index: 100001;
+}
 /*.overlay .title-bar input {*/
 	/*float: right;*/
 	/*width: 50px;*/

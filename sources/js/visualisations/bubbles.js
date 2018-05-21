@@ -107,7 +107,7 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 	yScale(20);
 
 	var overlayLines = svg.append('g').selectAll('line').data(yearNodes);
-	var overlayCircles = svg.append('g').selectAll('rect').data(yearNodes);
+	var overlayBars = svg.append('g').selectAll('rect').data(yearNodes);
 
 	console.log(yearNodes)
 
@@ -115,7 +115,7 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 
 	console.log(yScale(0))
 	console.log(yScale(10))
-	overlayCircles.enter()
+	overlayBars.enter()
 		.append('rect')
 		// .attr('transform', 'translate(' + [20, -10] + ')')
 		.attr('x', function (d) {
@@ -137,6 +137,12 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 		// .duration(500)
 		.attr('r', function (d, i) {
 			return 6;
+		})
+		.on('mouseover', function (d, i) {
+			overlayTip.show(d, i);
+		})
+		.on('mouseout', function (d, i) {
+			overlayTip.hide(d, i);
 		});
 
 	var xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.timeFormat('%Y'));
@@ -146,6 +152,10 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 		.attr('transform', 'translate(' + [0, portHeight - axisPadding] + ')')
 	svg.append('g').call(yAxis)
 		.attr('transform', 'translate(' + [axisPadding, 0] + ')')
+
+	var overlayTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
+		return jsStrings.vis.year["1"] + ": " + yearNodes[i].year + '<br>' + yearNodes[i].titles.join("<br>") });
+	svg.call(overlayTip);
 
 
 }
@@ -173,15 +183,19 @@ function filterByMinisterial(works, threshold) {
 function groupByYear(yearRange, works) {
 	var years = [], wIdx = 0;
 	for (var year = yearRange[0]; year < yearRange[1]; year++) {
-		var groupedPoints = 0
+		var groupedPoints = 0,
+			groupedTitles = [];
 		while(works[wIdx] && works[wIdx].year === year) {
-			groupedPoints += works[wIdx].points
-			wIdx++
+			groupedPoints += works[wIdx].points;
+			groupedTitles.push(works[wIdx].title);
+			wIdx++;
+
 		}
 
 		years.push({
 			year: year,
-			points: groupedPoints
+			points: groupedPoints,
+			titles: groupedTitles
 		})
 	}
 
