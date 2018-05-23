@@ -8,9 +8,8 @@ parser.parse = function (rawText, done) {
     const exp2 = new RegExp(/<span class="label">/);
 
     let recordObjectsArray = [];
-    //TODO: handle 2 name query with OR in the middle
     let queryName = rawText.split('id="querylabel">Zapytanie: </span>')[1].split('<BR><FONT')[0];
-    if(queryName.indexOf('</FONT>') !== -1) {
+    if(queryName.indexOf('</FONT>') !== -1) { // more than one name in query
 		queryName = queryName.split('/FONT>')[1].split(' <FONT')[0]
     }
     const rawTextArray = rawText.split(exp1);
@@ -74,7 +73,8 @@ parser.parse = function (rawText, done) {
 
                 case 'Typ formalny publikacji':
                         let publicationType = splitLine[1];
-                        if(publicationType == '008') pageCountTowardsSumConditions.typFormalny = true;
+                        if(publicationType === '008') pageCountTowardsSumConditions.typFormalny = true;
+                        if(publicationType === '002') recordObject.ministerialArticle = true;
 
                     break;
 
