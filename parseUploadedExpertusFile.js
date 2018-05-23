@@ -73,6 +73,7 @@ parser.parse = function (rawText, done) {
 
                 case 'Typ formalny publikacji':
                         let publicationType = splitLine[1];
+
                         if(publicationType === '008') pageCountTowardsSumConditions.typFormalny = true;
                         if(publicationType === '002') recordObject.ministerialArticle = true;
 

@@ -81,9 +81,8 @@ function toDate(year){
 }
 function DrawPoints(works, threshold, portWidth, portHeight) {
 	works = works.filter(function (w) {
-		return w.publicationType === 'article'
+		return w.ministerialArticle
 	})
-
 	var yearRange = getYearRange(works);
 	var filteredWorks = filterByMinisterial(works, Number.parseInt(threshold));
 	var yearNodes = groupByYear(yearRange, filteredWorks);
