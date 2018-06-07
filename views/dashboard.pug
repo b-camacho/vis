@@ -1,28 +1,50 @@
 extends layout
-mixin vislink(visname)
-	a(href=visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
-		.card-image
-			img(src='/images/' + visname + '.jpg')
+mixin vislink(visname, disabled)
+	a(href=disabled ? '#' : visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
+		if disabled
+			div.card-image.disabled
+				img(src='/images/' + visname + '.jpg')
+		else
+			div.card-image
+				img(src='/images/' + visname + '.jpg')
 
 block content
 	.row.main-row
 		.col.s7(style='margin-top: 20px')
 			.row
-				#row1.col.s4
-					.card.white-text(style='margin-bottom: 20px')
-						+vislink('works')
-					.card.white-text
-						+vislink('research-map')
-				#row2.col.s4
-					.card.white-text(style='margin-bottom: 20px')
-						+vislink('collab')
-					.card.white-text
-						+vislink('bubbles')
-				#row3.col.s4
-					.card.white-text(style='margin-bottom: 20px')
-						+vislink('google-map')
-					.card.white-text
-						+vislink('wordcloud')
+				if !group
+					#row1.col.s4
+						.card.white-text(style='margin-bottom: 20px')
+							+vislink('works')
+						.card.white-text
+							+vislink('research-map')
+					#row2.col.s4
+						.card.white-text(style='margin-bottom: 20px')
+							+vislink('collab')
+						.card.white-text
+							+vislink('bubbles')
+					#row3.col.s4
+						.card.white-text(style='margin-bottom: 20px')
+							+vislink('google-map')
+						.card.white-text
+							+vislink('wordcloud')
+				else
+					#row2.col.s4
+						.card.white-text(style='margin-bottom: 20px')
+							+vislink('works')
+						.card.white-text
+							+vislink('research-map')
+					#row2.col.s4
+						.card.white-text(style='margin-bottom: 20px')
+							+vislink('collab', true)
+						.card.white-text
+							+vislink('bubbles')
+					#row3.col.s4
+						.card.white-text(style='margin-bottom: 20px')
+							+vislink('google-map', true)
+						.card.white-text
+							+vislink('wordcloud')
+
 		.col.s5(style='height: 100%; padding-right: 0')
 			.z-depth-1.vis-select
 				.row
@@ -31,6 +53,10 @@ block content
 							span.card-title=lang.vis_details_title
 							br
 							span#details-host
+				.row
+					a.btn(href=group? '/single' : '/group')=group ? lang.group.disable : lang.group.enable
+
+
 				.row
 					ul.collection.with-header.z-depth-1
 						li.collection-header

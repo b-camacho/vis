@@ -13,7 +13,7 @@
   "editorial_view": "Editorial view",
   "generate_pdf": "Generate PDF",
 
-  "title": "Scientific Output Visualiser - 2018.9 (beta)",
+  "title": "Scientific Output Visualiser - 2018.10 (beta)",
   "alt_title": "Wizualizator Dorobku Naukowego",
 
   "vis_details_title": "About visualisation",
@@ -234,5 +234,10 @@
 	"reasons": {
 	  "parser": "Incorrect input file"
 	}
+  },
+
+  "group": {
+	"enable": "Switch to group mode",
+	"disable": "Switch to individual mode"
   }
 }

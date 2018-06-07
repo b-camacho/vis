@@ -4,7 +4,7 @@ var parser = {};
 
 parser.parse = function (rawText, done) {
 
-    const exp1 = new RegExp(/<BR> [0-9]{0,3}\. <BR>/);
+    const exp1 = new RegExp(/<BR> [0-9]{0,6}\. <BR>/);
     const exp2 = new RegExp(/<span class="label">/);
 
     let recordObjectsArray = [];
@@ -13,6 +13,8 @@ parser.parse = function (rawText, done) {
 		queryName = queryName.split('/FONT>')[1].split(' <FONT')[0]
     }
     const rawTextArray = rawText.split(exp1);
+	console.log(rawTextArray.length);
+
 
     rawTextArray.forEach((record, index) => {
         if(index === 0) return;

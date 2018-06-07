@@ -111,7 +111,6 @@ function ComputeStatistics(data) {
 
 	for (var title in stats)
 		if(stats.hasOwnProperty(title)) {
-		console.log('setting'  + title + ' to ' + stats[title])
 			$('#' + title).text(stats[title]);
 		}
 

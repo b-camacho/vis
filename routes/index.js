@@ -15,11 +15,11 @@ router.use('/', function (req, res, next) {
 	res.data = res.data ? res.data : {};
 	res.data.name = req.session.queryName || '';
 	res.data.lang = req.session.lang === 'en' ? lang.en : lang.pl;
+	res.data.group = req.session.group;
 	next()
 });
 
 router.get('/error/:type', function (req, res) {
-	console.log(req.params.type)
 	res.data.type = req.params.type || 'parser';
 	res.data.error = res.data.lang.error;
 	res.render('error', res.data)
@@ -37,6 +37,7 @@ router.get('/*', function (req, res, next) {
 			return
 		}
 
+		res.data.group = req.session.group;
 		res.render('visualisation', res.data)
 	}
 	else next()
@@ -88,11 +89,5 @@ router.post('/genPdf', function (req, res, next) {
 
 	doc.end()
 })
-// router.get('/en', function (req, res) {
-// 	res.redirect('/')
-// });
-// router.get('/pl', function (req, res) {
-// 	res.redirect('/')
-// });
 
-module.exports = router
+module.exports = router;

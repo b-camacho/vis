@@ -18,7 +18,7 @@ nav {
 .main-title {
     margin-bottom: -8px;
 	margin-top: -10px;
-	font-size: 20px;
+	font-size: 18px;
 }
 .alt-title {
 	font-size: 14px;
@@ -65,22 +65,18 @@ nav {
     background-color: #f8f8f8;
     padding-right: 2em;
     padding-left: 2em;
-    padding-top: 20px
+    padding-top: 20px;
+	overflow-y: scroll;
 }
-/*.status-bar {*/
-    /*width: 70%;*/
-    /*position: absolute;*/
-    /*right: 0;*/
-    /*height: 7em;*/
-    /*padding-right: 2em;*/
-    /*padding-left: 2em;*/
-    /*padding-top: 20px*/
-/*}*/
 
 .card {
     background-color: #FFB343;
 }
 
+.card-image.disabled {
+	filter:  grayscale(100%) brightness(90%);
+	cursor: not-allowed;
+}
 
 .demo {
     float: right;

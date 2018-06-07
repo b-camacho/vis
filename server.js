@@ -19,10 +19,6 @@ var parser = require('./parseUploadedExpertusFile');
 
 const rawDbWordsParser = require('./getWordObjectsArray');
 
-
-// app.use('/pl', express.static('public'));
-// app.use('/en', express.static('public-en'));
-
 app.use(express.static('sources'));
 app.use('/download', express.static('download'));
 app.use('/favicons', express.static('favicons'))
@@ -62,6 +58,23 @@ app.get('/en', function (req, res, next) {
 	req.session.lang = 'en';
 	res.redirect('/')
 });
+
+
+app.get('/group', function (req, res, next) {
+	req.session.works = null;
+	req.session.queryName = null;
+	req.session.group = true;
+
+	res.redirect('/');
+})
+
+app.get('/single', function (req, res, next) {
+	req.session.group = false;
+	res.data = res.data || {};
+	res.data.group = req.session.group;
+
+	res.redirect('/');
+})
 
 const router = require('./routes/index');
 app.use('/', router);

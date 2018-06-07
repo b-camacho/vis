@@ -18,7 +18,10 @@ block content
 			svg#svg-port.z-depth-1.svg-port
 block append scripts
 	script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
-	script(src='/js/visualisations/' + visname + '.js')
+	if !group
+		script(src='/js/visualisations/' + visname + '.js')
+	else
+		script(src='/js/group-visualisations/' + visname + '.js')
 	script(src='/js/util.js')
 	script(type='text/javascript').
 		var jsStrings = !{JSON.stringify(lang.scriptable)};
