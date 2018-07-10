@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.17.2",
     "browserify": "^16.1.1",
     "busboy": "^0.2.14",
@@ -20,6 +21,7 @@
     "connect-mongoose-session-store": "^2.0.1",
     "d3-cloud": "^1.2.4",
     "express": "^4.15.3",
+    "express-basic-auth": "^1.1.5",
     "express-busboy": "^5.0.0",
     "express-session": "^1.15.3",
     "iconv-lite": "^0.4.15",

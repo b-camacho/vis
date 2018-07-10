@@ -28,12 +28,22 @@ html
 				div(style='float: right; height: 50px')
 					a(href='/')
 						i.fa.fa-arrow-left.back-arrow(aria-hidden='true')
+
 			else
 				div.upload-btn
-					form(method='post', action='/upload', enctype='multipart/form-data')
-						.file-field.input-field.btn=lang.select_file
-							input#file-input(type='file', name='expertus', onchange='StartUpload()')
-						input#file-input-submit(type='submit', hidden='hidden')
+					if(group)
+						.file-input-container
+							a.dropdown-trigger.btn(href='#', data-target='dropdown1')=lang.group.choose_department
+
+						ul#dropdown1.dropdown-content
+							each dept in saved
+								li
+									a(href='/loadSaved/' + dept._id.toString())=dept.shortName
+					else
+						form(method='post', action='/upload', enctype='multipart/form-data')
+							.file-field.input-field.btn=lang.select_file
+								input#file-input(type='file', name='expertus', onchange='StartUpload()')
+							input#file-input-submit(type='submit', hidden='hidden')
 			.top-link
 				a(href='/' + lang.other)=lang.alt_lang
 			.top-link
@@ -62,12 +72,12 @@ html
 block scripts
 	script(src='/js/jquery-3.1.0.min.js')
 	script(src='/js/d3.v4.js')
-	script(src='/js/remove-diacritics.js')
 	script(src='/js/d3-scale-chromatic.v1.min.js')
 	script(src='/js/d3-tip.js')
 	script(src='/js/pdfkit.js')
 	script(src='/js/svgtopdfkit.js')
 	script(src="/js/markerclusterer.js")
+	script(src="/js/materialize.min.js")
 	script(src="/js/blob-stream.js")
 	script(type="text/javascript").
 		function StartUpload() {

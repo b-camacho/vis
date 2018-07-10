@@ -1,6 +1,6 @@
 extends layout
 mixin vislink(visname, disabled)
-	a(href=disabled ? '#' : visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
+	a(href=disabled ? '#' : '/' + visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
 		if disabled
 			div.card-image.disabled
 				img(src='/images/' + visname + '.jpg')
@@ -29,7 +29,7 @@ block content
 						.card.white-text
 							+vislink('wordcloud')
 				else
-					#row2.col.s4
+					#row1.col.s4
 						.card.white-text(style='margin-bottom: 20px')
 							+vislink('works')
 						.card.white-text

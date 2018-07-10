@@ -7,7 +7,7 @@
   "about": "O nas",
   "tutorial": "Instrukcja",
   "alt_lang": "English",
-  "select_file": "Wybierz plik",
+  "select_file": "Plik",
 
   "visualising_for": "Wizualizacje dla:",
 
@@ -232,13 +232,30 @@
 	"description": "W aplikacji wystąpił błąd",
 	"reason": "Powód: ",
 	"reasons": {
-	  "parser": "Nieprawidłowy plik wejściowy."
+	  "parser": "Nieprawidłowy plik wejściowy.",
+	  "auth": "Wymagane zalogowanie"
 	}
   },
 
   "group": {
 	"enable": "Wyświetl wizualizacje grupowe",
-	"disable": "Wyświetl wizualizacje indywidualne"
+	"disable": "Wyświetl wizualizacje indywidualne",
+	"choose_department": "Wydział"
 
+  },
+
+  "login": {
+	"username": "Nazwa użytkownika",
+	"password": "Hasło",
+	"submit": "Zaloguj"
+  },
+
+  "admin": {
+	"saved": {
+	  "title": "Zapisane Grupy",
+	  "list": "Lista zapisanych grup",
+	  "add": "Dodaj",
+	  "new_name": "Nazwa"
+	}
   }
 }

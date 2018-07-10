@@ -4,6 +4,9 @@
     display: block;
     line-height: 22px
 }
+.dropdown-content {
+	position: relative;
+}
 nav {
     background-color: #FFB343;
 }
@@ -52,7 +55,7 @@ nav {
 }
 
 .file-input-container {
-    margin-top: 20px;
+    margin-top: 16px;
 
 }
 
@@ -69,7 +72,7 @@ nav {
 	overflow-y: scroll;
 }
 
-.card {
+.vis-details .card {
     background-color: #FFB343;
 }
 
@@ -138,6 +141,7 @@ nav {
     margin-top: 16px;
     color: #dfdfdf;
 }
+
 
 .top-link {
     float: right;
@@ -265,7 +269,23 @@ html, body {
 .d3-tip {
 	z-index: 100001;
 }
-/*.overlay .title-bar input {*/
-	/*float: right;*/
-	/*width: 50px;*/
-/*}*/
+
+i.fa {
+	color: lightgray;
+}
+i.fa.dark{
+	margin-top:5px;
+	margin-left:8px;
+	color: rgba(13, 13, 13, 0.87);
+
+
+}
+
+
+label.input-label {
+	left: 0;
+}
+
+.submit-button {
+	float: right;
+}

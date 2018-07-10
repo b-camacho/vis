@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+	.row
+		.col.s4.margin
+		.col.s4
+			form(method='POST', action='/admin/auth')
+				.login-area
+					.login-username
+						.input-field
+							i.fa.fa-user.material-icons.prefix.dark
+							input#icon_username(name="username", type='text')
+							label(for='icon_username').input-label=lang.login.username
+					.login-password
+						.input-field
+							i.fa.fa-key.prefix.dark
+							input#icon_password(name="password", type='password')
+							label(for='icon_password').input-label=lang.login.password
+					.login-submit
+						input.btn(type='submit', value=lang.login.submit)
+
+		.col.s4.margin
+

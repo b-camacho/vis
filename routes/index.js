@@ -3,26 +3,40 @@ var PDFDocument = require('pdfkit');
 var svgToPdf = require('svg-to-pdfkit');
 var fs = require('fs');
 var router = express.Router();
-
+var m = require('../models')
 var lang = {
 	pl: require('../lang/pl.lang.json'),
 	en: require('../lang/en.lang.json')
 };
 
-
-
-router.use('/', function (req, res, next) {
+router.use('*', function (req, res, next) {
 	res.data = res.data ? res.data : {};
 	res.data.name = req.session.queryName || '';
 	res.data.lang = req.session.lang === 'en' ? lang.en : lang.pl;
 	res.data.group = req.session.group;
-	next()
+	m.Department.find().then(deps => {
+		res.data.saved = deps;
+		next();
+	})
 });
+
+router.get('/loadSaved/:id', function (req, res, next) {
+	m.Department.findOne({_id: req.params.id})
+		.then(dept => {
+			console.log(res.data)
+
+			req.session.works = dept ? dept.works : null;
+			res.data.name = (req.session.queryName = dept ? dept.name : '');
+
+			res.render('dashboard', res.data);
+		})
+		.catch(console.log)
+})
 
 router.get('/error/:type', function (req, res) {
 	res.data.type = req.params.type || 'parser';
 	res.data.error = res.data.lang.error;
-	res.render('error', res.data)
+	res.render('error', res.data);
 })
 
 router.get('/', function (req, res) {
@@ -89,5 +103,7 @@ router.post('/genPdf', function (req, res, next) {
 
 	doc.end()
 })
+
+router.use('/admin', require('./admin'))
 
 module.exports = router;

@@ -41,4 +41,17 @@ Models.City = mg.model('City', new mg.Schema( {
     lng: {type: Number, required: true}
 }));
 
+Models.Department = mg.model('Department', new mg.Schema({
+    name: {type: String, required: true},
+    works: {type: Array, required: true},
+    shortName: {type: String, required: false}
+}));
+
+Models.User = mg.model('User', new mg.Schema({
+    username: {type: String, required: true},
+    password: {type: String, required: true},
+    permissions: {type: String, required: true}
+}));
+
+
 module.exports = Models;

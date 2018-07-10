@@ -13,11 +13,9 @@ mg.connect('mongodb://127.0.0.1/vis', function (err) {
     else console.log('Connected to mongoDB!')
 });
 var m = require('./models');
-var Busboy = require('busboy');
-var iconv = require('iconv-lite');
-var parser = require('./parseUploadedExpertusFile');
+var parser = require('./expertus');
 
-const rawDbWordsParser = require('./getWordObjectsArray');
+var rawDbWordsParser = require('./wordcloudArray');
 
 app.use(express.static('sources'));
 app.use('/download', express.static('download'));
@@ -116,58 +114,10 @@ app.post('/bubblesData', function (req, res) {
     res.json(req.session.works);
 });
 
-const mapDataExamples = {
-    worksWithLocations: [
-        {
-            lat: 53.0210671,
-            lon: 18.618612,
-            title: 'Tytuł pierszej pracy',
-            city: 'Toruń'
-        },
-        {
-            lat: 53.0210671,
-            lon: 18.618612,
-            title: 'Tytuł drugiej pracy',
-            city: 'Toruń'
-        },
-        {
-            lat: 53.0210671,
-            lon: 18.618612,
-            title: 'Tytuł trzeciej pracy',
-            city: 'Toruń'
-        },
-        {
-            lat: 54.3482259,
-            lon: 18.6542888,
-            title: 'Tytuł czwartej pracy',
-            city: 'Gdańsk'
-        },
-        {
-            lat: 54.3482259,
-            lon: 18.6542888,
-            title: 'Tytuł piątej pracy',
-            city: 'Gdańsk'
-        },
-        {
-            lat: 52.2319237,
-            lon: 21.0067265,
-            title: 'Tytuł szóstej pracy',
-            city: 'Warszawa'
-        }
-    ]
-};
-
-app.post('/google-mapDataExamples', function (req, res) {
-    console.log('Responding to map data request with examples');
-    res.send(mapDataExamples)
-})
 
 app.post('/google-map', function (req, res) {
 
 	res.json(req.session.works);
-    // geocoder.getLocations(req.session.works, (err, workObjectsWithLocations) => {
-    //     res.json(workObjectsWithLocations);
-    // })
 })
 
 
@@ -267,48 +217,19 @@ app.post('/wordcloudData', function (req, res) {
 
 
 app.post('/upload', function (req, res) {
-    let busboy = new Busboy({ headers: req.headers });
-    let chunks = [];
-    let error = null;
-    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        file.on('data', function(chunk) {
-            chunks.push(chunk);
-
-        });
-        file.on('end', function() {
-            // console.log('File [' + fieldname + '] Finished');
-            var fileBuffer = Buffer.concat(chunks);
-            fileBuffer = iconv.decode(fileBuffer, "ISO-8859-2");
-            try{
-	            parser.parse(fileBuffer.toString(), (err, parsedObjects, queryName) => {
-		            req.session.works = parsedObjects;
-		            req.session.queryName = queryName;
-	            });
-            } catch (e) {
-                req.session.works = null;
-                req.session.queryName = null;
-
-                error = e;
-            }
-
-
-
-
-        });
-    });
-
-    busboy.on('finish', function() {
-    	if(!error) {
-		    res.writeHead(303, { Connection: 'close', Location: '/' });
-	    }
-	    else{
-    		res.writeHead(303, { Connection: 'close', Location: '/error/parser'})
-	    }
-
-        res.end();
-    });
-    req.pipe(busboy);
-
+	parser.upload(req, function (err, file) {
+		if(err) {
+			return res.redirect('/error/upload')
+		}
+		parser.parse(file, function (err, works, name) {
+			if(err) {
+				return res.redirect('/error/upload')
+			}
+			req.session.works = works;
+			req.session.queryName = name;
+			res.redirect('/')
+		})
+	})
 })
 
 

@@ -68,3 +68,7 @@ typings/
 
 remove-diacritics.js
 unverifiedCities.json
+
+#admin creds seed
+seed.js
+

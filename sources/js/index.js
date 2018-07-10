@@ -1,14 +1,6 @@
 
 $(document).ready(function () {
 
-	// var selectForm = $('#name-select-form');
-	// selectForm.submit(function (event) {
-	// 	event.preventDefault();
-	// 	var trueName = $('label[for="' + $('input[type="radio"]:checked').attr("id") + '"]').text();
-	// 	$('.vis-form-name-input').val(trueName);
-	// })
-
-
 	var DetailedDescriptions = {
 		collab: jsStrings.vis_details.collab,
 		works: jsStrings.vis_details.works,
@@ -26,12 +18,16 @@ $(document).ready(function () {
 
 	document.querySelectorAll('.card-image').forEach(function (c) {
 		c.addEventListener('mouseout', function (event) {
-			console.log('XDDDDDDD')
 			DisplayDetails('general');
 		})
 	})
 
 	DisplayDetails('general')
+
+	$('.dropdown-trigger').dropdown();
+
+	console.log($('.dropdown-trigger').dropdown)
+
 });
 
 var inputFocused = false;

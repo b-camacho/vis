@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+	.row.main-row
+		.col.s1
+		.col.s10
+			.section.card
+				.card-content
+					span.card-title=lang.admin.saved.title
+					p=lang.admin.saved.list
+					ul.collection#list
+						each item in savedItems
+							li.collection-item
+								span=item.name
+									a.secondary-content(href='/admin/removeSaved?name=' + item._id, id='delete-item-' + item.name)
+										i.fa.fa-trash.dark
+						//if uploadOngoing
+						//	li.collection-item
+						//		.progress
+						//			.indeterminate
+					p=lang.admin.saved.add
+					form#upload(action='/admin/addSaved', method='POST', enctype='multipart/form-data')
+						.row
+							.col.s4.input-field
+								input#save_as.validate(type='text', name='name')
+								label.active(for='save_as')=lang.admin.saved.new_name
+
+							.col.s5.input-field.file-field
+								.btn
+									span=lang.select_file
+									input(type='file', name='file')
+								.file-path-wrapper
+									input.file-path.validate(type='text')
+							.col.s3
+								input.btn.file-input-container.submit-button(type='submit', value=lang.admin.saved.add)
+
+		.col.s1
+append scripts
+	script.
+		$('#upload').submit(function (e) {
+			e.preventDefault();
+
+			var formData = new FormData(this);
+
+			$.ajax({
+				url: '/admin/addSaved',
+				type: 'POST',
+				data: formData,
+				success: function (data) {
+					location.reload();
+				},
+				cache: false,
+				contentType: false,
+				processData: false
+			});
+			var list = $('#list');
+			console.log(list);
+			$('<li class="collection-item"><div class="progress"><div class="indeterminate"></div></div></li>').appendTo(list);
+
+		})

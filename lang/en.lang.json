@@ -232,12 +232,29 @@
 	"description": "The application has encountered an error.",
 	"reason": "Reason: ",
 	"reasons": {
-	  "parser": "Incorrect input file"
+	  "parser": "Incorrect input file",
+	  "auth": "Login required"
 	}
   },
 
   "group": {
 	"enable": "Switch to group mode",
-	"disable": "Switch to individual mode"
+	"disable": "Switch to individual mode",
+	"choose_department": "Department"
+  },
+
+  "login": {
+	"username": "Username",
+	"password": "Password",
+	"submit": "Submit"
+  },
+
+  "admin": {
+	"saved": {
+	  "title": "Saved Groups",
+	  "list": "List of saved groups",
+	  "add": "Add new",
+	  "new_name": "Name"
+	}
   }
 }
