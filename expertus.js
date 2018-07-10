@@ -1,4 +1,4 @@
-const cities = require('./visscriptsbackup/cities.json');
+const cities = require('./cities.json');
 const journals = require('./journals.json');
 
 var Busboy = require('busboy');
