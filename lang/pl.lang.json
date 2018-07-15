@@ -105,14 +105,13 @@
 	  "monographies": "monografii",
 
 	  "domains": {
-		"nauki medyczne i o zdrowiu": "nauki medyczne i o zdrowiu",
-		"nauki humanistyczne": "nauki humanistyczne",
-		"nauki społeczne": "nauki społeczne",
-		"nauki przyrodnicze": "nauki przyrodnicze",
-		"nauki ścisłe": "nauki ścisłe",
-		"nauki techniczne": "nauki techniczne",
-		"nauki rolnicze, leśnicze, weterynaryjne": "nauki rolnicze, leśnicze, weterynaryjne",
-		"sztuka": "sztuka"
+		"Dziedzina nauk medycznych i o zdrowiu": "nauki medyczne i o zdrowiu",
+		"Dziedzina nauk humanistycznych": "nauki humanistyczne",
+		"Dziedzina nauk społecznych": "nauki społeczne",
+		"Dziedzina nauk ścisłych i przyrodniczych": "nauki ścisłe i przyrodnicze",
+		"Dziedzina nauk inżynieryjnych i technicznych": "nauki inżynieryjne i techniczne",
+		"Dziedzina nauk rolniczych": "nauki rolnicze",
+		"Dziedzina sztuki": "sztuka"
 	  },
 
 	  "assigned": "Przypisano",

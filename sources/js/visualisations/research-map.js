@@ -581,6 +581,7 @@ function DrawDomains(articles, angleBounds) {
 		.text(missingJournals > 0 ?
 			jsStrings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + jsStrings.vis.pubs_to_doms
 			: jsStrings.vis.assigned_all)
+
 	svg.select("#mapkey")
 		.append("text")
 		.attr("x", mapkeyLeftMargin)
