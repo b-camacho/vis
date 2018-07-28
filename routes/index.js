@@ -104,6 +104,12 @@ router.post('/genPdf', function (req, res, next) {
 	doc.end()
 })
 
+router.get('/clearWorks', function (req, res) {
+	req.session.works = null;
+	req.session.queryName = null;
+	res.redirect('/');
+})
+
 router.use('/admin', require('./admin'))
 
 module.exports = router;

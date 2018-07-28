@@ -26,6 +26,9 @@
 	"main_coauthor": "Most collaborations with: "
   },
 
+  "clear_works": "Reset query",
+  "get_data": "Get input files",
+
   "vis_titles": {
 	"collab": "Collaboration graph",
 	"works": "Publication volume dynamic",

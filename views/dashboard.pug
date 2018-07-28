@@ -1,7 +1,7 @@
 extends layout
 mixin vislink(visname, disabled)
-	a(href=disabled ? '#' : '/' + visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
-		if disabled
+	a(href=disabled || !name ? '#' : '/' + visname, onmouseover='(function display(){DisplayDetails(\''+ visname +'\')})()')
+		if disabled || !name
 			div.card-image.disabled
 				img(src='/images/' + visname + '.jpg')
 		else
@@ -55,7 +55,12 @@ block content
 							span#details-host
 				.row
 					a.btn(href=group? '/single' : '/group')=group ? lang.group.disable : lang.group.enable
-
+				if !!name
+					.row
+						a.btn(href='/clearWorks')=lang.clear_works
+				else
+					.row
+						a.btn(href='http://bg.cm.umk.pl/splendor/umk/')=lang.get_data
 
 				.row
 					ul.collection.with-header.z-depth-1

@@ -30,6 +30,9 @@
 	"main_coauthor": "Najczęstsza współpraca:"
   },
 
+  "clear_works": "Resetuj wyniki",
+  "get_data": "System Expertus",
+
   "vis_titles": {
 	"collab": "Graf współautorstwa",
 	"works": "Dynamika liczby publikacji",
