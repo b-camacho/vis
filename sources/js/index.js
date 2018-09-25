@@ -56,8 +56,9 @@ function ComputeStatistics(data) {
 
 	var stats = {
 	"works-amount-display": '-',
-	"mean-works-amount-display": '-',
 	"coworkers-amount-display": '-',
+	"ministerial-points-amount-display": '-',
+	"mean-ministerial-points-amount-display": '-',
 	"max-shared-works-amount-display": '-'
 	}
 
@@ -73,7 +74,7 @@ function ComputeStatistics(data) {
 		if(work.year > endYear) endYear = work.year;
 	})
 
-	stats["mean-works-amount-display"] = (data.length / (endYear - beginYear + 1)).toFixed(1);
+	// stats["mean-works-amount-display"] = (data.length / (endYear - beginYear + 1)).toFixed(1);
 
 	var authorMap = {}, mostShared = {amount: -1, name: "-"}, mostSharedNotSelf = {amount: -1, name: "-"};
 
@@ -81,9 +82,16 @@ function ComputeStatistics(data) {
 		work.authors.forEach(function (author) {
 			authorMap[author] = authorMap[author] ? authorMap[author]++ : 1;
 		})
-	})
+	});
 
 	stats["coworkers-amount-display"] = Object.keys(authorMap).length;
+
+	stats["ministerial-points-amount-display"] = data.map(d => d.points).reduce((a, b) => a + b);
+	var span = endYear - data.filter(d => d.points > 0)[0].points;
+	stats["mean-ministerial-points-amount-display"] = span > 0 ?
+		(stats["ministerial-points-amount-display"] / span).toFixed(2) :
+		'-';
+
 
 	for(var name in authorMap)
 		if(authorMap.hasOwnProperty(name)) {

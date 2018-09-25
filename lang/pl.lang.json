@@ -26,6 +26,8 @@
 	"title": "Statystyki:",
 	"sum": "Łącznie prac:",
 	"average": "Średnia liczba prac na rok:",
+	"pointSum": "Łączna punktacja MNiSW",
+	"pointAverage": "Średnia liczba punktów MNiSW na rok",
 	"coauthors": "Liczba współautorów:",
 	"main_coauthor": "Najczęstsza współpraca:"
   },
@@ -52,7 +54,7 @@
 
   "scriptable": {
 
-	"ministerial_points": "Punktacja ministerstwa",
+	"ministerial_points": "Próg punktacji MNiSW",
 	"point_threshold": "Próg punktowy:",
 
 	"averaging_method": "Metoda uśredniania",
@@ -67,13 +69,13 @@
 	"tsv_footer": "W przypadku błędów kategoryzacji proszę konktować się z Veslava Osińska - wieo@umk.pl",
 
 	"vis_details": {
-	  "works": "Wykres słupkowy dostarcza informacji o sumarycznej liczbie prac opublikowanych przez danego autora. Na osi X umieszczono daty publikacji, na osi Y – ich liczbę. Kolor zielony oznacza artykuły z czasopism i prac zbiorowych, kolor żółty – redakcje wydawnictw zbiorowych i redakcje czasopism, kolor czerwony – monografie. Najechanie wskaźnikiem myszy komputerowej na pojedynczą kolumnę powoduje wyświetlenie nad nią sumarycznej liczby prac za dany rok kalendarzowy. ",
-	  "collab": "Graf ukazuje sieć współautorstwa publikacji oraz współredagowania monografii zbiorowych i periodyków. Sieć tę można analizować w widoku  standardowym (współautorzy artykułów naukowych i monografii) i w widoku prac redagowanych (współredaktorzy prac zbiorowych i czasopism). W centralnym punkcie grafu znajduje się węzeł poddawanego analizie badacza (największy). Dookoła niego widnieją (z reguły nieco mniejsze) węzły współautorów. Im więcej wspólnych prac, tym krótsze połączenia między węzłami. Węzły autorów o tej samej randze współautorstwa są rozmieszczone równomiernie. Kolor węzłów dobierany jest losowo. Najechanie wskaźnikiem myszy komputerowej na pojedynczy węzeł powoduje wyświetlenie się nad nim nazwiska i imienia współautora oraz sumarycznej liczby przygotowanych wspólnie prac. ",
-	  "google-map": "Mapka wskazuje miejsca, w których wydane były publikacje analizowanego autora. Kolorem niebieskim zaznaczono miejsca, w których ukazało się od 1–9 publikacji, kolorem żółtym – powyżej 10 publikacji. Najechanie wskaźnikiem myszy komputerowej na określoną liczbę oraz kliknięcie w nią powoduje wyświetlenie się tytułów prac wydanych w danym miejscu. ",
-	  "research-map": "Wykres pierścieniowy prezentuje mapę dziedzin, do których – na podstawie tytułów czasopism – przyporządkowane zostały artykuły naukowe danego naukowca. Koło dziedzin podzielone jest na segmenty, z których każdy – oznaczony odpowiednim kolorem – symbolizuje określony obszar nauki (dziedzinę). Punkty umieszczone wewnątrz pierścienia symbolizują artykuły naukowe. Najechanie wskaźnikiem myszy komputerowej na określony punkt powoduje wyświetlenie informacji o obszarze nauki do jakiego należy dana publikacja oraz tytule czasopisma, na łamach którego została wydana. Znajdujące się w bezpośrednim sąsiedztwie czy też nakładające się na siebie punkty tego samego koloru wskazują, że prace reprezentowane przez te punkty zostały opublikowane w tym samym źródle (czasopiśmie). Opcja „Wyświetl dyscypliny” pozwala na wyświetlenie konkretnych nazw dyscyplin, reprezentowanych przez publikacje. Opcja „Metoda uśredniania” wskazuje, który z obszarów nauki ma w danej publikacji charakter wiodący, a który – poboczny. Wyraźnie widać tu przesunięcie punktów (publikacji) do dziedzin/dyscyplin drugorzędnych. Opcja „Pobierz listę czasopism” umożliwia pobranie pliku zawierającego tytuły czasopism, w których swoje artykuły publikuje dana osoba.",
+	  "works": "Wykres wyświetla na osi czasu zmianę liczby  prac opublikowanych w danym roku. Ta liczba wyświetlana jest po najechaniu myszką na kolumnę. Kolor zielony oznacza artykuły z czasopism i prac zbiorowych, kolor żółty – redakcje wydawnictw zbiorowych i redakcje czasopism, kolor czerwony – monografie. ",
+	  "collab": "Graf pokazuje związki ze współautorami (widok standardowy), a także sieć współredagowania monografii zbiorowych i periodyków (widok prac redagowanych). W środku wyświetla się węzeł danego badacza (największy). Kolor węzłów dobierany jest losowo. Najechanie myszką na pojedynczy węzeł pokazuje nazwisko współautora oraz sumaryczną liczbę wspólnych publikacji.",
+	  "google-map": "Mapa ukazuje miejsca, w których wydane były publikacje analizowanego autora. Kolorem niebieskim zaznaczono miejsca, w których ukazało się od 1–9 publikacji, kolorem żółtym – powyżej 10 publikacji. Najechanie wskaźnikiem myszy na określoną liczbę oraz kliknięcie w nią powoduje wyświetlenie się tytułów prac wydanych w danym miejscu.",
+	  "research-map": "Na wykresie pierścieniowym rozmieszczone są artykuły (kropki) w czasopismach naukowych, które zostały pokategoryzowane wg określonych dyscyplin, a które rozkładają się na kole dziedzin wg wzorca. Segmenty oznaczające określony obszar nauki pokolorowane są odpowiednim kolorem (legenda). Kolor punktu jest kolorem wiodącej dyscypliny czasopisma. W opcji „Metoda uśredniania” przesuwany on jest pomiędzy odpowiednimi obszarami nauki. Najechanie myszką na punkt powoduje wyświetlenie informacji o dziedzinie oraz tytule czasopisma, gdzie artykuł został wydany. Opcja „Wyświetl dyscypliny” pozwala na wyświetlenie konkretnych nazw dyscyplin, reprezentowanych przez publikacje. Opcja „Pobierz listę czasopism” umożliwia pobranie pliku .TSV (otwieranego w Excelu zawierającego tytuły wszystkich czasopism publikacji autora: poklasyfikowanych i nie.",
 	  "bubbles": "Wykres bąbelkowy pokazuje sumacyjną ilość stron w publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie długich rozdziałów w książkach. Poniżej są zamieszczone skumulowana suma punktów dla publikacji danego roku według punktacji MNiSW.",
 	  "wordcloud": "Chmury słów kluczowych służą zestawieniu lub porównaniu tematyki podejmowanej przez pojedynczego badacza na łamach krajowych i zagranicznych periodyków. Wielkość i pogrubienie pisma poszczególnych słów kluczowych zależne są od ważności lub częstotliwości występowania danego słowa w publikacjach analizowanego autora. Kolor czcionki poszczególnych terminów dobierany jest losowo.",
-	  "general": "Aplikacja umożliwia analizę i wizualizację sumarycznych zestawień danych odnoszących się do dorobku publikacyjnego według kilku kryteriów: dynamiki produktywności naukowej, sieci współpracy autorskiej, geolokalizacji miejsc wydania, dyscyplin nauki, sumarycznej liczby stron wszystkich prac, punktów za publikację oraz polskich i angielskich słów kluczowych. Aby z niej korzystać konieczne jest pobranie pliku z danymi z systemu Expertus. Szczegółowa instrukcja korzystania z aplikacji znajduje się w zakładce Instrukcja."
+	  "general": "Aplikacja umożliwia analizę i wizualizację sumarycznych zestawień danych odnoszących się do dorobku publikacyjnego w zakresach: dynamiki publikowania, sieci współautorów, geografii miejsc wydania, zainteresowań badawczych, podsumowania liczby stron, punktów MNiSW oraz chmury polskich i angielskich słów kluczowych. Dane pobiera się za pomocą przycisku „baza Expertus”."
 	},
 	"vis_titles": {
 	  "collab": "Graf współautorstwa",

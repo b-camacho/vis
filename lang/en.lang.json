@@ -22,6 +22,8 @@
 	"title": "Metrics:",
 	"sum": "Sum of works:",
 	"average": "Average works per year:",
+	"pointSum": "MNiSW Points",
+	"pointAverage": "MNiSW Points yearly average",
 	"coauthors": "Sum of coauthors:",
 	"main_coauthor": "Most collaborations with: "
   },

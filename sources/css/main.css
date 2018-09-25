@@ -72,9 +72,16 @@ nav {
 	overflow-y: scroll;
 }
 
+.vis-select .name-input-card {
+	min-height: 20em;
+	font-size: 13px;
+}
+
 .vis-details .card {
     background-color: #FFB343;
 }
+
+
 
 .card-image.disabled {
 	filter:  grayscale(100%) brightness(90%);
@@ -277,7 +284,6 @@ i.fa.dark{
 	margin-top:5px;
 	margin-left:8px;
 	color: rgba(13, 13, 13, 0.87);
-
 
 }
 

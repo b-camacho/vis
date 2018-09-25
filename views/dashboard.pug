@@ -48,20 +48,19 @@ block content
 		.col.s5(style='height: 100%; padding-right: 0')
 			.z-depth-1.vis-select
 				.row
-					.card.name-input-card.col.s12
-						.card-content.black-text
-							span.card-title=lang.vis_details_title
-							br
-							span#details-host
-				.row
-					a.btn(href=group? '/single' : '/group')=group ? lang.group.disable : lang.group.enable
+					a.btn(href=group ? '/single' : '/group')=group ? lang.group.disable : lang.group.enable
 				if !!name
 					.row
 						a.btn(href='/clearWorks')=lang.clear_works
 				else
 					.row
 						a.btn(href='http://bg.cm.umk.pl/splendor/umk/')=lang.get_data
-
+				.row
+					.card.name-input-card.col.s12
+						.card-content.black-text
+							span.card-title=lang.vis_details_title
+							br
+							span#details-host
 				.row
 					ul.collection.with-header.z-depth-1
 						li.collection-header
@@ -72,8 +71,12 @@ block content
 								span#works-amount-display(style='float: right') -
 						li.collection-item
 							div
-								span=lang.stats.average
-								span#mean-works-amount-display(style='float: right') -
+								span=lang.stats.pointSum
+								span#ministerial-points-amount-display(style='float: right') -
+						li.collection-item
+							div
+								span=lang.stats.pointAverage
+								span#mean-ministerial-points-amount-display(style='float: right') -
 						li.collection-item
 							div
 								span=lang.stats.coauthors

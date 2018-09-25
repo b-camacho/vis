@@ -154,12 +154,12 @@ app.post('/wordcloudData', function (req, res) {
         .reverse();
 
 
-    const maxSize = Math.max(req.body.height, req.body.width) / 4, minSize = 5 ,
+    const maxSize = Math.max(req.body.height, req.body.width) / 4, minSize = 11,
         maxAmount = wordsArray[0].amount, minAmount = 2;
 
     let words = wordsArray
         .map(function(el) {
-            return {text: el.text, size: Math.max(el.amount/maxAmount * maxSize, minSize)};
+            return {text: el.text, size: Math.max(Math.log2(el.amount/maxAmount * 100) * maxSize, minSize)};
         });
 
     cloud().size([req.body.width, req.body.height])
@@ -230,14 +230,14 @@ app.post('/upload', function (req, res) {
 			res.redirect('/')
 		})
 	})
-})
+});
 
 
 
 app.get('/*/name', function (req, res) {
     if(req.session.queryName) res.send({available: true, name: req.session.queryName});
     else res.send({available:false, name: null});
-})
+});
 
 app.listen(config.port || 3000, function () {
     console.log('Listening on port ' + (config.port || 3000));
