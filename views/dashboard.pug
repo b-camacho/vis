@@ -48,7 +48,7 @@ block content
 		.col.s5(style='height: 100%; padding-right: 0')
 			.z-depth-1.vis-select
 				.row
-					a.btn(href=group ? '/single' : '/group')=group ? lang.group.disable : lang.group.enable
+					a.btn(disabled href=group ? '/single' : '/group')=group ? lang.group.disable : lang.group.enable
 				if !!name
 					.row
 						a.btn(href='/clearWorks')=lang.clear_works

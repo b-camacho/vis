@@ -33,7 +33,7 @@
   },
 
   "clear_works": "Resetuj wyniki",
-  "get_data": "System Expertus",
+  "get_data": "Baza Expertus",
 
   "vis_titles": {
 	"collab": "Graf współautorstwa",
@@ -112,6 +112,7 @@
 	  "domains": {
 		"Dziedzina nauk medycznych i o zdrowiu": "nauki medyczne i o zdrowiu",
 		"Dziedzina nauk humanistycznych": "nauki humanistyczne",
+	  	"Dziedzina nauk teologicznych": "nauki teologiczne",
 		"Dziedzina nauk społecznych": "nauki społeczne",
 		"Dziedzina nauk ścisłych i przyrodniczych": "nauki ścisłe i przyrodnicze",
 		"Dziedzina nauk inżynieryjnych i technicznych": "nauki inżynieryjne i techniczne",
