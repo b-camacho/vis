@@ -168,11 +168,15 @@ parser.parse = function (rawText, done) {
 					    }
 					    break;
 
+
 				    case 'Punktacja ministerstwa':
 					    const styleTrimmed = splitLine[1].split('<span class="field">')[1].split('</span>')[0];
 					    recordObject.points = Number.parseFloat(styleTrimmed);
 					    break;
-
+				    case 'Punktacja': //expertus, in its infinite wisdom, may generate inconsistent labels
+					    const styleTrimmed2 = splitLine[1].split('<span class="field">')[1].split('</span>')[0];
+					    recordObject.points = Number.parseFloat(styleTrimmed2);
+					    break;
 				    case 'Pełny tytuł czasop.':
 					    recordObject.journalTitle = splitLine[1].split('<BR>')[0].split("<!--")[0];
 					    recordObject.compJournalTitle = recordObject.journalTitle.toLowerCase();

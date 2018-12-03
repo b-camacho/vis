@@ -87,9 +87,11 @@ function ComputeStatistics(data) {
 	stats["coworkers-amount-display"] = Object.keys(authorMap).length;
 
 	stats["ministerial-points-amount-display"] = data.map(d => d.points).reduce((a, b) => a + b);
-	var span = endYear - data.filter(d => d.points > 0)[0].points;
-	stats["mean-ministerial-points-amount-display"] = span > 0 ?
-		(stats["ministerial-points-amount-display"] / span).toFixed(2) :
+
+	var firstWithPoints = data.find(d => d.points > 0);
+
+	stats["mean-ministerial-points-amount-display"] = firstWithPoints ?
+		(stats["ministerial-points-amount-display"] / (endYear - firstWithPoints.year + 1)).toFixed(2) :
 		'-';
 
 
