@@ -19,7 +19,7 @@ var rawDbWordsParser = require('./wordcloudArray');
 
 app.use(express.static('sources'));
 app.use('/download', express.static('download'));
-app.use('/favicons', express.static('favicons'))
+app.use('/favicons', express.static('favicons'));
 app.use(bodyParser.json({
     limit: '50mb'
 }));

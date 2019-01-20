@@ -20,6 +20,8 @@ block append scripts
 	script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
 	if !group
 		script(src='/js/visualisations/' + visname + '.js')
+		if visname === 'research-map'
+			script(src='/js/three.js')
 	else
 		script(src='/js/group-visualisations/' + visname + '.js')
 	script(src='/js/util.js')
@@ -30,6 +32,6 @@ block append scripts
 	if visname === "research-map"
 		script(src='/js/domains.js')
 		script(src='/js/journals.js')
-		
+
 
 

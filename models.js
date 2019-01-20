@@ -52,6 +52,6 @@ Models.User = mg.model('User', new mg.Schema({
     password: {type: String, required: true},
     permissions: {type: String, required: true}
 }));
-
+//TODO: Model for precomputed values
 
 module.exports = Models;

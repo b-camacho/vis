@@ -76,8 +76,6 @@ $(document).ready(function () {
 
 
 	$.post("research-mapData", {}, function (data) {
-
-
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
 		// recomputeDomainWeights()
@@ -252,7 +250,7 @@ function GetCartesianNodeSlots(angleBounds, slotRingRadius, slotRingRadiiDist, n
 				bounds.slotPositions.push(PolarToCartesian(bounds.angleBounds.begin + (i*(angularNodePadding + 2*angularNodeRadius)) + angularNodeRadius - Math.PI / 2, currentSlotRingRadius))
 			};
 		}
-		
+
 
 
 		return bounds
@@ -264,6 +262,16 @@ function OffsetNodeCoords(coords, offset) {
 }
 
 
+function Snorm(x, y) {
+	return x+y-x*y;
+}
+
+function VecMult(v, s) {
+	return v.map(x => x * s)
+}
+function VecAdd(v1, v2) {
+	return v1.map((x, i) => x + v2[i])
+}
 
 function DrawDomains(articles, angleBounds) {
 	var svg = d3.select("#svg-port"),
@@ -282,14 +290,59 @@ function DrawDomains(articles, angleBounds) {
 			y: height / 2
 		};
 
+	domainVectors = {}
+	autDoms = {}
+	console.log(articles)
+	DOMAINS.forEach(d => autDoms[d.topic] = 0.0);
 
-	// console.log("Angle Bounds")
-	// console.log(angleBounds)
-	// console.log("Articles")
-	// console.log(articles)
+	const weights = [0.05, 0.02, 0.01];
+	articles.forEach(a => {
+		let topics = a.domains.map(d => d.name).filter(name => autDoms[name] !== undefined);
+		console.log(topics)
+		topics.forEach((t, i) => {
+			console.log(Snorm(autDoms[t], weights[i]))
+			autDoms[t] = Snorm(autDoms[t], weights[i])
+		})
+	});
 
+	console.log(autDoms)
+	console.log(angleBounds)
 	var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
+	Object.keys(domainCoordinates).forEach(k => {
+		newCoords = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
 
+		domainCoordinates[k] = newCoords
+	})
+	console.log(domainCoordinates)
+
+	v = Object.keys(autDoms)
+		.map(k => [domainCoordinates[k].x * autDoms[k], domainCoordinates[k].y * autDoms[k]]) // scale dom vectors
+		.reduce(VecAdd, [0, 0])
+	let maxTopic = "";
+	let maxTopicVal = 0;
+	Object.keys(autDoms).forEach(k => {
+		if (autDoms[k] >= maxTopicVal) {
+			maxTopic = k
+			maxTopicVal = autDoms[k]
+		}
+	})
+
+	console.log("FINAL VECTOR: " + v)
+
+
+	let vnodes = [{
+		x: v[0],
+		y:v[1],
+		maxTopic: maxTopic
+		}]
+	console.log(maxTopic)
+	Object.keys(domainCoordinates).forEach(k => {
+		vnodes.push({
+			x: domainCoordinates[k].x,
+			y: domainCoordinates[k].y,
+			maxTopic: k
+		})
+	})
 
 	var disciplineAngleBounds = GetDisciplineAngleBounds(angleBounds, articles, CartesianLengthToPolar(nodeRadius + nodePadding, radius));
 
@@ -465,23 +518,21 @@ function DrawDomains(articles, angleBounds) {
 	var node = svg.append("g")
 		.attr("class", "nodes")
 		.selectAll("circle")
-		.data(articles.filter(function (art) {
-			return !!art.coords;
-		}))
+		.data(vnodes)
 		.enter().append("circle")
 		.attr("r", function (d) {
 			return nodeRadius
 		})
 		.attr("fill", function (d) {
-			return d.domains[0].hue
+			return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
 		})
 		.attr("stroke", "#434343")
 		.attr("stroke-width", "1px")
 		.attr('cx', function (d, i) {
-			return d.coords.x
+			return d.x
 		})
 		.attr('cy', function (d, i) {
-			return d.coords.y
+			return d.y
 		})
 		// .attr('transform', 'translate(' + 500 + ' , ' + 500 + ')')
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
@@ -612,7 +663,7 @@ function DrawDomains(articles, angleBounds) {
 		.attr("class", "node-slots")
 		.selectAll("circle.node-slots")
 		.data(publicationNodeSlotCoordinates.reduce(function(acc, x) {
-			
+
 			return acc.concat(x.slotPositions.map(function(sP) {
 				sP.hue = x.hue
 				return sP

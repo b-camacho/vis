@@ -1,0 +1,23 @@
+extends layout
+block content
+    .row.main-row
+        .col.s3.vis-details.z-depth-1(style='padding-left: 0')
+            .row
+                .card
+                    .card-content.white-text
+
+        .col.s9.svg-container
+            svg#svg-port.z-depth-1.svg-port
+block append scripts
+    script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
+    script(type='text/javascript' src="/js/visualisations/demo.js")
+    script(src='/js/util.js')
+    script(type='text/javascript').
+        var jsStrings = !{JSON.stringify(lang.scriptable)};
+        var visname = !{JSON.stringify(visname)};
+        var authorName = !{JSON.stringify(name)};
+    script(src='/js/domains.js')
+    script(src='/js/journals.js')
+
+
+
