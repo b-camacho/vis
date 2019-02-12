@@ -253,55 +253,126 @@ function OffsetNodeCoords(coords, offset) {
 }
 
 
+var works;
+$.get('/getAllWorks', function (data) {
+	works = data
+})
+
+function Snorm(x, y) {
+	return x+y-x*y;
+}
+
+function VecMult(v, s) {
+	return v.map(x => x * s)
+}
+function VecAdd(v1, v2) {
+	return v1.map((x, i) => x + v2[i])
+}
 
 function DrawDomains(articles, angleBounds) {
-
 	var svg = d3.select("#svg-port"),
 		jQPort = $(".svg-port"),
 		width = jQPort.width(),
 		height = jQPort.height();
-	var radius = height / 2.1;
+	var radius = height / 2.5;
 	var nodeRadius = 7
 	var nodePadding = 3
-	var ringWidth = 15;
+	var ringWidth = 30;
 	var slotRingPadding = 25;
-	var stackingOffset = 2;
+
+	// var stackingOffset = 2;
 	var centre =
 		{
 			x: width / 1.6,
 			y: height / 2
 		};
 
+	const authors = Array.from(
+		new Set( articles.reduce(
+			(arr, art) => arr.concat(art.authors), [])
+		))
 
-	var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
+	const workSets = authors.map(aut => {
+		return articles
+			.filter(art => art.authors.includes(aut))
+			.reduce((arr, art) => arr.concat([art]), [])
+	})
 
-	var disciplineAngleBounds = GetDisciplineAngleBounds(angleBounds, articles, CartesianLengthToPolar(nodeRadius + nodePadding, radius));
+	const weights = [0.1, 0.04, 0.01];
+	const vnodes = workSets.map((works, idx) => {
+		autDoms = {}
+		DOMAINS.forEach(d => autDoms[d.topic] = 0.0);
+		works.forEach(w => {
+			let topics = w.domains.map(d => d.name).filter(name => autDoms[name] !== undefined);
+			console.log(topics)
+			topics.forEach((t, i) => {
+				autDoms[t] = Snorm(autDoms[t], weights[i])
+			})
+		});
 
-	var discMap = {};
-	disciplineAngleBounds.forEach(function (discipline, idx) {
-		discMap[discipline.discipline] = {
-			amount: 0,
-			hue: discipline.domain.hue,
-			coords: PolarToCartesian((discipline.angleBounds.begin + discipline.angleBounds.end)/2 - Math.PI/2, (radius / 4) * 3)
+		// console.log(autDoms)
+		// console.log(angleBounds)
+		var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
+		Object.keys(domainCoordinates).forEach(k => {
+			newCoords = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
+
+			domainCoordinates[k] = newCoords
+		})
+		console.log(domainCoordinates)
+
+		v = Object.keys(autDoms)
+			.map(k => [domainCoordinates[k].x * autDoms[k], domainCoordinates[k].y * autDoms[k]]) // scale dom vectors
+			.reduce(VecAdd, [0, 0])
+
+		let maxTopic = "";
+		let maxTopicVal = 0;
+		Object.keys(autDoms).forEach(k => {
+			if (autDoms[k] >= maxTopicVal) {
+				maxTopic = k
+				maxTopicVal = autDoms[k]
+			}
+		})
+
+		return {
+			x: v[0],
+			y: v[1],
+			maxTopic: maxTopic,
+			authorName: authors[idx]
 		}
+
 	})
-
-	console.log(discMap);
-
-	articles.forEach(function (article) {
-		discMap[article.discipline].amount += article.amount;
-	})
-
-	console.log('DISCMAP')
-
-	// console.log(articles);
 
 	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-		if(d.topic)
-			return jsStrings.vis.domains[d.topic]
-		else
-			return d + ': ' + discMap[d].amount;
+		return d.authorName
 	});
+
+	console.log(vnodes)
+
+	svg.call(nodeTip)
+
+	var nodes = svg.append("g")
+		.attr("class", "nodes")
+		.selectAll("circle")
+		.data(vnodes)
+		.enter().append("circle")
+		.attr("r", function (d) {
+			return nodeRadius
+		})
+		.attr("fill", function (d) {
+			return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
+		})
+		.attr("stroke", "#434343")
+		.attr("stroke-width", "1px")
+		.attr('cx', function (d, i) {
+			return d.x
+		})
+		.attr('cy', function (d, i) {
+			return d.y
+		})
+		// .attr('transform', 'translate(' + 500 + ' , ' + 500 + ')')
+		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
+		.on('mouseover', nodeTip.show)
+		.on('mouseout', nodeTip.hide)
 
 	var domainArcs = d3
 		.arc()
@@ -327,50 +398,10 @@ function DrawDomains(articles, angleBounds) {
 			.attr('fill', function () {
 				return angles.hue
 			})
-			.on('mouseover', function() {nodeTip.show(angles)})
-			.on('mouseout', nodeTip.hide);
-
-		// svg.append('g').attr('transform','translate(' + [width/2, height/2] + ')')
-		// 	.append("text")
-		// 	.attr('text-anchor', 'middle')
-		// 	.attr('transform', 'translate(' + [domainLabelCoordinates[angles.topic].x, domainLabelCoordinates[angles.topic].y] + ')')
-		// 	.text(angles.topic);
 	});
 
-
-
-	svg.call(nodeTip);
-
-	var radiusScale = d3.scalePow()
-		.exponent(0.5)
-		.domain([0, articles.length])
-		.range([0, radius / 8]);
-
-	var node = svg.append("g")
-		.attr("class", "nodes")
-		.selectAll("circle")
-		.data(Object.keys(discMap))
-		.enter().append("circle")
-		.attr("r", function (d) {
-			console.log(radiusScale(discMap[d].amount))
-			return radiusScale(discMap[d].amount);
-		})
-		.attr("fill", function (d) {
-			return '' + discMap[d].hue + '90'
-		})
-		// .attr("stroke", "#434343")
-		// .attr("stroke-width", "1px")
-		.attr('cx', function (d, i) {
-			return discMap[d].coords.x
-		})
-		.attr('cy', function (d, i) {
-			return discMap[d].coords.y
-		})
-		// .attr('transform', 'translate(' + 500 + ' , ' + 500 + ')')
-		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
-		.on('mouseover', nodeTip.show)
-		.on('mouseout', nodeTip.hide)
-
+	// .on('mouseover', function() {nodeTip.show(angles)})
+			// .on('mouseout', nodeTip.hide);
 /*	disciplineAngleBounds.forEach(function (discipline) {
 		var disciplineAngularCentre = (discipline.angleBounds.end + discipline.angleBounds.begin) / 2;
 		var contactPoint = PolarToCartesian(disciplineAngularCentre - (Math.PI / 2), radius );
@@ -496,7 +527,7 @@ function DrawDomains(articles, angleBounds) {
 		.attr("class", "node-slots")
 		.selectAll("circle.node-slots")
 		.data(publicationNodeSlotCoordinates.reduce(function(acc, x) {
-			
+
 			return acc.concat(x.slotPositions.map(function(sP) {
 				sP.hue = x.hue
 				return sP
