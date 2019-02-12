@@ -14,6 +14,8 @@ router.use('*', function (req, res, next) {
 	res.data.name = req.session.queryName || '';
 	res.data.lang = req.session.lang === 'en' ? lang.en : lang.pl;
 	res.data.group = req.session.group;
+	res.data.works = req.session.works;
+
 	m.Department.find().then(deps => {
 		res.data.saved = deps;
 		next();
@@ -23,8 +25,6 @@ router.use('*', function (req, res, next) {
 router.get('/loadSaved/:id', function (req, res, next) {
 	m.Department.findOne({_id: req.params.id})
 		.then(dept => {
-			console.log(res.data)
-
 			req.session.works = dept ? dept.works : null;
 			res.data.name = (req.session.queryName = dept ? dept.name : '');
 
@@ -42,6 +42,12 @@ router.get('/error/:type', function (req, res) {
 router.get('/', function (req, res) {
 	res.render('dashboard', res.data)
 });
+
+router.get('/demo', function (req, res) {
+	res.data.visname = 'demo';
+	res.render('demo', res.data)
+});
+
 router.get('/*', function (req, res, next) {
 	var split = req.path.split('/');
 	if(['bubbles', 'works', 'collab','research-map','google-map','wordcloud'].indexOf(split[split.length - 1]) !== -1) {
@@ -52,6 +58,7 @@ router.get('/*', function (req, res, next) {
 		}
 
 		res.data.group = req.session.group;
+
 		res.render('visualisation', res.data)
 	}
 	else next()
@@ -67,6 +74,10 @@ router.get('/info/*', function (req, res, next) {
 	else {
 		res.render('404', res.data);
 	}
+});
+
+router.get('/getAllWorks', function (req, res, next) {
+	res.json(req.session.works)
 });
 
 router.post('/genPdf', function (req, res, next) {

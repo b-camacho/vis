@@ -15,8 +15,16 @@ router.post('/auth', function (req, res, next) {
 			return res.redirect('/error/auth');
 		}
 		req.session.isAdmin = user.permissions === 'admin';
-		res.redirect('/admin');
+		req.session.save(() =>
+			res.redirect('/admin/')
+		)
+
 	})
+})
+
+router.get('/logout', function (req, res) {
+	req.session.destroy();
+	res.redirect('/')
 })
 
 router.use('*', function (req, res, next) {
