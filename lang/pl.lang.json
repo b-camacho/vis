@@ -1,5 +1,4 @@
 {
-
   "this": "pl",
   "other": "en",
   "data": "Dane",
@@ -8,259 +7,239 @@
   "tutorial": "Instrukcja",
   "alt_lang": "English",
   "select_file": "Plik",
-
   "visualising_for": "Wizualizacje dla:",
-
   "editorial_view": "Widok redakcji",
   "generate_pdf": "Generuj PDF",
-
   "title": "Wizualizator Dorobku Naukowego - 2018.10 (beta)",
   "alt_title": "Scientific Output Visualiser",
-
-
-
   "vis_details_title": "Informacje o wizualizacji",
-
-
   "stats": {
-	"title": "Statystyki:",
-	"sum": "Łącznie prac:",
-	"average": "Średnia liczba prac na rok:",
-	"pointSum": "Łączna punktacja MNiSW",
-	"pointAverage": "Średnia liczba punktów MNiSW na rok",
-	"coauthors": "Liczba współautorów:",
-	"main_coauthor": "Najczęstsza współpraca:"
+    "title": "Statystyki:",
+    "sum": "Łącznie prac:",
+    "average": "Średnia liczba prac na rok:",
+    "pointSum": "Łączna punktacja MNiSW",
+    "pointAverage": "Średnia liczba punktów MNiSW na rok",
+    "coauthors": "Liczba współautorów:",
+    "main_coauthor": "Najczęstsza współpraca:"
   },
-
   "clear_works": "Resetuj wyniki",
   "get_data": "Baza Expertus",
-
   "vis_titles": {
-	"collab": "Graf współautorstwa",
-	"works": "Dynamika liczby publikacji",
-	"google-map": "Mapa publikowania prac",
-	"research-map": "Koło dziedzin",
-	"wordcloud": "Chmury słów kluczowych",
-	"bubbles": "Objętość piśmiennicza w skali czasu"
+    "collab": "Graf współautorstwa",
+    "works": "Dynamika liczby publikacji",
+    "google-map": "Mapa publikowania prac",
+    "research-map": "Koło dziedzin",
+    "wordcloud": "Chmury słów kluczowych",
+    "bubbles": "Objętość piśmiennicza w skali czasu"
   },
   "vis_details": {
-	"collab": "W środku znajduje się węzeł autora, którego wielkość zależy od liczby jego publikacji. Im więcej wspólnych prac, tym krótsze jest połączenie pomiędzy autorami. Węzły autorów o tej samej randze współautorstwa są rozmieszczone równomiernie. Kolor dobierany jest losowo. ",
-	"works": "Dynamika opublikowanych prac w czasie. Kolorem czerwonym oznakowane są monografie autorskie.",
-	"google-map": "Mapa ukazuje miejsca gdzie są wydawane prace autora. Wyświetlany obszar jest automatycznie skalowany do zakresu geograficznego występujących lokalizacji.",
-	"research-map": "Wykres kołowy rozmieszczający publikacje w przestrzeni dziedzin na podstawie tytułów czasopism, w których zostały opublikowane.",
-	"wordcloud": "Statystyka słów kluczowych, które podają autorzy publikacji zwizualizowana jest za pomocą chmury słów. Stopień pisma danego wyrazu wskazuje na częstość jego występowania i tym samym podkreśla wagę danego tematu/pojęcia w badaniach autora. Zatem największy wyraz = najczęstsze występowanie. Dla polskich i angielskich słów kluczowych wygenerowano osobne wizualizacje.",
-	"bubbles": "Wykres bąbelkowy pokazuje sumę liczby stron wszystkich publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie obszernych rozdziałów w monografiach. Poniżej zamieszczono skumulowaną liczbę punktów dla publikacji danego roku według punktacji MNiSW."
+    "collab": "W środku znajduje się węzeł autora, którego wielkość zależy od liczby jego publikacji. Im więcej wspólnych prac, tym krótsze jest połączenie pomiędzy autorami. Węzły autorów o tej samej randze współautorstwa są rozmieszczone równomiernie. Kolor dobierany jest losowo. ",
+    "works": "Dynamika opublikowanych prac w czasie. Kolorem czerwonym oznakowane są monografie autorskie.",
+    "google-map": "Mapa ukazuje miejsca gdzie są wydawane prace autora. Wyświetlany obszar jest automatycznie skalowany do zakresu geograficznego występujących lokalizacji.",
+    "research-map": "Wykres kołowy rozmieszczający publikacje w przestrzeni dziedzin na podstawie tytułów czasopism, w których zostały opublikowane.",
+    "wordcloud": "Statystyka słów kluczowych, które podają autorzy publikacji zwizualizowana jest za pomocą chmury słów. Stopień pisma danego wyrazu wskazuje na częstość jego występowania i tym samym podkreśla wagę danego tematu/pojęcia w badaniach autora. Zatem największy wyraz = najczęstsze występowanie. Dla polskich i angielskich słów kluczowych wygenerowano osobne wizualizacje.",
+    "bubbles": "Wykres bąbelkowy pokazuje sumę liczby stron wszystkich publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie obszernych rozdziałów w monografiach. Poniżej zamieszczono skumulowaną liczbę punktów dla publikacji danego roku według punktacji MNiSW."
   },
-
   "scriptable": {
-
-	"ministerial_points": "Próg punktacji MNiSW",
-	"point_threshold": "Próg punktowy:",
-
-	"averaging_method": "Metoda uśredniania",
-	"show_disciplines": "Wyświetl dyscypliny",
-	"show_missing_journals": "Pobierz listę czasopism",
-
-	"journal_name": "Tytuł czasopisma",
-	"missing_journal_name": "Tytuły brakujących czasopism",
-	"domain1": "Dziedzina 1",
-	"domain2": "Dziedzina 2",
-	"discipline": "Dyscyplina",
-	"tsv_footer": "W przypadku błędów kategoryzacji proszę konktować się z Veslava Osińska - wieo@umk.pl",
-
-	"vis_details": {
-	  "works": "Wykres wyświetla na osi czasu zmianę liczby  prac opublikowanych w danym roku. Ta liczba wyświetlana jest po najechaniu myszką na kolumnę. Kolor zielony oznacza artykuły z czasopism i prac zbiorowych, kolor żółty – redakcje wydawnictw zbiorowych i redakcje czasopism, kolor czerwony – monografie. ",
-	  "collab": "Graf pokazuje związki ze współautorami (widok standardowy), a także sieć współredagowania monografii zbiorowych i periodyków (widok prac redagowanych). W środku wyświetla się węzeł danego badacza (największy). Kolor węzłów dobierany jest losowo. Najechanie myszką na pojedynczy węzeł pokazuje nazwisko współautora oraz sumaryczną liczbę wspólnych publikacji.",
-	  "google-map": "Mapa ukazuje miejsca, w których wydane były publikacje analizowanego autora. Kolorem niebieskim zaznaczono miejsca, w których ukazało się od 1–9 publikacji, kolorem żółtym – powyżej 10 publikacji. Najechanie wskaźnikiem myszy na określoną liczbę oraz kliknięcie w nią powoduje wyświetlenie się tytułów prac wydanych w danym miejscu.",
-	  "research-map": "Na wykresie pierścieniowym rozmieszczone są artykuły (kropki) w czasopismach naukowych, które zostały pokategoryzowane wg określonych dyscyplin, a które rozkładają się na kole dziedzin wg wzorca. Segmenty oznaczające określony obszar nauki pokolorowane są odpowiednim kolorem (legenda). Kolor punktu jest kolorem wiodącej dyscypliny czasopisma. W opcji „Metoda uśredniania” przesuwany on jest pomiędzy odpowiednimi obszarami nauki. Najechanie myszką na punkt powoduje wyświetlenie informacji o dziedzinie oraz tytule czasopisma, gdzie artykuł został wydany. Opcja „Wyświetl dyscypliny” pozwala na wyświetlenie konkretnych nazw dyscyplin, reprezentowanych przez publikacje. Opcja „Pobierz listę czasopism” umożliwia pobranie pliku .TSV (otwieranego w Excelu zawierającego tytuły wszystkich czasopism publikacji autora: poklasyfikowanych i nie.",
-	  "bubbles": "Wykres bąbelkowy pokazuje sumacyjną ilość stron w publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie długich rozdziałów w książkach. Poniżej są zamieszczone skumulowana suma punktów dla publikacji danego roku według punktacji MNiSW.",
-	  "wordcloud": "Chmury słów kluczowych służą zestawieniu lub porównaniu tematyki podejmowanej przez pojedynczego badacza na łamach krajowych i zagranicznych periodyków. Wielkość i pogrubienie pisma poszczególnych słów kluczowych zależne są od ważności lub częstotliwości występowania danego słowa w publikacjach analizowanego autora. Kolor czcionki poszczególnych terminów dobierany jest losowo.",
-	  "general": "Aplikacja umożliwia analizę i wizualizację sumarycznych zestawień danych odnoszących się do dorobku publikacyjnego w zakresach: dynamiki publikowania, sieci współautorów, geografii miejsc wydania, zainteresowań badawczych, podsumowania liczby stron, punktów MNiSW oraz chmury polskich i angielskich słów kluczowych. Dane pobiera się za pomocą przycisku „baza Expertus”."
-	},
-	"vis_titles": {
-	  "collab": "Graf współautorstwa",
-	  "works": "Dynamika liczby publikacji",
-	  "google-map": "Mapa publikowania prac",
-	  "research-map": "Koło dziedzin",
-	  "wordcloud": "Chmury słów kluczowych",
-	  "bubbles": "Objętość piśmiennicza w skali czasu"
-	},
-	"vis": {
-	  "work": {
-		"1": "praca",
-		"2": "prace",
-		"many": "prac"
-	  },
-	  "year": {
-		"1": "rok",
-		"2": "lata",
-		"many": "lat"
-	  },
-	  "page": {
-		"1": "strona",
-		"2": "strony",
-		"many": "stron"
-	  },
-
-
-	  "and": "oraz",
-	  "in": "w",
-	  "ministerial_score": "Punktacja ministerstwa",
-	  "including": "W tym",
-	  "monographies": "monografii",
-
-	  "domains": {
-		"Dziedzina nauk medycznych i o zdrowiu": "nauki medyczne i o zdrowiu",
-		"Dziedzina nauk humanistycznych": "nauki humanistyczne",
-	  	"Dziedzina nauk teologicznych": "nauki teologiczne",
-		"Dziedzina nauk społecznych": "nauki społeczne",
-		"Dziedzina nauk ścisłych i przyrodniczych": "nauki ścisłe i przyrodnicze",
-		"Dziedzina nauk inżynieryjnych i technicznych": "nauki inżynieryjne i techniczne",
-		"Dziedzina nauk rolniczych": "nauki rolnicze",
-		"Dziedzina sztuki": "sztuka"
-	  },
-
-	  "assigned": "Przypisano",
-	  "assigned_all": "Przypisano wszystkie publikacje do dziedzin.",
-	  "pubs_to_doms": "publikacji do dziedzin",
-	  "map_key": "Legenda"
-	},
-
-	"pdf_caption": "Wygenerowano przez ",
-	"pdf_caption_title": "Scientific Visualiser",
-	"for":"Wygenerowano dla "
+    "ministerial_points": "Próg punktacji MNiSW",
+    "point_threshold": "Próg punktowy:",
+    "averaging_method": "Metoda uśredniania",
+    "show_disciplines": "Wyświetl dyscypliny",
+    "show_missing_journals": "Pobierz listę czasopism",
+    "journal_name": "Tytuł czasopisma",
+    "missing_journal_name": "Tytuły brakujących czasopism",
+    "domain1": "Dziedzina 1",
+    "domain2": "Dziedzina 2",
+    "discipline": "Dyscyplina",
+    "tsv_footer": "W przypadku błędów kategoryzacji proszę konktować się z Veslava Osińska - wieo@umk.pl",
+    "vis_details": {
+      "works": "Wykres wyświetla na osi czasu zmianę liczby  prac opublikowanych w danym roku. Ta liczba wyświetlana jest po najechaniu myszką na kolumnę. Kolor zielony oznacza artykuły z czasopism i prac zbiorowych, kolor żółty – redakcje wydawnictw zbiorowych i redakcje czasopism, kolor czerwony – monografie. ",
+      "collab": "Graf pokazuje związki ze współautorami (widok standardowy), a także sieć współredagowania monografii zbiorowych i periodyków (widok prac redagowanych). W środku wyświetla się węzeł danego badacza (największy). Kolor węzłów dobierany jest losowo. Najechanie myszką na pojedynczy węzeł pokazuje nazwisko współautora oraz sumaryczną liczbę wspólnych publikacji.",
+      "google-map": "Mapa ukazuje miejsca, w których wydane były publikacje analizowanego autora. Kolorem niebieskim zaznaczono miejsca, w których ukazało się od 1–9 publikacji, kolorem żółtym – powyżej 10 publikacji. Najechanie wskaźnikiem myszy na określoną liczbę oraz kliknięcie w nią powoduje wyświetlenie się tytułów prac wydanych w danym miejscu.",
+      "research-map": "Na wykresie pierścieniowym rozmieszczone są artykuły (kropki) w czasopismach naukowych, które zostały pokategoryzowane wg określonych dyscyplin, a które rozkładają się na kole dziedzin wg wzorca. Segmenty oznaczające określony obszar nauki pokolorowane są odpowiednim kolorem (legenda). Kolor punktu jest kolorem wiodącej dyscypliny czasopisma. W opcji „Metoda uśredniania” przesuwany on jest pomiędzy odpowiednimi obszarami nauki. Najechanie myszką na punkt powoduje wyświetlenie informacji o dziedzinie oraz tytule czasopisma, gdzie artykuł został wydany. Opcja „Wyświetl dyscypliny” pozwala na wyświetlenie konkretnych nazw dyscyplin, reprezentowanych przez publikacje. Opcja „Pobierz listę czasopism” umożliwia pobranie pliku .TSV (otwieranego w Excelu zawierającego tytuły wszystkich czasopism publikacji autora: poklasyfikowanych i nie.",
+      "bubbles": "Wykres bąbelkowy pokazuje sumacyjną ilość stron w publikacjach dla danego roku. Skokowe przyrosty wskazują na wydanie książki lub opublikowanie długich rozdziałów w książkach. Poniżej są zamieszczone skumulowana suma punktów dla publikacji danego roku według punktacji MNiSW.",
+      "wordcloud": "Chmury słów kluczowych służą zestawieniu lub porównaniu tematyki podejmowanej przez pojedynczego badacza na łamach krajowych i zagranicznych periodyków. Wielkość i pogrubienie pisma poszczególnych słów kluczowych zależne są od ważności lub częstotliwości występowania danego słowa w publikacjach analizowanego autora. Kolor czcionki poszczególnych terminów dobierany jest losowo.",
+      "general": "Aplikacja umożliwia analizę i wizualizację sumarycznych zestawień danych odnoszących się do dorobku publikacyjnego w zakresach: dynamiki publikowania, sieci współautorów, geografii miejsc wydania, zainteresowań badawczych, podsumowania liczby stron, punktów MNiSW oraz chmury polskich i angielskich słów kluczowych. Dane pobiera się za pomocą przycisku „baza Expertus”."
+    },
+    "vis_titles": {
+      "collab": "Graf współautorstwa",
+      "works": "Dynamika liczby publikacji",
+      "google-map": "Mapa publikowania prac",
+      "research-map": "Koło dziedzin",
+      "wordcloud": "Chmury słów kluczowych",
+      "bubbles": "Objętość piśmiennicza w skali czasu"
+    },
+    "vis": {
+      "work": {
+        "1": "praca",
+        "2": "prace",
+        "many": "prac"
+      },
+      "year": {
+        "1": "rok",
+        "2": "lata",
+        "many": "lat"
+      },
+      "page": {
+        "1": "strona",
+        "2": "strony",
+        "many": "stron"
+      },
+      "and": "oraz",
+      "in": "w",
+      "ministerial_score": "Punktacja ministerstwa",
+      "including": "W tym",
+      "monographies": "monografii",
+      "domains": {
+        "Dziedzina nauk medycznych i o zdrowiu": "nauki medyczne i o zdrowiu",
+        "Dziedzina nauk humanistycznych": "nauki humanistyczne",
+        "Dziedzina nauk teologicznych": "nauki teologiczne",
+        "Dziedzina nauk społecznych": "nauki społeczne",
+        "Dziedzina nauk ścisłych i przyrodniczych": "nauki ścisłe i przyrodnicze",
+        "Dziedzina nauk inżynieryjnych i technicznych": "nauki inżynieryjne i techniczne",
+        "Dziedzina nauk rolniczych": "nauki rolnicze",
+        "Dziedzina sztuki": "sztuka"
+      },
+      "assigned": "Przypisano",
+      "assigned_all": "Przypisano wszystkie publikacje do dziedzin.",
+      "pubs_to_doms": "publikacji do dziedzin",
+      "map_key": "Legenda"
+    },
+    "pdf_caption": "Wygenerowano przez ",
+    "pdf_caption_title": "Scientific Visualiser",
+    "for": "Wygenerowano dla "
   },
   "info": {
-	"about": {
-	  "page_title": "O nas",
-	  "paragraphs": [
-		"Działamy w ramach grantu z Narodowego Centrum Nauki 2013/11/B/HS2/03048/pt. Badanie struktury i dynamiki cyfrowych zasobów wiedzy za pomocą metod wizualizacji (Information Visualization methods in digital knowledge structure and dynamics study) dotyczy analizy rozwoju nauk humanistycznych i społecznych (HS) w Polsce przy wykorzystaniu metodologii wizualizacji.",
-		"Skupiamy się na rozwiązaniach praktycznych w zakresie wizualizacji zasobów naukowych, które mają wspomóc rodzimych naukowców w bibliometrycznych i naukometrycznych pracach. Reprezentujemy uczelnie w Toruniu i University of York.",
-		"Zespół projektantów składa się z:"
-	  ],
-	  "list": [
-		{
-		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
-		  "title": "Wiesława Osińska",
-		  "description": " – konceptualizacja, zarządzanie pracami, analiza danych"
-		},
-		{
-		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
-		  "title": "Brian Camacho",
-		  "description": " – rozwijanie aplikacji, analiza danych"
-		},
-		{
-		  "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
-		  "title": "Grzegorz Osinski",
-		  "description": " – tworzenie modeli, analiza danych"
-		},
-		{
-		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/malgorzata-kowalska-pl",
-		  "title": "Małgorzata Kowalska",
-		  "description": " – dokumentacja, standaryzacja metadanych bibliograficznych"
-		},
-		{
-		  "link": "",
-		  "title": "Katarzyna Jarczewska-Walendziak",
-		  "description": " – baza danych"
-		},
-		{
-		  "link": "",
-		  "title": "Adam Szalach",
-		  "description": " – baza danych"
-		}
-	  ],
-	  "footer": "Jesteśmy zawsze otwarci na współpracę i poszerzenie obecnego grona projektantów. Dlatego zapraszamy do testowania naszej aplikacji i opiniowania. Kontakt: wieo@umk.pl"
-	},
-	"data": {
-	  "page_title": "Dane",
-	  "paragraphs": [
-		"Aktualnie aplikacja przetwarza dane z bibliograficznej bazy pracowników UMK Expertus, którą można znaleźć pod adresem: http://212.122.203.4/splendor/umk/.",
-		"W przyszłości autorzy rozszerzą możliwości wizualizacji w oparciu o dane z innych źródeł, np. Google Scholar, lub Research Gate.",
-		"Baza Expertus jest starannie opracowywana w Bibliotece Głównej UMK na podstawie systematycznie aktualizowanego przez pracowników naukowych swojego dorobki naukowego.",
-		"Serwis Expertus © SPLENDOR, Poznań umożliwia pobranie odfiltrowanych rekordów w formacie tekstowym (plik RTF). Umożliwia to opcja, niestety trudno dostrzegalna „Pobranie pliku do edytora”. Ładowane są metadane zaznaczonych rekordów.",
-		"Niestety nie ma opcji „zaznacz wszystkie”, co bardzo ułatwiłoby pobieranie bibliografii znacznego dorobku, liczącego na przykład kilkaset publikacji.",
-		"Struktura zapisu jest wierszowa. Rekordy publikacji są ponumerowane i rozdzielone kilkoma pustymi wierszami. Zapisywane są następujące pola:"
-	  ],
-	  "list": [
-		{
-		  "title": "Autor"
-		},
-		{
-		  "title": "Tytuł"
-		},
-		{
-		  "title": "Tytuł wydania zbiorowego/Czasopismo"
-		},
-		{
-		  "title": "Opis wydawniczy"
-		},
-		{
-		  "title": "Język"
-		},
-		{
-		  "title": "Typ formalny"
-		},
-		{
-		  "title": "Typ merytoryczny"
-		},
-		{
-		  "title": "Pełny tytuł czasopisma"
-		},
-		{
-		  "title": "Sygnatura"
-		},
-		{
-		  "title": "Punktacja MNiSW"
-		},
-		{
-		  "title": "Słowa kluczowe"
-		}
-	  ],
-	  "footer": "W aplikacji wykorzystano te pola, które przekazują wartościowe informacje pod względem analizy danych. Paczka przykładowych plików do przećwiczenia jest dostępny tu:",
-	  "footer_link": "/examples/samples.zip",
-	  "footer_link_dl": "samples.zip",
-	  "footer_link_text": "link"
-	},
-	"goals": {
-	  "page_title": "Cel projektu",
-	  "paragraphs": [
-		"Aplikacja ma na celu wsparcie naukowca w analizach własnego dorobku naukowego. Podstawowym problemem jest rozproszenie danych bibliograficznych w różnych bazach danych. Lecz tak potrzebną komplementarność można uzyskać w bazie uczelnianej, na przykład Expertus na UMK.",
-		"Ten właśnie rejestrowany dorobek piśmienniczy jest wizualizowany na różne sposoby. Badacze zobaczą dynamikę publikowanych prac na osi czasu, jak również się sumaryczną punktację MNiSW obliczona dla każdego roku. Mogą także przeanalizować przy pomocy grafu swoją sieć współpracowników. Geografię publikowanych prac wskaże mapa Polski lub Europy czy świata.",
-		"Chmurki słów zapewnią spojrzenie na tematykę badań; wykonane są one na bazie zestawów słów kluczowych, osobno w języku polskim i angielskim. Poza tym, autorzy wcielili oryginalną koncepcję koła dziedzin, na którym pozycjonują wszystkie publikację danego autora, tym samym pokazując dorobek w kontekście interdyscyplinarności. W wyborze 6 dziedzin wzorowano się na komercyjnym narzędziu InCites: nauki przyrodnicze, informatyka i inżynieria, medycyna, nauki o życiu, nauki społeczne, sztuka i humanistyka.",
-		"Tym samym naukowiec bez ponoszenia kosztów na specjalistyczne oprogramowanie może dokonać przejrzystej analizy własnego dorobku, prześledzić punkty krytyczne w swojej karierze, zminimalizować nadmierną zmienność w dynamice. Wizualizacja ma posłużyć jako pomocnicze narzędzie w zarządzaniu dorobkiem naukowym."
-	  ]
-	}
+    "about": {
+      "page_title": "O nas",
+      "paragraphs": [
+        "Działamy w ramach grantu z Narodowego Centrum Nauki 2013/11/B/HS2/03048/pt. Badanie struktury i dynamiki cyfrowych zasobów wiedzy za pomocą metod wizualizacji (Information Visualization methods in digital knowledge structure and dynamics study) dotyczy analizy rozwoju nauk humanistycznych i społecznych (HS) w Polsce przy wykorzystaniu metodologii wizualizacji.",
+        "Skupiamy się na rozwiązaniach praktycznych w zakresie wizualizacji zasobów naukowych, które mają wspomóc rodzimych naukowców w bibliometrycznych i naukometrycznych pracach. Reprezentujemy uczelnie w Toruniu i University of York.",
+        "Zespół projektantów składa się z:"
+      ],
+      "list": [
+        {
+          "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
+          "title": "Wiesława Osińska",
+          "description": " – konceptualizacja, zarządzanie pracami, analiza danych"
+        },
+        {
+          "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
+          "title": "Brian Camacho",
+          "description": " – rozwijanie aplikacji, analiza danych"
+        },
+        {
+          "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
+          "title": "Grzegorz Osinski",
+          "description": " – tworzenie modeli, analiza danych"
+        },
+        {
+          "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/malgorzata-kowalska-pl",
+          "title": "Małgorzata Kowalska",
+          "description": " – dokumentacja, standaryzacja metadanych bibliograficznych"
+        },
+        {
+          "link": "",
+          "title": "Katarzyna Jarczewska-Walendziak",
+          "description": " – baza danych"
+        },
+        {
+          "link": "",
+          "title": "Adam Szalach",
+          "description": " – baza danych"
+        }
+      ],
+      "footer": "Jesteśmy zawsze otwarci na współpracę i poszerzenie obecnego grona projektantów. Dlatego zapraszamy do testowania naszej aplikacji i opiniowania. Kontakt: wieo@umk.pl"
+    },
+    "data": {
+      "page_title": "Dane",
+      "paragraphs": [
+        "Aktualnie aplikacja przetwarza dane z bibliograficznej bazy pracowników UMK Expertus, którą można znaleźć pod adresem: http://212.122.203.4/splendor/umk/.",
+        "W przyszłości autorzy rozszerzą możliwości wizualizacji w oparciu o dane z innych źródeł, np. Google Scholar, lub Research Gate.",
+        "Baza Expertus jest starannie opracowywana w Bibliotece Głównej UMK na podstawie systematycznie aktualizowanego przez pracowników naukowych swojego dorobki naukowego.",
+        "Serwis Expertus © SPLENDOR, Poznań umożliwia pobranie odfiltrowanych rekordów w formacie tekstowym (plik RTF). Umożliwia to opcja, niestety trudno dostrzegalna „Pobranie pliku do edytora”. Ładowane są metadane zaznaczonych rekordów.",
+        "Niestety nie ma opcji „zaznacz wszystkie”, co bardzo ułatwiłoby pobieranie bibliografii znacznego dorobku, liczącego na przykład kilkaset publikacji.",
+        "Struktura zapisu jest wierszowa. Rekordy publikacji są ponumerowane i rozdzielone kilkoma pustymi wierszami. Zapisywane są następujące pola:"
+      ],
+      "list": [
+        {
+          "title": "Autor"
+        },
+        {
+          "title": "Tytuł"
+        },
+        {
+          "title": "Tytuł wydania zbiorowego/Czasopismo"
+        },
+        {
+          "title": "Opis wydawniczy"
+        },
+        {
+          "title": "Język"
+        },
+        {
+          "title": "Typ formalny"
+        },
+        {
+          "title": "Typ merytoryczny"
+        },
+        {
+          "title": "Pełny tytuł czasopisma"
+        },
+        {
+          "title": "Sygnatura"
+        },
+        {
+          "title": "Punktacja MNiSW"
+        },
+        {
+          "title": "Słowa kluczowe"
+        }
+      ],
+      "footer": "W aplikacji wykorzystano te pola, które przekazują wartościowe informacje pod względem analizy danych. Paczka przykładowych plików do przećwiczenia jest dostępny tu:",
+      "footer_link": "/examples/samples.zip",
+      "footer_link_dl": "samples.zip",
+      "footer_link_text": "link"
+    },
+    "goals": {
+      "page_title": "Cel projektu",
+      "paragraphs": [
+        "Aplikacja ma na celu wsparcie naukowca w analizach własnego dorobku naukowego. Podstawowym problemem jest rozproszenie danych bibliograficznych w różnych bazach danych. Lecz tak potrzebną komplementarność można uzyskać w bazie uczelnianej, na przykład Expertus na UMK.",
+        "Ten właśnie rejestrowany dorobek piśmienniczy jest wizualizowany na różne sposoby. Badacze zobaczą dynamikę publikowanych prac na osi czasu, jak również się sumaryczną punktację MNiSW obliczona dla każdego roku. Mogą także przeanalizować przy pomocy grafu swoją sieć współpracowników. Geografię publikowanych prac wskaże mapa Polski lub Europy czy świata.",
+        "Chmurki słów zapewnią spojrzenie na tematykę badań; wykonane są one na bazie zestawów słów kluczowych, osobno w języku polskim i angielskim. Poza tym, autorzy wcielili oryginalną koncepcję koła dziedzin, na którym pozycjonują wszystkie publikację danego autora, tym samym pokazując dorobek w kontekście interdyscyplinarności. W wyborze 6 dziedzin wzorowano się na komercyjnym narzędziu InCites: nauki przyrodnicze, informatyka i inżynieria, medycyna, nauki o życiu, nauki społeczne, sztuka i humanistyka.",
+        "Tym samym naukowiec bez ponoszenia kosztów na specjalistyczne oprogramowanie może dokonać przejrzystej analizy własnego dorobku, prześledzić punkty krytyczne w swojej karierze, zminimalizować nadmierną zmienność w dynamice. Wizualizacja ma posłużyć jako pomocnicze narzędzie w zarządzaniu dorobkiem naukowym."
+      ]
+    }
   },
   "error": {
-	"title": "Błąd",
-	"description": "W aplikacji wystąpił błąd",
-	"reason": "Powód: ",
-	"reasons": {
-	  "parser": "Nieprawidłowy plik wejściowy.",
-	  "auth": "Wymagane zalogowanie"
-	}
+    "title": "Błąd",
+    "description": "W aplikacji wystąpił błąd",
+    "reason": "Powód: ",
+    "reasons": {
+      "parser": "Nieprawidłowy plik wejściowy.",
+      "credentials": "Nieprawidłowy login lub hasło",
+      "auth": "Wymagane zalogowanie",
+      "missing_name": "Pole \"Nazwa\" jest wymagane",
+      "missing_short_name": "Pole \"Skrót\" jest wymagane"
+    }
   },
-
   "group": {
-	"enable": "Wyświetl wizualizacje grupowe",
-	"disable": "Wyświetl wizualizacje indywidualne",
-	"choose_department": "Wydział"
-
+    "enable": "Wyświetl wizualizacje grupowe",
+    "disable": "Wyświetl wizualizacje indywidualne",
+    "choose_department": "Wydział"
   },
-
   "login": {
-	"username": "Nazwa użytkownika",
-	"password": "Hasło",
-	"submit": "Zaloguj"
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "submit": "Zaloguj"
   },
-
   "admin": {
-	"saved": {
-	  "title": "Zapisane Grupy",
-	  "list": "Lista zapisanych grup",
-	  "add": "Dodaj",
-	  "new_name": "Nazwa"
-	}
+    "saved": {
+      "title": "Zapisane Grupy",
+      "list": "Lista zapisanych grup",
+      "add": "Dodaj",
+      "new_name": "Nazwa",
+      "new_short_name": "Skrót"
+    }
   }
 }

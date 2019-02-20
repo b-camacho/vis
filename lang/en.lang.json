@@ -7,259 +7,242 @@
   "tutorial": "Tutorial",
   "alt_lang": "Polski",
   "select_file": "Upload file",
-
   "visualising_for": "Visualising for",
-
   "editorial_view": "Editorial view",
   "generate_pdf": "Generate PDF",
-
   "title": "Scientific Output Visualiser - 2018.10 (beta)",
   "alt_title": "Wizualizator Dorobku Naukowego",
-
   "vis_details_title": "About visualisation",
-
   "stats": {
-	"title": "Metrics:",
-	"sum": "Sum of works:",
-	"average": "Average works per year:",
-	"pointSum": "MNiSW Points",
-	"pointAverage": "MNiSW Points yearly average",
-	"coauthors": "Sum of coauthors:",
-	"main_coauthor": "Most collaborations with: "
+    "title": "Metrics:",
+    "sum": "Sum of works:",
+    "average": "Average works per year:",
+    "pointSum": "MNiSW Points",
+    "pointAverage": "MNiSW Points yearly average",
+    "coauthors": "Sum of coauthors:",
+    "main_coauthor": "Most collaborations with: "
   },
-
   "clear_works": "Reset query",
   "get_data": "Get input files",
-
   "vis_titles": {
-	"collab": "Collaboration graph",
-	"works": "Publication volume dynamic",
-	"google-map": "Publication map",
-	"research-map": "Domain map",
-	"wordcloud": "Keyword clusters",
-	"bubbles": "Publication volume as a function of time"
+    "collab": "Collaboration graph",
+    "works": "Publication volume dynamic",
+    "google-map": "Publication map",
+    "research-map": "Domain map",
+    "wordcloud": "Keyword clusters",
+    "bubbles": "Publication volume as a function of time"
   },
   "vis_details": {
-	"collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
-	"works": "Amount and volume of publications displayed across time. The color red denotes monographs.",
-	"google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
-	"research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
-	"wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
-	"bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
+    "collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
+    "works": "Amount and volume of publications displayed across time. The color red denotes monographs.",
+    "google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
+    "research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
+    "wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
+    "bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year"
   },
   "scriptable": {
-
-	"ministerial_points": "Ministerial points",
-	"point_threshold": "Point threshold:",
-
-	"averaging_method": "Averaging method",
-	"show_disciplines": "Show disciplines",
-	"show_missing_journals": "Download journal list",
-
-	"journal_name": "Journal Title",
-	"missing_journal_name": "Missing journal titles",
-	"domain1": "Domain 1",
-	"domain2": "Domain 2",
-	"discipline": "Discipline",
-	"tsv_footer": "Please report assignment errors to Veslava Osińska - wieo@umk.pl",
-
-	"vis_details": {
-	  "collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
-	  "works": "Amount and volume of publications displayed across time. The color red denotes monographs.",
-	  "google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
-	  "research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
-	  "wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
-	  "bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year",
-	  "general": "This application is used for analysis and visualisation of summative data describing scientific publishing based on the followin criteria: scientific productivity dynamics, collaboration network, geolocation of publications, scientific disciplines, summative number of pages, Ministry-awarded points as well as English and Polish keywords. To use the application, a data file has to be downloaded from the Expertus system. The Tutorial section contains a detailed manual."
-
-	},
-	"vis_titles": {
-	  "collab": "Collaboration graph",
-	  "works": "Publication volume dynamic",
-	  "google-map": "Publication map",
-	  "research-map": "Domain map",
-	  "wordcloud": "Keyword clusters",
-	  "bubbles": "Publication volume as a function of time"
-	},
-	"pdf_caption": "Created with",
-	"pdf_caption_title": "Scientific Output Visualiser",
-	"for":"Generated for ",
-
-	"vis": {
-	  "work": {
-		"1": "work",
-		"2": "works",
-		"many": "works"
-	  },
-	  "year": {
-		"1": "year",
-		"2": "years",
-		"many": "years"
-	  },
-	  "page": {
-		"1": "page",
-		"2": "pages",
-		"many": "pages"
-	  },
-
-
-	  "and": "and",
-	  "in": "in",
-	  "ministerial_score": "Ministry of Education score",
-	  "including": "Including",
-	  "monographies": "monographies",
-
-	  "domains": {
-		"Dziedzina nauk medycznych i o zdrowiu": "health sciences",
-		"Dziedzina nauk humanistycznych": "humanities",
-	  	"Dziedzina nauk teologicznych": "theology",
-		"Dziedzina nauk społecznych": "social sciences",
-		"Dziedzina nauk ścisłych i przyrodniczych": "natural sciences",
-		"Dziedzina nauk inżynieryjnych i technicznych": "technical sciences",
-		"Dziedzina nauk rolniczych": "forestry, agricultural and veterinary sciences",
-		"Dziedzina sztuki": "art"
-	  },
-
-	  "assigned": "Assigned",
-	  "assigned_all": "Assigned all publications to domains",
-	  "pubs_to_doms": "publications to domains",
-	  "map_key": "Key"
-	}
+    "ministerial_points": "Ministerial points",
+    "point_threshold": "Point threshold:",
+    "averaging_method": "Averaging method",
+    "show_disciplines": "Show disciplines",
+    "show_missing_journals": "Download journal list",
+    "journal_name": "Journal Title",
+    "missing_journal_name": "Missing journal titles",
+    "domain1": "Domain 1",
+    "domain2": "Domain 2",
+    "discipline": "Discipline",
+    "tsv_footer": "Please report assignment errors to Veslava Osińska - wieo@umk.pl",
+    "vis_details": {
+      "collab": "The visualisation represents all coauthors of the work which occur in the Expertus database.",
+      "works": "Amount and volume of publications displayed across time. The color red denotes monographs.",
+      "google-map": "The map illustrates locations where the author's works are published. The displayed area is automatically scaled to fit the geographic range of occuring locations",
+      "research-map": "A Map of scientific domains presented as a ring plot, used for illustrating the distribution of the author's publication across domains. The placement of a publication is based on the journal it was published it. The domain circle is separated into 6 segments colored according to the key provided by K. Boyack in his global UCSD global science map: http://www.mapofscience.com",
+      "wordcloud": "Statistical analysis of author-specified keywords, visualised with a wordcloud. The largest words represent the most common occurence, therefore underlining the weight of a certain topic or idea in the scope of the author's research. Separate visualisations are generated for Polish and English keywords",
+      "bubbles": "The bubble graph illustrates the collective amount of pages in publications from a given year. Unusually large values point to a book or a series of long chapters being published. The lower graph displays a sum of points granted by MNiSW (The Ministry of Science and Higher Education) for all publication from a given year",
+      "general": "This application is used for analysis and visualisation of summative data describing scientific publishing based on the followin criteria: scientific productivity dynamics, collaboration network, geolocation of publications, scientific disciplines, summative number of pages, Ministry-awarded points as well as English and Polish keywords. To use the application, a data file has to be downloaded from the Expertus system. The Tutorial section contains a detailed manual."
+    },
+    "vis_titles": {
+      "collab": "Collaboration graph",
+      "works": "Publication volume dynamic",
+      "google-map": "Publication map",
+      "research-map": "Domain map",
+      "wordcloud": "Keyword clusters",
+      "bubbles": "Publication volume as a function of time"
+    },
+    "pdf_caption": "Created with",
+    "pdf_caption_title": "Scientific Output Visualiser",
+    "for": "Generated for ",
+    "vis": {
+      "work": {
+        "1": "work",
+        "2": "works",
+        "many": "works"
+      },
+      "year": {
+        "1": "year",
+        "2": "years",
+        "many": "years"
+      },
+      "page": {
+        "1": "page",
+        "2": "pages",
+        "many": "pages"
+      },
+      "and": "and",
+      "in": "in",
+      "ministerial_score": "Ministry of Education score",
+      "including": "Including",
+      "monographies": "monographies",
+      "domains": {
+        "Dziedzina nauk medycznych i o zdrowiu": "health sciences",
+        "Dziedzina nauk humanistycznych": "humanities",
+        "Dziedzina nauk teologicznych": "theology",
+        "Dziedzina nauk społecznych": "social sciences",
+        "Dziedzina nauk ścisłych i przyrodniczych": "natural sciences",
+        "Dziedzina nauk inżynieryjnych i technicznych": "technical sciences",
+        "Dziedzina nauk rolniczych": "forestry, agricultural and veterinary sciences",
+        "Dziedzina sztuki": "art"
+      },
+      "assigned": "Assigned",
+      "assigned_all": "Assigned all publications to domains",
+      "pubs_to_doms": "publications to domains",
+      "map_key": "Key"
+    }
   },
   "info": {
-	"about": {
-	  "page_title": "About",
-	  "paragraphs": [
-		"We work on a National Science Center grant 2013/11/B/HS2/03048/ The study of the structure and dynamics of digital knowledge by means of visualization methods.",
-		"We focus on practical solutions how to effectively present visually scientific resources and thus help native scientists in bibliometric and scientometric research.",
-		"We represent universities in both Torun and York",
-		"Our team consists of:"
-	  ],
-	  "list": [
-		{
-		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
-		  "title": "Wiesława Osińska",
-		  "description": " – conceptualization, tasks management, data analysis"
-		},
-		{
-		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
-		  "title": "Brian Camacho",
-		  "description": " – application developing, data analysis"
-		},
-		{
-		  "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
-		  "title": "Grzegorz Osinski",
-		  "description": " – modelling, calculation and data analysis"
-		},
-		{
-		  "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/malgorzata-kowalska-pl",
-		  "title": "Małgorzata Kowalska",
-		  "description": " – documentation, standardising bibliographical metadata"
-		},
-		{
-		  "link": "",
-		  "title": "Katarzyna Jarczewska-Walendziak",
-		  "description": " – database"
-		},
-		{
-		  "link": "",
-		  "title": "Adam Szalach",
-		  "description": " – database"
-		}
-	  ],
-	  "footer": "We are always open to co-operation and broadening the current team. Therefore, we invite you for testing our application, evaluating and sharing with us your opinion. For details, please email wieo@umk.pl"
-	},
-	"data": {
-	  "page_title": "Data",
-	  "paragraphs": [
-		"Current application applies the data of Nicolaus Copernicus University bibliographic database Expertus, which can be found at: http://212.122.203.4/splendor/umk/",
-		"In the future, authors plan to expand visualization scope by mapping the data derived from other sources, such as Google Scholar, or Research Gate.",
-		"Expertus database is carefully elaborated in the Central University Library and systematically updated by librarians.",
-		"Expertus © SPLENDOR (Poznan) allows you to retrieve filtered records in text format (RTF file). This can be accessed through option \"Downloading a file\". All the metadata of selected records constitute  this file, structured as rows.",
-		"Publications are numbered and separated by several CR. The following fields can be analyzed:"
-	  ],
-	  "list": [
-		{
-		  "title": "Author (s)"
-		},
-		{
-		  "title": "Title"
-		},
-		{
-		  "title": "Source title"
-		},
-		{
-		  "title": "Editorial description"
-		},
-		{
-		  "title": "Physical description"
-		},
-		{
-		  "title": "Language"
-		},
-		{
-		  "title": "Formal type"
-		},
-		{
-		  "title": "Subject type"
-		},
-		{
-		  "title": "Full title of the journal"
-		},
-		{
-		  "title": "Signature"
-		},
-		{
-		  "title": "Ministerial scoring"
-		},
-		{
-		  "title": "Keywords"
-		}
-	  ],
-	  "footer": "Only highly informative fields are used in current application. A package of sample files is available here:",
-	  "footer_link": "/examples/samples.zip",
-	  "footer_link_dl": "samples.zip",
-	  "footer_link_text": "link"
-	},
-	"goals": {
-	  "page_title": "Our goal",
-	  "paragraphs": [
-		"The application aims to support the researcher in analyzing own scientific output. The main problem in Poland concerns great dissemination of bibliographic databases. But one of the fully complementary can be obtained on local level, i.e. university database Expertus.",
-		"Publications set is visualized in different ways. Researchers will see the dynamics of their published papers on the timeline, as well as the cumulative ministerial score for each year. They can also analyze personal collaboration network due to multiscale graph. The geography of publishing is presented on a map of Poland, Europe or world depending on localization scope.",
-		"Words clouds provide insight into research topics. Technology is based on counting and sorting the frequencies of words; in this case a set of keywords in Polish, and separately in English.",
-		"Thus, the scientist could study and analize visually own scientific output for free. He is able to track critical points in his career, minimize excessive variability in publication dynamics. Visualization is supposed to serve as ancillary tool for managing the scientific achievement."
-	  ]
-	}
-
+    "about": {
+      "page_title": "About",
+      "paragraphs": [
+        "We work on a National Science Center grant 2013/11/B/HS2/03048/ The study of the structure and dynamics of digital knowledge by means of visualization methods.",
+        "We focus on practical solutions how to effectively present visually scientific resources and thus help native scientists in bibliometric and scientometric research.",
+        "We represent universities in both Torun and York",
+        "Our team consists of:"
+      ],
+      "list": [
+        {
+          "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/veslava-osinska-pl",
+          "title": "Wiesława Osińska",
+          "description": " – conceptualization, tasks management, data analysis"
+        },
+        {
+          "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/brian-camacho-pl",
+          "title": "Brian Camacho",
+          "description": " – application developing, data analysis"
+        },
+        {
+          "link": "https://www.researchgate.net/profile/Grzegorz_Osinski",
+          "title": "Grzegorz Osinski",
+          "description": " – modelling, calculation and data analysis"
+        },
+        {
+          "link": "http://www.wizualizacjanauki.umk.pl/pl/zespol/malgorzata-kowalska-pl",
+          "title": "Małgorzata Kowalska",
+          "description": " – documentation, standardising bibliographical metadata"
+        },
+        {
+          "link": "",
+          "title": "Katarzyna Jarczewska-Walendziak",
+          "description": " – database"
+        },
+        {
+          "link": "",
+          "title": "Adam Szalach",
+          "description": " – database"
+        }
+      ],
+      "footer": "We are always open to co-operation and broadening the current team. Therefore, we invite you for testing our application, evaluating and sharing with us your opinion. For details, please email wieo@umk.pl"
+    },
+    "data": {
+      "page_title": "Data",
+      "paragraphs": [
+        "Current application applies the data of Nicolaus Copernicus University bibliographic database Expertus, which can be found at: http://212.122.203.4/splendor/umk/",
+        "In the future, authors plan to expand visualization scope by mapping the data derived from other sources, such as Google Scholar, or Research Gate.",
+        "Expertus database is carefully elaborated in the Central University Library and systematically updated by librarians.",
+        "Expertus © SPLENDOR (Poznan) allows you to retrieve filtered records in text format (RTF file). This can be accessed through option \"Downloading a file\". All the metadata of selected records constitute  this file, structured as rows.",
+        "Publications are numbered and separated by several CR. The following fields can be analyzed:"
+      ],
+      "list": [
+        {
+          "title": "Author (s)"
+        },
+        {
+          "title": "Title"
+        },
+        {
+          "title": "Source title"
+        },
+        {
+          "title": "Editorial description"
+        },
+        {
+          "title": "Physical description"
+        },
+        {
+          "title": "Language"
+        },
+        {
+          "title": "Formal type"
+        },
+        {
+          "title": "Subject type"
+        },
+        {
+          "title": "Full title of the journal"
+        },
+        {
+          "title": "Signature"
+        },
+        {
+          "title": "Ministerial scoring"
+        },
+        {
+          "title": "Keywords"
+        }
+      ],
+      "footer": "Only highly informative fields are used in current application. A package of sample files is available here:",
+      "footer_link": "/examples/samples.zip",
+      "footer_link_dl": "samples.zip",
+      "footer_link_text": "link"
+    },
+    "goals": {
+      "page_title": "Our goal",
+      "paragraphs": [
+        "The application aims to support the researcher in analyzing own scientific output. The main problem in Poland concerns great dissemination of bibliographic databases. But one of the fully complementary can be obtained on local level, i.e. university database Expertus.",
+        "Publications set is visualized in different ways. Researchers will see the dynamics of their published papers on the timeline, as well as the cumulative ministerial score for each year. They can also analyze personal collaboration network due to multiscale graph. The geography of publishing is presented on a map of Poland, Europe or world depending on localization scope.",
+        "Words clouds provide insight into research topics. Technology is based on counting and sorting the frequencies of words; in this case a set of keywords in Polish, and separately in English.",
+        "Thus, the scientist could study and analize visually own scientific output for free. He is able to track critical points in his career, minimize excessive variability in publication dynamics. Visualization is supposed to serve as ancillary tool for managing the scientific achievement."
+      ]
+    }
   },
   "error": {
-	"title": "Error",
-	"description": "The application has encountered an error.",
-	"reason": "Reason: ",
-	"reasons": {
-	  "parser": "Incorrect input file",
-	  "auth": "Login required"
-	}
+    "title": "Error",
+    "description": "The application has encountered an error.",
+    "reason": "Reason: ",
+    "reasons": {
+      "parser": "Incorrect input file",
+      "auth": "Login required",
+      "credentials": "The login or password is incorrect",
+      "missing_name": "The \"Name\" field is required",
+      "missing_short_name": "The \"Short Name\" field is required"
+    }
   },
-
   "group": {
-	"enable": "Switch to group mode",
-	"disable": "Switch to individual mode",
-	"choose_department": "Department"
+    "enable": "Switch to group mode",
+    "disable": "Switch to individual mode",
+    "choose_department": "Department"
   },
-
   "login": {
-	"username": "Username",
-	"password": "Password",
-	"submit": "Submit"
+    "username": "Username",
+    "password": "Password",
+    "submit": "Submit"
   },
-
   "admin": {
-	"saved": {
-	  "title": "Saved Groups",
-	  "list": "List of saved groups",
-	  "add": "Add new",
-	  "new_name": "Name"
-	}
+    "saved": {
+      "title": "Saved Groups",
+      "list": "List of saved groups",
+      "add": "Add new",
+      "new_name": "Name",
+      "new_short_name": "Short Name"
+    }
   }
 }

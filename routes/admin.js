@@ -65,29 +65,32 @@ router.get('/', function (req, res, next) {
 // })
 
 router.post('/addSaved', function (req, res, next) {
-	parser.upload(req, function (err, file, name) {
+	parser.upload(req, function (err, file, form) {
 		if(err) {
 			console.log(err);
 			return res.redirect('/error/parser');
 		}
+		if (!form.name) {
+			return res.redirect('/error/missing_name')
+		}
+		if (!form.short_name) {
+			return res.redirect('/error/missing_short_name')
+		}
+
 		parser.parse(file, function (err, works, queryName) {
 			if(err) {
 				console.log(err);
 				return res.redirect('/error/parser');
 			}
 			var newDept = new m.Department({
-				name: name,
-				shortName : name.split(' ').map(function (name) {
-					return name[0]
-				}).join(''),
+				name: form.name,
+				shortName : form.short_name,
 				works: works
 			})
 
 			newDept.save().catch(console.log);
 
 			res.redirect('/');
-
-
 		})
 	})
 	console.log('path done');

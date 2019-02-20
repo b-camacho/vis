@@ -11,11 +11,11 @@ parser.upload = function (req, cb) {
 	let busboy = new Busboy({ headers: req.headers });
 	let chunks = [];
 	let error = null;
-	let name = null;
+	let form = {};
 	busboy.on('field', function (fieldname, value) {
-		if(fieldname === 'name')
-			name = value;
-	})
+		form[fieldname] = value;
+	});
+
 	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 
 		file.on('data', function(chunk) {
@@ -23,7 +23,7 @@ parser.upload = function (req, cb) {
 
 		});
 		file.on('end', function() {
-		    cb(null, iconv.decode(Buffer.concat(chunks), "ISO-8859-2"), name)
+		    cb(null, iconv.decode(Buffer.concat(chunks), "ISO-8859-2"), form)
         })
         file.on('error', cb)
 	});

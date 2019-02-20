@@ -21,11 +21,13 @@ block content
 					p=lang.admin.saved.add
 					form#upload(action='/admin/addSaved', method='POST', enctype='multipart/form-data')
 						.row
-							.col.s4.input-field
+							.col.s3.input-field
 								input#save_as.validate(type='text', name='name')
 								label.active(for='save_as')=lang.admin.saved.new_name
-
-							.col.s5.input-field.file-field
+							.col.s3.input-field
+								input#save_as_short.validate(type='text', name='short_name')
+								label.active(for='save_as_short')=lang.admin.saved.new_short_name
+							.col.s3.input-field.file-field
 								.btn
 									span=lang.select_file
 									input(type='file', name='file')
@@ -38,23 +40,23 @@ block content
 append scripts
 	script.
 		$('#upload').submit(function (e) {
-			e.preventDefault();
-
-			var formData = new FormData(this);
-
-			$.ajax({
-				url: '/admin/addSaved',
-				type: 'POST',
-				data: formData,
-				success: function (data) {
-					location.reload();
-				},
-				cache: false,
-				contentType: false,
-				processData: false
-			});
-			var list = $('#list');
-			console.log(list);
-			$('<li class="collection-item"><div class="progress"><div class="indeterminate"></div></div></li>').appendTo(list);
+			// e.preventDefault();
+			//
+			// var formData = new FormData(this);
+			//
+			// $.ajax({
+			// 	url: '/admin/addSaved',
+			// 	type: 'POST',
+			// 	data: formData,
+			// 	success: function (data) {
+			// 		$('#loading-indicator').remove()
+			// 	},
+			// 	cache: false,
+			// 	contentType: false,
+			// 	processData: false
+			// });
+			// var list = $('#list');
+			// console.log(list);
+			$('<li id="loading-indicator" class="collection-item"><div class="progress"><div class="indeterminate"></div></div></li>').appendTo(list);
 
 		})
