@@ -1,16 +1,306 @@
 var rawData;
 $(document).ready(function () {
-	$.post("collabData", {}, function (data) {
-			rawData = data;
-			if(data.filter(function (work) {
-					return work.publicationType === 'edit'
-				}).length < 3) document.querySelector('#toggleView').setAttribute('disabled', 'disabled');
-			// console.log(data);
-			drawSimulationCollaborationGraph(getNodes(data, false));
-			//displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
-		}
+	draw(generateData());
+});
+function reload() {
+	clearSvg();
+	draw(generateData());
+}
+function generateData() {
+	const randstr = () => Math.random().toString(36).substr(2, 5);
+	const authors = [...Array(30)].map(
+		_ => randstr()
+	);
+	const hubs = ["A", "B", "C", "D", "E", "F"];
 
-	)});
+	const randomHub = () => {
+		let r = Math.random();
+		for (let h of hubs) {
+			if (r < 0.33) return h;
+			r = Math.random();
+		}
+		return hubs[hubs.length - 1]
+	}
+
+	const works = [...Array(100)].map(
+		(el, i) => ({
+			authors: [authors[i % authors.length]],
+			title: randstr(),
+			hub: randomHub(),
+		})).map(
+			(el, i) => {
+				for (_ of Array(i % 5)) {
+					randAuthor = authors[Math.floor(Math.random())];
+					if (el.authors.indexOf(randAuthor) === -1) {
+						el.authors.push(randAuthor)
+					}
+				}
+				return el
+			}
+		);
+	// const works = [
+	// 	{
+	// 		authors: [authors[0], authors[1], authors[2]],
+	// 		hub: hubs[0],
+	// 	},
+	// 	{
+	// 		authors: [authors[0], authors[1]],
+	// 		hub: hubs[0],
+	// 	},
+	// 	{
+	// 		authors: [authors[1], authors[2]],
+	// 		hub: hubs[0],
+	// 	},
+	// 	{
+	// 		authors: [authors[0], authors[1]],
+	// 		hub: hubs[0],
+	// 	},
+	// 	{
+	// 		authors: [authors[0], authors[1]],
+	// 		hub: hubs[0],
+	// 	},
+	// 	{
+	// 		authors: [authors[2]],
+	// 		hub: hubs[0],
+	// 	},
+	// 	{
+	// 		authors: [authors[3], authors[4], authors[5]],
+	// 		hub: hubs[1],
+	// 	},
+	// 	{
+	// 		authors: [authors[5]],
+	// 		hub: hubs[1],
+	// 	},
+	// 	{
+	// 		authors: [authors[3], authors[0]],
+	// 		hub: hubs[1],
+	// 	},
+	//
+	// ].map((w, i) => w.title ? w : Object.assign(w, {title: 'W' + i}));
+
+	// console.log(authors);
+	console.log(works);
+
+	return works
+}
+
+function scaleLog2(x) {
+	return Math.min(
+		100,
+		Math.log2(x + 1)
+	)
+}
+
+function draw(data) {
+	const svg = d3.select("#svg-port"),
+		jQPort = $("#svg-port"),
+		width = jQPort.width(),
+		height = jQPort.height(),
+		radius = Math.min(height, width) / 4;
+
+	const hubs = {};
+
+	// initialising hubs
+
+	data.forEach(d => {
+		if (hubs[d.hub] === undefined) {
+			hubs[d.hub] = { name: d.hub, authors: [], id: "HID:" + d.hub}
+		}
+	})
+
+	// finding hub centres
+
+	Object.keys(hubs).forEach((h, i) => {
+		Object.assign(hubs[h], PolarToCartesian(
+			(i / Object.keys(hubs).length) * 2 * Math.PI, radius
+		))
+	});
+
+	// initlise object with one key for each author
+
+	const authors = {}
+	data.forEach(d => {
+		d.authors.forEach(a => {
+			if (authors[a] === undefined) {
+				authors[a] = {id: a, links: {}}
+			}
+		})
+	})
+
+	// assign authors to each other
+
+	data.forEach(d => {
+		d.authors.forEach((a, i) => {
+			d.authors.forEach((aa, j) => {
+				if (aa !== a) {
+					if (authors[a].links[aa] === undefined) {
+						authors[a].links[aa] = 0;
+					}
+					authors[a].links[aa] += 1;
+				}
+			})
+		});
+	});
+
+	// adding authors to hubs
+	data.forEach((d, i) => {
+		d.authors.forEach(aName => {
+			const a = authors[aName];
+			if (!a) return;
+			const hasAuthor = hubs[d.hub].authors[a.id];
+
+			if (!hasAuthor) {
+				hubs[d.hub].authors[a.id] = 0;
+			}
+			hubs[d.hub].authors[a.id] += 1;
+		})
+	})
+	console.log(hubs);
+
+	// adding links author -> hub
+	Object.keys(hubs).forEach((h, i) => {
+		hubs[h].simLinks = Object.keys(hubs[h].authors).map(
+			(aId, i) => ({source: hubs[h].id, target: aId, value: hubs[h].authors[aId]})
+		)
+	})
+
+	// adding links author -> author
+	Object.keys(authors).forEach((a, i) => {
+		authors[a].simLinks = Object.keys(authors[a].links).map(
+			(other, i) => ({source: a, target: other, value: authors[a].links[other] / 5})
+		)
+	});
+
+	const simNodes = Object.values(hubs)
+	// add fixed x and y to hubs
+		.map(h => Object.assign(h, {fx: h.x, fy:h.y, isHub: true}))
+		// concat rest of nodes (author nodes)
+		.concat(Object.values(authors));
+
+	const simLinks = Object.values(hubs)
+		.flatMap(h => h.simLinks)
+		.concat(Object.values(authors)
+			.flatMap(a => a.simLinks));
+
+	console.log(simNodes);
+	console.log(simLinks);
+	console.log(simLinks[0].source);
+	console.log(simLinks[0].target);
+
+	var simulation = d3.forceSimulation(simNodes)
+		.force("link", d3.forceLink(simLinks)
+				.id(function (d) {return d.id; })
+				.distance(function (d) {
+					return 40
+				})
+				.strength(function (d) {
+					return scaleLog2(d.value)
+				})
+			)
+		.force("collide", d3.forceCollide([10]))
+		// .force("charge",
+		// 	d3.forceManyBody()
+		// 		.strength(function() {
+		// 			return -15;
+		// 		}))
+
+		// .force("center",
+		// 	d3.forceCenter(0, 0));
+
+	// const hub = svg.append("g")
+	// 	.attr('transform', 'translate(' + [height / 2, width / 2] + ')')
+	// 	.attr("class", "hubs")
+	// 	.selectAll("circle")
+	// 	.data(Object.values(hubs))
+	// 	.enter().append("circle")
+	// 	.attr("cx", function (d) {
+	// 		return d.x
+	// 	})
+	// 	.attr("cy", function (d) {
+	// 		return d.y
+	// 	})
+	// 	.attr("r", '32px')
+	// 	.attr("fill", function (d) {
+	// 		return NextColor();
+	// 	});
+
+
+
+	const link = svg.append("g")
+		.attr("class", "links")
+		.attr('transform', 'translate(' + [width / 2, height / 2] + ')')
+		.selectAll("line")
+		.data(simLinks)
+		.enter().append("line")
+		.attr("stroke-width", function (d) {
+			return scaleLog2(d.value);
+		})
+		.style("stroke", d3.rgb(69,67,67))
+		.style("stroke-opacity", 0.2);
+
+	const node = svg.append("g")
+		.attr('transform', 'translate(' + [width / 2, height / 2] + ')')
+		.attr("class", "nodes")
+		.selectAll("circle")
+		.data(simNodes)
+		.enter().append("circle")
+		.attr("r", function (d) {
+			return d.isHub ? 30 : 10;
+		})
+		.attr("cx", function (d) {
+			return d.fx ? d.fx : d.x
+		})
+		.attr("cy", function (d) {
+			return d.fy ? d.fy : d.y
+		})
+		.attr("fill", function (d) {
+			return NextColor();
+		})
+		.attr("id", function (d) {
+			return d.id;
+		})
+
+
+
+
+
+	simulation
+		.on("tick", ticked);
+
+
+	function ticked() {
+		link
+			.attr("x1", function (d) {
+				return d.source.x;
+			})
+			.attr("y1", function (d) {
+				return d.source.y;
+			})
+			.attr("x2", function (d) {
+				return d.target.x;
+			})
+			.attr("y2", function (d) {
+				return d.target.y;
+			});
+
+		node
+			.attr("cx", function (d) {
+				return d.x;
+			})
+			.attr("cy", function (d) {
+				return d.y;
+			});
+
+	}
+}
+
+var colorCounter = 0;
+function NextColor() {
+	if (colorCounter >= 8) colorCounter = 0;
+	return d3.schemeSet2[colorCounter++];
+}
+
+/*
 
 function drawSimulationCollaborationGraph(data) {
 	// console.log(data);
@@ -136,63 +426,16 @@ function drawSimulationCollaborationGraph(data) {
 	// console.log('Simulation finished')
 }
 
-var colorCounter = 0;
-function NextColor() {
-	if (colorCounter >= 9) colorCounter = 0;
-	return d3.schemeSet2[colorCounter++];
-}
+*/
 
-function displayWorkStatsCollab (data) {
-
-	var displayValues = {
-		coworkersAmount: data.simNodes.length - 1,
-		mostSharedWorks: 1,
-		sumOfWorks: 0
-	};
-
-	data.simNodes.forEach(function (coauthor, index) {
-		if(coauthor.strengthValue > displayValues.mostSharedWorks && index != 0) {
-			displayValues.mostSharedWorks = coauthor.strengthValue;
-			displayValues.mostSharedWorksWith = coauthor.id;
-		}
-		displayValues.sumOfWorks += coauthor.strengthValue
-	});
-	displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
-
-	// console.log(displayValues);
-
-	$('#coworkers-amount-display').text(displayValues.coworkersAmount);
-	$('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
-	$('#mean-coworkers-amount-display').text(displayValues.meanAmountOfWorks.toFixed(2));
-	$('#works-amount-display').text(displayValues.sumOfWorks)
-}
-
-function ConvertDbOutputIntoLegacyExpertusFormat(data) { //[ {authors: [author1, author2]} ]
-	var LegacyCollaboratorList = [];
-
-	data.forEach(function (work) {
-		var singleWorkAuthors = [];
-		work.authors.forEach(function (author) {
-			singleWorkAuthors.push(author);
-		});
-		LegacyCollaboratorList.push(singleWorkAuthors)
-	});
-
-	// console.log(LegacyCollaboratorList);
-
-	return LegacyCollaboratorList
-}
-
-
-
-
+/*
 
 function getNodes (allWorks, showEdits) {
 	var authorsSet = new Set();
 	allWorks = allWorks.filter(function (work) {
 		return (work.publicationType === 'edit') === showEdits
 	});
-	console.log(allWorks)
+	// console.log(allWorks)
 	var authorLists = allWorks.map(function (el) {
 		if(!el.authors) return;
 		el.authors.forEach(function (person) {
@@ -256,6 +499,8 @@ function getNodes (allWorks, showEdits) {
 		simLinks: simLinks
 	};
 }
+*/
+/*
 
 var toggled = false;
 function showEdits() {
@@ -266,6 +511,7 @@ function showEdits() {
 	drawSimulationCollaborationGraph(getNodes(rawData, toggled))
 }
 
+*/
 
 
 

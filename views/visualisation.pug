@@ -13,6 +13,9 @@ block content
 			if (visname === 'collab')
 				.row(style='padding-left: 10px')
 					button#toggleView.btn.line-btn(onclick='showEdits()')=lang.editorial_view
+			if (visname === 'collab' && group)
+				.row(style='padding-left: 10px')
+					button#toggleView.btn.line-btn(onclick='reload()')='Losuj'
 
 		.col.s9.svg-container
 			svg#svg-port.z-depth-1.svg-port

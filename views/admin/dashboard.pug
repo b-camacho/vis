@@ -14,10 +14,6 @@ block content
 								span=item.name
 									a.secondary-content(href='/admin/removeSaved?name=' + item._id, id='delete-item-' + item.name)
 										i.fa.fa-trash.dark
-						//if uploadOngoing
-						//	li.collection-item
-						//		.progress
-						//			.indeterminate
 					p=lang.admin.saved.add
 					form#upload(action='/admin/addSaved', method='POST', enctype='multipart/form-data')
 						.row
@@ -40,23 +36,6 @@ block content
 append scripts
 	script.
 		$('#upload').submit(function (e) {
-			// e.preventDefault();
-			//
-			// var formData = new FormData(this);
-			//
-			// $.ajax({
-			// 	url: '/admin/addSaved',
-			// 	type: 'POST',
-			// 	data: formData,
-			// 	success: function (data) {
-			// 		$('#loading-indicator').remove()
-			// 	},
-			// 	cache: false,
-			// 	contentType: false,
-			// 	processData: false
-			// });
-			// var list = $('#list');
-			// console.log(list);
 			$('<li id="loading-indicator" class="collection-item"><div class="progress"><div class="indeterminate"></div></div></li>').appendTo(list);
 
 		})
