@@ -359,7 +359,8 @@ function DrawDomains(articles, angleBounds) {
 			return nodeRadius
 		})
 		.attr("fill", function (d) {
-			return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
+			return "#999999"
+			// return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
 		})
 		.attr("stroke", "#434343")
 		.attr("stroke-width", "1px")

@@ -38,47 +38,6 @@ function generateData() {
 				return el
 			}
 		);
-	// const works = [
-	// 	{
-	// 		authors: [authors[0], authors[1], authors[2]],
-	// 		hub: hubs[0],
-	// 	},
-	// 	{
-	// 		authors: [authors[0], authors[1]],
-	// 		hub: hubs[0],
-	// 	},
-	// 	{
-	// 		authors: [authors[1], authors[2]],
-	// 		hub: hubs[0],
-	// 	},
-	// 	{
-	// 		authors: [authors[0], authors[1]],
-	// 		hub: hubs[0],
-	// 	},
-	// 	{
-	// 		authors: [authors[0], authors[1]],
-	// 		hub: hubs[0],
-	// 	},
-	// 	{
-	// 		authors: [authors[2]],
-	// 		hub: hubs[0],
-	// 	},
-	// 	{
-	// 		authors: [authors[3], authors[4], authors[5]],
-	// 		hub: hubs[1],
-	// 	},
-	// 	{
-	// 		authors: [authors[5]],
-	// 		hub: hubs[1],
-	// 	},
-	// 	{
-	// 		authors: [authors[3], authors[0]],
-	// 		hub: hubs[1],
-	// 	},
-	//
-	// ].map((w, i) => w.title ? w : Object.assign(w, {title: 'W' + i}));
-
-	// console.log(authors);
 	console.log(works);
 
 	return works
