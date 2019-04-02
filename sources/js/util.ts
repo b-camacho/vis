@@ -40,3 +40,26 @@ export function download(filename, text) {
 
 	document.body.removeChild(element);
 }
+
+export class Point {
+	constructor(public x?:number, public y?:number) {};
+
+
+	Dist(other: Point): number {
+		return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2))
+	}
+
+	ToRad(center: Point): RadPoint {
+		let r = this.Dist(center);
+		let th =  Math.atan2(center.y - this.y, center.x - this.x);
+		return new RadPoint(th, r)
+	}
+}
+
+export class RadPoint {
+	constructor(public th:number, public r:number) {};
+	ToCart(): Point{
+		return new Point(Math.cos(this.th) * this.r, Math.sin(this.th) * this.r)
+	}
+}
+

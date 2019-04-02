@@ -18,6 +18,7 @@ var parser = require('./expertus');
 var rawDbWordsParser = require('./wordcloudArray');
 
 app.use(express.static('sources'));
+app.use('/dist', express.static('dist'));
 app.use('/download', express.static('download'));
 app.use('/favicons', express.static('favicons'));
 app.use(bodyParser.json({

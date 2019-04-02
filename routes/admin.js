@@ -51,7 +51,7 @@ router.get('/', function (req, res, next) {
 
 //
 // router.get('/listSaved', function (req, res, next) {
-// 	m.Department.find({}, 'name shortName', function (err, depts) {
+// 	m.IDepartment.find({}, 'name shortName', function (err, depts) {
 // 		res.data.depts = depts
 // 	})
 //
@@ -59,7 +59,7 @@ router.get('/', function (req, res, next) {
 // })
 
 // router.get('/deleteSaved', function (req, res, next) {
-// 	m.Department.deleteOne({name: req.name}, function (err) {
+// 	m.IDepartment.deleteOne({name: req.name}, function (err) {
 // 		res.redirect('admin/dashboard')
 // 	})
 // })

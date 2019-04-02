@@ -1,11 +1,79 @@
-var rawData;
-$(document).ready(function () {
-	draw(generateData());
-});
-function reload() {
-	clearSvg();
-	draw(generateData());
+import {FetchDept, PublicationType, Researcher, Work} from '../common';
+import * as $ from 'jquery'
+import * as d3 from 'd3'
+import {SimulationLinkDatum, SimulationNodeDatum} from 'd3'
+import {Point, RadPoint} from "../util";
+
+class Hub extends Point implements SimulationNodeDatum {
+	vx:number;
+	vy:number;
+	fx:number;
+	fy:number;
+	isHub:boolean;
+	simLinks: Array<SimLink>;
+
+	add(k: CollabResearcher, n:number) {
+		if (!this.authors.has(k)) {
+			this.authors.set(k, 0)
+		}
+		this.authors.set(k, this.authors.get(k) + n)
+	}
+
+	constructor(public name:String, public authors:Map<CollabResearcher, number>, public id:String){
+		super();
+		this.isHub = true;
+
+	}
 }
+class CollabResearcher extends Researcher implements SimulationNodeDatum {
+	x:number;
+	y:number;
+	vx:number;
+	vy:number;
+
+	id:string;
+	links: Map<string, number>;
+	simLinks: Array<SimLink>;
+
+	add(k: string, n:number) {
+		if (!this.links.has(k)) {
+			console.log('Adding ' + k);
+			this.links.set(k, 0)
+		}
+		this.links.set(k, this.links.get(k) + n)
+	}
+
+	isHub:boolean;
+	constructor() {
+		super();
+		this.links = new Map<string, number>();
+		this.isHub = false;
+	}
+}
+
+class CollabWork extends Work {
+	hub:string;
+	id:string;
+}
+
+class SimLink implements SimulationLinkDatum<CollabResearcher> {
+	constructor(public source: string, public target:string, public value:number){};
+}
+
+
+var rawData;
+window.addEventListener('DOMContentLoaded', async function () {
+	let dept = await FetchDept("WF");
+	const processed = processWorks(dept.works)
+	dept = null;
+
+	draw(processed);
+
+});
+// function reload() {
+// 	clearSvg();
+// 	draw(generateData());
+// }
 function generateData() {
 	const randstr = () => Math.random().toString(36).substr(2, 5);
 	const authors = [...Array(30)].map(
@@ -29,8 +97,8 @@ function generateData() {
 			hub: randomHub(),
 		})).map(
 			(el, i) => {
-				for (_ of Array(i % 5)) {
-					randAuthor = authors[Math.floor(Math.random())];
+				for (let _ of Array(i % 5)) {
+					let randAuthor = authors[Math.floor(Math.random())];
 					if (el.authors.indexOf(randAuthor) === -1) {
 						el.authors.push(randAuthor)
 					}
@@ -43,6 +111,20 @@ function generateData() {
 	return works
 }
 
+function processWorks(works:Array<Work>):Array<CollabWork>
+
+	const articles = works.filter(w => w.publicationType === PublicationType.Article).filter((_, i) => i < 10);
+
+	return articles.map(art => {
+		console.log(art)
+		let cW = art as CollabWork;
+		cW.hub = 'H' + Math.floor((Math.random() * 4)).toString();
+		cW.id = art.title;
+		return cW
+	});
+}
+
+
 function scaleLog2(x) {
 	return Math.min(
 		100,
@@ -50,96 +132,145 @@ function scaleLog2(x) {
 	)
 }
 
-function draw(data) {
+function draw(works:Array<CollabWork>) {
+	// console.log(works)
 	const svg = d3.select("#svg-port"),
 		jQPort = $("#svg-port"),
 		width = jQPort.width(),
 		height = jQPort.height(),
 		radius = Math.min(height, width) / 4;
 
-	const hubs = {};
+	const hubs = new Map<String, Hub>();
 
 	// initialising hubs
 
-	data.forEach(d => {
-		if (hubs[d.hub] === undefined) {
-			hubs[d.hub] = { name: d.hub, authors: [], id: "HID:" + d.hub}
+	works.forEach(d => {
+		if (!hubs.has(d.hub)) {
+			hubs.set(d.hub, new Hub(d.hub, new Map<CollabResearcher, number>(), "HID:" + d.hub));
 		}
-	})
+	});
 
 	// finding hub centres
+	let tmp = 0;
+	for(const [i, hub] of hubs) {
+		const rad = new RadPoint((tmp / hubs.size) * 2 * Math.PI, radius);
+		tmp += 1;
+		const coords = rad.ToCart();
+		hub.x = coords.x;
+		hub.y = coords.y;
+	}
 
-	Object.keys(hubs).forEach((h, i) => {
-		Object.assign(hubs[h], PolarToCartesian(
-			(i / Object.keys(hubs).length) * 2 * Math.PI, radius
-		))
-	});
+	// Object.keys(hubs).forEach((h, i) => {
+	// 	Object.assign(hubs[h], PolarToCartesian(
+	// 		(i / hubs.size) * 2 * Math.PI, radius
+	// 	))
+	// });
 
-	// initlise object with one key for each author
+	// initialise object with one key for each author
 
-	const authors = {}
-	data.forEach(d => {
+	const authors = new Map<String, CollabResearcher>();
+
+	works.forEach(d => {
 		d.authors.forEach(a => {
-			if (authors[a] === undefined) {
-				authors[a] = {id: a, links: {}}
+			if (!authors.has(a.name)) {
+				const cR = new CollabResearcher();
+				cR.id = a.name;
+				authors.set(a.name, cR);
 			}
 		})
 	})
+
 
 	// assign authors to each other
+	for (const w of works) {
+		for (const a1 of w.authors) {
+			for (const a2 of w.authors) {
+				if (a1.name === a2.name) continue;
+				authors.get(a1.name).add(a2.name, 1);
+			}
+		}
+	}
 
-	data.forEach(d => {
-		d.authors.forEach((a, i) => {
-			d.authors.forEach((aa, j) => {
-				if (aa !== a) {
-					if (authors[a].links[aa] === undefined) {
-						authors[a].links[aa] = 0;
-					}
-					authors[a].links[aa] += 1;
-				}
-			})
-		});
-	});
+
+	// works.forEach(d => {
+	// 	d.authors.forEach((a, i) => {
+	// 		d.authors.forEach((aa, j) => {
+	// 			if (aa !== a) {
+	// 				if (authors[a].links[aa] === undefined) {
+	// 					authors[a].links[aa] = 0;
+	// 				}
+	// 				authors[a].links[aa] += 1;
+	// 			}
+	// 		})
+	// 	});
+	// });
+
 
 	// adding authors to hubs
-	data.forEach((d, i) => {
-		d.authors.forEach(aName => {
-			const a = authors[aName];
-			if (!a) return;
-			const hasAuthor = hubs[d.hub].authors[a.id];
+	for (const w of works) {
+		for (const aut of w.authors) {
+			const author = authors.get(aut.name);
+			const hub = hubs.get(w.hub);
+			hub.add(author, 1);
+		}
+	}
 
-			if (!hasAuthor) {
-				hubs[d.hub].authors[a.id] = 0;
-			}
-			hubs[d.hub].authors[a.id] += 1;
-		})
-	})
+	// works.forEach((d, i) => {
+	// 	d.authors.forEach(aName => {
+	// 		const a = authors[aName];
+	// 		if (!a) return;
+	// 		const hasAuthor = hubs[d.hub].authors[a.id];
+	//
+	// 		if (!hasAuthor) {
+	// 			hubs[d.hub].authors[a.id] = 0;
+	// 		}
+	// 		hubs[d.hub].authors[a.id] += 1;
+	// 	})
+	// })
 	console.log(hubs);
 
+	// create links author -> hub
+	for (const [_, hub] of hubs) {
+		hub.simLinks = Array.from(hub.authors).map(([author, count]) =>
+			new SimLink(hub.id.toString(), author.id, count))
+	}
+
 	// adding links author -> hub
-	Object.keys(hubs).forEach((h, i) => {
-		hubs[h].simLinks = Object.keys(hubs[h].authors).map(
-			(aId, i) => ({source: hubs[h].id, target: aId, value: hubs[h].authors[aId]})
+	// Object.keys(hubs).forEach((h, i) => {
+	// 	hubs[h].simLinks = Object.keys(hubs[h].authors).map(
+	// 		(aId, i) => ({source: hubs[h].id, target: aId, value: hubs[h].authors[aId]})
+	// 	)
+	// })
+
+	for (const [i, author] of authors) {
+		console.log(author.links)
+		author.simLinks = Array.from(author.links).map(([otherName, count]) =>
+			new SimLink(author.id, otherName, count / 5)
 		)
-	})
+	}
 
-	// adding links author -> author
-	Object.keys(authors).forEach((a, i) => {
-		authors[a].simLinks = Object.keys(authors[a].links).map(
-			(other, i) => ({source: a, target: other, value: authors[a].links[other] / 5})
-		)
-	});
+	// // adding links author -> author
+	// Object.keys(authors).forEach((a, i) => {
+	// 	authors[a].simLinks = Object.keys(authors[a].links).map(
+	// 		(other, i) => ({source: a, target: other, value: authors[a].links[other] / 5})
+	// 	)
+	// });
+	let simNodes = new Array<SimulationNodeDatum>();
 
-	const simNodes = Object.values(hubs)
-	// add fixed x and y to hubs
-		.map(h => Object.assign(h, {fx: h.x, fy:h.y, isHub: true}))
-		// concat rest of nodes (author nodes)
-		.concat(Object.values(authors));
+	simNodes = simNodes
+		.concat(
+			Array.from(hubs)
+				.map(([k, h]) =>
+					Object.assign(h, {fx: h.x, fy:h.y}))) // add fixed x and y to hubs
+		.concat(
+			Array.from(authors).map(([k, aut]) => aut) // concat rest of nodes (author nodes)
+		);
 
-	const simLinks = Object.values(hubs)
-		.flatMap(h => h.simLinks)
-		.concat(Object.values(authors)
-			.flatMap(a => a.simLinks));
+	const simLinks = Array.from(hubs)
+		.flatMap(([k,  h]) => h.simLinks)
+		.concat(
+			Object.values(authors).flatMap(a => a.simLinks)
+		);
 
 	console.log(simNodes);
 	console.log(simLinks);
@@ -148,7 +279,7 @@ function draw(data) {
 
 	var simulation = d3.forceSimulation(simNodes)
 		.force("link", d3.forceLink(simLinks)
-				.id(function (d) {return d.id; })
+				.id(function (d:CollabResearcher) {return d.id; })
 				.distance(function (d) {
 					return 40
 				})
@@ -156,7 +287,7 @@ function draw(data) {
 					return scaleLog2(d.value)
 				})
 			)
-		.force("collide", d3.forceCollide([10]))
+		.force("collide", d3.forceCollide(10))
 		// .force("charge",
 		// 	d3.forceManyBody()
 		// 		.strength(function() {
@@ -194,7 +325,7 @@ function draw(data) {
 		.attr("stroke-width", function (d) {
 			return scaleLog2(d.value);
 		})
-		.style("stroke", d3.rgb(69,67,67))
+		.style("stroke", d3.rgb(69,67,67).toString())
 		.style("stroke-opacity", 0.2);
 
 	const node = svg.append("g")
@@ -204,7 +335,7 @@ function draw(data) {
 		.data(simNodes)
 		.enter().append("circle")
 		.attr("r", function (d) {
-			return d.isHub ? 30 : 10;
+			return d['isHub'] ? 30 : 10;
 		})
 		.attr("cx", function (d) {
 			return d.fx ? d.fx : d.x
@@ -216,7 +347,7 @@ function draw(data) {
 			return NextColor();
 		})
 		.attr("id", function (d) {
-			return d.id;
+			return d['id'];
 		})
 
 
@@ -230,16 +361,16 @@ function draw(data) {
 	function ticked() {
 		link
 			.attr("x1", function (d) {
-				return d.source.x;
+				return d.source['x'];
 			})
 			.attr("y1", function (d) {
-				return d.source.y;
+				return d.source['y'];
 			})
 			.attr("x2", function (d) {
-				return d.target.x;
+				return d.target['x'];
 			})
 			.attr("y2", function (d) {
-				return d.target.y;
+				return d.target['y'];
 			});
 
 		node

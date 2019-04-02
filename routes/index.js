@@ -58,6 +58,9 @@ router.get('/*', function (req, res, next) {
 		}
 
 		res.data.group = req.session.group;
+		if (res.data.visname === 'collab') {
+			res.data.webpacked = true
+		}
 
 		res.render('visualisation', res.data)
 	}
@@ -121,6 +124,11 @@ router.get('/clearWorks', function (req, res) {
 	res.redirect('/');
 })
 
+router.get('/tstest', function (req, res) {
+	res.render('tstest')
+})
+
 router.use('/admin', require('./admin'))
+router.use('/data', require('./data'))
 
 module.exports = router;
