@@ -1,4 +1,4 @@
-import {FetchDept, PublicationType, Researcher, Work} from '../common';
+import {FetchDept, DeserializeResearchers, PublicationType, Researcher, Work} from '../common';
 import * as $ from 'jquery'
 import * as d3 from 'd3'
 import {SimulationLinkDatum, SimulationNodeDatum} from 'd3'
@@ -54,6 +54,7 @@ class CollabResearcher extends Researcher implements SimulationNodeDatum {
 class CollabWork extends Work {
 	hub:string;
 	id:string;
+	authors: Array<CollabResearcher>;
 }
 
 class SimLink implements SimulationLinkDatum<CollabResearcher> {
@@ -64,10 +65,16 @@ class SimLink implements SimulationLinkDatum<CollabResearcher> {
 var rawData;
 window.addEventListener('DOMContentLoaded', async function () {
 	let dept = await FetchDept("WF");
-	const processed = processWorks(dept.works)
+	const processedWorks = processWorks(dept.works);
+	const researchers = DeserializeResearchers(processedWorks).map(r => {
+		const cR = new CollabResearcher();
+		cR.id = r.name;
+		return cR
+	});
+
 	dept = null;
 
-	draw(processed);
+	draw(processedWorks, researchers);
 
 });
 // function reload() {
@@ -111,14 +118,13 @@ function generateData() {
 	return works
 }
 
-function processWorks(works:Array<Work>):Array<CollabWork>
+function processWorks(works:Array<Work>):Array<CollabWork> {
 
-	const articles = works.filter(w => w.publicationType === PublicationType.Article).filter((_, i) => i < 10);
+	const articles = works.filter(w => w.publicationType === PublicationType.Article).filter((_, i) => i < 200);
 
 	return articles.map(art => {
-		console.log(art)
 		let cW = art as CollabWork;
-		cW.hub = 'H' + Math.floor((Math.random() * 4)).toString();
+		cW.hub = 'H' + Math.floor((Math.random() * 4 + 1)).toString();
 		cW.id = art.title;
 		return cW
 	});
@@ -132,7 +138,7 @@ function scaleLog2(x) {
 	)
 }
 
-function draw(works:Array<CollabWork>) {
+function draw(works:Array<CollabWork>, researchers:Array<CollabResearcher>) {
 	// console.log(works)
 	const svg = d3.select("#svg-port"),
 		jQPort = $("#svg-port"),
@@ -170,16 +176,15 @@ function draw(works:Array<CollabWork>) {
 
 	const authors = new Map<String, CollabResearcher>();
 
-	works.forEach(d => {
-		d.authors.forEach(a => {
-			if (!authors.has(a.name)) {
-				const cR = new CollabResearcher();
-				cR.id = a.name;
-				authors.set(a.name, cR);
-			}
-		})
+	researchers.forEach(r => {
+		authors.set(r.id, r)
 	})
 
+	for (const w of works) {
+		const anyauts = w.authors as any;
+		w.authors = anyauts.map(a => authors.get(a))
+	}
+	// console.log(works)
 
 	// assign authors to each other
 	for (const w of works) {
@@ -209,9 +214,8 @@ function draw(works:Array<CollabWork>) {
 	// adding authors to hubs
 	for (const w of works) {
 		for (const aut of w.authors) {
-			const author = authors.get(aut.name);
 			const hub = hubs.get(w.hub);
-			hub.add(author, 1);
+			hub.add(aut, 1);
 		}
 	}
 
@@ -227,7 +231,7 @@ function draw(works:Array<CollabWork>) {
 	// 		hubs[d.hub].authors[a.id] += 1;
 	// 	})
 	// })
-	console.log(hubs);
+	// console.log(hubs);
 
 	// create links author -> hub
 	for (const [_, hub] of hubs) {
@@ -243,7 +247,7 @@ function draw(works:Array<CollabWork>) {
 	// })
 
 	for (const [i, author] of authors) {
-		console.log(author.links)
+		// console.log(author.links)
 		author.simLinks = Array.from(author.links).map(([otherName, count]) =>
 			new SimLink(author.id, otherName, count / 5)
 		)
@@ -272,10 +276,10 @@ function draw(works:Array<CollabWork>) {
 			Object.values(authors).flatMap(a => a.simLinks)
 		);
 
-	console.log(simNodes);
-	console.log(simLinks);
-	console.log(simLinks[0].source);
-	console.log(simLinks[0].target);
+	// console.log(simNodes);
+	// console.log(simLinks);
+	// console.log(simLinks[0].source);
+	// console.log(simLinks[0].target);
 
 	var simulation = d3.forceSimulation(simNodes)
 		.force("link", d3.forceLink(simLinks)
