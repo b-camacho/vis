@@ -53,8 +53,23 @@ export async function FetchDept(shortName: string): Promise<Department> {
         return null
     }
     const body = await response.json() as Department;
+
     console.log(body);
     return body;
+}
+
+export function DeserializeResearchers(works: Array<any>):Array<Researcher> {
+    const s = new Set<string>();
+    for(const w of works) {
+        for (const a of w.authors) {
+            s.add(a)
+        }
+    }
+    return Array.from(s).map(name => {
+        const r = new Researcher();
+        r.name = name;
+        return r
+    })
 }
 
 export function ParseWorks() {
