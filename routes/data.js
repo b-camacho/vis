@@ -3,7 +3,6 @@ var router = express.Router();
 var m = require('../models');
 
 router.get('/department/:name', function (req, res, next) {
-    // m.IDepartment.find().then(console.log)
     m.Department.findOne({shortName: req.params.name})
         .then(dept => {
             res.json(dept)
@@ -15,5 +14,16 @@ router.get('/department/:name', function (req, res, next) {
         })
 });
 
+router.get('/departments', function (req, res, next) {
+    m.Department.find()
+        .then(depts => {
+            res.json(depts)
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400);
+            res.send(err);
+        })
+});
 
 module.exports = router;
