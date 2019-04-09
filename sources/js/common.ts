@@ -58,18 +58,21 @@ export async function FetchDept(shortName: string): Promise<Department> {
     return body;
 }
 
-export function DeserializeResearchers(works: Array<any>):Array<Researcher> {
+export function DeserializeResearchers(works: Array<any>, deptname: string):Array<Researcher> {
     const s = new Set<string>();
     for(const w of works) {
         for (const a of w.authors) {
             s.add(a)
         }
     }
-    return Array.from(s).map(name => {
+    return Array.from(s)
+        .filter(name => !name.includes('#'))
+        .map(name => {
         const r = new Researcher();
+        r.department = deptname;
         r.name = name;
         return r
-    })
+    })//.sort((a, b) => a.name > b.name ? 1 : -1)
 }
 
 export function ParseWorks() {
