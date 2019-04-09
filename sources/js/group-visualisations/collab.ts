@@ -212,7 +212,7 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
         .force("charge", forceManyBody().strength(-30))
         .force("x", forceX().strength(0.04))
         .force("y", forceY().strength(0.04))
-        .force("collide", forceCollide(NODE_RADIUS));
+        .force("collide", forceCollide(NODE_RADIUS * 1.5));
 
 
     /* Initialize tooltip */
