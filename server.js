@@ -8,7 +8,7 @@ var fs = require('fs');
 var config = JSON.parse(fs.readFileSync('config.json').toString());
 var path = require('path');
 var mg = require('mongoose');
-mg.connect('mongodb://127.0.0.1/vis', function (err) {
+mg.connect(`mongodb://${config.db_user}:${config.db_pass}@127.0.0.1/vis`, function (err) {
     if (err) console.log(err);
     else console.log('Connected to mongoDB!')
 });
