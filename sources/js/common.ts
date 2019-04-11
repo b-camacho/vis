@@ -31,6 +31,7 @@ export class Work {
 export class Researcher {
     name: string;
     department: string;
+    worksAmount: number;
 }
 
 export class Article extends Work {
@@ -59,18 +60,23 @@ export async function FetchDept(shortName: string): Promise<Department> {
 }
 
 export function DeserializeResearchers(works: Array<any>, deptname: string):Array<Researcher> {
-    const s = new Set<string>();
+    const s = new Map<string, number>();
     for(const w of works) {
+
         for (const a of w.authors) {
-            s.add(a)
+            if (!s.has(a)) {
+                s.set(a, 0)
+            }
+            s.set(a, s.get(a) + 1)
         }
     }
     return Array.from(s)
-        .filter(name => !name.includes('#'))
-        .map(name => {
+        .filter(([name, _]) => !name.includes('#'))
+        .map(([name, count]) => {
         const r = new Researcher();
         r.department = deptname;
         r.name = name;
+        r.worksAmount = count;
         return r
     })//.sort((a, b) => a.name > b.name ? 1 : -1)
 }

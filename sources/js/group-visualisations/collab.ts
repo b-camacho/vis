@@ -13,6 +13,7 @@ import {
     SimulationLinkDatum,
     event,
     schemeSet2,
+    scalePow,
 } from 'd3'
 import {Point} from "../util"
 import d3Tip from 'd3-tip';
@@ -47,6 +48,8 @@ class CollabResearcher extends Researcher implements SimulationNodeDatum {
 
     links: Map<string, number>;
     simLinks: Array<SimLink>;
+
+    worksAmount: number;
 
     add(k: string, n: number) {
         if (!this.links.has(k)) {
@@ -86,7 +89,7 @@ window.addEventListener('DOMContentLoaded', async function () {
         const newResearchers = DeserializeResearchers(newWorks, dept.name)
             .filter((_, i) => i < 200).map(r => {
                 const cR = new CollabResearcher();
-                //
+                cR.worksAmount = r.worksAmount;
                 cR.name = r.name;
                 return cR;
             });
@@ -168,8 +171,13 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
         width = jQPort.width(),
         height = jQPort.height(),
         radius = Math.min(height, width) / 4;
-    const NODE_RADIUS = 8;
+    const NODE_MAX_RADIUS = 20, NODE_MIN_RADIUS = 4;
     const HUB_RADIUS = 20;
+
+    const scaleRadius = scalePow()
+        .exponent(0.75)
+        .domain([1, researchers.reduce((curMax, r) => Math.max(curMax, r.worksAmount), 0)])
+        .range([NODE_MIN_RADIUS, NODE_MAX_RADIUS]);
 
     // initialise object with one key for each author
 
@@ -212,12 +220,14 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
         .force("charge", forceManyBody().strength(-30))
         .force("x", forceX().strength(0.04))
         .force("y", forceY().strength(0.04))
-        .force("collide", forceCollide(NODE_RADIUS * 1.5));
+        .force("collide", forceCollide(function (d:CollabResearcher) {
+            return scaleRadius(d.worksAmount) * 1.5
+        }));
 
 
     /* Initialize tooltip */
     const anytip = d3Tip as any;
-    const myTip = anytip().attr('class', 'd3-tip').html((d) => d.name);
+    const myTip = anytip().attr('class', 'd3-tip').html((d) => d.name + ' : ' + d.worksAmount);
 
     // const hub = svg.append("g")
     // 	.attr('transform', 'translate(' + [height / 2, width / 2] + ')')
@@ -260,7 +270,7 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
         .data(simNodes)
         .enter().append("circle")
         .attr("r", function (d) {
-            return d['isHub'] ? HUB_RADIUS : NODE_RADIUS;
+            return scaleRadius(d.worksAmount)
         })
         .attr("cx", function (d) {
             return d.x
