@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded', async function () {
     for (const dept of depts) {
         const newWorks = processWorks(dept.works, dept.name);
         const newResearchers = DeserializeResearchers(newWorks, dept.name)
-            .filter((_, i) => i < 200).map(r => {
+            .filter((_, i) => i < 500).map(r => {
                 const cR = new CollabResearcher();
                 cR.worksAmount = r.worksAmount;
                 cR.name = r.name;
@@ -217,13 +217,13 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
         .force("link", forceLink(simLinks).strength(function (d) {
             return 1 - (1 / (1 + d.value))
         }))
-        .force("charge", forceManyBody().strength(-30))
+        .force("charge", forceManyBody().strength(-40))
         .force("x", forceX().strength(0.04))
         .force("y", forceY().strength(0.04))
         .force("collide", forceCollide(function (d:CollabResearcher) {
             return scaleRadius(d.worksAmount) * 1.5
-        }));
-
+        }))
+        // .stop();
 
     /* Initialize tooltip */
     const anytip = d3Tip as any;
@@ -286,10 +286,10 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
         })
         .on('mouseover', myTip.show)
         .on('mouseout', myTip.hide)
-        .call(drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended));
+        // .call(drag()
+        //     .on("start", dragstarted)
+        //     .on("drag", dragged)
+        //     .on("end", dragended));
 
     node.call(myTip)
 
@@ -323,22 +323,26 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
 
     }
 
-    function dragstarted(d) {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-    }
+    // for (let i = 0; i < 100; i++) {2
+    simulation.tick(100)
+    // }
 
-    function dragged(d) {
-        d.fx = event.x;
-        d.fy = event.y;
-    }
-
-    function dragended(d) {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-    }
+    // function dragstarted(d) {
+    //     if (!event.active) simulation.alphaTarget(0.3).restart();
+    //     d.fx = d.x;
+    //     d.fy = d.y;
+    // }
+    //
+    // function dragged(d) {
+    //     d.fx = event.x;
+    //     d.fy = event.y;
+    // }
+    //
+    // function dragended(d) {
+    //     if (!event.active) simulation.alphaTarget(0);
+    //     d.fx = null;
+    //     d.fy = null;
+    // }
 
 }
 
