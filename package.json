@@ -34,6 +34,7 @@
     "request-promise-native": "^1.0.5",
     "serve-favicon": "^2.5.0",
     "stdio": "^0.2.7",
-    "svg-to-pdfkit": "^0.1.7"
+    "svg-to-pdfkit": "^0.1.7",
+    "bson": "^1.0.5"
   }
 }
