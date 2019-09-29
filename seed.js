@@ -4,14 +4,12 @@ const mg = require('mongoose');
 const models = require('./models.js');
 const auth = require('./auth.js');
 
-// prompt user for first password
 const stdin = process.stdin;
-// avoid showing password in terminal
-stdin.setRawMode( true );
+stdin.setRawMode( true ); // avoid showing password in terminal
 stdin.resume();
 stdin.setEncoding( 'utf8' );
 let pwd = '';
-console.log('Type new administrator password then press Ctrl+c')
+console.log('Type new administrator password then press Ctrl+c');
 process.stdout.write('Password:');
 stdin.on( 'data', ( c ) => {
     if (c === '\u0003') { // ctrl-c
