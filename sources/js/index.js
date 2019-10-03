@@ -12,7 +12,6 @@ $(document).ready(function () {
 	};
 
 	DisplayDetails = function(visName) {
-		console.log('setting' + visName)
 		$('#details-host').text(DetailedDescriptions[visName])
 	}
 

@@ -21,7 +21,7 @@ block content
 			svg#svg-port.z-depth-1.svg-port
 block append scripts
 	if webpacked
-		script(type='text/javascript' src='/dist/' + (group ? 'group-' : '') + visname + '.js')
+		script(src='/dist/' + (group ? 'group-' : '') + visname + '.js')
 	else
 		script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
 		if !group

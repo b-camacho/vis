@@ -21,7 +21,11 @@ router.use('*', function (req, res, next) {
 		next();
 	})
 });
-
+router.use('/admin', require('./admin'));
+router.use('/data', require('./data'));
+router.get('/scriptableStrings', function (req, res) {
+	res.json((req.session.lang === 'en' ? lang.en : lang.pl).scriptable)
+});
 router.get('/loadSaved/:id', function (req, res, next) {
 	m.Department.findOne({_id: req.params.id})
 		.then(dept => {
@@ -61,7 +65,7 @@ router.get('/*', function (req, res, next) {
 		if (res.data.visname === 'collab') {
 			res.data.webpacked = true
 		}
-
+		res.data.webpacked = true;
 		res.render('visualisation', res.data)
 	}
 	else next()
@@ -127,8 +131,5 @@ router.get('/clearWorks', function (req, res) {
 router.get('/tstest', function (req, res) {
 	res.render('tstest')
 })
-
-router.use('/admin', require('./admin'))
-router.use('/data', require('./data'))
 
 module.exports = router;

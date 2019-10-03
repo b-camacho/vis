@@ -1,4 +1,5 @@
-export function PolskaFleksjaSlowaPraca(word, number) {
+import * as d3 from 'd3'
+export function DeclinatePolishWordPraca(word, number) {
 	if(number == 1) return number + ' praca'
 	if(number >=2 && number <=4) return number + ' prace'
 	return number + ' prac'
@@ -63,3 +64,6 @@ export class RadPoint {
 	}
 }
 
+export function clearSvg() {
+	d3.select('svg').selectAll('*').remove();
+}

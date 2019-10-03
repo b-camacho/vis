@@ -46,17 +46,31 @@ export class Book extends Work {
     volume: Number;
 }
 
+async function FetchJsonWithCast<T>(path: string): Promise<T> {
+    const response = await fetch(path);
+    if (response.status !== 200) {
+        throw new URIError(`${path} responded with non 200 code: ${response.status}`)
+    }
+    const resp = await response.json();
+    return resp as T;
+}
+
+export async function FetchScriptableStrings(): Promise<Object> {
+    return FetchJsonWithCast<Object>('/scriptableStrings');
+}
+
+export async function FetchCurrentWorks(): Promise<Array<Work>> {
+    return FetchJsonWithCast<Array<Work>>('/data/works');
+}
+
+export async function InjectContext(render: Function) {
+    const works = await FetchCurrentWorks();
+    const strings = await FetchScriptableStrings();
+    return render(works, strings)
+}
 
 export async function FetchDept(shortName: string): Promise<Department> {
-
-    const response = await fetch(`/data/department/${shortName}`);
-    if (response.status !== 200) {
-        return null
-    }
-    const body = await response.json() as Department;
-
-    console.log(body);
-    return body;
+    return FetchJsonWithCast<Department>(`/data/department/${shortName}`);
 }
 
 export function DeserializeResearchers(works: Array<any>, deptname: string):Array<Researcher> {

@@ -1,4 +1,4 @@
-export function PolskaFleksjaSlowaPraca(word, number) {
+export function DeclinatePolishWordPraca(word, number) {
 	if(number == 1) return number + ' praca'
 	if(number >=2 && number <=4) return number + ' prace'
 	return number + ' prac'

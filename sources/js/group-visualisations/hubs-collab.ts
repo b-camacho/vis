@@ -584,7 +584,7 @@ function clearSvg() {
 	d3.select('svg').selectAll('*').remove();
 }
 
-function PolskaFleksjaSlowaPraca(word, number) {
+function DeclinatePolishWordPraca(word, number) {
 	if(number == 1) return number + ' praca'
 	if(number >=2 && number <=4) return number + ' prace'
 	return number + ' prac'

@@ -1,19 +1,18 @@
-var rawData;
-$(document).ready(function () {
-	$.post("collabData", {}, function (data) {
-			rawData = data;
-			if(data.filter(function (work) {
-					return work.publicationType === 'edit'
-				}).length < 3) document.querySelector('#toggleView').setAttribute('disabled', 'disabled');
-			// console.log(data);
-			drawSimulationCollaborationGraph(getNodes(data, false));
-			//displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
-		}
+import * as d3 from 'd3';
+import {multiple, clearSvg} from "../util";
+import d3Tip from 'd3-tip';
+import {Work, InjectContext} from "../common";
 
-	)});
+document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strings) => {
+	if(works.filter(function (work) {
+		return work.publicationType === 'edit'
+	}).length < 3) {
+		document.querySelector('#toggleView').setAttribute('disabled', 'disabled');
+	}
+	drawSimulationCollaborationGraph(getNodes(works, false), strings);
+}));
 
 function drawSimulationCollaborationGraph(data) {
-	// console.log(data);
 	clearSvg();
 
 
@@ -32,9 +31,6 @@ function drawSimulationCollaborationGraph(data) {
 
 	data.simNodes[0].fx = width / 2;
 	data.simNodes[0].fy = height / 2;
-
-
-	// console.log(width + ' ' + height);
 
 	var simulation = d3.forceSimulation()
 		.force("link", d3.forceLink()
@@ -131,9 +127,6 @@ function drawSimulationCollaborationGraph(data) {
 		d.fx = null;
 		d.fy = null;
 	}
-
-
-	// console.log('Simulation finished')
 }
 
 var colorCounter = 0;
@@ -141,51 +134,6 @@ function NextColor() {
 	if (colorCounter >= 9) colorCounter = 0;
 	return d3.schemeSet2[colorCounter++];
 }
-
-function displayWorkStatsCollab (data) {
-
-	var displayValues = {
-		coworkersAmount: data.simNodes.length - 1,
-		mostSharedWorks: 1,
-		sumOfWorks: 0
-	};
-
-	data.simNodes.forEach(function (coauthor, index) {
-		if(coauthor.strengthValue > displayValues.mostSharedWorks && index != 0) {
-			displayValues.mostSharedWorks = coauthor.strengthValue;
-			displayValues.mostSharedWorksWith = coauthor.id;
-		}
-		displayValues.sumOfWorks += coauthor.strengthValue
-	});
-	displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
-
-	// console.log(displayValues);
-
-	$('#coworkers-amount-display').text(displayValues.coworkersAmount);
-	$('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
-	$('#mean-coworkers-amount-display').text(displayValues.meanAmountOfWorks.toFixed(2));
-	$('#works-amount-display').text(displayValues.sumOfWorks)
-}
-
-function ConvertDbOutputIntoLegacyExpertusFormat(data) { //[ {authors: [author1, author2]} ]
-	var LegacyCollaboratorList = [];
-
-	data.forEach(function (work) {
-		var singleWorkAuthors = [];
-		work.authors.forEach(function (author) {
-			singleWorkAuthors.push(author);
-		});
-		LegacyCollaboratorList.push(singleWorkAuthors)
-	});
-
-	// console.log(LegacyCollaboratorList);
-
-	return LegacyCollaboratorList
-}
-
-
-
-
 
 function getNodes (allWorks, showEdits) {
 	var authorsSet = new Set();
@@ -264,17 +212,4 @@ function showEdits() {
 
 	document.querySelector('#toggleView').innerHTML = toggled ? 'Widok standardowy' : 'Widok prac redagowanych';
 	drawSimulationCollaborationGraph(getNodes(rawData, toggled))
-}
-
-
-
-
-function clearSvg() {
-	d3.select('svg').selectAll('*').remove();
-}
-
-function PolskaFleksjaSlowaPraca(word, number) {
-	if(number == 1) return number + ' praca'
-	if(number >=2 && number <=4) return number + ' prace'
-	return number + ' prac'
 }

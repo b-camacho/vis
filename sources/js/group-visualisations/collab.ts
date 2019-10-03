@@ -14,7 +14,7 @@ import {
     event,
     schemeSet2,
     scalePow,
-} from 'd3'
+} from 'd3';
 import {Point} from "../util"
 import d3Tip from 'd3-tip';
 
@@ -77,10 +77,8 @@ class SimLink implements SimulationLinkDatum<SimulationNodeDatum> {
     };
 }
 
-
-var rawData;
 window.addEventListener('DOMContentLoaded', async function () {
-    const deptRequests = Promise.all(['WC',].map(dname => FetchDept(dname)));
+    const deptRequests = Promise.all(['WCH',].map(dname => FetchDept(dname)));
     const depts = await deptRequests;
     let processedWorks = new Array<CollabWork>();
     let researchers = new Array<CollabResearcher>();
@@ -185,7 +183,7 @@ function draw(works: Array<CollabWork>, researchers: Array<CollabResearcher>) {
 
     researchers.forEach(r => {
         authors.set(r.name, r)
-    })
+    });
 
     for (const w of works) {
         const anyauts = w.authors as any;
@@ -572,7 +570,7 @@ function clearSvg() {
     select('svg').selectAll('*').remove();
 }
 
-function PolskaFleksjaSlowaPraca(word, number) {
+function DeclinatePolishWordPraca(word, number) {
     if (number == 1) return number + ' praca'
     if (number >= 2 && number <= 4) return number + ' prace'
     return number + ' prac'
