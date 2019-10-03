@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const config = require('./config.json');
 const path = require('path');
 const mg = require('mongoose');
-mg.connect(config.dbConnStr, function (err) {
+mg.Promise = global.Promise;
+mg.connect(config.dbConnStr, {useMongoClient: true}, function (err) {
     if (err) console.log(err);
     else console.log('Connected to MongoDB')
 });
