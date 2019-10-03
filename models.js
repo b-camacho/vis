@@ -1,6 +1,3 @@
-/**
- * Created by nopony on 16/11/2016.
- */
 var mg = require('mongoose');
 var Models = {};
 
@@ -48,7 +45,7 @@ Models.Department = mg.model('Department', new mg.Schema({
 }));
 
 Models.User = mg.model('User', new mg.Schema({
-    username: {type: String, required: true},
+    username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     permissions: {type: String, required: true}
 }));
