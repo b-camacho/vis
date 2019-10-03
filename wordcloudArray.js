@@ -1,7 +1,3 @@
-/**
- * Created by nopony on 04.03.17.
- */
-
 const illegalChars = [',', '.', ';', ':', '!', '?', '<', '>', '[', ']', '(', ')', '/',"'", '"'];
 
 function getFilteredWordAmountsArray(wordsToFilterFrom) {

@@ -1,8 +1,7 @@
 {
 	"appSecret": "appsecret",
 	"port":3000,
-	"db_user": "vis",
-	"db_pass": "vis"
+	"dbConnStr": "mongodb://127.0.0.1/vis"
 }
-
+	
 
