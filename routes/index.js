@@ -8,6 +8,7 @@ var lang = {
 	pl: require('../lang/pl.lang.json'),
 	en: require('../lang/en.lang.json')
 };
+var config = require('../config');
 
 router.use('*', function (req, res, next) {
 	res.data = res.data ? res.data : {};
@@ -21,7 +22,11 @@ router.use('*', function (req, res, next) {
 		next();
 	})
 });
-
+router.use('/admin', require('./admin'));
+router.use('/data', require('./data'));
+router.get('/scriptableStrings', function (req, res) {
+	res.json((req.session.lang === 'en' ? lang.en : lang.pl).scriptable)
+});
 router.get('/loadSaved/:id', function (req, res, next) {
 	m.Department.findOne({_id: req.params.id})
 		.then(dept => {
@@ -53,12 +58,16 @@ router.get('/*', function (req, res, next) {
 	if(['bubbles', 'works', 'collab','research-map','google-map','wordcloud'].indexOf(split[split.length - 1]) !== -1) {
 		res.data.visname = split[split.length - 1];
 		if(req.path.substr(1) === 'google-map') {
+			res.data.googleApiKey = config.googleApiKey;
 			res.render('google-map', res.data);
 			return
 		}
 
 		res.data.group = req.session.group;
-
+		if (res.data.visname === 'collab') {
+			res.data.webpacked = true
+		}
+		res.data.webpacked = true;
 		res.render('visualisation', res.data)
 	}
 	else next()
@@ -121,6 +130,8 @@ router.get('/clearWorks', function (req, res) {
 	res.redirect('/');
 })
 
-router.use('/admin', require('./admin'))
+router.get('/tstest', function (req, res) {
+	res.render('tstest')
+})
 
 module.exports = router;

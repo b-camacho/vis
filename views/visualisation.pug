@@ -12,7 +12,7 @@ block content
 				button.btn.line-btn#genPdfBtn(onclick='genPdfDoc()')=lang.generate_pdf
 			if (visname === 'collab')
 				.row(style='padding-left: 10px')
-					button#toggleView.btn.line-btn(onclick='showEdits()')=lang.editorial_view
+					button#toggleView.btn.line-btn=lang.editorial_view
 			if (visname === 'collab' && group)
 				.row(style='padding-left: 10px')
 					button#toggleView.btn.line-btn(onclick='reload()')='Losuj'
@@ -20,21 +20,26 @@ block content
 		.col.s9.svg-container
 			svg#svg-port.z-depth-1.svg-port
 block append scripts
-	script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
-	if !group
-		script(src='/js/visualisations/' + visname + '.js')
-		if visname === 'research-map'
-			script(src='/js/three.js')
+	if webpacked
+		script(src='/dist/' + (group ? 'group-' : '') + visname + '.js')
 	else
-		script(src='/js/group-visualisations/' + visname + '.js')
-	script(src='/js/util.js')
-	script(type='text/javascript').
-		var jsStrings = !{JSON.stringify(lang.scriptable)};
-		var visname = !{JSON.stringify(visname)};
-		var authorName = !{JSON.stringify(name)};
-	if visname === "research-map"
-		script(src='/js/domains.js')
-		script(src='/js/journals.js')
+		script(type='text/javascript' src="/js/visualisations/genpdfbin.js")
+		if !group
+			script(src='/js/visualisations/' + visname + '.js')
+			if visname === 'research-map'
+				script(src='/js/three.js')
+		else
+			script(src='/js/group-visualisations/' + visname + '.js')
+
+		script(src='/js/util.js')
+		script(type='text/javascript').
+			var jsStrings = !{JSON.stringify(lang.scriptable)};
+			var visname = !{JSON.stringify(visname)};
+			var authorName = !{JSON.stringify(name)};
+		if visname === "research-map"
+			script(src='/js/domains.js')
+			script(src='/js/journals.js')
+
 
 
 

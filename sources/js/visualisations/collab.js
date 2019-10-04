@@ -1,30 +1,36 @@
-var rawData;
-$(document).ready(function () {
-	$.post("collabData", {}, function (data) {
-			rawData = data;
-			if(data.filter(function (work) {
-					return work.publicationType === 'edit'
-				}).length < 3) document.querySelector('#toggleView').setAttribute('disabled', 'disabled');
-			// console.log(data);
-			drawSimulationCollaborationGraph(getNodes(data, false));
-			//displayWorkStatsCollab(getNodes(ConvertDbOutputIntoLegacyExpertusFormat(data)))
-		}
+import * as d3 from 'd3';
+import {multiple, clearSvg} from "../util";
+import d3Tip from 'd3-tip';
+import {Work, InjectContext} from "../common";
 
-	)});
+let toggled = false;
+document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strings) => {
+	if(works.filter(function (work) {
+		return work.publicationType === 'edit'
+	}).length < 3) {
+		document.querySelector('#toggleView').setAttribute('disabled', 'disabled');
+	}
+	drawSimulationCollaborationGraph(getNodes(works, false), strings);
+	document.querySelector('#toggleView').addEventListener('click', () => {
+		toggled = !toggled;
+		clearSvg();
+
+		document.querySelector('#toggleView').innerHTML = toggled ? 'Widok standardowy' : 'Widok prac redagowanych';
+		drawSimulationCollaborationGraph(getNodes(rawData, toggled))
+	})
+}));
 
 function drawSimulationCollaborationGraph(data) {
-	// console.log(data);
 	clearSvg();
 
 
-	var sizeScale = d3.scalePow().exponent(1/2)
+	const sizeScale = d3.scalePow().exponent(1/2)
 		.domain(
 			[
 				d3.min(data.simNodes, function (d) {return d.strengthValue;}),
 				d3.max(data.simNodes, function (d) {return d.strengthValue;})
 			])
 		.range([10, 40]);
-
 
 	var svg = d3.select("#svg-port"),
 		width = $(".svg-port").width() * 3 / 4,
@@ -33,10 +39,7 @@ function drawSimulationCollaborationGraph(data) {
 	data.simNodes[0].fx = width / 2;
 	data.simNodes[0].fy = height / 2;
 
-
-	// console.log(width + ' ' + height);
-
-	var simulation = d3.forceSimulation()
+	const simulation = d3.forceSimulation()
 		.force("link", d3.forceLink()
 			.id(function (d) {return d.id; })
 			.distance(function (d) {
@@ -50,10 +53,10 @@ function drawSimulationCollaborationGraph(data) {
 		.force("center",
 			d3.forceCenter(width / 2, height / 2));
 
-	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + d.strengthValue + " " + multiple(jsStrings.vis.work, d.strengthValue)});
+	const nodeTip = d3Tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + d.strengthValue + " " + multiple(jsStrings.vis.work, d.strengthValue)});
 	svg.call(nodeTip);
 
-	var link = svg.append("g")
+	const link = svg.append("g")
 		.attr("class", "links")
 		.attr('transform', 'translate(' + [width / 4, height / 4] + ')')
 		.selectAll("line")
@@ -65,7 +68,7 @@ function drawSimulationCollaborationGraph(data) {
 		.style("stroke", d3.rgb(69,67,67))
 		.style("stroke-opacity", 0.5);
 
-	var node = svg.append("g")
+	const node = svg.append("g")
 		.attr('transform', 'translate(' + [width / 4, height / 4] + ')')
 		.attr("class", "nodes")
 		.selectAll("circle")
@@ -131,78 +134,30 @@ function drawSimulationCollaborationGraph(data) {
 		d.fx = null;
 		d.fy = null;
 	}
-
-
-	// console.log('Simulation finished')
 }
 
-var colorCounter = 0;
+let colorCounter = 0;
 function NextColor() {
 	if (colorCounter >= 9) colorCounter = 0;
 	return d3.schemeSet2[colorCounter++];
 }
 
-function displayWorkStatsCollab (data) {
-
-	var displayValues = {
-		coworkersAmount: data.simNodes.length - 1,
-		mostSharedWorks: 1,
-		sumOfWorks: 0
-	};
-
-	data.simNodes.forEach(function (coauthor, index) {
-		if(coauthor.strengthValue > displayValues.mostSharedWorks && index != 0) {
-			displayValues.mostSharedWorks = coauthor.strengthValue;
-			displayValues.mostSharedWorksWith = coauthor.id;
-		}
-		displayValues.sumOfWorks += coauthor.strengthValue
-	});
-	displayValues.meanAmountOfWorks = displayValues.sumOfWorks / data.simNodes.length;
-
-	// console.log(displayValues);
-
-	$('#coworkers-amount-display').text(displayValues.coworkersAmount);
-	$('#max-shared-works-amount-display').text(displayValues.mostSharedWorksWith + ' (' + displayValues.mostSharedWorks + ') ');
-	$('#mean-coworkers-amount-display').text(displayValues.meanAmountOfWorks.toFixed(2));
-	$('#works-amount-display').text(displayValues.sumOfWorks)
-}
-
-function ConvertDbOutputIntoLegacyExpertusFormat(data) { //[ {authors: [author1, author2]} ]
-	var LegacyCollaboratorList = [];
-
-	data.forEach(function (work) {
-		var singleWorkAuthors = [];
-		work.authors.forEach(function (author) {
-			singleWorkAuthors.push(author);
-		});
-		LegacyCollaboratorList.push(singleWorkAuthors)
-	});
-
-	// console.log(LegacyCollaboratorList);
-
-	return LegacyCollaboratorList
-}
-
-
-
-
-
 function getNodes (allWorks, showEdits) {
-	var authorsSet = new Set();
+	const authorsSet = new Set();
 	allWorks = allWorks.filter(function (work) {
 		return (work.publicationType === 'edit') === showEdits
 	});
 	console.log(allWorks)
-	var authorLists = allWorks.map(function (el) {
+	const authorLists = allWorks.map(function (el) {
 		if(!el.authors) return;
 		el.authors.forEach(function (person) {
 			authorsSet.add(person);
 		});
 		return el.authors;
 	});
-	var centralAuthor, centralAuthorWorks = 0;
+	let centralAuthor, centralAuthorWorks = 0;
 	authorsSet.forEach(function (author) {
-		var potentialCentralAuthorWorks = 0;
+		let potentialCentralAuthorWorks = 0;
 		authorLists.forEach(function (list) {
 			if(list.indexOf(author) != -1) potentialCentralAuthorWorks++;
 		})
@@ -211,12 +166,7 @@ function getNodes (allWorks, showEdits) {
 			centralAuthor = author;
 		}
 	})
-
-	// console.log('Query made by: ' + centralAuthor);
-	// console.log('This person has ' + centralAuthorWorks + ' works out of ' + authorLists.length + ' in this set of records.');
-
-	var collaboratorsObject = {};
-	var collaborators = [];
+	const collaboratorsObject = {};
 
 	authorLists.forEach(function (list) {
 		list.forEach(function (person) {
@@ -227,24 +177,21 @@ function getNodes (allWorks, showEdits) {
 		})
 	})
 
-
-	// console.log(collaboratorsObject);
-
-	var simCentralAuthorObject = {
+	const simCentralAuthorObject = {
 		id: centralAuthor,
 		strengthValue: centralAuthorWorks,
 	}
 
-	var simNodes = [simCentralAuthorObject];
-	var simLinks = [];
+	const simNodes = [simCentralAuthorObject];
+	const simLinks = [];
 
-	for(var name in collaboratorsObject) {
+	for(const name in collaboratorsObject) {
 		if(collaboratorsObject.hasOwnProperty(name))
 		{
 			simNodes.push({id: name, strengthValue: collaboratorsObject[name]});
 		}
 	}
-	for (var name in collaboratorsObject) {
+	for (const name in collaboratorsObject) {
 		if(collaboratorsObject.hasOwnProperty(name))
 		{
 			simLinks.push({source: centralAuthor, target: name, value: collaboratorsObject[name]});
@@ -255,26 +202,4 @@ function getNodes (allWorks, showEdits) {
 		simNodes: simNodes,
 		simLinks: simLinks
 	};
-}
-
-var toggled = false;
-function showEdits() {
-	toggled = !toggled;
-	clearSvg();
-
-	document.querySelector('#toggleView').innerHTML = toggled ? 'Widok standardowy' : 'Widok prac redagowanych';
-	drawSimulationCollaborationGraph(getNodes(rawData, toggled))
-}
-
-
-
-
-function clearSvg() {
-	d3.select('svg').selectAll('*').remove();
-}
-
-function PolskaFleksjaSlowaPraca(word, number) {
-	if(number == 1) return number + ' praca'
-	if(number >=2 && number <=4) return number + ' prace'
-	return number + ' prac'
 }

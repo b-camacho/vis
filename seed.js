@@ -13,6 +13,7 @@ console.log('Type new administrator password then press Ctrl+c');
 process.stdout.write('Password:');
 stdin.on( 'data', ( c ) => {
     if (c === '\u0003') { // ctrl-c
+        process.stdout.write('\n');
         createUser(pwd);
     }
     else {
@@ -27,20 +28,21 @@ function createUser(pwd) {
         password: bcrypt.hashSync(pwd, 10),
         permissions: 'admin'
     };
-    mg.connect(config.dbConnStr, function (err) {
+    mg.connect(config.dbConnStr, {useMongoClient: true}, function (err) {
         if (err) console.log(err);
         else {
             console.log('Connected to MongoDB');
-            models.User.update({}, {$set: admin}, {upsert: true})
-                .then(() => {
+            models.User.update({}, {$set: admin}, {upsert: true}, function (err) {
+                if (err === null) {
                     console.log('Database seeded correctly. You can now start the application with `node server.js`')
                     process.exit();
-                })
-                .catch(err => {
+                }
+                else {
                     console.error('Failed to seed database');
                     console.error(err);
                     process.exit();
-                });
+                }
+            })
         }
     });
 

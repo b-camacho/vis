@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "downlevelIteration": true,
+//    "declarationMap": true,
+    "sourceMap": true,
+//    "inlineSourceMap": true,
+//    "inlineSources": false,
+    "outDir": "./dist/",
+//    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "lib": ["es2015", "es2016", "es2017", "esnext", "dom"]
+  }
+}

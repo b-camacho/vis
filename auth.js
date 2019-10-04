@@ -20,12 +20,3 @@ module.exports.authenticate = function (username, password, cb) {
 		}
 	})
 };
-
-module.exports.hashPassword = function (password, cb) {
-	var salt = bcrypt.genSaltSync;
-	cb({
-		password: bcrypt.genHashSync(password, salt),
-		salt: salt
-		})
-
-}

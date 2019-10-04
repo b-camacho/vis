@@ -1,23 +1,23 @@
-/**
- * Created by nopony on 05.08.16.
- */
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('config.json').toString());
-var path = require('path');
-var mg = require('mongoose');
-mg.connect('mongodb://127.0.0.1/vis', function (err) {
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const config = require('./config.json');
+const path = require('path');
+const mg = require('mongoose');
+mg.Promise = global.Promise;
+mg.connect(config.dbConnStr, {useMongoClient: true}, function (err) {
     if (err) console.log(err);
-    else console.log('Connected to mongoDB!')
+    else console.log('Connected to MongoDB')
 });
-var m = require('./models');
-var parser = require('./expertus');
+const parser = require('./expertus');
 
-var rawDbWordsParser = require('./wordcloudArray');
+const rawDbWordsParser = require('./wordcloudArray');
+
+const Canvas = require("canvas");
+const cloud = require("d3-cloud");
 
 app.use(express.static('sources'));
+app.use('/dist', express.static('dist'));
 app.use('/download', express.static('download'));
 app.use('/favicons', express.static('favicons'));
 app.use(bodyParser.json({
@@ -32,7 +32,7 @@ const session = require('express-session');
 
 const MongoStore = require('connect-mongo')(session);
 
-if(!config.appSecret) console.log('Brak pola appSecret w pliku config.json');
+if(!config.appSecret) console.log('appSecret missing in config.json');
 app.use(session({
     secret: config.appSecret,
     resave: false,
@@ -46,6 +46,8 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+
+// Session switches - visiting these URLs persists a param to the session. Used for i18n and group/single vis select
 app.get('/pl', function (req, res, next) {
 	req.url = req.url.substr(3);
 	req.session.lang = 'pl';
@@ -57,53 +59,30 @@ app.get('/en', function (req, res, next) {
 	res.redirect('/')
 });
 
-
 app.get('/group', function (req, res, next) {
 	req.session.works = null;
 	req.session.queryName = null;
 	req.session.group = true;
-
 	res.redirect('/');
-})
+});
 
 app.get('/single', function (req, res, next) {
 	req.session.group = false;
 	res.data = res.data || {};
 	res.data.group = req.session.group;
-
 	res.redirect('/');
-})
+});
 
 const router = require('./routes/index');
 app.use('/', router);
 
-// app.get('/', function (req, res, next) {
-//     if(typeof req.session.lang !== 'undefined') res.redirect('/' + req.session.lang + '/');
-//     else res.redirect('/pl/')
-// });
-
-
-
-
-app.post('/collab', function (req, res) {
-    res.redirect('collab.html');
-});
 app.post('/collabData', function (req, res) {
     //console.log('Db lookup for ' + req.body.name);
     res.json(req.session.works);
 });
 
-app.post('/works', function (req, res) {
-    res.redirect('works.html');
-});
 app.post('/worksData', function (req, res) {
     res.json(req.session.works);
-});
-app.post('/bubbles', function (req, res) {
-    res.redirect('bubbles.html');
-});
-app.post('/research-map', function (req, res) {
-    res.redirect('research-map.html');
 });
 
 app.post('/research-mapData', function (req, res) {
@@ -115,18 +94,7 @@ app.post('/bubblesData', function (req, res) {
 });
 
 
-app.post('/google-map', function (req, res) {
-
-	res.json(req.session.works);
-})
-
-
-var Canvas = require("canvas");
-
-var cloud = require("d3-cloud");
-
 app.post('/wordcloudData', function (req, res) {
-
     if(!req.body.width) {
         console.log('Queried for wordcloud data without a width, using a default of 500');
         req.body.width = 500;
@@ -153,7 +121,6 @@ app.post('/wordcloudData', function (req, res) {
         })
         .reverse();
 
-
     const maxSize = Math.max(req.body.height, req.body.width) / 4, minSize = 11,
         maxAmount = wordsArray[0].amount, minAmount = 2;
 
@@ -167,7 +134,6 @@ app.post('/wordcloudData', function (req, res) {
         .words(words)
         .padding(1)
         .rotate(0)
-        //.rotate(function() { return Math.random() > 0.5 ? 90 : 0})
         .font(()=>{return 'sans-serif'})
         .fontSize(function(d) { return d.size; })
         .on("end", end)
@@ -199,7 +165,6 @@ app.post('/wordcloudData', function (req, res) {
         .words(engWords)
         .padding(1)
         .rotate(0)
-        //.rotate(function() { return Math.random() > 0.5 ? 90 : 0})
         .font(()=>{return 'sans-serif'})
         .fontSize(function(d) { return d.size; })
         .on("end", engEnd)
@@ -211,10 +176,11 @@ app.post('/wordcloudData', function (req, res) {
         if(polishEnd && englishEnd)
             res.json(resultWords);
     }
-
-
 });
 
+app.post('/google-map', function (req, res) {
+    res.json(req.session.works);
+});
 
 app.post('/upload', function (req, res) {
 	parser.upload(req, function (err, file) {
@@ -231,8 +197,6 @@ app.post('/upload', function (req, res) {
 		})
 	})
 });
-
-
 
 app.get('/*/name', function (req, res) {
     if(req.session.queryName) res.send({available: true, name: req.session.queryName});

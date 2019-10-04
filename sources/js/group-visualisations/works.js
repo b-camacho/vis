@@ -252,7 +252,7 @@ function compareCollaboratorsByAmount(a, b) {
 function clearSvg() {
 	d3.select('svg').selectAll('*').remove();
 }
-function PolskaFleksjaSlowaPraca(word, number) {
+function DeclinatePolishWordPraca(word, number) {
 	switch (word) {
 		case 'praca':
 			if (number === 1) return number + ' praca'

@@ -283,16 +283,15 @@ function DrawDomains(articles, angleBounds) {
 	var nodePadding = 3
 	var ringWidth = 30;
 	var slotRingPadding = 25;
-	var stackingOffset = 2;
+	// var stackingOffset = 2;
 	var centre =
 		{
 			x: width / 1.6,
 			y: height / 2
 		};
 
-	domainVectors = {}
 	autDoms = {}
-	console.log(articles)
+	// console.log(articles)
 	DOMAINS.forEach(d => autDoms[d.topic] = 0.0);
 
 	const weights = [0.05, 0.02, 0.01];
@@ -305,8 +304,8 @@ function DrawDomains(articles, angleBounds) {
 		})
 	});
 
-	console.log(autDoms)
-	console.log(angleBounds)
+	// console.log(autDoms)
+	// console.log(angleBounds)
 	var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
 	Object.keys(domainCoordinates).forEach(k => {
 		newCoords = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
@@ -318,6 +317,7 @@ function DrawDomains(articles, angleBounds) {
 	v = Object.keys(autDoms)
 		.map(k => [domainCoordinates[k].x * autDoms[k], domainCoordinates[k].y * autDoms[k]]) // scale dom vectors
 		.reduce(VecAdd, [0, 0])
+
 	let maxTopic = "";
 	let maxTopicVal = 0;
 	Object.keys(autDoms).forEach(k => {
@@ -327,7 +327,7 @@ function DrawDomains(articles, angleBounds) {
 		}
 	})
 
-	console.log("FINAL VECTOR: " + v)
+	// console.log("FINAL VECTOR: " + v)
 
 
 	let vnodes = [{
@@ -335,7 +335,8 @@ function DrawDomains(articles, angleBounds) {
 		y:v[1],
 		maxTopic: maxTopic
 		}]
-	console.log(maxTopic)
+
+	// console.log(maxTopic)
 	Object.keys(domainCoordinates).forEach(k => {
 		vnodes.push({
 			x: domainCoordinates[k].x,
@@ -357,115 +358,6 @@ function DrawDomains(articles, angleBounds) {
 		disciplineToSlotCoordArrayMap[domain.discipline] = domain;
 		disciplineToSlotCoordArrayMap[domain.discipline].counter = 0
 	})
-
-	articles = articles.sort(function compare(a, b) {
-		if (a.amount > b.amount) {
-			return -1;
-		}
-		if (a.amount < b.amount) {
-			return 1;
-		}
-		return 0;
-	}).reverse();
-
-	var crossings = {}
-	articles.forEach(function (article) {
-		if(article.domains.length === 2) {
-			var crossing = null, swapDomains = article.domains[0].name < article.domains[1].name
-			if(swapDomains)
-				crossing = article.domains[0].name + article.domains[1].name;
-			else crossing = article.domains[1].name + article.domains[0].name;
-
-			if(!crossings[crossing]) {
-				crossings[crossing] = {
-					amount: 1,
-					domain1: swapDomains ? article.domains[0].name : article.domains[1].name,
-					domain2: swapDomains ? article.domains[1].name : article.domains[1].name
-				}
-			}
-			else crossings[crossing].amount++;
-
-			article.crossing = crossing;
-		}
-	});
-
-
-	//method1
-	var domainCrossingAngleBounds = [];
-	for (var cros in crossings)
-		if(crossings.hasOwnProperty(cros)) {
-			var angle1 = domainCoordinates[crossings[cros].domain1].angle, angle2 = domainCoordinates[crossings[cros].domain2].angle
-			if(angle1 > angle2) {
-				var tmp = angle1;
-				angle1 = angle2;
-				angle2 = tmp;
-			}
-			var angularCentre = angle1 + (angle2 - angle1 / 2)
-			var angularWidth = (crossings[cros].amount * (nodePadding*2 + nodeRadius)) / (radius / 2)
-			crossings[cros].angleBounds = {
-				begin: angularCentre - angularWidth / 2,
-				end: angularCentre + angularWidth / 2
-			}
-			crossings[cros].crossing = cros;
-			domainCrossingAngleBounds.push(crossings[cros])
-		}
-	var domainCrossingCartesianNodeSlots = GetCartesianNodeSlots(domainCrossingAngleBounds, radius / 2, slotRingPadding, nodeRadius, nodePadding);
-	var crossingToSlotCoordArrayMap = {};
-	domainCrossingCartesianNodeSlots.forEach(function(cros) {
-		crossingToSlotCoordArrayMap[cros.crossing] = cros;
-		crossingToSlotCoordArrayMap[cros.crossing].counter = 0
-	})
-	// console.log(crossingToSlotCoordArrayMap)
-
-
-	var lenArticles = articles.length;
-	var artIdx = 0;
-	while(artIdx < lenArticles) {
-		var article = articles[artIdx];
-		if(article.index === 0) {
-			if(article.domains.length === 1 || methodToggle) {
-				if(! disciplineToSlotCoordArrayMap[article.discipline]) {
-					artIdx++;
-					continue;
-				};
-				article.coords = disciplineToSlotCoordArrayMap[article.discipline].slotPositions[disciplineToSlotCoordArrayMap[article.discipline].counter++]
-				if (!disciplineToSlotCoordArrayMap[article.discipline].slotPositions[disciplineToSlotCoordArrayMap[article.discipline].counter]) {
-					console.log('Exhausted discipline slots at ' + disciplineToSlotCoordArrayMap[article.discipline].counter)
-				}
-			}
-			else {
-				article.coords = crossingToSlotCoordArrayMap[article.crossing].slotPositions[crossingToSlotCoordArrayMap[article.crossing].counter++];
-				if (!crossingToSlotCoordArrayMap[article.crossing].slotPositions[crossingToSlotCoordArrayMap[article.crossing].counter]) {
-					console.log('Exhausted crossing slots at ' + crossingToSlotCoordArrayMap[article.crossing].counter)
-				}
-			}
-		}
-		if(!article.coords) {
-			console.log('Exhausted slots')
-			article.coords = {x: 0, y: 0, r:1, angle: 0}
-		}
-
-		var i = 1;
-		while(article.amount > article.index + i) {
-			var articleCopy = JSON.parse(JSON.stringify(article));
-			articleCopy.index++;
-			// console.log(article)
-			articleCopy.coords = OffsetNodeCoords(article.coords, stackingOffset * i);
-			articles.push(articleCopy);
-			i++
-		}
-		// else {
-		// 	var c1 = domainCoordinates[article.domains[0].name];
-		// 	var c2 = domainCoordinates[article.domains[1].name];
-		// 	article.coords = {x: (c1.x+c2.x)/2, y:(c1.y+c2.y)/2}
-		// }
-		if(!article.coords) article.coords = {x: 0, y: 0}
-
-		artIdx++
-	}
-
-
-	// console.log(articles);
 
 	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) {
 		if(d.topic)
@@ -502,11 +394,6 @@ function DrawDomains(articles, angleBounds) {
 			.on('mouseover', function() {nodeTip.show(angles)})
 			.on('mouseout', nodeTip.hide);
 
-		// svg.append('g').attr('transform','translate(' + [width/2, height/2] + ')')
-		// 	.append("text")
-		// 	.attr('text-anchor', 'middle')
-		// 	.attr('transform', 'translate(' + [domainLabelCoordinates[angles.topic].x, domainLabelCoordinates[angles.topic].y] + ')')
-		// 	.text(angles.topic);
 	});
 
 	console.log(disciplineToSlotCoordArrayMap);
@@ -524,7 +411,8 @@ function DrawDomains(articles, angleBounds) {
 			return nodeRadius
 		})
 		.attr("fill", function (d) {
-			return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
+			return "#999999" // default to greyish to make plot more readable
+			// return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
 		})
 		.attr("stroke", "#434343")
 		.attr("stroke-width", "1px")
@@ -538,61 +426,6 @@ function DrawDomains(articles, angleBounds) {
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
 		.on('mouseover', nodeTip.show)
 		.on('mouseout', nodeTip.hide)
-
-	disciplineAngleBounds.forEach(function (discipline) {
-		var disciplineAngularCentre = (discipline.angleBounds.end + discipline.angleBounds.begin) / 2;
-		var contactPoint = PolarToCartesian(disciplineAngularCentre - (Math.PI / 2), radius );
-		var bendPoint = PolarToCartesian(disciplineAngularCentre -  (Math.PI / 2), radius * 1.2 );
-		var bendRight = disciplineAngularCentre > Math.PI//(disciplineAngularCentre > Math.PI/4 && disciplineAngularCentre < Math.PI*3/2);
-
-		discipline.contactPoint = contactPoint;
-		discipline.bendRight = bendRight;
-		discipline.bendPoint = bendPoint;
-
-		discipline.text = discipline.discipline.substr(0, 20) + (discipline.discipline.length > 20 ? "..." : "");
-
-	})
-	var disciplineWhiskers = svg.append("g")
-		.attr("class", "whiskers")
-		.selectAll("line")
-		.data(disciplineAngleBounds).enter()
-		.append("path")
-		.attr("d", function (d) {
-
-
-
-			return "M " + d.contactPoint.x + " " + d.contactPoint.y +
-					"L " + d.bendPoint.x + " " + d.bendPoint.y +
-					"L " + (d.bendRight? d.bendPoint.x - 100 : d.bendPoint.x + 100) + " " + d.bendPoint.y;
-		})
-		.attr("stroke", function (d) {
-			return "#c3c3c3";
-		})
-		.attr("fill", "none")
-		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
-
-	var disciplineTitles = svg.append("g")
-		.attr("class", "disciplineTitles")
-		.selectAll("text")
-		.data(disciplineAngleBounds).enter()
-		.append("text")
-		.attr("x", function (d) {
-			return d.bendRight? d.bendPoint.x - 100 : d.bendPoint.x
-		})
-		.attr("y", function (d) {
-			return d.bendPoint.y
-		})
-		.text(function (d) {
-			return d.text;
-		})
-		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
-
-
-
-
-
-
-
 
 	//Draw legend
 	var mapkeyLineSpacing = 20;

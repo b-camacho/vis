@@ -1,73 +1,80 @@
-var gData;
-$(document).ready(function () {
-	$.post("/bubblesData", function (data) {
+import * as d3 from 'd3';
+import d3Tip from 'd3-tip';
+import {Work, InjectContext} from "../common";
 
-			var removedCounter  = 0;
-			data.forEach(function (invalidEl, invalidIndex, arr) {
-				if(!invalidEl.year || invalidEl.pageAmount < 0) {//console.log('Invalid record: ' + invalidIndex);
-					data.splice(invalidIndex + removedCounter, 1)}
-			});
+document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strings) => {
+	let removedCounter  = 0;
+	works.forEach(function (invalidEl, invalidIndex) {
+		if(!invalidEl.year || invalidEl.pageAmount < 0) {
+			works.splice(invalidIndex + removedCounter, 1)}
+	});
 
-			data = data.sort(function (a, b) {
-				if(a.year && b.year) return (a.year > b.year) - (a.year < b.year);
-			});
-			//console.log(data);
+	works = works.sort( (a, b) => {
+		if(a.year && b.year) return (a.year > b.year) - (a.year < b.year);
+	});
 
-			var PageCountsGroupedByYear = [];
-			PageCountsGroupedByYear[0] = {
-				year: data[0].year,
-				pages: 0,
-				points: 0
-			};
+	const PageCountsGroupedByYear = [];
+	PageCountsGroupedByYear.push({
+		year: works[0].year,
+		pages: 0,
+		points: 0
+	});
 
-			data.forEach(function (el) {
-				if(el.pageAmount < 0) el.pageAmount = 0;
-				var last = PageCountsGroupedByYear.length - 1;
-				if(PageCountsGroupedByYear[last].year === el.year) {
-					PageCountsGroupedByYear[last].pages += el.pageAmount;
-					PageCountsGroupedByYear[last].points += el.points;
-				}
-				else PageCountsGroupedByYear.push({
-					year: el.year,
-					pages: el.pageAmount,
-					points: el.points
-				})
-			});
-			gData = data;
-			$buttonHost = $('#genPdfBtn').parent();
-			$buttonHost.append("<button class='btn line-btn' onclick='showOverlayWrapper()'>" + jsStrings.ministerial_points + "</button>")
-			drawBubbleGraph(PageCountsGroupedByYear)
+	works.forEach(function (el) {
+		if(el.pageAmount < 0) el.pageAmount = 0;
+		const last = PageCountsGroupedByYear.length - 1;
+		if(PageCountsGroupedByYear[last].year === el.year) {
+			PageCountsGroupedByYear[last].pages += el.pageAmount;
+			PageCountsGroupedByYear[last].points += el.points;
 		}
+		else PageCountsGroupedByYear.push({
+			year: el.year,
+			pages: el.pageAmount,
+			points: el.points
+		})
+	});
 
-	)});
-function showOverlayWrapper() {
-	showOverlay(gData)
-}
+	gData = works;
+
+	const $buttonHost = document.querySelector('#genPdfBtn').parentElement;
+	const button = document.createElement('button');
+	button.setAttribute('class','btn line-btn');
+	button.setAttribute('id','btn-show-overlay');
+	button.onclick = () => showOverlay(works, strings);
+	const text = document.createElement('text');
+	text.innerHTML = strings.ministerial_points;
+	button.appendChild(text);
+	$buttonHost.appendChild(button);
+	drawBubbleGraph(PageCountsGroupedByYear, strings)
+}));
+
+let gData;
+
 function closeOverlay(){
-	console.log('closing')
 	$('.blur').remove()
 }
-function showOverlay(works) {
-	var overlay = $('' +
+function showOverlay(works, strings) {
+	let overlay = $('' +
 		'<div class="blur">' +
 		'   <div class="overlay"> ' +
 		'       <div class="title-bar">' +
-		'           <p class="title">' + jsStrings.ministerial_points + '</p>' +
-		'           <a href="#" onclick="closeOverlay()"><i class="close-btn fa fa-times" aria-hidden="true"></i></a>' +
+		'           <p class="title">' + strings.ministerial_points + '</p>' +
+		'           <a href="#" id="close-overlay"><i class="close-btn fa fa-times" aria-hidden="true"></i></a>' +
 		'	        <input id="ministerial-slider" type="range" min="0" max="50" step="1" />' +
 		'           <p id="ministerial-display">25</p>' +
-		'           <p id="ministerial-label">' + jsStrings.point_threshold + '</p>' +
+		'           <p id="ministerial-label">' + strings.point_threshold + '</p>' +
 		'       </div>' +
 		'       <svg id="overlay-svg-port"></svg>' +
 		'   </div>' +
 		'</div>');
 	overlay.appendTo(document.body)
+	document.querySelector('#close-overlay').onclick = closeOverlay;
 
-	var slider = $('#ministerial-slider');
-	var display = $('#ministerial-display');
-	var port = $('#overlay-svg-port')
+	let slider = $('#ministerial-slider');
+	let display = $('#ministerial-display');
+	let port = $('#overlay-svg-port')
 
-	DrawPoints(works, slider.val(), port.width(), port.height())
+	DrawPoints(works, slider.val(), port.width(), port.height(), strings)
 
 	slider.on('input', function () {
 		display.text(slider.val())
@@ -79,41 +86,35 @@ function showOverlay(works) {
 function toDate(year){
 	return new Date(year, 0, 1)
 }
-function DrawPoints(works, threshold, portWidth, portHeight) {
+function DrawPoints(works, threshold, portWidth, portHeight, strings) {
 	works = works.filter(function (w) {
 		return w.ministerialArticle
 	})
 	var yearRange = getYearRange(works);
-	var filteredWorks = filterByMinisterial(works, Number.parseInt(threshold));
-	var yearNodes = groupByYear(yearRange, filteredWorks);
-	var scoreRange = getScoreRange(yearNodes);
+	const filteredWorks = filterByMinisterial(works, Number.parseInt(threshold));
+	const yearNodes = groupByYear(yearRange, filteredWorks);
+	const scoreRange = getScoreRange(yearNodes);
 
-	var svg = d3.select('#overlay-svg-port');
+	const svg = d3.select('#overlay-svg-port');
 
-	var axisPadding = 25, barPadding = 10;
+	const axisPadding = 25, barPadding = 10;
 
-	console.log(yearRange)
-
-	var xScale = d3.scaleLinear()
+	const xScale = d3.scaleLinear()
 		.domain(yearRange.map(toDate))
 		.range([axisPadding + barPadding, portWidth - axisPadding]);
 
 	xScale(1990)
-	var yScale = d3.scaleLinear()
+	const yScale = d3.scaleLinear()
 		.domain(scoreRange)
 		.range([axisPadding,portHeight - axisPadding].reverse());
 
 	yScale(20);
 
-	var overlayLines = svg.append('g').selectAll('line').data(yearNodes);
-	var overlayBars = svg.append('g').selectAll('rect').data(yearNodes);
+	const overlayLines = svg.append('g').selectAll('line').data(yearNodes);
+	const overlayBars = svg.append('g').selectAll('rect').data(yearNodes);
 
-	console.log(yearNodes)
+	const rectWidth = portWidth / (yearRange[1] - yearRange[0]) - barPadding;
 
-	var rectWidth = portWidth / (yearRange[1] - yearRange[0]) - barPadding;
-
-	console.log(yScale(0))
-	console.log(yScale(10))
 	overlayBars.enter()
 		.append('rect')
 		// .attr('transform', 'translate(' + [20, -10] + ')')
@@ -144,16 +145,16 @@ function DrawPoints(works, threshold, portWidth, portHeight) {
 			overlayTip.hide(d, i);
 		});
 
-	var xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.timeFormat('%Y'));
-	var yAxis = d3.axisLeft().scale(yScale);
+	const xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.timeFormat('%Y'));
+	const yAxis = d3.axisLeft().scale(yScale);
 
 	svg.append('g').call(xAxis)
 		.attr('transform', 'translate(' + [0, portHeight - axisPadding] + ')')
 	svg.append('g').call(yAxis)
 		.attr('transform', 'translate(' + [axisPadding, 0] + ')')
 
-	var overlayTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
-		return jsStrings.vis.year["1"] + ": " + yearNodes[i].year + '<br>' + yearNodes[i].titles.join("<br>") });
+	const overlayTip = d3Tip().attr('class', 'd3-tip').html(function(d, i) {
+		return strings.vis.year["1"] + ": " + yearNodes[i].year + '<br>' + yearNodes[i].titles.join("<br>") });
 	svg.call(overlayTip);
 
 
@@ -165,7 +166,7 @@ function clearDisplay() {
 
 function getYearRange(works) {
 	if(works.length === 0) return [0, 0];
-	var min = works[0].year, max = works[0].year;
+	let min = works[0].year, max = works[0].year;
 
 	works.forEach(function (work) {
 		if(work.year < min) min = work.year;
@@ -180,9 +181,10 @@ function filterByMinisterial(works, threshold) {
 	})
 }
 function groupByYear(yearRange, works) {
-	var years = [], wIdx = 0;
-	for (var year = yearRange[0]; year < yearRange[1]; year++) {
-		var groupedPoints = 0,
+	const years = [];
+	let wIdx = 0;
+	for (let year = yearRange[0]; year < yearRange[1]; year++) {
+		let groupedPoints = 0,
 			groupedTitles = [];
 		while(works[wIdx] && works[wIdx].year === year) {
 			groupedPoints += works[wIdx].points;
@@ -212,35 +214,34 @@ function getScoreRange(works) {
 
 	return [min, max]
 }
-function drawBubbleGraph(data) {
+function drawBubbleGraph(data, strings) {
 
-	var svg = d3.select('#svg-port');
+	const svg = d3.select('#svg-port');
 
-	var width = parseInt(svg.style('width').replace('px', '')) - 96;
-	var trueHeight = parseInt(svg.style('height').replace('px', ''));
-	var height = 0.85 * trueHeight;
+	const width = parseInt(svg.style('width').replace('px', '')) - 96;
+	const trueHeight = parseInt(svg.style('height').replace('px', ''));
+	const height = 0.85 * trueHeight;
 
 
-	var sumOfPages = 0;
-	var sumOfPoints = 0;
-	var years = data.map(function (el) {
+	let sumOfPages = 0;
+	let sumOfPoints = 0;
+	const years = data.map(function (el) {
 		sumOfPages += Math.sqrt(el.pages);
 		sumOfPoints += Math.sqrt(el.points);
 		return el.year;
 	});
 
-	var rays = [];
+	const rays = [];
 	data.forEach(function (el) {
 		rays.push((Math.sqrt(el.pages) / sumOfPages) * Math.min(width, height) * 0.8);
 	});
-	// console.log(rays)
 
-	var points = [];
+	const points = [];
 	data.forEach(function (el) {
 		points.push(el.points)
 	})
 
-	var centres = [];
+	const centres = [];
 	rays.forEach(function (el, index) {
 		centres.push(0);
 
@@ -253,27 +254,22 @@ function drawBubbleGraph(data) {
 	});
 
 
-	var xScale = d3.scaleOrdinal()
+	const xScale = d3.scaleOrdinal()
 		.domain(years)
 		.range(centres);
 
-	var bubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
-		return jsStrings.vis.year["1"] + ": " + years[i] + '<br>' + jsStrings.vis.page["many"] + ": " + data[i].pages });
+	const bubbleTip = d3Tip().attr('class', 'd3-tip').html(function(d, i) {
+		return strings.vis.year["1"] + ": " + years[i] + '<br>' + strings.vis.page["many"] + ": " + data[i].pages });
 	svg.call(bubbleTip);
 
-	var pointBubbleTip = d3.tip().attr('class', 'd3-tip').html(function(d, i) {
-		return jsStrings.vis.year["1"] + ": " + years[i] + '<br>' + jsStrings.vis.ministerial_score + ": " + data[i].points });
+	const pointBubbleTip = d3Tip().attr('class', 'd3-tip').html(function(d, i) {
+		return strings.vis.year["1"] + ": " + years[i] + '<br>' + strings.vis.ministerial_score + ": " + data[i].points });
 	svg.call(pointBubbleTip);
 
+	const bottomYears=[], bottomCentres=[];
+	const topYears=[], topCentres=[];
+	const pointYears = [], pointCentres = [];
 
-	///Drawing the axes
-	var bottomYears=[], bottomCentres=[];
-	var topYears=[], topCentres=[];
-	var pointYears = [], pointCentres = [];
-
-
-	// console.log(years);
-	// console.log(centres)
 	years.forEach(function (el, index) {
 
 		pointYears.push(years[index]);
@@ -289,26 +285,26 @@ function drawBubbleGraph(data) {
 		}
 	});
 
-	var xAxisTop = d3.axisTop(d3.scaleOrdinal().range(topCentres).domain(topYears)).tickFormat(function (d, i) {
+	const xAxisTop = d3.axisTop(d3.scaleOrdinal().range(topCentres).domain(topYears)).tickFormat(function (d, i) {
 		if(topCentres[i] - topCentres[i-1] < 12) return "";
 		return d;
 	});
-	var xAxisBottom = d3.axisBottom(d3.scaleOrdinal().range(bottomCentres).domain(bottomYears)).tickFormat(function (d, i) {
+	const xAxisBottom = d3.axisBottom(d3.scaleOrdinal().range(bottomCentres).domain(bottomYears)).tickFormat(function (d, i) {
 		if(bottomCentres[i] - bottomCentres[i-1] < 10) return "";
 		return d;
 	});
-	var xAxisPoints = d3.axisBottom(d3.scaleOrdinal().range(pointCentres).domain(pointYears)).tickFormat(function (d, i) {
+	const xAxisPoints = d3.axisBottom(d3.scaleOrdinal().range(pointCentres).domain(pointYears)).tickFormat(function (d, i) {
 		if(pointCentres[i] - pointCentres[i-1] < 10) return "";
 		return d;
 	});
 
-	var axisGroupTop = svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [20, 20 ] + ')');
-	var axisGroupBottom = svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [20, height -20 ] + ')');
-	var axisGroupPoints = svg.append('g').call(xAxisPoints).attr('transform', 'translate(' + [20, trueHeight - 20] + ')');
+	svg.append('g').call(xAxisTop).attr('transform', 'translate(' + [20, 20 ] + ')');
+	svg.append('g').call(xAxisBottom).attr('transform', 'translate(' + [20, height -20 ] + ')');
+	svg.append('g').call(xAxisPoints).attr('transform', 'translate(' + [20, trueHeight - 20] + ')');
 
 
 	///Drawing the guidelines
-	var lines = svg.append('g')
+	const lines = svg.append('g')
 		.selectAll('line')
 		.data(centres)
 		.enter()
@@ -331,7 +327,7 @@ function drawBubbleGraph(data) {
 		.attr('opacity', '0.5');
 
 	///Drawing bubbles
-	var bubbles = svg
+	const bubbles = svg
 		.selectAll('rect')
 		.data(data);
 	bubbles.enter()
@@ -363,15 +359,13 @@ function drawBubbleGraph(data) {
 
 	///Drawing the point bubbles
 
-	var pointHeightScale = d3.scaleLinear()
+	const pointHeightScale = d3.scaleLinear()
 		.domain([Math.max(...points), Math.min(...points)])
 		.range([height + ( (trueHeight - height) / 2), trueHeight - 10]);
 
-	var pointBubbles = svg
+	const pointBubbles = svg
 		.selectAll('rect')
 		.data(data);
-
-
 
 	pointBubbles.enter()
 		.append('line')
@@ -389,7 +383,6 @@ function drawBubbleGraph(data) {
 		})
 
 		.attr('y2', function (d, i) {
-			//console.log(points[i+1]);
 			if(i < data.length - 1) return pointHeightScale(points[i+1])
 			else return pointHeightScale(points[i]);
 		})
@@ -424,7 +417,7 @@ function drawBubbleGraph(data) {
 
 }
 
-var colorCounter = 0;
+let colorCounter = 0;
 function NextColor() {
 	if (colorCounter >= 9) colorCounter = 0;
 	return d3.schemeSet2[colorCounter++];
