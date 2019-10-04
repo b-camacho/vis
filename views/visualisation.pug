@@ -12,7 +12,7 @@ block content
 				button.btn.line-btn#genPdfBtn(onclick='genPdfDoc()')=lang.generate_pdf
 			if (visname === 'collab')
 				.row(style='padding-left: 10px')
-					button#toggleView.btn.line-btn(onclick='showEdits()')=lang.editorial_view
+					button#toggleView.btn.line-btn=lang.editorial_view
 			if (visname === 'collab' && group)
 				.row(style='padding-left: 10px')
 					button#toggleView.btn.line-btn(onclick='reload()')='Losuj'
