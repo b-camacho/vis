@@ -1,6 +1,3 @@
-/**
- * Created by nopony on 17.06.17.
- */
 var authorName;
 $('document').ready(
     $.ajax('name').done(function (response) {
