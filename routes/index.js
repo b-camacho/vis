@@ -8,6 +8,7 @@ var lang = {
 	pl: require('../lang/pl.lang.json'),
 	en: require('../lang/en.lang.json')
 };
+var config = require('../config');
 
 router.use('*', function (req, res, next) {
 	res.data = res.data ? res.data : {};
@@ -57,6 +58,7 @@ router.get('/*', function (req, res, next) {
 	if(['bubbles', 'works', 'collab','research-map','google-map','wordcloud'].indexOf(split[split.length - 1]) !== -1) {
 		res.data.visname = split[split.length - 1];
 		if(req.path.substr(1) === 'google-map') {
+			res.data.googleApiKey = config.googleApiKey;
 			res.render('google-map', res.data);
 			return
 		}

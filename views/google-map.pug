@@ -16,5 +16,5 @@ block content
 			#map(style='height: 100%; padding: 20px')
 block append scripts
 	script(src='/js/markerclusterer.js')
-	script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDlLa8WDlJVmN_zmQ3zw4UrvPujezvkRAo&callback=initMap', async='', defer='')
+	script(src='https://maps.googleapis.com/maps/api/js?key=' + googleApiKey + '&callback=initMap', async='', defer='')
 	script(src='/dist/google-map.js')
