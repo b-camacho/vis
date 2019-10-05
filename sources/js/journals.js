@@ -1,4 +1,4 @@
-var JOURNALS = {
+export const Journals = {
 	"45minuttoruńskiprzeglądoświatowy": {
 		"domains": [
 			{

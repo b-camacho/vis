@@ -1,3 +1,10 @@
+import * as d3 from 'd3';
+import {PolarToCartesian, CartesianLengthToPolar} from "../util";
+import d3Tip from 'd3-tip';
+import {InjectContext} from "../common";
+import {Domains} from '../domains';
+import {Journals} from '../journals'
+
 var methodToggle = true, whiskerToggle = true, missingToggle = false;
 var missingJournals = 0;
 var missingJournalsMap = {};
@@ -6,14 +13,11 @@ var justArticles = 0;
 function methodToggleButton () {
 	methodToggle = !methodToggle;
 	d3.select('svg').selectAll('*').remove();
-	$.post("research-mapData", {}, function (data) {
-
-
+	InjectContext((works, strings) => {
 		missingJournals = 0;
 		justArticles = 0;
 		var articles = AssignWorksToDomains(data);
-
-		DrawDomains(articles, GetDomainAngleBounds(DOMAINS))
+		DrawDomains(articles, GetDomainAngleBounds(Domains), strings)
 	})
 }
 
@@ -27,7 +31,6 @@ function whiskerToggleButton() {
 		$(".whiskers").hide();
 		$(".disciplineTitles").hide();
 	}
-
 }
 
 function download(filename, text) {
@@ -51,9 +54,9 @@ function showMissingJournals() {
 		if(foundJournalsMap.hasOwnProperty(title)) {
 			missingJournalString +=
 				foundJournalsMap[title] + '\t' +
-				JOURNALS[title].disciplines[0].name + '\t' +
-				JOURNALS[title].domains[0].name + '\t' +
-				(JOURNALS[title].domains.length > 1 ? JOURNALS[title].domains[1].name : '-') + '\r\n'
+				Journals[title].disciplines[0].name + '\t' +
+				Journals[title].domains[0].name + '\t' +
+				(Journals[title].domains.length > 1 ? Journals[title].domains[1].name : '-') + '\r\n'
 		}
 	missingJournalString += jsStrings.missing_journal_name + '\r\n';
 	for(var title in missingJournalsMap)
@@ -67,24 +70,17 @@ function showMissingJournals() {
 	else
 		$('#missingTitles').remove();
 }
+document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strings) => {
+	const $buttonHost = $('#genPdfBtn').parent();
+	$buttonHost.append("<button class='btn line-btn' onclick='methodToggleButton()'>" + strings.averaging_method + "</button>")
+	$buttonHost.append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + strings.show_disciplines + "</button>")
+	$buttonHost.append("<button class='btn line-btn' onclick='showMissingJournals()'>" + strings.show_missing_journals + "</button>")
 
-$(document).ready(function () {
-	$buttonHost = $('#genPdfBtn').parent();
-	$buttonHost.append("<button class='btn line-btn' onclick='methodToggleButton()'>" + jsStrings.averaging_method + "</button>")
-	$buttonHost.append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + jsStrings.show_disciplines + "</button>")
-	$buttonHost.append("<button class='btn line-btn' onclick='showMissingJournals()'>" + jsStrings.show_missing_journals + "</button>")
 
-
-	$.post("research-mapData", {}, function (data) {
-		var articles = AssignWorksToDomains(data, DOMAINS);
-
-		// recomputeDomainWeights()
-		console.log('DOMAINS')
-		console.log(DOMAINS)
-		DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
-		whiskerToggleButton()
-	})
-});
+	const articles = AssignWorksToDomains(works);
+	DrawDomains(articles, GetDomainAngleBounds(Domains), strings);
+	whiskerToggleButton()
+}));
 
 /**
 	* @returns {Array} of article-type work objects with domain array added as property
@@ -93,11 +89,11 @@ function AssignWorksToDomains(works) {
 	var worksByJournal = {};
 	works.forEach(function (w) {
 		if(w.publicationType === 'article') justArticles++;
-		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.compJournalTitle] === undefined) {
+		if(w.journalTitle !== undefined && w.publicationType === 'article' && Journals[w.compJournalTitle] === undefined) {
 			missingJournalsMap[w.journalTitle] = missingJournalsMap[w.journalTitle] ? missingJournalsMap[w.journalTitle]++ : 1;
 			missingJournals++;
 		}
-		if(w.journalTitle !== undefined && w.publicationType === 'article' && JOURNALS[w.compJournalTitle] !== undefined) {
+		if(w.journalTitle !== undefined && w.publicationType === 'article' && Journals[w.compJournalTitle] !== undefined) {
 			foundJournalsMap[w.compJournalTitle] = w.journalTitle;
 		}
 	})
@@ -106,10 +102,10 @@ function AssignWorksToDomains(works) {
 		.filter(function(w) {
 			return w.publicationType === 'article' &&
 			w.journalTitle !== undefined &&
-			JOURNALS[w.compJournalTitle] !== undefined
+			Journals[w.compJournalTitle] !== undefined
 		})
 		.forEach(function (w) {
-			if(JOURNALS[w.compJournalTitle] === undefined) {
+			if(Journals[w.compJournalTitle] === undefined) {
 				console.log(w.compJournalTitle)
 			}
 
@@ -119,10 +115,10 @@ function AssignWorksToDomains(works) {
 			else {
 
 
-				w.domains = JOURNALS[w.compJournalTitle].domains;
-				w.discipline = JOURNALS[w.compJournalTitle].disciplines[0].name;
+				w.domains = Journals[w.compJournalTitle].domains;
+				w.discipline = Journals[w.compJournalTitle].disciplines[0].name;
 
-				DOMAINS.forEach(function (domain) {
+				Domains.forEach(function (domain) {
 					if(domain.topic === w.domains[0].name) {
 						w.domains[0].hue = domain.hue
 						domain.amount +=1
@@ -142,11 +138,11 @@ function AssignWorksToDomains(works) {
 
 function recomputeDomainWeights() {
 	var sum = 0;
-	DOMAINS.forEach(function (d) {
+	Domains.forEach(function (d) {
 		sum += d.amount + 3
 	})
 
-	DOMAINS.forEach(function (domain) {
+	Domains.forEach(function (domain) {
 		var paddedAmount = domain.amount + 3
 
 		domain.weight = paddedAmount / sum
@@ -175,8 +171,8 @@ function GetDomainAngleBounds(domainsList) {
 }
 
 function GetDisciplineAngleBounds(angleBounds, works, minUnit) {
-	domainToDiscliplinesMap = {}
-	disciplines = []
+	const domainToDiscliplinesMap = {}
+	const disciplines = []
 	works.forEach(function (work) {
 		if(!domainToDiscliplinesMap[work.domains[0].name])
 			domainToDiscliplinesMap[work.domains[0].name] = [work.discipline]
@@ -273,7 +269,7 @@ function VecAdd(v1, v2) {
 	return v1.map((x, i) => x + v2[i])
 }
 
-function DrawDomains(articles, angleBounds) {
+function DrawDomains(articles, angleBounds, strings) {
 	var svg = d3.select("#svg-port"),
 		jQPort = $(".svg-port"),
 		width = jQPort.width(),
@@ -283,16 +279,14 @@ function DrawDomains(articles, angleBounds) {
 	var nodePadding = 3
 	var ringWidth = 30;
 	var slotRingPadding = 25;
-	// var stackingOffset = 2;
 	var centre =
 		{
 			x: width / 1.6,
 			y: height / 2
 		};
 
-	autDoms = {}
-	// console.log(articles)
-	DOMAINS.forEach(d => autDoms[d.topic] = 0.0);
+	const autDoms = {}
+	Domains.forEach(d => autDoms[d.topic] = 0.0);
 
 	const weights = [0.05, 0.02, 0.01];
 	articles.forEach(a => {
@@ -308,13 +302,11 @@ function DrawDomains(articles, angleBounds) {
 	// console.log(angleBounds)
 	var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
 	Object.keys(domainCoordinates).forEach(k => {
-		newCoords = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
-
-		domainCoordinates[k] = newCoords
+		domainCoordinates[k] = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
 	})
 	console.log(domainCoordinates)
 
-	v = Object.keys(autDoms)
+	const v = Object.keys(autDoms)
 		.map(k => [domainCoordinates[k].x * autDoms[k], domainCoordinates[k].y * autDoms[k]]) // scale dom vectors
 		.reduce(VecAdd, [0, 0])
 
@@ -359,12 +351,13 @@ function DrawDomains(articles, angleBounds) {
 		disciplineToSlotCoordArrayMap[domain.discipline].counter = 0
 	})
 
-	var nodeTip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-		if(d.topic)
-			return jsStrings.vis.domains[d.topic]// + " - " +
-		else
-			return d.domains.map(function(dom){return jsStrings.vis.domains[dom.name]}).join("; ") +
-				"<br>"  + d.amount + " " + multiple(jsStrings.vis.work, d.amount) + " " + jsStrings.vis.in + " " + d.journalTitle;
+	var nodeTip = d3Tip().attr('class', 'd3-tip').html(function(d) {
+		console.log(d)
+		// if(d.topic)
+			return strings.vis.domains[d.maxTopic];
+		// else
+		// 	return d.domains.map(function(dom){return strings.vis.domains[dom.name]}).join("; ") +
+		// 		"<br>"  + d.amount + " " + multiple(strings.vis.work, d.amount) + " " + strings.vis.in + " " + d.journalTitle;
 	});
 
 	var domainArcs = d3
@@ -381,7 +374,6 @@ function DrawDomains(articles, angleBounds) {
 	var arcsGroup = svg
 		.append('g')
 		.attr('id', 'arcs-g');
-	// console.log(angleBounds)
 	angleBounds.forEach(function (angles) {
 		arcsGroup.append('path')
 			.attr('d', domainArcs(angles))
@@ -391,8 +383,6 @@ function DrawDomains(articles, angleBounds) {
 			.attr('fill', function () {
 				return angles.hue
 			})
-			.on('mouseover', function() {nodeTip.show(angles)})
-			.on('mouseout', nodeTip.hide);
 
 	});
 
@@ -412,7 +402,7 @@ function DrawDomains(articles, angleBounds) {
 		})
 		.attr("fill", function (d) {
 			return "#999999" // default to greyish to make plot more readable
-			// return DOMAINS.find(dom => dom.topic === d.maxTopic).hue
+			// return Domains.find(dom => dom.topic === d.maxTopic).hue
 		})
 		.attr("stroke", "#434343")
 		.attr("stroke-width", "1px")
@@ -438,7 +428,7 @@ function DrawDomains(articles, angleBounds) {
 		.attr("id", "mapkey")
 		.attr("z-index", 100)
 		.selectAll("text")
-		.data(DOMAINS).enter()
+		.data(Domains).enter()
 		.append("g")
 		.attr("id", function (d, i) {
 			return "mapkey-domain-" + i;
@@ -451,7 +441,7 @@ function DrawDomains(articles, angleBounds) {
 			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding
 		})
 		.text(function (d) {
-			return jsStrings.vis.domains[d.topic];
+			return strings.vis.domains[d.topic];
 		})
 
 	var jQmapkey = $("#mapkey")
@@ -463,14 +453,14 @@ function DrawDomains(articles, angleBounds) {
 		.attr("x", mapkeyLeftMargin)
 		.attr("y", height - mapkeyHeight - 26)
 		.text(missingJournals > 0 ?
-			jsStrings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + jsStrings.vis.pubs_to_doms
-			: jsStrings.vis.assigned_all)
+			strings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + strings.vis.pubs_to_doms
+			: strings.vis.assigned_all)
 
 	svg.select("#mapkey")
 		.append("text")
 		.attr("x", mapkeyLeftMargin)
 		.attr("y", height - mapkeyHeight - 10)
-		.text(jsStrings.vis.map_key + ":")
+		.text(strings.vis.map_key + ":")
 	// 	.attr("height", mapkeyHeight)
 	// 	.attr("width", mapkeyWidth)
 	// 	.attr("fill", "#e4e4e4")
