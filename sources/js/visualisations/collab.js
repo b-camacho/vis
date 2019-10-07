@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strin
 	})
 }));
 
-function drawSimulationCollaborationGraph(data) {
+function drawSimulationCollaborationGraph(data, strings) {
 	clearSvg();
 
 
@@ -53,7 +53,7 @@ function drawSimulationCollaborationGraph(data) {
 		.force("center",
 			d3.forceCenter(width / 2, height / 2));
 
-	const nodeTip = d3Tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + d.strengthValue + " " + multiple(jsStrings.vis.work, d.strengthValue)});
+	const nodeTip = d3Tip().attr('class', 'd3-tip').html(function(d) { return d.id + '; ' + d.strengthValue + " " + multiple(strings.vis.work, d.strengthValue)});
 	svg.call(nodeTip);
 
 	const link = svg.append("g")
