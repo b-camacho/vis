@@ -105,10 +105,6 @@ function AssignWorksToDomains(works) {
 			Journals[w.compJournalTitle] !== undefined
 		})
 		.forEach(function (w) {
-			if(Journals[w.compJournalTitle] === undefined) {
-				console.log(w.compJournalTitle)
-			}
-
 			if(worksByJournal[w.compJournalTitle]){
 				worksByJournal[w.compJournalTitle].amount++
 			}
@@ -180,15 +176,12 @@ function GetDisciplineAngleBounds(angleBounds, works, minUnit) {
 		else
 			if(!(0 <= domainToDiscliplinesMap[work.domains[0].name].indexOf(work.discipline)))
 				domainToDiscliplinesMap[work.domains[0].name].push(work.discipline)
-	})
-	// console.log(domainToDiscliplinesMap)
-
+	});
 
 
 	angleBounds.filter(function (domain) {
 		return !!domainToDiscliplinesMap[domain.topic] // filter out domains where no article was published
 	}).forEach(function (domain) {
-		// console.log(domain)
 		var begin = domain.angleBounds.begin, span = domain.angleBounds.end - domain.angleBounds.begin
 		var unit = span / domainToDiscliplinesMap[domain.topic].length;
 		if(unit < minUnit) {
@@ -291,20 +284,15 @@ function DrawDomains(articles, angleBounds, strings) {
 	const weights = [0.05, 0.02, 0.01];
 	articles.forEach(a => {
 		let topics = a.domains.map(d => d.name).filter(name => autDoms[name] !== undefined);
-		console.log(topics)
 		topics.forEach((t, i) => {
-			console.log(Snorm(autDoms[t], weights[i]))
 			autDoms[t] = Snorm(autDoms[t], weights[i])
 		})
 	});
 
-	// console.log(autDoms)
-	// console.log(angleBounds)
 	var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
 	Object.keys(domainCoordinates).forEach(k => {
 		domainCoordinates[k] = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
 	})
-	console.log(domainCoordinates)
 
 	const v = Object.keys(autDoms)
 		.map(k => [domainCoordinates[k].x * autDoms[k], domainCoordinates[k].y * autDoms[k]]) // scale dom vectors
@@ -319,16 +307,14 @@ function DrawDomains(articles, angleBounds, strings) {
 		}
 	})
 
-	// console.log("FINAL VECTOR: " + v)
 
 
 	let vnodes = [{
 		x: v[0],
 		y:v[1],
 		maxTopic: maxTopic
-		}]
+		}];
 
-	// console.log(maxTopic)
 	Object.keys(domainCoordinates).forEach(k => {
 		vnodes.push({
 			x: domainCoordinates[k].x,
@@ -339,12 +325,7 @@ function DrawDomains(articles, angleBounds, strings) {
 
 	var disciplineAngleBounds = GetDisciplineAngleBounds(angleBounds, articles, CartesianLengthToPolar(nodeRadius + nodePadding, radius));
 
-	console.log(disciplineAngleBounds)
-	console.log("Discipline Angle Bounds")
-	console.log(disciplineAngleBounds)
-	// var domainLabelCoordinates = GetCartesianDomainCentres(angleBounds, radius * 1.5)
 	var publicationNodeSlotCoordinates = GetCartesianNodeSlots(disciplineAngleBounds, radius - ringWidth - slotRingPadding, slotRingPadding, nodeRadius, nodePadding)
-	// console.log(publicationNodeSlotCoordinates)
 	var disciplineToSlotCoordArrayMap = {};
 	publicationNodeSlotCoordinates.forEach(function(domain) {
 		disciplineToSlotCoordArrayMap[domain.discipline] = domain;
@@ -352,12 +333,7 @@ function DrawDomains(articles, angleBounds, strings) {
 	})
 
 	var nodeTip = d3Tip().attr('class', 'd3-tip').html(function(d) {
-		console.log(d)
-		// if(d.topic)
-			return strings.vis.domains[d.maxTopic];
-		// else
-		// 	return d.domains.map(function(dom){return strings.vis.domains[dom.name]}).join("; ") +
-		// 		"<br>"  + d.amount + " " + multiple(strings.vis.work, d.amount) + " " + strings.vis.in + " " + d.journalTitle;
+		return strings.vis.domains[d.maxTopic];
 	});
 
 	var domainArcs = d3
@@ -385,11 +361,6 @@ function DrawDomains(articles, angleBounds, strings) {
 			})
 
 	});
-
-	console.log(disciplineToSlotCoordArrayMap);
-
-
-
 	svg.call(nodeTip);
 
 	var node = svg.append("g")

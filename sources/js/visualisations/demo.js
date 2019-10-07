@@ -185,21 +185,6 @@ $(document).ready(function () {
 				.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')');
 	})
 
-
-	// $buttonHost = $('#genPdfBtn').parent();
-	// // $buttonHost.append("<button class='btn line-btn' onclick='methodToggleButton()'>" + jsStrings.averaging_method + "</button>")
-	// // $buttonHost.append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + jsStrings.show_disciplines + "</button>")
-	// // $buttonHost.append("<button class='btn line-btn' onclick='showMissingJournals()'>" + jsStrings.show_missing_journals + "</button>")
-	// $.post("research-mapData", {}, function (data) {
-	//
-	//
-	// 	// recomputeDomainWeights()
-	// 	console.log('DOMAINS')
-	// 	console.log(DOMAINS)
-	// 	// DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
-	// 	whiskerToggleButton()
-	// 	console.log('DEMO DESSS')
-	// })
 });
 
 

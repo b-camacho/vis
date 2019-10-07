@@ -32,7 +32,6 @@ router.use('*', function (req, res, next) {
 		return res.render('admin/login', res.data);
 	}
 	else {
-		console.log('Auth correct')
 		next();
 	}
 })

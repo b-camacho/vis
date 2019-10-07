@@ -7,7 +7,6 @@ module.exports.authenticate = function (username, password, cb) {
 			return cb(err)
 		}
 		if(!user) {
-			console.log('No such user');
 			return cb({code: 401})
 		}
 
@@ -15,7 +14,6 @@ module.exports.authenticate = function (username, password, cb) {
 			cb(null, user)
 		}
 		else {
-			console.log('Invalid password');
 			cb({code: 401})
 		}
 	})

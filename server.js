@@ -76,31 +76,11 @@ app.get('/single', function (req, res, next) {
 const router = require('./routes/index');
 app.use('/', router);
 
-app.post('/collabData', function (req, res) {
-    //console.log('Db lookup for ' + req.body.name);
-    res.json(req.session.works);
-});
-
-app.post('/worksData', function (req, res) {
-    res.json(req.session.works);
-});
-
-app.post('/research-mapData', function (req, res) {
-    res.json(req.session.works);
-});
-
-app.post('/bubblesData', function (req, res) {
-    res.json(req.session.works);
-});
-
-
 app.post('/wordcloudData', function (req, res) {
     if(!req.body.width) {
-        console.log('Queried for wordcloud data without a width, using a default of 500');
         req.body.width = 500;
     }
     if(!req.body.height) {
-        console.log('Queried for wordcloud data without a height, using a default of 500');
         req.body.height = 500;
     }
 

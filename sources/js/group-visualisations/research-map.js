@@ -80,9 +80,6 @@ $(document).ready(function () {
 
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
-		// recomputeDomainWeights()
-		console.log('DOMAINS')
-		console.log(DOMAINS)
 		DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
 		whiskerToggleButton()
 	})
@@ -111,9 +108,6 @@ function AssignWorksToDomains(works) {
 			JOURNALS[w.compJournalTitle] !== undefined
 		})
 		.forEach(function (w) {
-			if(JOURNALS[w.compJournalTitle] === undefined) {
-				console.log(w.compJournalTitle)
-			}
 
 			if(worksByJournal[w.compJournalTitle]){
 				worksByJournal[w.compJournalTitle].amount++
@@ -199,14 +193,9 @@ function GetDisciplineAngleBounds(angleBounds, works, minUnit) {
 	})
 
 
-	console.log(domainToDiscliplinesMap)
-
-
-
 	angleBounds.filter(function (domain) {
 		return !!domainToDiscliplinesMap[domain.topic] // filter out domains where no article was published
 	}).forEach(function (domain) {
-		// console.log(domain)
 		var begin = domain.angleBounds.begin, span = domain.angleBounds.end - domain.angleBounds.begin
 		var sum = domainToDiscliplinesMap[domain.topic][0], size;
 
@@ -304,21 +293,16 @@ function DrawDomains(articles, angleBounds) {
 		DOMAINS.forEach(d => autDoms[d.topic] = 0.0);
 		works.forEach(w => {
 			let topics = w.domains.map(d => d.name).filter(name => autDoms[name] !== undefined);
-			console.log(topics)
 			topics.forEach((t, i) => {
 				autDoms[t] = Snorm(autDoms[t], weights[i])
 			})
 		});
-
-		// console.log(autDoms)
-		// console.log(angleBounds)
 		var domainCoordinates = GetCartesianDomainCentres(angleBounds, radius);
 		Object.keys(domainCoordinates).forEach(k => {
 			newCoords = PolarToCartesian(domainCoordinates[k].angle - Math.PI / 4, radius)
 
 			domainCoordinates[k] = newCoords
 		})
-		console.log(domainCoordinates)
 
 		v = Object.keys(autDoms)
 			.map(k => [domainCoordinates[k].x * autDoms[k], domainCoordinates[k].y * autDoms[k]]) // scale dom vectors
@@ -346,7 +330,6 @@ function DrawDomains(articles, angleBounds) {
 		return d.authorName
 	});
 
-	console.log(vnodes)
 
 	svg.call(nodeTip)
 
@@ -389,7 +372,6 @@ function DrawDomains(articles, angleBounds) {
 	var arcsGroup = svg
 		.append('g')
 		.attr('id', 'arcs-g');
-	// console.log(angleBounds)
 	angleBounds.forEach(function (angles) {
 		arcsGroup.append('path')
 			.attr('d', domainArcs(angles))

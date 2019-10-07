@@ -45,9 +45,6 @@ parser.parse = function (rawText, done) {
 		    queryName = queryName.split('/FONT>')[1].split(' <FONT')[0]
 	    }
 	    const rawTextArray = rawText.split(exp1);
-	    console.log(rawTextArray.length);
-
-
 	    rawTextArray.forEach((record, index) => {
 		    if(index === 0) return;
 
@@ -133,7 +130,6 @@ parser.parse = function (rawText, done) {
 						    if(index == 0) return;
 						    elem = elem.split(redundantSufix).join('');
 						    elem = elem.split('<!-- 10.txt begin -->')[0];
-						    //console.log(elem);
 						    recordObject.polishkeywords.push(elem.trim());
 					    });
 					    break;
@@ -143,7 +139,6 @@ parser.parse = function (rawText, done) {
 						    if(index == 0) return;
 						    elem = elem.split(redundantSufix).join('');
 						    elem = elem.split('<!-- 10.txt begin -->')[0];
-						    //console.log(elem);
 						    recordObject.englishkeywords.push(elem.trim());
 					    });
 					    break;
@@ -162,7 +157,7 @@ parser.parse = function (rawText, done) {
 						    recordObject.pageAmount = Number.parseInt(splitLine[1].match(/[0-9]{1,5}/)[0].trim());
 					    }
 					    else  {
-						    console.log(new Error('Failed RegExp parse at pageRange of line: ' + splitLine[1]).message);
+						    console.error(new Error('Failed RegExp parse at pageRange of line: ' + splitLine[1]).message);
 						    recordObject.invalid["300"] = 'Could not infer page range from description';
 						    recordObject.unparsedPageAmount = line.substr(4);
 					    }

@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => InjectContext((works, string
 		minimumClusterSize: 1
 	});
 	google.maps.event.addListener(markerCluster, "click", function (c) {
-		console.log('event fired');
 		var clusteredTitles = '<div><b> Opublikowano tutaj: </b> <br/>';
 		var m = c.getMarkers();
 		for (var i = 0; i < m.length; i++ ) clusteredTitles = (clusteredTitles + (titles[m[i].titleKey] + '<br/>'));

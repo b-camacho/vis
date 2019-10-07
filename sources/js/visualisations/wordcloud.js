@@ -7,7 +7,6 @@ $(document).ready(function () {
 
 
 	$.post("wordcloudData", {width: width, height: height}, function (data) {
-			console.log(data);
 			displayWordcloud(data);
 		}
 	)
