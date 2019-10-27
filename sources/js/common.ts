@@ -1,5 +1,7 @@
 import * as $ from 'jquery'
 import * as d3 from 'd3'
+import {Domains} from "./domains";
+import {getDimensions} from "./util";
 
 export enum PublicationType {
     Article = "article",
@@ -99,5 +101,51 @@ export function ParseWorks() {
 
 }
 
+export function DrawResearchMapKey(svg, width, height, strings) {
+    var lineSpacing = 20;
+    var leftMargin = 10;
+    var nodeSpacing = 20;
+    var bottomPadding = 10;
+    var circleRadius = 6;
+
+    var keyGroups = svg.append("g")
+        .attr("id", "mapkey")
+        .attr("z-index", 100)
+        .selectAll("text")
+        .data(Domains).enter()
+        .append("g")
+        .attr("id", function (d, i) {
+            return "mapkey-domain-" + i;
+        });
+
+    keyGroups
+        .append("text")
+        .attr("x", leftMargin + nodeSpacing)
+        .attr("y", function (d, i) {
+            return height - (i+1) * lineSpacing + bottomPadding
+        })
+        .text(function (d) {
+            return strings.vis.domains[d.topic];
+        });
+
+    const [Width, Height] = getDimensions('#mapkey');
+
+    svg.select("#mapkey")
+        .append("text")
+        .attr("x", leftMargin)
+        .attr("y", height - Height - 10)
+        .text(strings.vis.map_key + ":");
+
+    keyGroups
+        .append("circle")
+        .attr("cx", nodeSpacing)
+        .attr("cy", function (d, i) {
+            return height - (i+1) * lineSpacing + bottomPadding - circleRadius/2 - 2
+        })
+        .attr("r", circleRadius)
+        .attr("fill", function (d) {
+            return d.hue;
+        })
+}
 
 

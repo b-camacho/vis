@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
-import {PolarToCartesian, CartesianLengthToPolar} from "../util";
+import {PolarToCartesian, CartesianLengthToPolar, addButton, getDimensions} from "../util";
 import d3Tip from 'd3-tip';
-import {InjectContext} from "../common";
+import {DrawResearchMapKey, FetchRenderedPDF, InjectContext} from "../common";
 import {Domains} from '../domains';
 import {Journals} from '../journals'
 
@@ -70,12 +70,13 @@ function showMissingJournals() {
 	else
 		$('#missingTitles').remove();
 }
-document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strings) => {
-	const $buttonHost = $('#genPdfBtn').parent();
-	$buttonHost.append("<button class='btn line-btn' onclick='methodToggleButton()'>" + strings.averaging_method + "</button>")
-	$buttonHost.append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + strings.show_disciplines + "</button>")
-	$buttonHost.append("<button class='btn line-btn' onclick='showMissingJournals()'>" + strings.show_missing_journals + "</button>")
 
+document.addEventListener('DOMContentLoaded', () => InjectContext( (works, strings) => {
+	const buttonParentId = '#btn-container';
+	const addToBtnContainer = (text, onclick) => addButton(buttonParentId, text, onclick);
+	addToBtnContainer(strings.averaging_method, methodToggleButton);
+	addToBtnContainer(strings.show_disciplines, whiskerToggleButton);
+	addToBtnContainer(strings.show_missing_journals, showMissingJournals);
 
 	const articles = AssignWorksToDomains(works);
 	DrawDomains(articles, GetDomainAngleBounds(Domains), strings);
@@ -263,10 +264,8 @@ function VecAdd(v1, v2) {
 }
 
 function DrawDomains(articles, angleBounds, strings) {
-	var svg = d3.select("#svg-port"),
-		jQPort = $(".svg-port"),
-		width = jQPort.width(),
-		height = jQPort.height();
+	var svg = d3.select("#svg-port");
+	const [width, height] = getDimensions('#svg-port');
 	var radius = height / 2.5;
 	var nodeRadius = 7
 	var nodePadding = 3
@@ -388,67 +387,7 @@ function DrawDomains(articles, angleBounds, strings) {
 		.on('mouseover', nodeTip.show)
 		.on('mouseout', nodeTip.hide)
 
-	//Draw legend
-	var mapkeyLineSpacing = 20;
-	var mapkeyLeftMargin = 10;
-	var mapkeyNodeSpacing = 20;
-	var mapkeyBottomPadding = 10;
-	var mapkeyCircleRadius = 6;
-
-	var keyGroups = svg.append("g")
-		.attr("id", "mapkey")
-		.attr("z-index", 100)
-		.selectAll("text")
-		.data(Domains).enter()
-		.append("g")
-		.attr("id", function (d, i) {
-			return "mapkey-domain-" + i;
-		})
-
-	keyGroups
-		.append("text")
-		.attr("x", mapkeyLeftMargin)
-		.attr("y", function (d, i) {
-			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding
-		})
-		.text(function (d) {
-			return strings.vis.domains[d.topic];
-		})
-
-	var jQmapkey = $("#mapkey")
-	var mapkeyWidth = jQmapkey.width();
-	var mapkeyHeight = jQmapkey.height();
-
-	svg.select("#mapkey")
-		.append("text")
-		.attr("x", mapkeyLeftMargin)
-		.attr("y", height - mapkeyHeight - 26)
-		.text(missingJournals > 0 ?
-			strings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + strings.vis.pubs_to_doms
-			: strings.vis.assigned_all)
-
-	svg.select("#mapkey")
-		.append("text")
-		.attr("x", mapkeyLeftMargin)
-		.attr("y", height - mapkeyHeight - 10)
-		.text(strings.vis.map_key + ":")
-	// 	.attr("height", mapkeyHeight)
-	// 	.attr("width", mapkeyWidth)
-	// 	.attr("fill", "#e4e4e4")
-	// 	.attr("z-index", 0);
-
-	keyGroups
-		.append("circle")
-		.attr("cx", mapkeyWidth + mapkeyNodeSpacing)
-		.attr("cy", function (d, i) {
-			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding - mapkeyCircleRadius/2 - 2
-		})
-		.attr("r", mapkeyCircleRadius)
-		.attr("fill", function (d) {
-			return d.hue;
-		})
-
-
+	DrawResearchMapKey(svg, width, height, strings)
 
 
 //Draw node slots for debugging

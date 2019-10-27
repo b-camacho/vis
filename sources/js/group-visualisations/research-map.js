@@ -1,3 +1,6 @@
+import {DrawResearchMapKey} from "../common";
+import {addButton} from "../util";
+
 var methodToggle = true, whiskerToggle = true, missingToggle = false;
 var missingJournals = 0;
 var missingJournalsMap = {};
@@ -69,15 +72,13 @@ function showMissingJournals() {
 }
 
 $(document).ready(function () {
-	$buttonHost = $('#genPdfBtn').parent();
-	$buttonHost.append("<button class='btn line-btn' onclick='methodToggleButton()'>" + jsStrings.averaging_method + "</button>")
-	$buttonHost.append("<button class='btn line-btn' onclick='whiskerToggleButton()'>" + jsStrings.show_disciplines + "</button>")
-	$buttonHost.append("<button class='btn line-btn' onclick='showMissingJournals()'>" + jsStrings.show_missing_journals + "</button>")
-
+	const buttonParentId = '#btn-container';
+	const addToBtnContainer = (text, onclick) => addButton(buttonParentId, text, onclick);
+	addToBtnContainer(strings.averaging_method, methodToggleButton);
+	addToBtnContainer(strings.show_disciplines, whiskerToggleButton);
+	addToBtnContainer(strings.show_missing_journals, showMissingJournals);
 
 	$.post("research-mapData", {}, function (data) {
-
-
 		var articles = AssignWorksToDomains(data, DOMAINS);
 
 		DrawDomains(articles, GetDomainAngleBounds(DOMAINS));
@@ -259,10 +260,8 @@ function VecAdd(v1, v2) {
 }
 
 function DrawDomains(articles, angleBounds) {
-	var svg = d3.select("#svg-port"),
-		jQPort = $(".svg-port"),
-		width = jQPort.width(),
-		height = jQPort.height();
+	var svg = d3.select("#svg-port");
+	const [width, height] = getDimensions('#svg-port');
 	var radius = height / 2.5;
 	var nodeRadius = 7
 	var nodePadding = 3
@@ -435,73 +434,71 @@ function DrawDomains(articles, angleBounds) {
 		.attr('transform', 'translate(' + centre.x + ' , ' + centre.y + ')')
 */
 
-
-
-
-
-
-
-
-	//Draw legend
-	var mapkeyLineSpacing = 20;
-	var mapkeyLeftMargin = 10;
-	var mapkeyNodeSpacing = 20;
-	var mapkeyBottomPadding = 10;
-	var mapkeyCircleRadius = 6;
-
-	var keyGroups = svg.append("g")
-		.attr("id", "mapkey")
-		.attr("z-index", 100)
-		.selectAll("text")
-		.data(DOMAINS).enter()
-		.append("g")
-		.attr("id", function (d, i) {
-			return "mapkey-domain-" + i;
-		})
-
-	keyGroups
-		.append("text")
-		.attr("x", mapkeyLeftMargin)
-		.attr("y", function (d, i) {
-			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding
-		})
-		.text(function (d) {
-			return jsStrings.vis.domains[d.topic];
-		})
-
-	var jQmapkey = $("#mapkey")
-	var mapkeyWidth = jQmapkey.width();
-	var mapkeyHeight = jQmapkey.height();
-
-	svg.select("#mapkey")
-		.append("text")
-		.attr("x", mapkeyLeftMargin)
-		.attr("y", height - mapkeyHeight - 26)
-		.text(missingJournals > 0 ?
-			jsStrings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + jsStrings.vis.pubs_to_doms
-			: jsStrings.vis.assigned_all)
-	svg.select("#mapkey")
-		.append("text")
-		.attr("x", mapkeyLeftMargin)
-		.attr("y", height - mapkeyHeight - 10)
-		.text(jsStrings.vis.map_key + ":")
-	// 	.attr("height", mapkeyHeight)
-	// 	.attr("width", mapkeyWidth)
-	// 	.attr("fill", "#e4e4e4")
-	// 	.attr("z-index", 0);
-
-	keyGroups
-		.append("circle")
-		.attr("cx", mapkeyWidth + mapkeyNodeSpacing)
-		.attr("cy", function (d, i) {
-			return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding - mapkeyCircleRadius/2 - 2
-		})
-		.attr("r", mapkeyCircleRadius)
-		.attr("fill", function (d) {
-			return d.hue;
-		})
-
-
+	DrawResearchMapKey(svg, width, height, jsStrings)
+	//
+	//
+	//
+	//
+	//
+	//
+	// //Draw legend
+	// var mapkeyLineSpacing = 20;
+	// var mapkeyLeftMargin = 10;
+	// var mapkeyNodeSpacing = 20;
+	// var mapkeyBottomPadding = 10;
+	// var mapkeyCircleRadius = 6;
+	//
+	// var keyGroups = svg.append("g")
+	// 	.attr("id", "mapkey")
+	// 	.attr("z-index", 100)
+	// 	.selectAll("text")
+	// 	.data(DOMAINS).enter()
+	// 	.append("g")
+	// 	.attr("id", function (d, i) {
+	// 		return "mapkey-domain-" + i;
+	// 	})
+	//
+	// keyGroups
+	// 	.append("text")
+	// 	.attr("x", mapkeyLeftMargin)
+	// 	.attr("y", function (d, i) {
+	// 		return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding
+	// 	})
+	// 	.text(function (d) {
+	// 		return jsStrings.vis.domains[d.topic];
+	// 	})
+	//
+	// const [mapkeyWidth, mapkeyHeight] = getDimensions('#mapkey');
+	//
+	// svg.select("#mapkey")
+	// 	.append("text")
+	// 	.attr("x", mapkeyLeftMargin)
+	// 	.attr("y", height - mapkeyHeight - 26)
+	// 	.text(missingJournals > 0 ?
+	// 		jsStrings.vis.assigned + " " + (justArticles - missingJournals) + "/" + justArticles + " " + jsStrings.vis.pubs_to_doms
+	// 		: jsStrings.vis.assigned_all)
+	// svg.select("#mapkey")
+	// 	.append("text")
+	// 	.attr("x", mapkeyLeftMargin)
+	// 	.attr("y", height - mapkeyHeight - 10)
+	// 	.text(jsStrings.vis.map_key + ":")
+	// // 	.attr("height", mapkeyHeight)
+	// // 	.attr("width", mapkeyWidth)
+	// // 	.attr("fill", "#e4e4e4")
+	// // 	.attr("z-index", 0);
+	//
+	// keyGroups
+	// 	.append("circle")
+	// 	.attr("cx", mapkeyWidth + mapkeyNodeSpacing)
+	// 	.attr("cy", function (d, i) {
+	// 		return height - (i+1) * mapkeyLineSpacing + mapkeyBottomPadding - mapkeyCircleRadius/2 - 2
+	// 	})
+	// 	.attr("r", mapkeyCircleRadius)
+	// 	.attr("fill", function (d) {
+	// 		return d.hue;
+	// 	})
+	//
+	//
 
 
 //Draw node slots for debugging
