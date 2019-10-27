@@ -9,12 +9,17 @@ stdin.setRawMode( true ); // avoid showing password in terminal
 stdin.resume();
 stdin.setEncoding( 'utf8' );
 let pwd = '';
-console.log('Type new administrator password then press Ctrl+c');
+console.log('Type new administrator password then press Enter');
 process.stdout.write('Password:');
 stdin.on( 'data', ( c ) => {
-    if (c === '\u0003') { // ctrl-c
+    if (['\u000A', '\u000D'].includes(c)) { // newline
+
         process.stdout.write('\n');
         createUser(pwd);
+    }
+    else if (['\u0003', '\u0004'].includes(c)) { //ctrl-c, ctrl-d
+        process.stdout.write('\nCancelled, no changes were made.');
+        process.exit()
     }
     else {
         pwd += c;
@@ -29,7 +34,7 @@ function createUser(pwd) {
         permissions: 'admin'
     };
     mg.connect(config.dbConnStr, {useMongoClient: true}, function (err) {
-        if (err) console.log(err);
+        if (err) handleErr(err)
         else {
             console.log('Connected to MongoDB');
             models.User.update({}, {$set: admin}, {upsert: true}, function (err) {
@@ -38,9 +43,7 @@ function createUser(pwd) {
                     process.exit();
                 }
                 else {
-                    console.error('Failed to seed database');
-                    console.error(err);
-                    process.exit();
+                    handleErr(err)
                 }
             })
         }
@@ -48,3 +51,9 @@ function createUser(pwd) {
 
 }
 
+function handleErr(err) {
+    console.error('Database seed failed, reason:');
+    console.error(err);
+    console.error('No changes were made.');
+    process.exit();
+}
