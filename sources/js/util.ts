@@ -67,3 +67,17 @@ export class RadPoint {
 export function clearSvg() {
 	d3.select('svg').selectAll('*').remove();
 }
+
+export function addButton(selector:string, text: string, onClick: Function) {
+	const button = document.createElement('button');
+	button.setAttribute('class','btn line-btn');
+	const span = document.createElement('span');
+	span.innerHTML = text;
+	button.appendChild(span);
+	document.querySelector(selector).append(button);
+}
+
+export function getDimensions(selector:string): Array<number> {
+	const rect = document.querySelector('#svg-port').getBoundingClientRect();
+	return [rect.width, rect.height]
+}
