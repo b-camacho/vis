@@ -90,27 +90,28 @@ router.get('/getAllWorks', function (req, res, next) {
 });
 
 router.post('/genPdf', function (req, res, next) {
-
+	const {args, svg} = req.body;
+	const {width, height, title, author, authorName, captionTitle} = args;
 	var doc = new PDFDocument({layout: 'landscape', size: [595, 842]});
 	doc.registerFont('Open Sans', 'sources/fonts/open-sans.regular.ttf');
 	var tmpFilePath = './download/infovis'+ Math.random().toString(36).substr(2, 5) + '.pdf';
 	var tmpWriteStream = fs.createWriteStream(tmpFilePath)
 	doc.pipe(tmpWriteStream);
 	doc.font('Open Sans').fontSize(25).fillColor('#ff6600')
-		.text(req.body.args.title, 50, 40)
+		.text(title, 50, 40)
 		.fillColor('#444dce').fontSize(18)
-		.text(req.body.args.for + req.body.args.authorName);
+		.text(author + authorName);
 
 	var visX = 50, visY = 100;
-	var scale = Math.min(doc.page.width / req.body.args.width, doc.page.height / req.body.args.height, 1);
+	var scale = Math.min(doc.page.width / width, doc.page.height / height, 1);
 	req.body.svg = '<svg transform="scale(' + scale + ')"> ' + req.body.svg.substr(4);
-	// if(req.body.args.type = "works") visY -= (req.body.args.height / 2);
-	svgToPdf(doc, req.body.svg, visX, visY,{width:req.body.args.width, height: req.body.args.height});
+	// if(type = "works") visY -= (height / 2);
+	svgToPdf(doc, req.body.svg, visX, visY,{width:width, height: height});
 
 
 	doc.image('sources/images/logo200.png', 50, doc.page.height - 100,{width: 50});
 	doc.font('Open Sans').fontSize(12).fillColor('#191919')
-		.text(req.body.args.caption_title + ' by UMK (\u00A9 2018)',120,doc.page.height - 100);
+		.text(captionTitle + ' by UMK (\u00A9 2018)',120,doc.page.height - 100);
 
 
 	tmpWriteStream.on('finish', function () {

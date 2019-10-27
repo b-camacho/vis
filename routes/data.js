@@ -27,8 +27,6 @@ router.get('/departments', function (req, res, next) {
 });
 
 router.get('/works', function (req, res, next) {
-    console.log('sending:');
-    console.log(req.session.works);
     res.json(req.session.works);
 });
 
