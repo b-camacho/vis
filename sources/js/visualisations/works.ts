@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import {multiple} from "../util";
+import {getDimensions, multiple} from "../util";
 import d3Tip from 'd3-tip';
 import {FetchCurrentWorks, FetchScriptableStrings, Work} from "../common";
 
@@ -26,9 +26,8 @@ function drawWorksOverTimeGraph(data: Array<YearData>, jsStrings) {
 	const blue = "#26a69a";
 	const stackMargin = 10;
 
-	const svg = d3.select("#svg-port"),
-		width = $(".svg-port").width(),
-		height = $(".svg-port").height();
+	const svg = d3.select("#svg-port");
+	const [width, height] = getDimensions('#svg-port');
 	svg.selectAll('*').remove();
 	const barYearTip = d3Tip().attr('class', 'd3-tip')['html'](function (d) {
 		return jsStrings.vis.year["1"] + " " + d.year + ': ' + d.works + " " + multiple(jsStrings.vis.work, d.works) +
@@ -152,7 +151,7 @@ function getBars(allWorks):Array<YearData> {
 	allWorks.sort(dynamicSort('year'));
 
 	const bars = [];
-	
+
 	for (let i = 0; i < (allWorks[allWorks.length - 1].year - allWorks[0].year - (-1)); i++) {
 		bars.push(countYearOccurences(allWorks[0].year - (-i), allWorks))
 	}
