@@ -62,11 +62,7 @@ router.get('/*', function (req, res, next) {
 			res.render('google-map', res.data);
 			return
 		}
-
 		res.data.group = req.session.group;
-		if (res.data.visname === 'collab') {
-			res.data.webpacked = true
-		}
 		res.data.webpacked = true;
 		res.render('visualisation', res.data)
 	}

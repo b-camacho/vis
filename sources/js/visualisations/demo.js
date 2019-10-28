@@ -82,9 +82,8 @@ $(document).ready(function () {
 	var angleBounds = GetDomainAngleBounds(DOMAINS);
 	var svg = d3.select('#svg-port');
 	DrawDomains([], GetDomainAngleBounds(DOMAINS));
-	var jQPort = $(".svg-port"),
-		width = jQPort.width(),
-		height = jQPort.height();
+	var jQPort = $(".svg-port")
+	const [width, height] = getDimensions('#svg-port');
 	var centre =
 		{
 			x: width / 1.6,
@@ -367,9 +366,8 @@ function OffsetNodeCoords(coords, offset) {
 
 function DrawDomains(articles, angleBounds) {
 	var svg = d3.select("#svg-port"),
-		jQPort = $(".svg-port"),
-		width = jQPort.width(),
-		height = jQPort.height();
+		jQPort = $(".svg-port");
+	const [width, height] = getDimensions('#svg-port');
 	var radius = height / 2.5;
 	var nodeRadius = 7
 	var nodePadding = 3
