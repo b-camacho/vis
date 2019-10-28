@@ -4,12 +4,14 @@ const bodyParser = require('body-parser');
 const config = require('./config.json');
 const path = require('path');
 const mg = require('mongoose');
+var auth = require('./auth');
 mg.Promise = global.Promise;
 mg.connect(config.dbConnStr, {useMongoClient: true}, function (err) {
     if (err) console.log(err);
     else console.log('Connected to MongoDB')
 });
 const parser = require('./expertus');
+const i18n = require('./i18n');
 
 app.use(express.static('sources'));
 app.use('/dist', express.static('dist'));
@@ -41,18 +43,35 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use('/', i18n);
 
-// Session switches - visiting these URLs persists a param to the session. Used for i18n and group/single vis select
-app.get('/pl', function (req, res, next) {
-	req.url = req.url.substr(3);
-	req.session.lang = 'pl';
+app.post('/admin/auth', function (req, res, next) {
+	auth.authenticate(req.body.username, req.body.password, function (err, user) {
+		if(err) {
+			console.log('Failed login attemt: ' + req.body.username);
+			return res.redirect('/error/auth');
+		}
+		req.session.isAdmin = user.permissions === 'admin';
+		req.session.save(() =>
+			res.redirect('/')
+		)
+
+	})
+})
+
+app.get('/logout', function (req, res) {
+	req.session.destroy();
 	res.redirect('/')
-});
-app.get('/en', function (req, res, next) {
-	req.url = req.url.substr(3);
-	req.session.lang = 'en';
-	res.redirect('/')
-});
+})
+
+app.use('*', function (req, res, next) {
+	if(!req.session.isAdmin) {
+		return res.render('admin/login', res.data);
+	}
+	else {
+		next();
+	}
+})
 
 app.get('/group', function (req, res, next) {
 	req.session.works = null;

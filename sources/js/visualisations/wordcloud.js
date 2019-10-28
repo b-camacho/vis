@@ -1,23 +1,16 @@
-import * as d3 from 'd3';
-document.addEventListener('DOMContentLoaded', async function () {
+import * as $ from 'jquery'
+import * as d3 from 'd3'
+$(document).ready(function () {
 	const svg = d3.select('#svg-port');
 
 	const width = parseInt(svg.style('width').replace('px', ''));
 	const height = parseInt(svg.style('height').replace('px', ''));
 
-	const response = await fetch('/data/wordcloud', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		data: JSON.stringify({width, height})
-	});
-
-	if (response.status !== 200) {
-		throw new URIError(`/data/wordcloud responded with non 200 code: ${response.status}`)
-	}
-	const body = await response.json();
-	displayWordcloud(body);
+	$.post("wordcloudData", {width: width, height: height}, function (data) {
+			console.log(data);
+			displayWordcloud(data);
+		}
+	)
 });
 
 function displayWordcloud(textObjects) {

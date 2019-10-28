@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const m = require('../models');
-
 const rawDbWordsParser = require('../wordcloudArray');
 const Canvas = require("canvas");
 const cloud = require("d3-cloud");
-
 router.get('/department/:name', function (req, res, next) {
     m.Department.findOne({shortName: req.params.name})
         .then(dept => {
