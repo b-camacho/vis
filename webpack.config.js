@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   devtool: 'inline-source-map',
   entry: {
     'bubbles': './sources/js/visualisations/bubbles.js',

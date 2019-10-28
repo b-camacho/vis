@@ -78,7 +78,7 @@ class SimLink implements SimulationLinkDatum<SimulationNodeDatum> {
 }
 
 window.addEventListener('DOMContentLoaded', async function () {
-    const deptRequests = Promise.all(['WCH',].map(dname => FetchDept(dname)));
+    const deptRequests = Promise.all(['WH',].map(dname => FetchDept(dname)));
     const depts = await deptRequests;
     let processedWorks = new Array<CollabWork>();
     let researchers = new Array<CollabResearcher>();
