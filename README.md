@@ -21,6 +21,9 @@ Aplikacja wymaga środowiska Unix z
  1. W skrypcie `seed.js` zmienić pole `password` na hasło pożądane hasło administratora.
  1. Zainstalować zależności `npm` poprzez `npm install`.
  1. Uruchomić skrypt seedujący poprzez `node seed.js`.
+ Skrypt poprosi użytkownika o podanie nowego hasła i loginu.
+ Ponowne uruchomienie skryptu doda kolejnego użytkownika, chyba, że podamy istniejący w bazie login -
+ wtedy hasło odpowiadające temu loginowi będzie nadpisane.
  1. Uruchomić aplikację poprzez `node server.js`.
  
 # Struktura
